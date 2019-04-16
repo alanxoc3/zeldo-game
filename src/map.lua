@@ -1,13 +1,14 @@
 function draw_cur_room()
    cur_room = g_rooms[g_cur_room]
 
-   rectfill(0, 0, 127, 127, cur_room.c)
+   rectfill(0, 0, 127, 127, 1)
 
    w = min(16, cur_room.w)*8
    h = min(12, cur_room.h)*8
    x, y = 64-w/2, g_v1*8+(12*8-h)/2
 
    clip(x+3, y+3, w-6, h-6)
+   rectfill(0, 0, 127, 127, cur_room.c)
    -- rectfill(x+2, y+2, x+w-3, y+h-3, cur_room.c)
    
    -- scr_rectfill(cur_room.x+4/8, cur_room.y+4/8, cur_room.x+cur_room.w-5/8, cur_room.y+cur_room.h-5/8, cur_room.c)
@@ -33,9 +34,8 @@ end
 
 function map_init()
    g_rooms = gun_vals[[
-   villa={c=3, x=29,  y=0,  w=22, h=25, r={$field$,0,26}, l={$lankp$,10,17},
+   villa={c=3, x=29,  y=0,  w=22, h=25, u={$cave$,4,24}, r={$field$,0,26}, l={$lankp$,10,17},
       doors={
-         {$cave$,4,24,18.5,2.5,.5,.5},
          {$shop$,4,8,4,11.5,.5,.5},
          {$banjo_academy$,4,8,17,19.5,.5,.5},
          {$fandude_house$,3,7,5,2.5,.5,.5},
@@ -45,7 +45,7 @@ function map_init()
       }
    },
 
-   cave={c=4, x=96,  y=24,  w=8, h=24, u={$dun70$,4,8}, d={$villa$, 18.5,3}},
+   cave={c=4, x=96,  y=24,  w=8, h=24, u={$dun70$,4,8}, d={$villa$, 19,0}},
 
    dun60={c=3, x=96,  y=48, w=8, h=8, u={$dun71$,4,8}, d={$dun70$,4,0}, r={$dun61$,0,4}, l={$dun71$,8,4}},
    dun61={c=3, x=104, y=48, w=8, h=8, u={$dun71$,4,8}, d={$dun71$,4,0}, r={$dun62$,0,4}, l={$dun60$,8,4}},

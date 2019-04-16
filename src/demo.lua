@@ -139,5 +139,5 @@ function game_init()
 
    -- load_room("dun73", 4, 4)
    -- load_room("grave", 5, 5)
-   load_room("lanks_house", 4, 4)
+   load_room("cave", 4, 4)
 end
