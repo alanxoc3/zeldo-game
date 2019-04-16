@@ -1,13 +1,17 @@
 function draw_cur_room()
    cur_room = g_rooms[g_cur_room]
+
+   rectfill(0, 0, 127, 127, cur_room.c)
+
    w = min(16, cur_room.w)*8
    h = min(12, cur_room.h)*8
    x, y = 64-w/2, g_v1*8+(12*8-h)/2
 
-   clip(x, y, w, h)
+   clip(x+3, y+3, w-6, h-6)
    -- rectfill(x+2, y+2, x+w-3, y+h-3, cur_room.c)
    
-   scr_rectfill(cur_room.x+4/8, cur_room.y+4/8, cur_room.x+cur_room.w-5/8, cur_room.y+cur_room.h-5/8, cur_room.c)
+   -- scr_rectfill(cur_room.x+4/8, cur_room.y+4/8, cur_room.x+cur_room.w-5/8, cur_room.y+cur_room.h-5/8, cur_room.c)
+	-- scr_map(88, 24, cur_room.x, cur_room.y, 8, 8)
 	scr_map(cur_room.x, cur_room.y, cur_room.x, cur_room.y, cur_room.w, cur_room.h)
 
    isorty(g_act_arrs["spr"])
@@ -52,10 +56,10 @@ function map_init()
    dun72={c=3, x=112, y=56, w=8, h=8, u={$dun62$,4,8}, d={$dun71$,4,0}, r={$dun73$,0,4}, l={$dun71$,8,4}},
    dun73={c=3, x=120, y=56, w=8, h=8, u={$bossw$,8,12}, l={$dun72$,8,4}},
 
-   castle_1={c=5, x=64,  y=0, w=16, h=12, d={$castl$,8,2}, u={$castle_2$,8,12}},
-   castle_2={c=5, x=80,  y=0, w=16, h=12, d={$castle_1$,8,0}, u={$castle_3$,8,12}},
-   castle_3={c=5, x=96,  y=0, w=16, h=12, d={$castle_2$,8,0}, u={$castle_4$,8,12}},
-   castle_4={c=5, x=112, y=0, w=16, h=12, d={$castle_3$,8,0}},
+   castle_1={c=1, x=64,  y=0, w=16, h=12, d={$castl$,8,2}, u={$castle_2$,8,12}},
+   castle_2={c=2, x=80,  y=0, w=16, h=12, d={$castle_1$,8,0}, u={$castle_3$,8,12}},
+   castle_3={c=3, x=96,  y=0, w=16, h=12, d={$castle_2$,8,0}, u={$castle_4$,8,12}},
+   castle_4={c=4, x=112, y=0, w=16, h=12, d={$castle_3$,8,0}},
 
    field={c=3, x=0,   y=0,  w=29, h=32, l={$villa$,22,13}, r={$gravp$,0,3}, u={$mount$,7,25}},
    bossw={c=3, x=96,  y=12, w=16, h=12, d={$dun73$,4,0},   u={$dun63$,4,8}},
@@ -88,7 +92,7 @@ function map_init()
    fandude_house={c=4, x=42, y=39, w=6,  h=7, d={$villa$,5,3}, u={$endless$,8,12}},
    endless={c=3, x=80, y=12, w=16, h=12, d={$fandude_house$,3,0}},
 
-   lanks_house={c=4, x=64, y=24, w=8,  h=8, d={$lankp$,5,3}},
+   lanks_house={c=1, x=64, y=24, w=8,  h=8, d={$lankp$,5,3}},
    shop={c=4, x=72, y=24, w=8,  h=8, d={$villa$,4,12} },
    banjo_academy={c=4, x=80, y=24, w=8,  h=8, d={$villa$,17,20}},
    gravekeepers_house={c=4, x=88, y=24, w=8,  h=8, d={$grave$,14,17}},
