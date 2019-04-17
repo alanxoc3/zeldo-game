@@ -1,29 +1,3 @@
--- todo: tbox and menu actor integration.
--- todo: allow actor and sprite index for menu actor.
--- todo: menu actor, different name and different backgrounds.
--- todo: nice functions to integrate with menu actor.
--- todo: room fades
--- todo: make a sign
--- todo: make enemy health bar / status
--- todo: make area information (if no enemy)
---
--- done: reconnect the map.
--- 2% compression here.
--- 3522 3529 3503 3510 3521 3523 3538 3526 3487 3428 3635 3660 3652 3545 3494
--- 3487 3743 3686 3675 3585 3591 3797 3802 3759 3755 3861 4663 4470 4457 4478
--- 4477 4488 4387 4353 4369 4404 4338 4330 4316 4308 4288 4280 4259 4257 4272
--- 4295 4275 4259 4223 4206 4205 4212 4200 4198 4187 4232 4232 4230 4227 4212
--- 4206 4198 4283 4219 4321 4312 4190 4104 4094 4087 4123 4121 4119 4141 4099
--- 4089 4075 4040 4015 4169 4180 4170 4145 4225 4665 5565 5549 5800 6043 4775
--- 4760 4755 4746 5143 5144 5140 5137 5096 5067 5055 4967 4946 4946 4945 4947
--- 4946 4941 5143 5144 5140 5137 5096 5067 5055 4967 4946 4946 4945 4947 4946
--- 4984 4982 4979 4970 4862 5250 5296 5284 5285 5282 5275 5264 5260 5157 5084
--- 5074 5048
-
--- .2093 (.1888)
-
--- 80% 95% 96% 104%
-
 function _init()
    poke(0x5f34, 1) -- for pattern colors.
    g_pal_gray = gun_vals("5,5,13,13,5,6,6,6,6,6,6,6,13,6,6")
@@ -141,5 +115,5 @@ function game_init()
 
    -- load_room("dun73", 4, 4)
    -- load_room("grave", 5, 5)
-   load_room("villa", 4, 4)
+   load_room("field", 10, 4)
 end
