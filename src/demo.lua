@@ -107,6 +107,8 @@ function game_draw()
       draw_menu()
    end
 
+   print(g_cur_room, 30, 100, 7)
+
    -- acts_loop("dim", "debug_rect")
    draw_status_bars()
    -- batch_call(rectfill, "{0,0,127,15,0}, {0,112,127,127,0}")
@@ -139,5 +141,5 @@ function game_init()
 
    -- load_room("dun73", 4, 4)
    -- load_room("grave", 5, 5)
-   load_room("cave", 4, 4)
+   load_room("villa", 4, 4)
 end
