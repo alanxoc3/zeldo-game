@@ -1,7 +1,6 @@
 # pico8 git ignore
 *.swp
 *.swo
-out*.p8
 
 *.p8.png
 *.p8l
@@ -11,4 +10,3 @@ out*.p8
 sheet.png
 
 .dropbox
-

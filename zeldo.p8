@@ -1,6 +1,21 @@
 pico-8 cartridge // http://www.pico-8.com
-version 16
+version 18
 __lua__
+#include src/mod_tcol.lua
+#include src/menu.lua
+#include src/mod_tbox.lua
+#include src/spr.lua
+#include src/pl.lua
+#include src/map.lua
+#include src/mod_view.lua
+#include src/lib.lua
+#include src/mod_logo.lua
+#include src/monsters.lua
+#include src/mod_att.lua
+#include src/mod_tl.lua
+#include src/move_funcs.lua
+#include src/demo.lua
+-- #include out.p8
 
 __gfx__
 00000000001111000111100001111000001111000111111011111111111000000000000000000000001111000000000011111110001110000000000000110000
