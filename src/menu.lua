@@ -63,7 +63,7 @@ function menu_update()
       g_was_selected=true
       g_menu_cursor_timer += 1
 
-      if g_menu_cursor_timer % 15 == 0 then
+      if g_menu_cursor_timer % 30 == 0 then
          g_menu_pattern  = rotl(g_menu_pattern, 4)
       end
    else
@@ -79,40 +79,63 @@ function menu_update()
    end
 end
 
-g_menu_pattern=0b1001001101101100.1001001101101100
+g_menu_pattern=0x1040.1040 -- 0b1001001101101100.1001001101101100
+-- g_menu_pattern=0b1111000011110000.1111000011110000
+-- g_menu_pattern = 0b0000010011100100.0000010011100100
 -- g_menu_pattern=0x1248.1248
 -- todo: make this work if item doesn't exist.
 function draw_menu()
    pal()
 
-   fillp(flr(g_menu_pattern)+0b0.1)
+   fillp(0b1001001101101100.1)
    rectfill(0,0,127,127,0x5d)
+   fillp()
 
-   rectfill(44,40,83,79,0x1001)
-   rectfill(47,43,80,76,5)
+   -- rectfill(44,40,83,79,0x1001)
+   -- rectfill(47,43,80,76,5)
 
-   fillp(0x8421)
-   rectfill(48,44,79,75,0xd6)
-   rectfill(0,0,0,0,0x1000)
+   -- rectfill(48,44,79,75,0xd6)
+   -- rectfill(0,0,0,0,0x1001)
 
+   -- rectfill(0,0,127,127,0)
+   rectfill(32,32,87,87,5)
+   rectfill(33,33,86,86,1)
+
+   fillp(0b1001001101101100)
+
+   rectfill(35,35,84,84,0xd6)
+   -- clip(35,35,50,50)
+   -- clip()
+   fillp()
+
+
+   local select_x, select_y = 0, 0
    for i=0,2 do
       for j=0,2 do
-         local ind, x, y = (i*3 + j), (42 + j * 18), (38 + i * 18)
+         local ind, x, y = (i*3 + j), (40 + j * 16), (40 + i * 16)
          local rel_func2 = function(x1, y1, x2, y2, c)
             rectfill(x+x1,y+y1,x+x2,y+y2,c)
          end
 
          if ind == g_new_selected then
-            batch_call(rel_func2, "{-3,-3,10,10,1}, {-2,-2,9,9,9}, {-2,-2,9,9,9}, {-1,-1,8,8,10}, {-4,-4,-2,-2,1}, {-2,9,-4,11,1}, {11,-4,9,-2,1}, {9,9,11,11,1}")
+            batch_call(rel_func2, [[
+               {-3,-3,10,10,1},
+               {-2,-2,9,9,9},
+               {-1,-1,8,8,10}
+            ]])
+            fillp(flr(g_ma_pat))
+            rectfill(x-1,y-1,x+8,y+8,0x9a)
+            fillp()
+            select_x = x
+            select_y = y
          else
-            batch_call(rel_func2, "{-3,-3,10,10,1}, {-2,-2,9,9,5}, {-2,-2,9,9,5}, {-1,-1,8,8,13}, {-4,-4,-2,-2,1}, {-2,9,-4,11,1}, {11,-4,9,-2,1}, {9,9,11,11,1}")
-         end
+            rectfill(x-3,y-3,x+10, y+10,1)
+            rectfill(x-2,y-2,x+9,y+9,7)
+            -- fillp(flr(g_ma_pat))
+   fillp(flr(g_menu_pattern))
+            rectfill(x-1,y-1,x+8,y+8,0xd6)
+            fillp()
 
-         if ind == g_new_selected then
-            local spr_ind = (g_menu_cursor_timer % 60 > 40) and 68 or 69
-            local rel_spr = function(x1, y1, ...) spr(spr_ind, x+x1, y+y1, ...) end
-            batch_call(rel_spr, "{-5,-5,1,1,false,false}, {5,-5,1,1,true,false}, {5,5,1,1,true,true}, {-5,5,1,1,false,true}")
-         else
             for i=1,15 do pal(i, g_pal_gray[i]) end
          end
 
@@ -120,11 +143,16 @@ function draw_menu()
          pal()
       end
    end
+
+   local spr_ind = (g_menu_cursor_timer % 60 > 40) and 68 or 69
+   local rel_spr = function(x1, y1, ...) spr(spr_ind, select_x+x1, select_y+y1, ...) end
+   batch_call(rel_spr, "{-5,-5,1,1,false,false}, {5,-5,1,1,true,false}, {5,5,1,1,true,true}, {-5,5,1,1,false,true}")
+
 end
 
 -- menu enemy
 g_ma = 54
-g_ma_pat = 0b0000010011100100.0000010011100100
+g_ma_pat = 0x1284.1284 -- 0b0000010011100100.0000010011100100
 g_ma_col = 0xd6
 -- g_ma_pat = 0b1000010000100001.1000010000100001
 -- g_ma_pat = 0b1100100111000110.1100100111000110
@@ -146,7 +174,10 @@ end
 -- change to sprite
 
 function draw_status_bars()
-   rectfill(0,0,127, g_v1*8-1,0)
+   -- screen
+
+   -- top bar
+   rectfill(0, 0, 127, 10, 0)
    spr(g_selected+7, 2, 2)
    rectfill(12,2,12,9,7)
 
@@ -157,10 +188,12 @@ function draw_status_bars()
       yoff = (yoff==1) and 3 or 1
    end
 
+   -- bottom rect
+   rectfill(0, 107, 127, 127, 0)
+
    rectfill(104,2,104,9,7)
    spr(197, 106, 2)
    zprint("9", 127-12-4+2+2, 4)
 
-   rectfill(0,128-g_v2*8,127,127,0)
    draw_ma()
 end

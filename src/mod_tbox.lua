@@ -107,12 +107,13 @@ function ttbox_draw(fg_col, bg_col)
 		-- draw speaker
 		if #g_tbox_active.speaker>0 then
 			local x2 = #g_tbox_active.speaker*4+6
-         --batch_call(rectfill, [[
-            -- {0, 101, @, 108, 7},
-            -- {3, 103, @, 109, 0}
-         -- ]], 20+x2, 18+x2)
+         batch_call(rectfill, [[
+            {20, 101, @, 108, 5},
+            {21, 102, @, 108, 7},
+            {22, 103, @, 109, 0}
+         ]], 20+x2, 19+x2, 18+x2)
 
-			-- zprint(g_tbox_active.speaker, 24, 105, fg_col)
+			zprint(g_tbox_active.speaker, 24, 105, fg_col)
 		end
 
 		-- print the message

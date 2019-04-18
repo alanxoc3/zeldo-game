@@ -1,25 +1,44 @@
-function draw_cur_room()
-   cur_room = g_rooms[g_cur_room]
+g_off_x = 0
+g_off_y = 0
+function draw_cur_room(x, y)
+   local cur_room = g_rooms[g_cur_room]
 
-   rectfill(0, 0, 127, 127, 1)
+   -- g_y = 0
+   local rw = min(16, cur_room.w)
+   local rh = min(12, cur_room.h)
+   local rx = x - rw/2
+   local ry = y - rh/2
 
-   w = min(16, cur_room.w)*8
-   h = min(12, cur_room.h)*8
-   x, y = 64-w/2, g_v1*8+(12*8-h)/2
+   g_off_x = -(16-rw)/2+rx
+   g_off_y = -(16-rh)/2+ry
 
-   clip(x+3, y+3, w-6, h-6)
-   rectfill(0, 0, 127, 127, cur_room.c)
-   -- rectfill(x+2, y+2, x+w-3, y+h-3, cur_room.c)
+   clip(rx*8,ry*8,rw*8,rh*8)
+   rectfill(0,0,127,127,5)
+   clip(rx*8+1,ry*8+1,rw*8-2,rh*8-2)
+   rectfill(0,0,127,127,1)
+   clip(rx*8+3, ry*8+3, rw*8-6, rh*8-6)
+   rectfill(0,0,127,127,cur_room.c)
+
+	scr_map(cur_room.x, cur_room.y, cur_room.x, cur_room.y, cur_room.w, cur_room.h)
+
+   printh("thing1: "..rw)
+   printh("thing2: "..rh)
+
+
+   -- rectfill(rx+1, ry+1, rx+rw-2, ry+rh-2, 1)
+   -- rectfill(1+rx, 13+ry, rw, rh, 1)
+   -- rectfill(0, 0, 127, 127, cur_room.c)
+   -- rectfill(rx+2, ry+2, rx+rw-3, ry+rh-3, cur_room.c)
    
    -- scr_rectfill(cur_room.x+4/8, cur_room.y+4/8, cur_room.x+cur_room.w-5/8, cur_room.y+cur_room.h-5/8, cur_room.c)
 	-- scr_map(88, 24, cur_room.x, cur_room.y, 8, 8)
-	scr_map(cur_room.x, cur_room.y, cur_room.x, cur_room.y, cur_room.w, cur_room.h)
 
    isorty(g_act_arrs["spr"])
    acts_loop("spr", "draw")
 
-	scr_map(cur_room.x, cur_room.y, cur_room.x, cur_room.y, cur_room.w, cur_room.h, 1)
+	-- scr_map(cur_room.x, cur_room.y, 0, 0, cur_room.w, cur_room.h, 1)
    clip()
+   camera(0)
 end
 
 function isorty(t)
@@ -113,7 +132,7 @@ function load_room(new_room, rx, ry)
    -- end debugging
    g_ma = 54
 
-	load_view(x, y, w, h, 5, 11, 1.5, 2.5)
+	load_view(x, y, w, h, 5, 11, 2, 2)
 	center_view(g_pl.x, g_pl.y)
 
    -- get rid of current text.

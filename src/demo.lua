@@ -1,6 +1,7 @@
 function _init()
    poke(0x5f34, 1) -- for pattern colors.
    g_pal_gray = gun_vals("5,5,13,13,5,6,6,6,6,6,6,6,13,6,6")
+   g_pal_sepi = gun_vals("2,2,2,4,2,15,15,4,15,15,4,4,4,4,15")
    g_pal_norm = gun_vals("1,2,3,4,5,6,7,8,9,10,11,12,13,14,15")
    g_pal = g_pal_norm
 
@@ -73,18 +74,17 @@ function game_draw()
 
    restore_pal()
 
-   rectfill(0, 0, 127, 127, 0x1)
-
-   draw_cur_room()
+   rectfill(0,0,127,127,0)
+   draw_cur_room(8, 7 + 3/8)
 
    if g_menu_open then
       draw_menu()
    end
 
-   print(g_cur_room, 30, 100, 7)
 
    -- acts_loop("dim", "debug_rect")
    draw_status_bars()
+   print(g_cur_room, 30, 110, 7)
    -- batch_call(rectfill, "{0,0,127,15,0}, {0,112,127,127,0}")
    -- draw_glitch_effect()
 end
