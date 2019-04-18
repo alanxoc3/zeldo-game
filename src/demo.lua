@@ -115,5 +115,6 @@ function game_init()
 
    -- load_room("dun73", 4, 4)
    -- load_room("grave", 5, 5)
-   load_room("field", 10, 4)
+   -- load_room("cave", 30, 2)
+   load_room("bossw", 5, 5)
 end

@@ -26,7 +26,7 @@ g_item_descs = {
    "^lantern:lights up dark places.",
    "^dash:a quick dodge move.",
    "^b'rang:stuns enemies and kills really weak ones.",
-   "^bomb:blows things up. requires 5 power squares.",
+   "^bomb:only 5 power squares to blows things up!",
    "^shield:be safe from enemy attacks.",
    "^bow:shoots enemies. requires 2 power squares.",
 }
