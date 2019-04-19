@@ -87,10 +87,6 @@ g_menu_pattern=0x1040.1040 -- 0b1001001101101100.1001001101101100
 function draw_menu()
    pal()
 
-   fillp(0b1001001101101100.1)
-   rectfill(0,0,127,127,0x5d)
-   fillp()
-
    -- rectfill(44,40,83,79,0x1001)
    -- rectfill(47,43,80,76,5)
 
@@ -177,7 +173,7 @@ function draw_status_bars()
    -- screen
 
    -- top bar
-   rectfill(0, 0, 127, 10, 0)
+   -- rectfill(0, 0, 127, 10, 0)
    spr(g_selected+7, 2, 2)
    rectfill(12,2,12,9,7)
 
@@ -189,7 +185,7 @@ function draw_status_bars()
    end
 
    -- bottom rect
-   rectfill(0, 107, 127, 127, 0)
+   --rectfill(0, 107, 127, 127, 0)
 
    rectfill(104,2,104,9,7)
    spr(197, 106, 2)

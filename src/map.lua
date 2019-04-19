@@ -17,6 +17,11 @@ function draw_cur_room(x, y)
    clip(rx*8+1,ry*8+1,rw*8-2,rh*8-2)
    rectfill(0,0,127,127,1)
    clip(rx*8+3, ry*8+3, rw*8-6, rh*8-6)
+
+   if g_menu_open then g_pal = g_pal_gray
+   else g_pal = g_pal_norm end
+   restore_pal()
+
    rectfill(0,0,127,127,cur_room.c)
 
 	scr_map(cur_room.x, cur_room.y, cur_room.x, cur_room.y, cur_room.w, cur_room.h)
@@ -36,9 +41,16 @@ function draw_cur_room(x, y)
    isorty(g_act_arrs["spr"])
    acts_loop("spr", "draw")
 
+   if g_menu_open then
+   -- fillp(0b1001001101101100.1)
+   -- rectfill(0,0,127,127,0x5d)
+   -- fillp()
+   end
+
 	-- scr_map(cur_room.x, cur_room.y, 0, 0, cur_room.w, cur_room.h, 1)
    clip()
    camera(0)
+
 end
 
 function isorty(t)
