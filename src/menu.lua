@@ -97,9 +97,17 @@ function draw_menu()
    rectfill(32,32,87,87,5)
    rectfill(33,33,86,86,1)
 
-   fillp(0b1001001101101100)
+   -- line(0,0,100,100,0xd)
+   -- line(1,0,101,100,0xd)
+   local pattern = 0b1001001101101100.1001001101101100
+   -- here, i make sure that the fillp will move with the box.
+   local ypos = 35 + sin(t()/10)*10
+   fillp(flr(rotr(pattern, 4*flr(ypos))))
+   -- make a rel_fillp function:
+   --  it would allow the fillp to go up and down, based on a y position.
+   --  rel_fillp(pattern, y)
 
-   rectfill(35,35,84,84,0xd6)
+   rectfill(35,ypos,84,ypos+49,0xd6)
    -- clip(35,35,50,50)
    -- clip()
    fillp()

@@ -70,7 +70,7 @@ end
 
 function game_draw()
    rectfill(0,0,127,127,0)
-   draw_cur_room(rnd(2/8)-1/8+ 8, -3+rnd(2/8)-1/8 + 7 + 3/8)
+   draw_cur_room(8, 7 + 3/8)
 
    if g_menu_open then
       draw_menu()
