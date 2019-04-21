@@ -12,11 +12,11 @@ function draw_cur_room(x, y)
    g_off_x = -(16-rw)/2+rx
    g_off_y = -(16-rh)/2+ry
 
-   clip(rx*8,ry*8,rw*8,rh*8)
-   rectfill(0,0,127,127,5)
    clip(rx*8+1,ry*8+1,rw*8-2,rh*8-2)
+   rectfill(0,0,127,127,5)
+   clip(rx*8+2,ry*8+2,rw*8-4,rh*8-4)
    rectfill(0,0,127,127,1)
-   clip(rx*8+3, ry*8+3, rw*8-6, rh*8-6)
+   clip(rx*8+4, ry*8+4, rw*8-8, rh*8-8)
 
    if g_menu_open then g_pal = g_pal_gray
    else g_pal = g_pal_norm end
@@ -125,7 +125,7 @@ function map_init()
    fandude_house={c=4, x=42, y=39, w=6,  h=7, d={$villa$,5,3}, u={$endless$,8,12}},
    endless={c=3, x=80, y=12, w=16, h=12, d={$fandude_house$,3,.5}},
 
-   lanks_house={c=1, x=64, y=24, w=8,  h=8, d={$lankp$,5,3}},
+   lanks_house={c=4, x=64, y=24, w=8,  h=8, d={$lankp$,5,3}},
    shop={c=4, x=72, y=24, w=8,  h=8, d={$villa$,4,12} },
    banjo_academy={c=4, x=80, y=24, w=8,  h=8, d={$villa$,17,20}},
    gravekeepers_house={c=4, x=88, y=24, w=8,  h=8, d={$grave$,14,17}},

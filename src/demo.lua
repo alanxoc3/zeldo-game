@@ -109,7 +109,7 @@ function game_init()
    --gen_spawner(10, 20, gen_top, 12)
 
    -- load_room("dun73", 4, 4)
-   -- load_room("grave", 5, 5)
+   load_room("villa", 5, 5)
    -- load_room("cave", 30, 2)
-   load_room("bossw", 5, 5)
+   -- load_room("bossw", 5, 5)
 end

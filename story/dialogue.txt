@@ -46,6 +46,8 @@ teach:  maybe you forgot how to play. that's okay. i'll teach you a lil song.
 teach:  that is the 'song of saving'. try playing this song at one of the
         saving pavilions and see what happens.
 
+teach:  since you've given up fighting, how is the banjo playing going?
+
 --------------------------------------------------------------------
 house #1
 --------------------------------------------------------------------
@@ -64,11 +66,11 @@ boss:  i'll do everything in my power to protect this forest.
 --------------------------------------------------------------------
 game over things
 --------------------------------------------------------------------
-grover:     get up lank, i'm sick of digging graves.
-zeldo:      hiroll is still in danger. we need you lank!
-barry:      don't ever forget the power of music!
-shopkeeper: you're my best customer, i won't let you die on me.
-cannon:     mwahahahahaha
+grover: get up lank, i'm sick of digging graves.
+zeldo:  hiroll is still in danger. we need you lank!
+barry:  don't ever forget the power of music!
+keep:   you're my best customer, i won't let you die on me.
+cannon: mwahahahahaha
 
 only one in hard mode.
 ghost:      life comes with a price. heh.

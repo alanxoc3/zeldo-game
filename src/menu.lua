@@ -94,8 +94,8 @@ function draw_menu()
    -- rectfill(0,0,0,0,0x1001)
 
    -- rectfill(0,0,127,127,0)
-   rectfill(32,32,87,87,5)
-   rectfill(33,33,86,86,1)
+   -- rectfill(32,32,87,87,5)
+   -- rectfill(33,33,86,86,1)
 
    -- line(0,0,100,100,0xd)
    -- line(1,0,101,100,0xd)
@@ -107,7 +107,7 @@ function draw_menu()
    --  it would allow the fillp to go up and down, based on a y position.
    --  rel_fillp(pattern, y)
 
-   rectfill(35,ypos,84,ypos+49,0xd6)
+   -- rectfill(35,ypos,84,ypos+49,0xd6)
    -- clip(35,35,50,50)
    -- clip()
    fillp()
