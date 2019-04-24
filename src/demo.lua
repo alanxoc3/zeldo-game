@@ -77,7 +77,7 @@ function game_draw()
    end
 
 
-   -- acts_loop("dim", "debug_rect")
+   acts_loop("dim", "debug_rect")
    draw_status_bars()
    print(g_cur_room, 30, 110, 7)
    -- batch_call(rectfill, "{0,0,127,15,0}, {0,112,127,127,0}")
@@ -109,7 +109,7 @@ function game_init()
    --gen_spawner(10, 20, gen_top, 12)
 
    -- load_room("dun73", 4, 4)
-   load_room("villa", 5, 5)
+   load_room("field", 5, 23)
    -- load_room("cave", 30, 2)
    -- load_room("bossw", 5, 5)
 end

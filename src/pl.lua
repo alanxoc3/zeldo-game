@@ -107,8 +107,8 @@ function gen_pl_item(pl, item_type)
             holding=true,
             rx=.5,
             ry=.375,
-            rel_y=-.125,
-            iyy=-1,
+            rel_y=0,
+            iyy=-2,
             sind=8,
             poke=0,
             xf=@,
@@ -191,9 +191,9 @@ function gen_pl_item(pl, item_type)
             holding=true,
             rx=.25,
             ry=.5,
-            iyy=-2,
+            iyy=-1,
             poke=20,
-            sind=65,
+            sind=14,
             xf=@,
             touchable=false,
             init=@,
@@ -203,23 +203,24 @@ function gen_pl_item(pl, item_type)
       ]],
          pl.xf,
          function(a)
+            local dist = .625
             return tl_init([[
                   {i=@, u=@, t=.4},
                   {u=@}
                ]], function() 
-                  a.rel_dx = a.xf and -.0625 or .0625
+                  a.rel_dx = a.xf and -dist/10 or dist/10
                   a.ixx = a.xf and -3 or 3
                   a.poke = 20
                end, function()
-                  act_poke(a, -3, -2)
-                  if abs(a.rel_dx + a.rel_x) < .625 then
+                  act_poke(a,  0, 1)
+                  if abs(a.rel_dx + a.rel_x) < dist then
                      a.rel_x += a.rel_dx
                   else
-                     local neg_one = -.625
-                     a.rel_dx, a.rel_x = 0, a.xf and neg_one or .625
+                     local neg_one = -dist
+                     a.rel_dx, a.rel_x = 0, a.xf and neg_one or dist
                   end
                end, function()
-                  act_poke(a, -3, -2)
+                  act_poke(a,  0, 1)
                   if not a.holding then
                      a.alive, pl.item = false
                   end
