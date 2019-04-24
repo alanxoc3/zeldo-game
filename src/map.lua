@@ -90,7 +90,7 @@ function map_init()
       y=14,
       w=32,
       h=18,
-      l={$village$, 15, 13}
+      l={$village$, 15, 13},
       r={$graveyard path$, 15, 13}
    },
 
