@@ -74,14 +74,14 @@ function map_init()
       r={$village$, 1, 4}
    },
 
-   village={
+   $village$={
       c=3,
       x=16,
       y=15,
       w=16,
       h=17,
-      l={$lank's path$, 15, 4},
-      r={$field$,        1, 14}
+      l={$lank's path$,  15, 4},
+      r={$field$,        1,  14}
    },
 
    $field$={
@@ -90,27 +90,103 @@ function map_init()
       y=14,
       w=32,
       h=18,
-      l={$village$, 15, 13},
-      r={$graveyard path$, 15, 13}
+      l={$village$,        15, 13},
+      r={$graveyard path$, 1,  3},
+      d={$maze start$,     4,  1}
    },
 
-   cave={c=4, x=96,  y=60,  w=32, h=4, u={$dun70$,4,7.5}, d={$villa$, 19,1}},
+   $graveyard path$={
+      c=5,
+      x=48,
+      y=0,
+      w=16,
+      h=6,
+      l={$field$,     31, 9},
+      r={$graveyard$, 1,  18}
+   },
 
-   dun60={c=3, x=96,  y=45, w=8, h=8, u={$dun71$,5,4}, d={$dun70$,4,.5}, r={$dun61$,0,4}, l={$dun71$,5,4}},
-   dun61={c=3, x=103, y=45, w=8, h=8, u={$dun71$,5,4}, d={$dun71$,5,4}, r={$dun62$,0,4}, l={$dun60$,8,4}},
-   dun62={c=3, x=110, y=45, w=8, h=8, u={$dun71$,5,4}, d={$dun72$,4,.5}, r={$dun71$,5,4}, l={$dun61$,8,4}},
-   dun63={c=3, x=118, y=45, w=10, h=8, d={$bossw$,8,.5}},
-   dun70={c=3, x=96,  y=52, w=8, h=8, u={$dun60$,4,8}, d={$cave$,29,1}, r={$dun71$,5,4}, l={$dun71$,5,4}},
-   dun72={c=3, x=110, y=52, w=8, h=8, u={$dun62$,4,8}, d={$dun71$,5,4}, r={$dun73$,0,4}, l={$dun71$,5,4}},
+   $graveyard$={
+      c=5,
+      x=112,
+      y=11,
+      w=16,
+      h=21,
+      l={$graveyard path$,       15, 3},
+      u={$fairy grave entrance$, 8, 11},
+      r={$canyon$,               1, 12}
+   },
 
-   dun71={c=3, x=118, y=52, w=10, h=8, u={$dun70$,4,8}},
-   dun73={c=3, x=103, y=52, w=8, h=8,  u={$bossw$,8,12}, d={$dun71$,5,4}, r={$dun71$,5,4}, l={$dun72$,8,4}},
+   $fairy grave entrance$={
+      c=5,
+      x=112,
+      y=0,
+      w=16,
+      h=12,
+      d={$graveyard$, 8, 1}
+   },
 
+   $canyon$={
+      c=4,
+      x=32,
+      y=0,
+      w=16,
+      h=14,
+      u={$castle entrance$, 6,  19},
+      l={$graveyard$,       15, 6}
+   },
 
-   castle_1={c=1, x=64,  y=0, w=16, h=12, d={$castl$,8,2}, u={$castle_2$,8,12}},
-   castle_2={c=2, x=80,  y=0, w=16, h=12, d={$castle_1$,8,.5}, u={$castle_3$,8,12}},
-   castle_3={c=3, x=96,  y=0, w=16, h=12, d={$castle_2$,8,.5}, u={$castle_4$,8,12}},
-   castle_4={c=4, x=112, y=0, w=16, h=12, d={$castle_3$,8,.5}},
+   $castle entrance$={
+      c=4,
+      x=84,
+      y=0,
+      w=12,
+      h=20,
+      d={$canyon$, 11, 1}
+   },
+
+   $maze trap$={
+      c=3,
+      x=40,
+      y=32,
+      w=16,
+      h=12,
+      u={$maze start$, 4, 7}
+   },
+
+   $maze start$={
+      c=3,
+      x=32,
+      y=32,
+      w=8,
+      h=8,
+      u={$field$,     20, 17},
+      d={$maze trap$, 8,  1},
+      l={$maze 1$, 7,  4}
+   },
+
+   $maze 1$={
+      c=3,
+      x=56,
+      y=32,
+      w=8,
+      h=8,
+      u={$maze trap$,  8, 6},
+      l={$maze trap$,  8, 6},
+      r={$maze start$, 1, 4},
+      d={$maze 2$,     4, 1}
+   },
+
+   $maze 2$={
+      c=3,
+      x=32,
+      y=40,
+      w=8,
+      h=8,
+      u={$maze trap$, 8, 6},
+      l={$maze trap$, 8, 6},
+      r={$maze trap$, 8, 6},
+      d={$maze 3$,    4, 1}
+   },
 
    bossw={c=3, x=80,  y=0,  w=16, h=12, d={$dun73$,4,1},   u={$dun63$,5,8}},
    gravp={c=5, x=29,  y=25, w=19, h=7,  l={$field$,29,18}, r={$grave$,0,18}, u={$templ$,8,12}},
@@ -178,13 +254,14 @@ function room_update()
       end
    end)
 
-   if g_pl.y > g_ry+g_rh and cur_room.d then
+   -- plus .5 and minus .375 is because there is a screen border.
+   if g_pl.y > g_ry+g_rh-.375 and cur_room.d then
       load_room(cur_room.d[1], cur_room.d[2], cur_room.d[3])
    elseif g_pl.y < g_ry + .5 and cur_room.u then
       load_room(cur_room.u[1], cur_room.u[2], cur_room.u[3])
-   elseif g_pl.x > g_rx+g_rw and cur_room.r then
+   elseif g_pl.x > g_rx+g_rw-.375 and cur_room.r then
       load_room(cur_room.r[1], cur_room.r[2], cur_room.r[3])
-   elseif g_pl.x < g_rx and cur_room.l then
+   elseif g_pl.x < g_rx +.5 and cur_room.l then
       load_room(cur_room.l[1], cur_room.l[2], cur_room.l[3])
    end
 end

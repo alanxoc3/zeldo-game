@@ -77,9 +77,9 @@ function game_draw()
    end
 
 
-   acts_loop("dim", "debug_rect")
+   -- acts_loop("dim", "debug_rect")
    draw_status_bars()
-   print(g_cur_room, 30, 110, 7)
+   print(g_rooms[g_cur_room].n or g_cur_room, 30, 110, 7)
    -- batch_call(rectfill, "{0,0,127,15,0}, {0,112,127,127,0}")
    -- draw_glitch_effect()
 end
