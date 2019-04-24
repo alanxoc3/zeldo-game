@@ -65,15 +65,33 @@ end
 
 function map_init()
    g_rooms = gun_vals[[
-   villa={c=3, x=29,  y=0,  w=21, h=25, u={$cave$,16,3.5}, r={$field$,0,26}, l={$lankp$,10,17},
-      doors={
-         {$shop$,4,8,4,11.5,.5,.5},
-         {$banjo_academy$,4,8,17,19.5,.5,.5},
-         {$fandude_house$,3,7,5,2.5,.5,.5},
-         {$house_1$,3,6,17,7.5,.5,.5},
-         {$house_2$,3,6,6,18.5,.5,.5},
-         {$house_3$,3,7,15,13.5,.5,.5}
-      }
+   $lank's path$={
+      c=3,
+      x=0,
+      y=15,
+      w=16,
+      h=6,
+      r={$village$, 1, 4}
+   },
+
+   village={
+      c=3,
+      x=16,
+      y=15,
+      w=16,
+      h=17,
+      l={$lank's path$, 15, 4},
+      r={$field$,        1, 14}
+   },
+
+   $field$={
+      c=3,
+      x=32,
+      y=14,
+      w=32,
+      h=18,
+      l={$village$, 15, 13}
+      r={$graveyard path$, 15, 13}
    },
 
    cave={c=4, x=96,  y=60,  w=32, h=4, u={$dun70$,4,7.5}, d={$villa$, 19,1}},
@@ -94,7 +112,6 @@ function map_init()
    castle_3={c=3, x=96,  y=0, w=16, h=12, d={$castle_2$,8,.5}, u={$castle_4$,8,12}},
    castle_4={c=4, x=112, y=0, w=16, h=12, d={$castle_3$,8,.5}},
 
-   field={c=3, x=0,   y=0,  w=29, h=32, l={$villa$,19.5,13}, r={$gravp$,0,3}, u={$mount$,7,25}},
    bossw={c=3, x=80,  y=0,  w=16, h=12, d={$dun73$,4,1},   u={$dun63$,5,8}},
    gravp={c=5, x=29,  y=25, w=19, h=7,  l={$field$,29,18}, r={$grave$,0,18}, u={$templ$,8,12}},
    mount={c=4, x=50,  y=0,  w=12, h=25, d={$field$,12,.5},  u={$castl$,8,12}},
