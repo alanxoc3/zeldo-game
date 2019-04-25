@@ -190,7 +190,7 @@ function map_init()
 
    $maze 3$={
       c=3,
-      x=32,
+      x=56,
       y=40,
       w=8,
       h=8,
@@ -203,13 +203,54 @@ function map_init()
    $maze 4$={
       c=3,
       x=32,
-      y=40,
+      y=48,
       w=8,
       h=8,
-      u={$maze 2$, 4, 7},
-      l={$maze trap$, 8, 6},
-      r={$maze 4$,    1, 4},
+      u={$maze trap$, 8, 6},
+      l={$maze 3$,    7, 4},
+      r={$maze end$,  1, 4},
       d={$maze trap$, 8, 6}
+   },
+
+   $maze end$={
+      c=3,
+      x=56,
+      y=48,
+      w=8,
+      h=8,
+      u={$maze trap$,       8, 6},
+      l={$maze 4$,          7, 4},
+      r={$maze trap$,       8, 6},
+      d={$maze boss path$, 12, 1}
+   },
+
+   $maze boss path$={
+      c=3,
+      x=48,
+      y=56,
+      w=16,
+      h=8,
+      u={$maze end$,   4, 7},
+      d={$maze boss$,  8, 1}
+   },
+
+   $maze boss$={
+      c=3,
+      x=40,
+      y=44,
+      w=16,
+      h=12,
+      u={$maze boss path$, 4, 7},
+      d={$memory sword sanctuary$, 8, 1}
+   },
+
+   $memory sword sanctuary$={
+      c=3,
+      x=32,
+      y=56,
+      w=16,
+      h=8,
+      u={$maze boss$, 8, 11}
    },
 
    bossw={c=3, x=80,  y=0,  w=16, h=12, d={$dun73$,4,1},   u={$dun63$,5,8}},
