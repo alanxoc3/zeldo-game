@@ -182,10 +182,34 @@ function map_init()
       y=40,
       w=8,
       h=8,
-      u={$maze trap$, 8, 6},
+      u={$maze 1$,    4, 7},
       l={$maze trap$, 8, 6},
       r={$maze trap$, 8, 6},
       d={$maze 3$,    4, 1}
+   },
+
+   $maze 3$={
+      c=3,
+      x=32,
+      y=40,
+      w=8,
+      h=8,
+      u={$maze 2$, 4, 7},
+      l={$maze trap$, 8, 6},
+      r={$maze 4$,    1, 4},
+      d={$maze trap$, 8, 6}
+   },
+
+   $maze 4$={
+      c=3,
+      x=32,
+      y=40,
+      w=8,
+      h=8,
+      u={$maze 2$, 4, 7},
+      l={$maze trap$, 8, 6},
+      r={$maze 4$,    1, 4},
+      d={$maze trap$, 8, 6}
    },
 
    bossw={c=3, x=80,  y=0,  w=16, h=12, d={$dun73$,4,1},   u={$dun63$,5,8}},
