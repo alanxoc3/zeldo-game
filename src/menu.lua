@@ -84,7 +84,7 @@ g_menu_pattern=0x1040.1040 -- 0b1001001101101100.1001001101101100
 -- g_menu_pattern = 0b0000010011100100.0000010011100100
 -- g_menu_pattern=0x1248.1248
 -- todo: make this work if item doesn't exist.
-function draw_menu()
+function draw_menu(x, y)
    pal()
 
    -- rectfill(44,40,83,79,0x1001)
@@ -99,10 +99,10 @@ function draw_menu()
 
    -- line(0,0,100,100,0xd)
    -- line(1,0,101,100,0xd)
-   local pattern = 0b1001001101101100.1001001101101100
+   -- local pattern = 0b1001001101101100.1001001101101100
    -- here, i make sure that the fillp will move with the box.
-   local ypos = 35 + sin(t()/10)*10
-   fillp(flr(rotr(pattern, 4*flr(ypos))))
+   -- local ypos = 35 + sin(t()/10)*10
+   -- fillp(flr(rotr(pattern, 4*flr(ypos))))
    -- make a rel_fillp function:
    --  it would allow the fillp to go up and down, based on a y position.
    --  rel_fillp(pattern, y)
@@ -110,40 +110,39 @@ function draw_menu()
    -- rectfill(35,ypos,84,ypos+49,0xd6)
    -- clip(35,35,50,50)
    -- clip()
-   fillp()
-
+   -- fillp()
 
    local select_x, select_y = 0, 0
    for i=0,2 do
       for j=0,2 do
-         local ind, x, y = (i*3 + j), (40 + j * 16), (40 + i * 16)
+         local ind, lx, ly = (i*3 + j), (x - 16 + j * 16), (y - 16 + i * 16)
          local rel_func2 = function(x1, y1, x2, y2, c)
-            rectfill(x+x1,y+y1,x+x2,y+y2,c)
+            rectfill(lx+x1,ly+y1,lx+x2,ly+y2,c)
          end
 
          if ind == g_new_selected then
-            batch_call(rel_func2, [[
-               {-3,-3,10,10,1},
-               {-2,-2,9,9,9},
-               {-1,-1,8,8,10}
-            ]])
+
+            rectfill(lx-7,ly-7,lx+6,ly+6,1)
+            rectfill(lx-6,ly-6,lx+5,ly+5,9)
+            rectfill(lx-5,ly-5,lx+4,ly+4,10)
+
             fillp(flr(g_ma_pat))
-            rectfill(x-1,y-1,x+8,y+8,0x9a)
+            rectfill(lx-5,ly-5,lx+4,ly+4,0x9a)
             fillp()
-            select_x = x
-            select_y = y
+            select_x = lx-4
+            select_y = ly-4
          else
-            rectfill(x-3,y-3,x+10, y+10,1)
-            rectfill(x-2,y-2,x+9,y+9,7)
+            rectfill(lx-7,ly-7,lx+6,ly+6,1)
+            rectfill(lx-6,ly-6,lx+5,ly+5,7)
             -- fillp(flr(g_ma_pat))
-   fillp(flr(g_menu_pattern))
-            rectfill(x-1,y-1,x+8,y+8,0xd6)
+            fillp(flr(g_menu_pattern))
+            rectfill(lx-5,ly-5,lx+4,ly+4,0xd6)
             fillp()
 
             for i=1,15 do pal(i, g_pal_gray[i]) end
          end
 
-         spr(7+ind, x, y)
+         spr(7+ind, lx-4, ly-4)
          pal()
       end
    end

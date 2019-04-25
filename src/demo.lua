@@ -73,7 +73,7 @@ function game_draw()
    draw_cur_room(8, 7 + 3/8)
 
    if g_menu_open then
-      draw_menu()
+      draw_menu(64,59)
    end
 
 
@@ -109,7 +109,7 @@ function game_init()
    --gen_spawner(10, 20, gen_top, 12)
 
    -- load_room("dun73", 4, 4)
-   load_room("village", 5, 5)
+   load_room("maze 1", 5, 5)
    -- load_room("cave", 30, 2)
    -- load_room("bossw", 5, 5)
 end
