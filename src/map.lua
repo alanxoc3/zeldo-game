@@ -97,9 +97,9 @@ function map_init()
 
    $graveyard path$={
       c=5,
-      x=48,
+      x=32,
       y=0,
-      w=16,
+      w=15,
       h=6,
       l={$field$,     31, 9},
       r={$graveyard$, 1,  18}
@@ -111,9 +111,9 @@ function map_init()
       y=11,
       w=16,
       h=21,
-      l={$graveyard path$,       15, 3},
+      l={$graveyard path$,       14, 3},
       u={$fairy grave entrance$, 8, 11},
-      r={$canyon$,               1, 12}
+      r={$canyon path$,          1, 2}
    },
 
    $fairy grave entrance$={
@@ -125,14 +125,24 @@ function map_init()
       d={$graveyard$, 8, 1}
    },
 
+   $canyon path$={
+      c=5,
+      x=32,
+      y=6,
+      w=15,
+      h=8,
+      l={$graveyard$,       15, 6},
+      r={$canyon$,           1, 12}
+   },
+
    $canyon$={
       c=4,
-      x=32,
+      x=47,
       y=0,
-      w=16,
+      w=17,
       h=14,
       u={$castle entrance$, 6,  19},
-      l={$graveyard$,       15, 6}
+      l={$canyon path$,      14, 6}
    },
 
    $castle entrance$={
@@ -141,7 +151,7 @@ function map_init()
       y=0,
       w=12,
       h=20,
-      d={$canyon$, 11, 1}
+      d={$canyon$, 12, 1}
    },
 
    $maze trap$={
