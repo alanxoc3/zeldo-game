@@ -4,5 +4,23 @@ He has lost his memory! You gotta help Lank save the Land of Hiroll from the
 forces of evil!
 
 ## Todo
-- Experiment with getting hit back.
-   - Then I can make the sword work.
+- Create palace map.
+- Connect everything.
+
+- Create title screen.
+- Create card transitions.
+
+- Fix multiple enemy bug.
+- Fix shield on pl room move bug.
+
+- Make area information (if no enemy).
+- Make enemy health bar.
+
+- Connect Tbox with menu actors.
+- Menu actor name and different backgrounds.
+- Nice functions to integrate with menu actors.
+
+- Make a sign
+
+## Optional Todo
+- Create separate logic between doors and map.
