@@ -71,7 +71,7 @@ function map_init()
       y=15,
       w=16,
       h=6,
-      r={$village$, 1, 4}
+      r={$village$, 1, 3}
    },
 
    $village$={
@@ -80,7 +80,7 @@ function map_init()
       y=15,
       w=16,
       h=17,
-      l={$lank's path$,  15, 4},
+      l={$lank's path$,  15, 3},
       r={$field$,        1,  14}
    },
 
@@ -114,15 +114,6 @@ function map_init()
       l={$graveyard path$,       14, 3},
       u={$fairy grave entrance$, 8, 11},
       r={$canyon path$,          1, 2}
-   },
-
-   $fairy grave entrance$={
-      c=5,
-      x=112,
-      y=0,
-      w=16,
-      h=12,
-      d={$graveyard$, 8, 1}
    },
 
    $canyon path$={
@@ -261,6 +252,30 @@ function map_init()
       w=16,
       h=8,
       u={$maze boss$, 8, 11}
+   },
+
+   $fairy grave entrance$={
+      c=5,
+      x=112,
+      y=0,
+      w=16,
+      h=12,
+      d={$graveyard$, 8, 1},
+      $doors$={
+         {$grave_novi$,2.5,3.5,2.5,6,.5,.5}
+      }
+   },
+
+   $grave_novi$={
+      c=5,
+      x=96,
+      y=24,
+      w=5,
+      h=8,
+      r={$grave 1$,1,6.5},
+      $doors$={
+         {$fairy grave entrance$,2.5,4.5,2.5,2.5,.5,.5}
+      }
    },
 
    bossw={c=3, x=80,  y=0,  w=16, h=12, d={$dun73$,4,1},   u={$dun63$,5,8}},
