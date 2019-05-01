@@ -1,0 +1,36 @@
+Interact
+   - This is the default action. Just allows the character to interact with
+     something. Without this, you can't interact.
+
+Banjo
+   - Find in Lank's house at the beginning of the game. Walk while playing it.
+     The longer you play it, the longer the song is.
+
+Shield
+   - You can buy this from the shop keeper. Deflects shrub balls and protects
+     against attacks.
+
+Boomerang
+   - You can buy this from the shop keeper. Stuns some enemies. Kills others.
+     Doesn't affect some. Either 50 sqrs or 150 sqrs
+
+Sword
+   - Find in the Maze Woods. After defeating Forest/Navy. After getting the
+     sword. Karla is finished making dinner for Bobb.
+
+Shovel
+   - Shovel up anything that is on the ground. You might get a reward for
+     shoveling things. Shovelled up slots restart when leaving the room. May
+     find entrances, power orbs, hearts, lives.
+
+
+Bomb
+Arrow
+Shield
+Boomerang
+
+
+
+Squareforce
+Letter
+

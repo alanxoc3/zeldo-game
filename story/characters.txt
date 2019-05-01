@@ -1,22 +1,28 @@
 # Characters
-Ivan    - The fairy. Used to be Lank's fairy, then went crazy. Tried to trick
-          Cannon, now is trying to trick Lank.
+Ivon    - Novi's twin. Cannon's fairy. Novi tried to kill him, but it survived.
+Novi    - Ivon's twin. Lank's fairy. Lank told it to kill Ivon. Became a ghost,
+          seeking revenge on Lank, because Lank had him die.
+
 Barry   - The banjo teacher. He was the last hero of Hiroll. Now he dedicates
           his life to music.
 Grover  - The gravedigger. He has many angry dead relatives.
 Keep    - The shopkeeper. 
 
-Lank    - The main character. Saved Hiroll last year from Cannon going crazy.
-          Being tricked by Ivan.
-Cannon  - The king. Zeldo's husband. Ivan tricked him last year to try to
+Lank    - The main character. Saved Hiroll last year from Cannon and his evil
+          fairy. Being tricked by Ivon.
+Lark    - Lank's roommate. He is working on a surprise.
+
+Cannon  - The king. Zeldo's husband. Ivon tricked him last year to try to
           destroy Hiroll.
+
 Zeldo   - The princess. Cannon's wife.
 
-Sarah   - A chubby homemaker. She likes to cook and eat.
-Bobby   - A chubby bridge builder. He likes to eat and work on bridges. His wife
+Karla   - A chubby homemaker. She likes to cook and eat.
+Bobb    - A chubby bridge builder. He likes to eat and work on bridges. His wife
           is Sarah.
 
 Navy    - Forest's brother. He lost forest in the woods last year.
-Forrest - Navy's brother. He has been trapped in the woods for a year and went
+Forest  - Navy's brother. He has been trapped in the woods for a year and went
           crazy.
+
 
