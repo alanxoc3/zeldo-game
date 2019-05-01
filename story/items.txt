@@ -21,16 +21,25 @@ Sword
 Shovel
    - Shovel up anything that is on the ground. You might get a reward for
      shoveling things. Shovelled up slots restart when leaving the room. May
-     find entrances, power orbs, hearts, lives.
-
+     find entrances, power orbs, hearts, lives. Get the shovel after opening
+     the chest. Grover gives it to you.
 
 Bomb
+   - Get bomb after defeating Cannon. Blow things up. Costs 5 power sqrs. Place
+     then detonate (one at a time).
+
 Arrow
-Shield
-Boomerang
+   - Hidden with the shopkeeper. Available after defeating Novi. Novi uses it,
+     then the shopkeeper obtains it.
 
+Letter
+   - Take it to the bridge dude.
 
+Ghost
+   - 4 ghosts. Collect one at a time then give it to Grover.
+
+Cluck
+   - A chicken. Place it with Cannon. Impossible to defeat.
 
 Squareforce
-Letter
-
+   - Just a key. Can't actually wield it?
