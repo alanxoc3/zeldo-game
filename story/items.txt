@@ -33,7 +33,7 @@ Arrow
      then the shopkeeper obtains it.
 
 Letter
-   - Take it to the bridge dude.
+   - Take it to the Bobb.
 
 Ghost
    - 4 ghosts. Collect one at a time then give it to Grover.

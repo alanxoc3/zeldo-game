@@ -1,28 +1,28 @@
 # Characters
-Ivon    - Novi's twin. Cannon's fairy. Novi tried to kill him, but it survived.
-Novi    - Ivon's twin. Lank's fairy. Lank told it to kill Ivon. Became a ghost,
-          seeking revenge on Lank, because Lank had him die.
+Ivon   - Novi's twin. Cannon's fairy. Novi tried to kill him, but it survived.
+Novi   - Ivon's twin. Lank's fairy. Lank told it to kill Ivon. Became a ghost,
+         seeking revenge on Lank, because Lank had him die.
 
-Barry   - The banjo teacher. He was the last hero of Hiroll. Now he dedicates
-          his life to music.
-Grover  - The gravedigger. He has many angry dead relatives.
-Keep    - The shopkeeper. 
+Barry  - The banjo teacher. He was the last hero of Hiroll. Now he dedicates
+         his life to music.
+Grover - The gravedigger. He has many angry dead relatives.
+Keep   - The shopkeeper. 
 
-Lank    - The main character. Saved Hiroll last year from Cannon and his evil
-          fairy. Being tricked by Ivon.
-Lark    - Lank's fan.
+Lank   - The main character. Saved Hiroll last year from Cannon and his evil
+         fairy. Being tricked by Ivon.
+Lark   - Lank's fan.
 
-Cannon  - The king. Zeldo's husband. Ivon tricked him last year to try to
-          destroy Hiroll.
+Cannon - The king. Zeldo's husband. Ivon tricked him last year to try to
+         destroy Hiroll.
 
-Zeldo   - The princess. Cannon's wife.
+Zeldo  - The princess. Cannon's wife.
 
-Karla   - A chubby homemaker. She likes to cook and eat.
-Bobb    - A chubby bridge builder. He likes to eat and work on bridges. His wife
-          is Sarah.
+Karla  - A chubby homemaker. She likes to cook and eat.
+Bobb   - A chubby bridge builder. He likes to eat and work on bridges. His wife
+         is Sarah.
 
-Navy    - Forest's brother. He lost forest in the woods last year.
-Forest  - Navy's brother. He has been trapped in the woods for a year and went
-          crazy.
+Navy   - Nest's brother. He lost forest in the woods last year.
+Nest   - Navy's brother. He has been trapped in the woods for a year and went
+         crazy.
 
 
