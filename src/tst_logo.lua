@@ -1,11 +1,11 @@
 
 function _draw()
-   cls(1)
-   draw_logo()
+   cls(0)
+   draw_logo(64,64)
 end
 
 function _update60()
-   update_logo()
+   tl_update(g_logo)
 end
 
 function _init()

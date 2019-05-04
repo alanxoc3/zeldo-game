@@ -1,20 +1,17 @@
 -- tl
+-- 151 148
 
 function tl_update(tl)
 	-- switch the state
-	if tl.time == 0 then
+	if tl.timestamp + tl.time < t() then
 		tl.current = tl.next
 		tl.next = (tl.current % #tl.master) + 1
 		tl.time = tl.master[tl.current].t
 		tl_func(tl, "i") -- init func
+      tl.timestamp = t()
 	end
 
 	tl_func(tl, "u") -- update func
-
-	-- inc timer if enabled
-	if tl.time then
-		tl.time = max(0, tl.time - 1/60)
-	end
 end
 
 -- optional number of which state should be loaded next.
@@ -45,7 +42,8 @@ function tl_init(...)
 		master=tl_master,
 		current=1,
 		next=(1 % #tl_master)+1,
-		time = tl_master[1].t
+		time = tl_master[1].t,
+      timestamp = t()
 	}
 
 	-- init function
