@@ -116,7 +116,7 @@ function gen_pl_item(pl, item_type)
             touchable=false,
             hit=@2
          },
-         par={$rel$,$tl$,$timed$,$spr$,$col$},
+         par={$rel$,$tl$,$spr$,$col$},
          tl={
             {i=@3, u=@4, t=.4},
             {u=@5}
@@ -172,7 +172,7 @@ function gen_pl_item(pl, item_type)
             xf=@1,
             touchable=false,
          },
-         par={$rel$,$tl$,$timed$,$spr$,$col$},
+         par={$rel$,$tl$,$spr$,$col$},
          tl={
             {i=@2, u=@3}
          }
@@ -207,7 +207,7 @@ function gen_pl_item(pl, item_type)
             touchable=false,
             hit=@2
          },
-         par={$rel$,$tl$,$timed$,$spr$,$col$},
+         par={$rel$,$tl$,$spr$,$col$},
          tl={
             {i=@3, u=@4, t=.4},
             {u=@5}

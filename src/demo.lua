@@ -21,11 +21,6 @@
 -- done: player item in front.
 -- done: think about sub table gun_vals cache. don't want. problem was state.
 -- done: fix enemy share state bug
---
---
---
---
-
 
 -- readme todos:
 -- todo: Connect everything.
