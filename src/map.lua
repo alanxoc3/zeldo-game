@@ -24,7 +24,7 @@ function draw_cur_room(x, y)
 
    rectfill(0,0,127,127,cur_room.c)
 
-	scr_map(cur_room.x, cur_room.y, cur_room.x, cur_room.y, cur_room.w, cur_room.h)
+   scr_map(cur_room.x, cur_room.y, cur_room.x, cur_room.y, cur_room.w, cur_room.h)
 
    isorty(g_act_arrs["spr"])
    acts_loop("spr", "draw")
@@ -306,8 +306,8 @@ function load_room(new_room, rx, ry)
    g_pl.y = y + ry
    g_ma = 54
 
-	load_view(x, y, w, h, 5, 11, 2, 2)
-	center_view(g_pl.x, g_pl.y)
+   load_view(x, y, w, h, 5, 11, 2, 2)
+   center_view(g_pl.x, g_pl.y)
 
    -- get rid of current text.
    tbox_clear()

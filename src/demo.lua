@@ -4,6 +4,8 @@
 -- todo: tl embedded tl.
 -- todo: tl update don't use t(), or fix pausing.
 -- todo: gun vals number
+-- todo: player no run
+-- todo: player banjo walk
 
 -- token:
 -- 5180 5168 5166
@@ -18,7 +20,7 @@ function _init()
    g_pal_norm = gun_vals("1,2,3,4,5,6,7,8,9,10,11,12,13,14,15")
    g_pal = g_pal_norm
 
-	g_tl = tl_init([[
+   g_tl = tl_init([[
          { i=@, u=@, d=@ }
       ]],
       -- init_logo, update_logo, draw_logo,
@@ -26,10 +28,10 @@ function _init()
       game_init, game_update, game_draw
    )
       
-		--{ init_logo,  2.5, update_logo,  draw_logo },
-		--{ title_init, 1,   title_update, title_draw },
-		--{ game_init,  nil, game_update,  game_draw }
-	--)
+      --{ init_logo,  2.5, update_logo,  draw_logo },
+      --{ title_init, 1,   title_update, title_draw },
+      --{ game_init,  nil, game_update,  game_draw }
+   --)
 
    tbox("lank:...:...:...:1234123456 901234567890 234123456 8901234567890 ")
 end
@@ -40,8 +42,8 @@ function _update60()
 end
 
 function _draw()
-	cls()
-	tl_func(g_tl, "d")
+   cls()
+   tl_func(g_tl, "d")
    ttbox_draw(7, 0)
    draw_ma()
    zprint(stat(1), 75, 4)
@@ -91,7 +93,6 @@ function game_draw()
    -- acts_loop("dim", "debug_rect")
    draw_status_bars()
    print(g_rooms[g_cur_room].n or g_cur_room, 30, 110, 7)
-   -- batch_call(rectfill, "{0,0,127,15,0}, {0,112,127,127,0}")
    -- draw_glitch_effect()
 end
 
@@ -103,24 +104,13 @@ function draw_glitch_effect()
 end
 
 function game_init()
-	-- palt(0, false)
-   -- deku_spawner(3.5, 22.5, true)
    map_init()
 
-   -- for i=0,10,2 do gen_spawner(12, 15+i, gen_deku, 12, true) end
    g_pl = gen_pl(0, 0)
 
-   -- gen_spawner(71, 53, gen_top, 12)
    for i=20,26 do
       gen_spawner(4, i, gen_top, 12)
    end
-   --gen_spawner(4, 20, gen_top, 12)
-   --gen_spawner(6, 20, gen_top, 12)
-   --gen_spawner(8, 20, gen_top, 12)
-   --gen_spawner(10, 20, gen_top, 12)
 
-   -- load_room("dun73", 4, 4)
    load_room("fairy grave entrance", 5, 5)
-   -- load_room("cave", 30, 2)
-   -- load_room("bossw", 5, 5)
 end

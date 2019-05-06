@@ -1,10 +1,10 @@
 function amov_to_actor(a1, a2, spd)
-	amov_to_point(a1, spd, a2.x, a2.y)
+   amov_to_point(a1, spd, a2.x, a2.y)
 end
 
 function amov_to_point(a, spd, x, y)
-	local ang = atan2(x - a.x, y - a.y)
-	a.ax, a.ay = spd*cos(ang), spd*sin(ang)
+   local ang = atan2(x - a.x, y - a.y)
+   a.ax, a.ay = spd*cos(ang), spd*sin(ang)
 end
 
 -- if a is inside b.

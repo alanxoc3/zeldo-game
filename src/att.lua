@@ -33,10 +33,10 @@ function acts_attach_helper(opt, a)
 end
 
 function acts_loop(id, func, ...)
-	for a in all(g_act_arrs[id]) do
+   for a in all(g_act_arrs[id]) do
       if a[func] then
-			a[func](a, ...) end
-	end
+         a[func](a, ...) end
+   end
 end
 
 function del_act(a)

@@ -8,7 +8,7 @@ function init_logo()
       g_lct = t()-g_lt
    end
 
-	g_logo = tl_init([[
+   g_logo = tl_init([[
          { t=.5 },
          { i=@, u=@, t=.5 },
          { t=1 },

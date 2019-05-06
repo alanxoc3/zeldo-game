@@ -59,9 +59,6 @@ function gen_pl(x, y)
          -- item logic
          if btn(4) and not a.item then
             a.item = gen_pl_item(a, g_selected)
-            if g_selected == 4 then -- speed up!
-               a.ax *= 1.6 a.ay *= 1.6
-            end
          end
 
          local item = a.item
@@ -70,10 +67,8 @@ function gen_pl(x, y)
          end
 
          if item then
-            if item.lank_sword then
+            if item.lank_sword or item.lank_shield then
                a.ax /= 2 a.ay /= 2
-            elseif item.lank_shield then
-               a.ax *= .75 a.ay *= .75
             else
                a.ax, a.ay = 0, 0
             end
