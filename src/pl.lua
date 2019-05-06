@@ -19,8 +19,8 @@ function gen_pl(x, y)
    return create_actor(
       [[ id=$pl$,
          att={
-            x=@,
-            y=@,
+            x=@1,
+            y=@2,
             sinds={54, 55, 56, 57},
             rx=.375,
             ry=.375,
@@ -28,11 +28,11 @@ function gen_pl(x, y)
             spd=.02,
             anim_len=3,
             anim_spd=5,
-            hit=@,
+            hit=@3,
             max_hearts=3,
             hearts=3,
-            update=@,
-            draw=@
+            update=@4,
+            draw=@5
          },
          par={$anim$,$col$,$mov$,$tcol$,$hurtable$,$knockable$,$stunnable$,$spr_out$}
       ]], x, y,
@@ -112,14 +112,14 @@ function gen_pl_item(pl, item_type)
             iyy=-2,
             sind=8,
             poke=0,
-            xf=@,
+            xf=@1,
             touchable=false,
-            hit=@
+            hit=@2
          },
          par={$rel$,$tl$,$timed$,$spr$,$col$},
          tl={
-            {i=@, u=@, t=.4},
-            {u=@}
+            {i=@3, u=@4, t=.4},
+            {u=@5}
          }
          ]],
          pl.xf,
@@ -169,12 +169,12 @@ function gen_pl_item(pl, item_type)
             rx=.3,
             ry=.3,
             sind=7,
-            xf=@,
+            xf=@1,
             touchable=false,
          },
          par={$rel$,$tl$,$timed$,$spr$,$col$},
          tl={
-            {i=@, u=@}
+            {i=@2, u=@3}
          }
          ]],
          pl.xf,
@@ -203,14 +203,14 @@ function gen_pl_item(pl, item_type)
             iyy=-1,
             poke=20,
             sind=14,
-            xf=@,
+            xf=@1,
             touchable=false,
-            hit=@
+            hit=@2
          },
          par={$rel$,$tl$,$timed$,$spr$,$col$},
          tl={
-            {i=@, u=@, t=.4},
-            {u=@}
+            {i=@3, u=@4, t=.4},
+            {u=@5}
          }
       ]],
          pl.xf,

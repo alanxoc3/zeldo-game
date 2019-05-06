@@ -7,10 +7,10 @@ function gen_spawner(x, y, func, buf_len, ...)
    return create_actor([[
          id=$spawner$,
          att={
-            x=@,
-            y=@,
+            x=@1,
+            y=@2,
             child=,
-            update=@
+            update=@3
          },
          par={$dim$}
       ]], x, y,
@@ -29,8 +29,8 @@ function gen_top(x, y)
    return create_actor([[
       id=$top$,
       att={
-         x=@,
-         y=@,
+         x=@2,
+         y=@2,
          rx=.375,
          ry=.375,
          iyy=-2,
@@ -38,13 +38,13 @@ function gen_top(x, y)
          yb=.4,
          sind=58,
          touchable=true,
-         hit=@
+         hit=@3
       },
       par={$tl$,$mov$,$timed$,$spr_out$,$col$,$tcol$,$knockable$},
       tl={
-         {i=@, t=1.5},
-         {u=@, t=.5},
-         {i=@, t=1}
+         {i=@4, t=1.5},
+         {u=@5, t=.5},
+         {i=@6, t=1}
       }
       ]],x,y,
       -- hit

@@ -1,5 +1,5 @@
 --
--- todo: gun vals number
+-- todo: optimize gun nums again
 -- todo: create palace map.
 -- todo: go through sprite file optimizations.
 -- todo: tl update return next.
@@ -11,6 +11,7 @@
 -- todo: connect up palace.
 -- todo: think about text interaction more.
 --
+-- done: gun vals number
 -- done: player banjo walk
 -- done: player no run
 -- done: player item in front.
@@ -50,7 +51,7 @@ function _init()
    g_pal = g_pal_norm
 
    g_tl = tl_init(gun_vals([[
-            { i=@, u=@, d=@ }
+            { i=@1, u=@2, d=@3 }
          ]],
          -- init_logo, update_logo, draw_logo,
          -- title_init, title_update, title_draw,
@@ -89,9 +90,9 @@ function game_update()
             {$stunnable$, $stun_update$},
             {$act$,$update$},
             {$mov$,$move$},
-            {$col$,$move_check$,@},
-            {$tcol$,$coll_tile$,@},
-            {$rel$,$rel_update$,@},
+            {$col$,$move_check$,@1},
+            {$tcol$,$coll_tile$,@2},
+            {$rel$,$rel_update$,@3},
             {$vec$,$vec_update$},
             {$act$, $clean$},
             {$anim$,$anim_update$},

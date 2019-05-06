@@ -10,17 +10,20 @@ function init_logo()
 
    g_logo = tl_init(gun_vals([[
          { t=.5 },
-         { i=@, u=@, t=.5 },
+         { i=@1, u=@2, t=.5 },
          { t=1 },
-         { i=@, u=@, t=.5 },
+         { i=@3, u=@2, t=.5 },
          { t=.5 }
-      ]], function()
+      ]],
+      -- 1
+      function()
          g_lt = t()
          g_lct = 0
       end,
+      -- 2
       update_logo_time,
-      function() g_lt += 1 end, 
-      update_logo_time
+      -- 3
+      function() g_lt += 1 end
       )
    )
 end

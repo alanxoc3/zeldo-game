@@ -49,11 +49,15 @@ function gun_vals_helper(val_str,i,new_params)
       if     x == "$" then str_mode, isnum = not str_mode
       elseif x == "}" or x == "," then
          if type(val) == "string" and sub(val,1,1) == "@" then
-            local second = sub(val,2,#val)
-            if #second > 0 then
-               printh("secc: "..second)
+            local sec = tonum(sub(val,2,#val))
+            -- printh("secc: "..tonum(sec))
+            if sec then
+               if not new_params[sec] then new_params[sec] = {} end
+               add(new_params[sec], val_list)
+               add(new_params[sec], val_key or val_ind)
+            else
+               add(new_params, {val_list, val_key or val_ind})
             end
-            add(new_params, {val_list, val_key or val_ind})
          elseif val == "true" or val == "false" or val == "" then val=val=="true"
          elseif isnum then val=0+val
          end
@@ -83,9 +87,12 @@ function gun_vals(val_str, ...)
 
    local params, lookup = {...}, param_cache[val_str]
 
-   for i=1,#lookup[3] do
-      local cur = lookup[3][i]
-      cur[1][cur[2]] = params[i]
+   local ref = lookup[3]
+   for k,v in pairs(ref) do
+      local cur = ref[k]
+      for i=1,#cur,2 do
+         cur[i][cur[i+1]] = params[k]
+      end
    end
 
    return lookup[1]

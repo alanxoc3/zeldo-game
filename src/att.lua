@@ -69,7 +69,7 @@ end)
 create_parent(
 [[ id=$tl$,
    att={
-      update=@
+      update=@1
    },
    par={$stunnable$}
 ]], function(a)
@@ -82,7 +82,7 @@ create_parent(
 [[ id=$timed$,
    att={
       t=0,
-      tick=@
+      tick=@1
    },
    par={$act$}
 ]], function(a)
@@ -104,7 +104,7 @@ create_parent(
    att={
       dx=0,
       dy=0,
-      vec_update=@
+      vec_update=@1
    },
    par={$pos$}
 ]], function(a)
@@ -119,7 +119,7 @@ create_parent(
       iy=.85,
       ax=0,
       ay=0,
-      move=@
+      move=@1
    },
    par={$vec$}
 ]], function(a)
@@ -134,7 +134,7 @@ create_parent(
    att={
       rx=.375,
       ry=.375,
-      debug_rect=@
+      debug_rect=@1
    },
    par={$pos$}
 ]], function(a)
@@ -149,7 +149,7 @@ create_parent(
       rel_y=0,
       rel_dx=0,
       rel_dy=0,
-      rel_update=@
+      rel_update=@1
    },
    par={$act$}
 ]], function(a, a2)
@@ -163,8 +163,8 @@ create_parent(
       iyy=0,
       xx=0,
       yy=0,
-      draw=@,
-      reset_off=@
+      draw=@1,
+      reset_off=@2
    }
 ]], nf, function(a)
    a.xx, a.yy = 0, 0
@@ -178,7 +178,7 @@ create_parent(
       sh=1,
       xf=false,
       yf=false,
-      draw=@
+      draw=@1
    },
    par={$vec$,$drawable$}
 ]], scr_spr)
@@ -186,7 +186,7 @@ create_parent(
 create_parent(
 [[ id=$spr_out$,
    att={
-      draw=@
+      draw=@1
    },
    par={$spr$}
 ]], scr_spr_out)
@@ -194,7 +194,7 @@ create_parent(
 create_parent(
 [[ id=$knockable$,
    att={
-      knockback=@
+      knockback=@1
    },
    par={$mov$}
 ]], function(a, speed, xdir, ydir)
@@ -206,8 +206,8 @@ create_parent(
 [[ id=$stunnable$,
    att={
       stun_countdown=0,
-      stun=@,
-      stun_update=@
+      stun=@1,
+      stun_update=@2
    },
    par={$mov$,$drawable$}
 ]], function(a, len)
@@ -226,7 +226,7 @@ create_parent(
 [[ id=$hurtable$,
    att={
       hearts=3,
-      hurt=@
+      hurt=@1
    },
    par={$stunnable$}
 ]], function(a, damage)
@@ -244,7 +244,7 @@ create_parent(
       anim_len=1,
       anim_spd=0,
       anim_sind=,
-      anim_update=@
+      anim_update=@1
    },
    par={$spr$,$timed$}
 ]], function(a)
@@ -267,8 +267,8 @@ create_parent(
       touchable=true,
       xb=0,
       yb=0,
-      hit=@,
-      move_check=@
+      hit=@1,
+      move_check=@2
    },
    par={$vec$,$dim$}
 ]], nf, function(a, acts)
@@ -297,9 +297,9 @@ create_parent(
                if not other_list[b] then other_list[b] = {x=0, y=0} end
 
                batch_call(col_help, [[
-                  {$x$, $dx$, @, @, @, @},
-                  {$y$, $dy$, @, @, @, @}
-               ]], a, b, x, dx, a, b, y, dy)
+                  {$x$, $dx$, @1, @2, @3, @4},
+                  {$y$, $dy$, @1, @2, @5, @6}
+               ]], a, b, x, dx, y, dy)
             end
          end
       end)
@@ -326,8 +326,8 @@ end)
 create_parent(
 [[ id=$tcol$,
    att={
-      $tile_hit$=@,
-      $coll_tile$=@
+      $tile_hit$=@1,
+      $coll_tile$=@2
    },
    par={$vec$,$dim$}
 ]], nf, function(a, solid_func)

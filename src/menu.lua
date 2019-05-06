@@ -47,7 +47,7 @@ function menu_update()
       if g_pl.item then g_pl.item.holding = false end
 
       -- for some reason, negative values don't work here.
-      batch_call(menu_btn_helper, "{0,@,0xffff},{1,@,1},{2,@,0xfffd},{3,@,3}", 
+      batch_call(menu_btn_helper, "{0,@1,0xffff},{1,@2,1},{2,@3,0xfffd},{3,@4,3}", 
          g_new_selected%3 - 1 >= 0,
          g_new_selected%3 + 1 <= 2,
          g_new_selected   - 3 >= 0,

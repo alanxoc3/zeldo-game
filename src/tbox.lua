@@ -108,9 +108,9 @@ function ttbox_draw(fg_col, bg_col)
       if #g_tbox_active.speaker>0 then
          local x2 = #g_tbox_active.speaker*4+6
          batch_call(rectfill, [[
-            {20, 101, @, 108, 5},
-            {21, 102, @, 108, 7},
-            {22, 103, @, 109, 0}
+            {20, 101, @1, 108, 5},
+            {21, 102, @2, 108, 7},
+            {22, 103, @3, 109, 0}
          ]], 20+x2, 19+x2, 18+x2)
 
          zprint(g_tbox_active.speaker, 24, 105, fg_col)
@@ -118,8 +118,8 @@ function ttbox_draw(fg_col, bg_col)
 
       -- print the message
       batch_call(zprint, [[
-         {@, 24, 112},
-         {@, 24, 119}
+         {@1, 24, 112},
+         {@2, 24, 119}
       ]],
          sub(g_tbox_active.l1, 1, g_tbox_anim),
          sub(g_tbox_active.l2, 0, max(g_tbox_anim - #g_tbox_active.l1, 0))
