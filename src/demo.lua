@@ -1,3 +1,8 @@
+-- todo: create palace map.
+-- todo: go through sprite file optimizations.
+-- todo: tl update return next.
+
+
 -- token:
 -- 5180 5168 5166
 
