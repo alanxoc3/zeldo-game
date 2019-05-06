@@ -50,14 +50,10 @@ function gun_vals_helper(val_str,i,new_params)
       elseif x == "}" or x == "," then
          if type(val) == "string" and sub(val,1,1) == "@" then
             local sec = tonum(sub(val,2,#val))
-            -- printh("secc: "..tonum(sec))
-            if sec then
-               if not new_params[sec] then new_params[sec] = {} end
-               add(new_params[sec], val_list)
-               add(new_params[sec], val_key or val_ind)
-            else
-               add(new_params, {val_list, val_key or val_ind})
-            end
+            assert(sec != nil)
+            if not new_params[sec] then new_params[sec] = {} end
+            add(new_params[sec], val_list)
+            add(new_params[sec], val_key or val_ind)
          elseif val == "true" or val == "false" or val == "" then val=val=="true"
          elseif isnum then val=0+val
          end

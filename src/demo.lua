@@ -1,4 +1,3 @@
---
 -- todo: optimize gun nums again
 -- todo: create palace map.
 -- todo: go through sprite file optimizations.
@@ -39,7 +38,7 @@
 
 
 -- token:
--- 5180 5168 5166 5129 5258 5248 5244 5076 4983
+-- 5180 5168 5166 5129 5258 5248 5244 5076 4983 5005
 
 -- compress:
 -- 16285 15360
