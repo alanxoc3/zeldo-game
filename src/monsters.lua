@@ -124,7 +124,6 @@ function gen_top(x, y)
             ]], function()
                a.ax, a.ay = 0, 0
             end, function()
-               printh("hobo"..a.y)
                a.xx = rnd_one()
                a.xf = g_pl.x < a.x
             end, function()

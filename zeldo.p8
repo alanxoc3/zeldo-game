@@ -3,11 +3,27 @@ version 18
 __lua__
 -- zeldo game
 -- amorg
-#include src/mod_tl.lua
-#include src/lib.lua
-#include src/mod_logo.lua
-#include src/tst_logo.lua
 
+#include src/spr.lua
+#include src/lib.lua
+
+#include src/map.lua
+#include src/menu.lua
+#include src/mod_att.lua
+#include src/mod_logo.lua
+#include src/mod_tbox.lua
+
+#include src/mod_tcol.lua
+#include src/mod_tl.lua
+#include src/mod_view.lua
+#include src/monsters.lua
+#include src/move_funcs.lua
+#include src/pl.lua
+
+
+-- tests
+-- #include src/tst_logo.lua
+#include src/demo.lua
 __gfx__
 00000000001111000111100001111000001111000111111011111111000000000000000000000000001111000000000000000000001110000000000000110000
 000000000153651011242110115651101116611115666651177777610222000011100000022222200010010001100110011111100015100001111110001d1000

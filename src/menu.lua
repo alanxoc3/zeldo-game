@@ -9,7 +9,7 @@ g_was_selected=false
 -- 1 = sword
 -- 2 = squareforce
 -- 3 = lantern
--- 4 = dash
+-- 4 = interact
 -- 5 = boomerang
 -- 6 = bomb
 -- 7 = shield
@@ -24,7 +24,7 @@ g_item_descs = {
    "^sword:hurts bad guys.",
    "^sqr'force:don't let ivan take it from you!",
    "^lantern:lights up dark places.",
-   "^dash:a quick dodge move.",
+   "^interact:talk to people, pick up things, read signs.",
    "^b'rang:stuns enemies and kills really weak ones.",
    "^bomb:only 5 power squares to blows things up!",
    "^shield:be safe from enemy attacks.",
@@ -58,6 +58,7 @@ function menu_update()
          tbox_clear()
          tbox(g_item_descs[g_new_selected+1])
          g_ma = 7+g_new_selected
+         g_ma_out = false
       end
 
       g_was_selected=true
@@ -70,6 +71,7 @@ function menu_update()
       if g_was_selected then
          g_selected, g_new_selected, g_was_selected = g_new_selected, 4, false
       end
+      g_ma_out = true
       g_ma = 54
    end
 
@@ -79,38 +81,11 @@ function menu_update()
    end
 end
 
-g_menu_pattern=0x1040.1040 -- 0b1001001101101100.1001001101101100
--- g_menu_pattern=0b1111000011110000.1111000011110000
--- g_menu_pattern = 0b0000010011100100.0000010011100100
--- g_menu_pattern=0x1248.1248
+g_menu_pattern=0x1040.1040
+
 -- todo: make this work if item doesn't exist.
 function draw_menu(x, y)
    pal()
-
-   -- rectfill(44,40,83,79,0x1001)
-   -- rectfill(47,43,80,76,5)
-
-   -- rectfill(48,44,79,75,0xd6)
-   -- rectfill(0,0,0,0,0x1001)
-
-   -- rectfill(0,0,127,127,0)
-   -- rectfill(32,32,87,87,5)
-   -- rectfill(33,33,86,86,1)
-
-   -- line(0,0,100,100,0xd)
-   -- line(1,0,101,100,0xd)
-   -- local pattern = 0b1001001101101100.1001001101101100
-   -- here, i make sure that the fillp will move with the box.
-   -- local ypos = 35 + sin(t()/10)*10
-   -- fillp(flr(rotr(pattern, 4*flr(ypos))))
-   -- make a rel_fillp function:
-   --  it would allow the fillp to go up and down, based on a y position.
-   --  rel_fillp(pattern, y)
-
-   -- rectfill(35,ypos,84,ypos+49,0xd6)
-   -- clip(35,35,50,50)
-   -- clip()
-   -- fillp()
 
    local select_x, select_y = 0, 0
    for i=0,2 do
@@ -134,7 +109,6 @@ function draw_menu(x, y)
          else
             rectfill(lx-7,ly-7,lx+6,ly+6,1)
             rectfill(lx-6,ly-6,lx+5,ly+5,7)
-            -- fillp(flr(g_ma_pat))
             fillp(flr(g_menu_pattern))
             rectfill(lx-5,ly-5,lx+4,ly+4,0xd6)
             fillp()
@@ -155,11 +129,9 @@ end
 
 -- menu enemy
 g_ma = 54
-g_ma_pat = 0x1284.1284 -- 0b0000010011100100.0000010011100100
+g_ma_out = true
+g_ma_pat = 0x1284.1284
 g_ma_col = 0xd6
--- g_ma_pat = 0b1000010000100001.1000010000100001
--- g_ma_pat = 0b1100100111000110.1100100111000110
--- g_ma_col = 0x9a
 function draw_ma()
    -- rectfill(0, 108, 19, 127, 1)
    rectfill(2, 110, 17, 125, 1)
@@ -168,7 +140,11 @@ function draw_ma()
    rectfill(4, 112, 15, 123, g_ma_col)
    -- rectfill(2, 110, 17, 125, g_ma_col)
    fillp()
-   spr_out(g_ma, 6, 114, 1, 1, false, false, 1)
+   if g_ma_out then
+      spr_out(g_ma, 6, 114, 1, 1, false, false, 1)
+   else
+      spr(g_ma, 6, 114, 1, 1, false, false, 1)
+   end
    -- rect(2, 110, 17, 125, 1)
 end
 

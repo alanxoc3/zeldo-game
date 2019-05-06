@@ -1,9 +1,10 @@
 -- tl
 -- 151 148
+-- If update returns true, then 
 
 function tl_update(tl)
 	-- switch the state
-	if tl.timestamp + tl.time < t() then
+	if tl.time and (tl.timestamp + tl.time < t()) then
 		tl.current = tl.next
 		tl.next = (tl.current % #tl.master) + 1
 		tl.time = tl.master[tl.current].t
@@ -23,7 +24,7 @@ end
 -- call a function if not nil
 function tl_func(tl, key)
 	if tl.master[tl.current][key] then
-		tl.master[tl.current][key]()
+		return tl.master[tl.current][key]()
 	end
 end
 
@@ -52,6 +53,3 @@ function tl_init(...)
 	return tl
 end
 
-function tl_draw(tl)
-	tl_func(tl,"d") -- draw func
-end

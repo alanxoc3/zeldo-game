@@ -12,10 +12,10 @@ function draw_cur_room(x, y)
    g_off_x = -(16-rw)/2+rx
    g_off_y = -(16-rh)/2+ry
 
-   clip(rx*8+1,ry*8+1,rw*8-2,rh*8-2)
-   rectfill(0,0,127,127,5)
-   clip(rx*8+2,ry*8+2,rw*8-4,rh*8-4)
-   rectfill(0,0,127,127,1)
+   for k,v in pairs({5, 1, 1}) do
+      rect(rx*8+k,ry*8+k, (rx+rw)*8-k-1, (ry+rh)*8-k-1, v)
+   end
+
    clip(rx*8+4, ry*8+4, rw*8-8, rh*8-8)
 
    if g_menu_open then g_pal = g_pal_gray
@@ -26,28 +26,9 @@ function draw_cur_room(x, y)
 
 	scr_map(cur_room.x, cur_room.y, cur_room.x, cur_room.y, cur_room.w, cur_room.h)
 
-   printh("thing1: "..rw)
-   printh("thing2: "..rh)
-
-
-   -- rectfill(rx+1, ry+1, rx+rw-2, ry+rh-2, 1)
-   -- rectfill(1+rx, 13+ry, rw, rh, 1)
-   -- rectfill(0, 0, 127, 127, cur_room.c)
-   -- rectfill(rx+2, ry+2, rx+rw-3, ry+rh-3, cur_room.c)
-   
-   -- scr_rectfill(cur_room.x+4/8, cur_room.y+4/8, cur_room.x+cur_room.w-5/8, cur_room.y+cur_room.h-5/8, cur_room.c)
-	-- scr_map(88, 24, cur_room.x, cur_room.y, 8, 8)
-
    isorty(g_act_arrs["spr"])
    acts_loop("spr", "draw")
 
-   if g_menu_open then
-   -- fillp(0b1001001101101100.1)
-   -- rectfill(0,0,127,127,0x5d)
-   -- fillp()
-   end
-
-	-- scr_map(cur_room.x, cur_room.y, 0, 0, cur_room.w, cur_room.h, 1)
    clip()
    camera(0)
 
@@ -321,10 +302,8 @@ function load_room(new_room, rx, ry)
    cur_room = g_rooms[g_cur_room]
    x, y, w, h = cur_room.x, cur_room.y, cur_room.w, cur_room.h
 
-   -- for debugging now
    g_pl.x = x + rx
    g_pl.y = y + ry
-   -- end debugging
    g_ma = 54
 
 	load_view(x, y, w, h, 5, 11, 2, 2)

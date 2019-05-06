@@ -1,3 +1,9 @@
+-- token:
+-- 5180 5168 5166
+
+-- compress:
+-- 16285
+
 function _init()
    poke(0x5f34, 1) -- for pattern colors.
    g_pal_gray = gun_vals("5,5,13,13,5,6,6,6,6,6,6,6,13,6,6")
@@ -18,8 +24,6 @@ function _init()
 		--{ game_init,  nil, game_update,  game_draw }
 	--)
 
-   init_out_cache(54,127)
-
    tbox("lank:...:...:...:1234123456 901234567890 234123456 8901234567890 ")
 end
 
@@ -30,7 +34,7 @@ end
 
 function _draw()
 	cls()
-	tl_draw(g_tl)
+	tl_func(g_tl, "d")
    ttbox_draw(7, 0)
    draw_ma()
    zprint(stat(1), 75, 4)

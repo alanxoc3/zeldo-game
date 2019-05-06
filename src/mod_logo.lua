@@ -1,5 +1,5 @@
 -- amorg logo
--- 128 103 97 69 81 49 88 104 136 108 95 92
+-- 128 103 97 69 81 49 88 104 136 108 95 92 103
 
 -- the sound is assumed to be sfx 0!
 function init_logo()
@@ -23,14 +23,16 @@ function init_logo()
 end
 
 function draw_logo(x, y)
-   local lc = -sin(g_lct/2)*35
-   clip(x-lc/2, 0, lc, 127)
+   local lc1 = -sin(g_lct/2)*140
+   local lc2 = lc1*4/7
+   clip(x-lc1/2, y-lc2/2, lc1, lc2)
 
    if g_logo.current != 2 then
       camera(rnd(2)-1, rnd(2)-1)
    end
-      spr(227, x-16, y-4, 4, 2)
 
+   spr(227, x-16, y-8, 4, 2)
+   spr_out(54, 79, 64, 1, 1, false, false, 1)
    clip()
    camera()
 end
