@@ -1,3 +1,4 @@
+--
 -- todo: create palace map.
 -- todo: go through sprite file optimizations.
 -- todo: tl update return next.
@@ -15,9 +16,29 @@
 -- done: player item in front.
 -- done: think about sub table gun_vals cache. don't want. problem was state.
 -- done: fix enemy share state bug
+--
+--
+--
+--
+
+
+-- readme todos:
+-- todo: Connect everything.
+-- todo: Create title screen.
+-- todo: Create card transitions.
+-- todo: Make area information (if no enemy).
+-- todo: Make enemy health bar.
+-- todo: Connect Tbox with menu actors.
+-- todo: Menu actor name and different backgrounds.
+-- todo: Nice functions to integrate with menu actors.
+-- todo: Make a sign
+-- todo: Create separate logic between doors and map.
+
+
+
 
 -- token:
--- 5180 5168 5166 5129 5258 5248 5244
+-- 5180 5168 5166 5129 5258 5248 5244 5076
 
 -- compress:
 -- 16285 15360
