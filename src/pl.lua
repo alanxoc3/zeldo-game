@@ -67,7 +67,7 @@ function gen_pl(x, y)
          end
 
          if item then
-            if item.lank_sword or item.lank_shield then
+            if item then
                a.ax /= 2 a.ay /= 2
             else
                a.ax, a.ay = 0, 0
@@ -75,7 +75,7 @@ function gen_pl(x, y)
 
          end
 
-         a.anim_sind = item and item.lank_banjo and (btn(0) or btn(1) or btn(2) or btn(3)) and 57
+         a.anim_sind = nil
 
          -- walking animation logic
          if flr((abs(a.dx) + abs(a.dy))*50) > 0 then
