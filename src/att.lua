@@ -56,7 +56,7 @@ create_parent(
    att={
       alive=true,
       active=true,
-      clean=@
+      clean=@1
    }
 ]], function(a)
    if not a.alive then

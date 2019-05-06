@@ -99,7 +99,7 @@ end
 
 function gen_top(x, y)
    return create_actor([[
-      id=$hobgoblin$,
+      id=$top$,
       att={
          x=@,
          y=@,

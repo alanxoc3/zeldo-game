@@ -1,6 +1,7 @@
 -- todo: create palace map.
 -- todo: go through sprite file optimizations.
 -- todo: tl update return next.
+-- todo: fix enemy share state bug
 -- todo: tl embedded tl.
 -- todo: tl update don't use t(), or fix pausing.
 -- todo: gun vals number

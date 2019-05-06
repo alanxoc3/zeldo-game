@@ -23,7 +23,9 @@ function gun_vals_helper(val_str,i,new_params)
       elseif x == "}" or x == "," then
          if type(val) == "string" and sub(val,1,1) == "@" then
             local second = sub(val,2,#val)
-            printh("secc: "..second)
+            if #second > 0 then
+               printh("secc: "..second)
+            end
             add(new_params, {val_list, val_key or val_ind})
          elseif val == "true" or val == "false" or val == "" then val=val=="true"
          elseif isnum then val=0+val
