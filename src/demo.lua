@@ -1,4 +1,3 @@
--- todo: optimize gun nums again
 -- todo: create palace map.
 -- todo: go through sprite file optimizations.
 -- todo: tl update return next.
@@ -11,6 +10,7 @@
 -- todo: think about text interaction more.
 --
 -- done: gun vals number
+-- done: optimize gun nums again
 -- done: player banjo walk
 -- done: player no run
 -- done: player item in front.
@@ -38,7 +38,7 @@
 
 
 -- token:
--- 5180 5168 5166 5129 5258 5248 5244 5076 4983 5005
+-- 5180 5168 5166 5129 5258 5248 5244 5076 4983 5005 4994
 
 -- compress:
 -- 16285 15360
