@@ -4,8 +4,11 @@
 -- todo: tl embedded tl.
 -- todo: tl update don't use t(), or fix pausing.
 -- todo: gun vals number
--- todo: player no run
--- todo: player banjo walk
+-- todo: no double draw items
+--
+-- done: player banjo walk
+-- done: player no run
+-- done: player item in front.
 
 -- token:
 -- 5180 5168 5166

@@ -31,7 +31,8 @@ function gen_pl(x, y)
             hit=@,
             max_hearts=3,
             hearts=3,
-            update=@
+            update=@,
+            draw=@
          },
          par={$anim$,$col$,$mov$,$tcol$,$hurtable$,$knockable$,$stunnable$,$spr_out$}
       ]], x, y,
@@ -90,7 +91,12 @@ function gen_pl(x, y)
                a.item.xx = a.xx
             end
          end
-      end)
+      end, function(a)
+      scr_spr_out(a)
+      if a.item then
+         scr_spr(a.item)
+      end
+   end)
 end
 
 function gen_pl_item(pl, item_type)
@@ -169,7 +175,8 @@ function gen_pl_item(pl, item_type)
             return tl_init([[
                   {i=@, u=@}
                ]], function() 
-                  a.rel_x=a.xf and 1/8 or -1/8
+                  -- a.rel_x=a.xf and 2/8 or -2/8
+                  a.rel_y=0
                end, function()
                   if not a.holding then
                      a.alive, pl.item = false
