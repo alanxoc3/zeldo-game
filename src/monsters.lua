@@ -43,11 +43,10 @@ function gen_bullet(x, y, xdir)
       par={$tl$,$timed$,$spr$,$col$}
       ]],
       x, y, xdir and .25 or -.25,
-      function(a)
-         return tl_init([[{t=.5 }, {i=@, t=.15}, {i=@}]],
-            function() a.sind = 83 end,
-            function() a.alive = false end 
-         )
+      function()
+         return [[{t=.5 }, {i=@, t=.15}, {i=@}]],
+         function() a.sind = 83 end,
+         function() a.alive = false end 
       end,
       function(a, other, ...)
          if other.pl then
@@ -77,23 +76,23 @@ function gen_deku(x, y, can_turn)
       ]],
       x,y,
       -- init
-      function(a)
-         return tl_init([[
-               {u=@},
-               {i=@, .833},
-               {i=@, .833}
-            ]], function()
-               if axis_collide("y", g_pl, a) and (g_pl.x > a.x and a.xf or g_pl.x < a.x and not a.xf) then
-                  gen_bullet(a.x, a.y+.125, a.xf)
-                  tl_next(a.state)
-                  a.xf = g_pl.x < a.x
-               end
-            end, function()
-               a.xx, a.sind = a.xf and -1 or 1, 4
-            end, function()
-               a.sind = 5
+      function()
+         return [[
+            {u=@},
+            {i=@, .833},
+            {i=@, .833}
+         ]],
+         function()
+            if axis_collide("y", g_pl, a) and (g_pl.x > a.x and a.xf or g_pl.x < a.x and not a.xf) then
+               gen_bullet(a.x, a.y+.125, a.xf)
+               tl_next(a.state)
+               a.xf = g_pl.x < a.x
             end
-         )
+         end, function()
+            a.xx, a.sind = a.xf and -1 or 1, 4
+         end, function()
+            a.sind = 5
+         end
       end)
 end
 
@@ -110,27 +109,15 @@ function gen_top(x, y)
          yb=.4,
          sind=58,
          touchable=true,
-         init=@,
          hit=@
       },
-      par={$tl$,$mov$,$timed$,$spr_out$,$col$,$tcol$,$knockable$}
+      par={$tl$,$mov$,$timed$,$spr_out$,$col$,$tcol$,$knockable$},
+      tl={
+         {i=@, t=1.5},
+         {u=@, t=.5},
+         {i=@, t=1}
+      }
       ]],x,y,
-      -- init
-      function(a)
-         return tl_init([[
-               {i=@, t=1.5},
-               {u=@, t=.5},
-               {i=@, t=1}
-            ]], function()
-               a.ax, a.ay = 0, 0
-            end, function()
-               a.xx = rnd_one()
-               a.xf = g_pl.x < a.x
-            end, function()
-               amov_to_actor(a, g_pl, .05)
-            end
-         )
-      end,
       -- hit
       function(a, other, ...)
          if a.state.current == 3 then
@@ -139,5 +126,19 @@ function gen_top(x, y)
 
             tl_next(a.state)
          end
-      end)
+      end,
+      -- init 1
+      function(a)
+         a.ax, a.ay = 0, 0
+      end,
+      -- update 1
+      function(a)
+         a.xx = rnd_one()
+         a.xf = g_pl.x < a.x
+      end,
+      -- init 2
+      function(a)
+         amov_to_actor(a, g_pl, .05)
+      end
+      )
 end

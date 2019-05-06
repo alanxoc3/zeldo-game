@@ -1,7 +1,6 @@
 -- todo: create palace map.
 -- todo: go through sprite file optimizations.
 -- todo: tl update return next.
--- todo: fix enemy share state bug
 -- todo: tl embedded tl.
 -- todo: tl update don't use t(), or fix pausing.
 -- todo: gun vals number
@@ -14,9 +13,11 @@
 -- done: player banjo walk
 -- done: player no run
 -- done: player item in front.
+-- done: think about sub table gun_vals cache. don't want. problem was state.
+-- done: fix enemy share state bug
 
 -- token:
--- 5180 5168 5166 5129
+-- 5180 5168 5166 5129 5258 5248 5244
 
 -- compress:
 -- 16285 15360
@@ -27,12 +28,13 @@ function _init()
    g_pal_norm = gun_vals("1,2,3,4,5,6,7,8,9,10,11,12,13,14,15")
    g_pal = g_pal_norm
 
-   g_tl = tl_init([[
-         { i=@, u=@, d=@ }
-      ]],
-      -- init_logo, update_logo, draw_logo,
-      -- title_init, title_update, title_draw,
-      game_init, game_update, game_draw
+   g_tl = tl_init(gun_vals([[
+            { i=@, u=@, d=@ }
+         ]],
+         -- init_logo, update_logo, draw_logo,
+         -- title_init, title_update, title_draw,
+         game_init, game_update, game_draw
+      )
    )
       
       --{ init_logo,  2.5, update_logo,  draw_logo },
@@ -119,5 +121,5 @@ function game_init()
       gen_spawner(4, i, gen_top, 12)
    end
 
-   load_room("fairy grave entrance", 5, 5)
+   load_room("village", 5, 5)
 end

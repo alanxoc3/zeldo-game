@@ -2,17 +2,17 @@
 -- 151 148
 -- If update returns true, then 
 
-function tl_update(tl)
+function tl_update(tl, ...)
    -- switch the state
    if tl.time and (tl.timestamp + tl.time < t()) then
       tl.current = tl.next
       tl.next = (tl.current % #tl.master) + 1
       tl.time = tl.master[tl.current].t
-      tl_func(tl, "i") -- init func
+      tl_func(tl, "i", ...) -- init func
       tl.timestamp = t()
    end
 
-   tl_func(tl, "u") -- update func
+   tl_func(tl, "u", ...) -- update func
 end
 
 -- optional number of which state should be loaded next.
@@ -22,9 +22,9 @@ function tl_next(tl, num)
 end
 
 -- call a function if not nil
-function tl_func(tl, key)
+function tl_func(tl, key, ...)
    if tl.master[tl.current][key] then
-      return tl.master[tl.current][key]()
+      return tl.master[tl.current][key](...)
    end
 end
 
@@ -35,9 +35,9 @@ end
 --    draw:   callback for every frame.
 
 -- pass the array into this function.
-function tl_init(...)
-   local tl_master = gun_vals(...)
+function tl_init(tl_master, ...)
    assert(#tl_master > 0)
+   printh(tostring(tl_master))
 
    local tl = {
       master=tl_master,
@@ -48,7 +48,7 @@ function tl_init(...)
    }
 
    -- init function
-   tl_func(tl, "i")
+   tl_func(tl, "i", ...)
 
    return tl
 end

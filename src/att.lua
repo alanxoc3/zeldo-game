@@ -2,18 +2,20 @@
 g_act_arrs, g_attach = {}, {}
 function nf() end -- the nothing function
 
-function create_parent(str, ...)
-   local params = gun_vals(str, ...)
+-- first parameter is parsing string
+function create_parent(...)
+   local params = gun_vals(...)
    g_attach[params.id] = function(a)
       return acts_attach_helper(params, a or {})
    end
 end
 
-function create_actor(str, ...)
-   return acts_attach_helper(gun_vals(str, ...))
+-- params are: actor, parsing string
+function create_actor(...)
+   return acts_attach_helper(gun_vals(...))
 end
 
--- opt: {id, att, par}
+-- opt: {id, att, par, tl}
 function acts_attach_helper(opt, a)
    foreach(opt.par, function(sf) a = g_attach[sf](a) end)
 
@@ -27,7 +29,8 @@ function acts_attach_helper(opt, a)
       a[opt.id] = true
    end
 
-   a.state = a.init and a.init(a)
+   -- printh("please test")
+   if opt.tl then a.state = tl_init(opt.tl, a) end
 
    return a
 end
@@ -50,7 +53,6 @@ end
 ------------------------------------------
 
 -- to generate an actor.
--- includes update
 create_parent(
 [[ id=$act$,
    att={
@@ -64,6 +66,7 @@ create_parent(
    end
 end)
 
+-- this includes update
 create_parent(
 [[ id=$tl$,
    att={
@@ -72,7 +75,7 @@ create_parent(
    par={$stunnable$}
 ]], function(a)
    if a.stun_countdown == 0 then
-      tl_update(a.state)
+      tl_update(a.state, a)
    end
 end)
 

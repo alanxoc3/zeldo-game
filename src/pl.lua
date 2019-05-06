@@ -114,36 +114,17 @@ function gen_pl_item(pl, item_type)
             poke=0,
             xf=@,
             touchable=false,
-            init=@,
             hit=@
          },
-         par={$rel$,$tl$,$timed$,$spr$,$col$}
+         par={$rel$,$tl$,$timed$,$spr$,$col$},
+         tl={
+            {i=@, u=@, t=.4},
+            {u=@}
+         }
          ]],
          pl.xf,
-         function(a)
-            return tl_init([[
-                  {i=@, u=@, t=.4},
-                  {u=@}
-               ]], function() 
-                  a.rel_dx = a.xf and -.125 or .125
-                  a.ixx = a.xf and -1 or 1
-                  a.poke = 20
-               end, function()
-                  act_poke(a, -1, 0)
-                  if abs(a.rel_dx + a.rel_x) < 1 then
-                     a.rel_x += a.rel_dx
-                  else
-                     local neg_one = -1
-                     a.rel_dx, a.rel_x = 0, a.xf and neg_one or 1
-                  end
-               end, function()
-                  act_poke(a, -1, 0)
-                  if not a.holding then
-                     a.alive, pl.item = false
-                  end
-               end
-            )
-         end, function(a, other)
+         -- hit
+         function(a, other)
             if not other.pl then
                local knockback_val = (a.state.current == 1) and .3 or .1
                local hurt_val = (a.state.current == 1) and .1 or .2
@@ -154,7 +135,31 @@ function gen_pl_item(pl, item_type)
                a.poke = 10
                g_ma = other.sind
             end
-         end)
+         end,
+         -- init 1
+         function(a)
+            a.rel_dx = a.xf and -.125 or .125
+            a.ixx = a.xf and -1 or 1
+            a.poke = 20
+         end,
+         -- update 1
+         function(a)
+            act_poke(a, -1, 0)
+            if abs(a.rel_dx + a.rel_x) < 1 then
+               a.rel_x += a.rel_dx
+            else
+               local neg_one = -1
+               a.rel_dx, a.rel_x = 0, a.xf and neg_one or 1
+            end
+         end,
+         -- update 2
+         function(a)
+            act_poke(a, -1, 0)
+            if not a.holding then
+               a.alive, pl.item = false
+            end
+         end
+         )
 
    elseif item_type == 0 then
       return create_actor([[
@@ -166,26 +171,28 @@ function gen_pl_item(pl, item_type)
             sind=7,
             xf=@,
             touchable=false,
-            init=@
          },
-         par={$rel$,$tl$,$timed$,$spr$,$col$}
+         par={$rel$,$tl$,$timed$,$spr$,$col$},
+         tl={
+            {i=@, u=@}
+         }
          ]],
          pl.xf,
+         -- init 1
+         function(a) 
+            -- a.rel_x=a.xf and 2/8 or -2/8
+            a.rel_y=0
+         end,
+         -- update 1
          function(a)
-            return tl_init([[
-                  {i=@, u=@}
-               ]], function() 
-                  -- a.rel_x=a.xf and 2/8 or -2/8
-                  a.rel_y=0
-               end, function()
-                  if not a.holding then
-                     a.alive, pl.item = false
-                  end
-               end
-            )
-         end)
+            if not a.holding then
+               a.alive, pl.item = false
+            end
+         end
+      )
 
    elseif item_type == 7 then
+      local dist = .625
       return create_actor([[
          id=$lank_shield$,
          att={
@@ -198,37 +205,17 @@ function gen_pl_item(pl, item_type)
             sind=14,
             xf=@,
             touchable=false,
-            init=@,
             hit=@
          },
-         par={$rel$,$tl$,$timed$,$spr$,$col$}
+         par={$rel$,$tl$,$timed$,$spr$,$col$},
+         tl={
+            {i=@, u=@, t=.4},
+            {u=@}
+         }
       ]],
          pl.xf,
-         function(a)
-            local dist = .625
-            return tl_init([[
-                  {i=@, u=@, t=.4},
-                  {u=@}
-               ]], function() 
-                  a.rel_dx = a.xf and -dist/10 or dist/10
-                  a.ixx = a.xf and -3 or 3
-                  a.poke = 20
-               end, function()
-                  act_poke(a,  0, 1)
-                  if abs(a.rel_dx + a.rel_x) < dist then
-                     a.rel_x += a.rel_dx
-                  else
-                     local neg_one = -dist
-                     a.rel_dx, a.rel_x = 0, a.xf and neg_one or dist
-                  end
-               end, function()
-                  act_poke(a,  0, 1)
-                  if not a.holding then
-                     a.alive, pl.item = false
-                  end
-               end
-            )
-         end, function(a, other)
+         -- hit
+         function(a, other)
             if not other.pl then
                local knockback_val = (a.state.current == 1) and .4 or .2
                if other.knockable then other.knockback(other, knockback_val, a.xf and -1 or 1, 0) end
@@ -239,7 +226,31 @@ function gen_pl_item(pl, item_type)
                a.poke=10
                g_ma = other.sind
             end
-         end)
+         end,
+         -- init 1
+         function(a) 
+            a.rel_dx = a.xf and -dist/10 or dist/10
+            a.ixx = a.xf and -3 or 3
+            a.poke = 20
+         end,
+         -- update 1
+         function(a)
+            act_poke(a,  0, 1)
+            if abs(a.rel_dx + a.rel_x) < dist then
+               a.rel_x += a.rel_dx
+            else
+               local neg_one = -dist
+               a.rel_dx, a.rel_x = 0, a.xf and neg_one or dist
+            end
+         end,
+         -- update 2
+         function(a)
+            act_poke(a,  0, 1)
+            if not a.holding then
+               a.alive, pl.item = false
+            end
+         end
+      )
    else
       return nil
    end
