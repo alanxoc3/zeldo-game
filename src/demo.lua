@@ -1,10 +1,10 @@
 --
+-- todo: gun vals number
 -- todo: create palace map.
 -- todo: go through sprite file optimizations.
 -- todo: tl update return next.
 -- todo: tl embedded tl.
 -- todo: tl update don't use t(), or fix pausing.
--- todo: gun vals number
 -- todo: no double draw items
 -- todo: field fix up. Field and gravep connect better.
 -- todo: connect up grave dungeon.
@@ -38,7 +38,7 @@
 
 
 -- token:
--- 5180 5168 5166 5129 5258 5248 5244 5076
+-- 5180 5168 5166 5129 5258 5248 5244 5076 4983
 
 -- compress:
 -- 16285 15360

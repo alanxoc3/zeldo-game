@@ -29,7 +29,6 @@ function acts_attach_helper(opt, a)
       a[opt.id] = true
    end
 
-   -- printh("please test")
    if opt.tl then a.state = tl_init(opt.tl, a) end
 
    return a

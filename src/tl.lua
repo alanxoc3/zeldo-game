@@ -37,7 +37,6 @@ end
 -- pass the array into this function.
 function tl_init(tl_master, ...)
    assert(#tl_master > 0)
-   printh(tostring(tl_master))
 
    local tl = {
       master=tl_master,

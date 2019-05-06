@@ -1,29 +1,29 @@
-function tostring(any)
-    if type(any)=="function" then 
-        return "function" 
-    end
-    if any==nil then 
-        return "nil" 
-    end
-    if type(any)=="string" then
-        return any
-    end
-    if type(any)=="boolean" then
-        if any then return "true" end
-        return "false"
-    end
-    if type(any)=="table" then
-        local str = "{ "
-        for k,v in pairs(any) do
-            str=str..tostring(k).."->"..tostring(v).." "
-        end
-        return str.."}"
-    end
-    if type(any)=="number" then
-        return ""..any
-    end
-    return "unkown" -- should never show
-end
+-- function tostring(any)
+--     if type(any)=="function" then 
+--         return "function" 
+--     end
+--     if any==nil then 
+--         return "nil" 
+--     end
+--     if type(any)=="string" then
+--         return any
+--     end
+--     if type(any)=="boolean" then
+--         if any then return "true" end
+--         return "false"
+--     end
+--     if type(any)=="table" then
+--         local str = "{ "
+--         for k,v in pairs(any) do
+--             str=str..tostring(k).."->"..tostring(v).." "
+--         end
+--         return str.."}"
+--     end
+--     if type(any)=="number" then
+--         return ""..any
+--     end
+--     return "unkown" -- should never show
+-- end
 
 function rnd_one() return flr(rnd(3))-1 end
 
@@ -51,7 +51,7 @@ function gun_vals_helper(val_str,i,new_params)
          if type(val) == "string" and sub(val,1,1) == "@" then
             local second = sub(val,2,#val)
             if #second > 0 then
-               -- printh("secc: "..second)
+               printh("secc: "..second)
             end
             add(new_params, {val_list, val_key or val_ind})
          elseif val == "true" or val == "false" or val == "" then val=val=="true"
