@@ -10,9 +10,6 @@ forces of evil!
 - Create title screen.
 - Create card transitions.
 
-- Fix multiple enemy bug.
-- Fix shield on pl room move bug.
-
 - Make area information (if no enemy).
 - Make enemy health bar.
 
