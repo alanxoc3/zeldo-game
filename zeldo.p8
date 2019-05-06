@@ -9,17 +9,16 @@ __lua__
 
 #include src/map.lua
 #include src/menu.lua
-#include src/mod_att.lua
-#include src/mod_logo.lua
-#include src/mod_tbox.lua
+#include src/att.lua
+#include src/logo.lua
+#include src/tbox.lua
+#include src/tcol.lua
+#include src/tl.lua
+#include src/view.lua
 
-#include src/mod_tcol.lua
-#include src/mod_tl.lua
-#include src/mod_view.lua
 #include src/monsters.lua
 #include src/move_funcs.lua
 #include src/pl.lua
-
 
 -- tests
 -- #include src/tst_logo.lua
