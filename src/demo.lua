@@ -1,13 +1,17 @@
 -- todo: create palace map.
 -- todo: go through sprite file optimizations.
 -- todo: think about stateful draw.
+
 -- todo: tl update return next.
 -- todo: tl embedded tl.
 -- todo: tl update don't use t(), or fix pausing.
+
 -- todo: no double draw items
 -- todo: field fix up. Field and gravep connect better.
+
 -- todo: connect up grave dungeon.
 -- todo: connect up palace.
+
 -- todo: think about text interaction more.
 --
 -- done: gun vals number
