@@ -1,5 +1,6 @@
 -- todo: create palace map.
 -- todo: go through sprite file optimizations.
+-- todo: think about stateful draw.
 -- todo: tl update return next.
 -- todo: tl embedded tl.
 -- todo: tl update don't use t(), or fix pausing.
@@ -38,7 +39,7 @@
 
 
 -- token:
--- 5180 5168 5166 5129 5258 5248 5244 5076 4983 5005 4994
+-- 5180 5168 5166 5129 5258 5248 5244 5076 4983 5005 4994 4986
 
 -- compress:
 -- 16285 15360

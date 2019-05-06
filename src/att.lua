@@ -1,4 +1,6 @@
 -- attachment module
+-- goes after libraries. (lib and draw)
+
 g_act_arrs, g_attach = {}, {}
 function nf() end -- the nothing function
 

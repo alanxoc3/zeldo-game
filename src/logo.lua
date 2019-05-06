@@ -1,33 +1,6 @@
 -- amorg logo
 -- 128 103 97 69 81 49 88 104 136 108 95 92 103
 
--- the sound is assumed to be sfx 0!
-function init_logo()
-   g_lct = 0
-   local update_logo_time = function()
-      g_lct = t()-g_lt
-   end
-
-   g_logo = tl_init(gun_vals([[
-         { t=.5 },
-         { i=@1, u=@2, t=.5 },
-         { t=1 },
-         { i=@3, u=@2, t=.5 },
-         { t=.5 }
-      ]],
-      -- 1
-      function()
-         g_lt = t()
-         g_lct = 0
-      end,
-      -- 2
-      update_logo_time,
-      -- 3
-      function() g_lt += 1 end
-      )
-   )
-end
-
 function draw_logo(x, y)
    local lc1 = -sin(g_lct/2)*140
    local lc2 = lc1*4/7
@@ -42,3 +15,27 @@ function draw_logo(x, y)
    clip()
    camera()
 end
+
+-- the sound is assumed to be sfx 0!
+g_logo = tl_init(gun_vals([[
+      { d=@4, i=@1, t=.5 },
+      { d=@4, i=@1, u=@2, t=.5 },
+      { d=@4, t=1 },
+      { d=@4, i=@3, u=@2, t=.5 },
+      { d=@4, t=.5 }
+   ]],
+   -- 1
+   function()
+      g_lt = t()
+      g_lct = 0
+   end,
+   -- 2 update logo
+   function()
+      g_lct = t()-g_lt
+   end,
+   -- 3
+   function() g_lt += 1 end,
+   -- 4
+   draw_logo
+   )
+)
