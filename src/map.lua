@@ -27,7 +27,7 @@ function draw_cur_room(x, y)
    scr_map(cur_room.x, cur_room.y, cur_room.x, cur_room.y, cur_room.w, cur_room.h)
 
    isorty(g_act_arrs["spr"])
-   acts_loop("spr", "draw")
+   acts_loop("drawable", "draw")
 
    clip()
    camera(0)

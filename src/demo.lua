@@ -1,10 +1,11 @@
 -- todo: create palace map.
 -- todo: go through sprite file optimizations.
--- todo: think about stateful draw.
+-- todo: change drawing functions to work with tl better. Incorporate tl even
+-- more.
+-- either 
 
 -- todo: tl update return next.
 -- todo: tl embedded tl.
--- todo: tl update don't use t(), or fix pausing.
 
 -- todo: no double draw items
 -- todo: field fix up. Field and gravep connect better.
@@ -21,6 +22,8 @@
 -- done: player item in front.
 -- done: think about sub table gun_vals cache. don't want. problem was state.
 -- done: fix enemy share state bug
+-- done: tl update don't use t(), or fix pausing.
+-- done: create stateful draw.
 
 -- readme todos:
 -- todo: Connect everything.
@@ -38,7 +41,7 @@
 
 
 -- token:
--- 5180 5168 5166 5129 5258 5248 5244 5076 4983 5005 4994 4986
+-- 5180 5168 5166 5129 5258 5248 5244 5076 4983 5005 4994 4986 4985
 
 -- compress:
 -- 16285 15360

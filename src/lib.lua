@@ -1,6 +1,5 @@
 -- lib. make sure this is first.
 
-
 -- function tostring(any)
 --     if type(any)=="function" then 
 --         return "function" 
@@ -97,16 +96,20 @@ end
 -- If update returns true, then 
 
 function tl_update(tl, ...)
-   -- switch the state
-   if tl.time and (tl.timestamp + tl.time < t()) then
-      tl.current = tl.next
-      tl.next = (tl.current % #tl.master) + 1
-      tl.time = tl.master[tl.current].t
-      tl_func(tl, "i", ...) -- init func
-      tl.timestamp = t()
-   end
+	-- switch the state
+	if tl.time == 0 then
+		tl.current = tl.next
+		tl.next = (tl.current % #tl.master) + 1
+		tl.time = tl.master[tl.current].t
+		tl_func(tl, "i", ...) -- init func
+	end
 
-   tl_func(tl, "u", ...) -- update func
+	tl_func(tl, "u", ...) -- update func
+
+	-- inc timer if enabled
+	if tl.time then
+		tl.time = max(0, tl.time - 1/60)
+	end
 end
 
 -- optional number of which state should be loaded next.
@@ -136,8 +139,7 @@ function tl_init(tl_master, ...)
       master=tl_master,
       current=1,
       next=(1 % #tl_master)+1,
-      time = tl_master[1].t,
-      timestamp = t()
+      time = tl_master[1].t
    }
 
    -- init function

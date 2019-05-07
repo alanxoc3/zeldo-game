@@ -40,7 +40,7 @@ function gen_top(x, y)
          touchable=true,
          hit=@3
       },
-      par={$tl$,$mov$,$timed$,$spr_out$,$col$,$tcol$,$knockable$},
+      par={$tl$,$spr_out$,$mov$,$timed$,$col$,$tcol$,$knockable$},
       tl={
          {i=@4, t=1.5},
          {u=@5, t=.5},

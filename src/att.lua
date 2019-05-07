@@ -71,13 +71,17 @@ end)
 create_parent(
 [[ id=$tl$,
    att={
-      update=@1
+      update=@1,
+      draw=@2
    },
-   par={$stunnable$}
+   par={$drawable$, $stunnable$}
 ]], function(a)
    if a.stun_countdown == 0 then
       tl_update(a.state, a)
    end
+end,
+function(a)
+   tl_func(a.state, "d", a)
 end)
 
 create_parent(
