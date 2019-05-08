@@ -26,12 +26,11 @@ function draw_cur_room(x, y)
 
    scr_map(cur_room.x, cur_room.y, cur_room.x, cur_room.y, cur_room.w, cur_room.h)
 
-   isorty(g_act_arrs["spr"])
+   isorty(g_act_arrs["drawable"])
    acts_loop("drawable", "draw")
 
    clip()
    camera(0)
-
 end
 
 function isorty(t)
@@ -83,18 +82,21 @@ function map_init()
       w=15,
       h=6,
       l={$field$,     31, 9},
-      r={$graveyard$, 1,  18}
+      r={$graveyard$, 1,  29}
    },
 
    $graveyard$={
       c=5,
       x=112,
-      y=11,
+      y=0,
       w=16,
-      h=21,
+      h=32,
       l={$graveyard path$,       14, 3},
-      u={$fairy grave entrance$, 8, 11},
-      r={$canyon path$,          1, 2}
+      r={$canyon path$,          1, 2},
+      d={$graveyard$, 8, 1},
+      $doors$={
+         {$grave_novi$,2.5,3.5,2.5,6,.5,.5}
+      }
    },
 
    $canyon path$={
@@ -103,7 +105,7 @@ function map_init()
       y=6,
       w=15,
       h=8,
-      l={$graveyard$,       15, 6},
+      l={$graveyard$,       15, 17},
       r={$canyon$,           1, 12}
    },
 
@@ -235,18 +237,6 @@ function map_init()
       u={$maze boss$, 8, 11}
    },
 
-   $fairy grave entrance$={
-      c=5,
-      x=112,
-      y=0,
-      w=16,
-      h=12,
-      d={$graveyard$, 8, 1},
-      $doors$={
-         {$grave_novi$,2.5,3.5,2.5,6,.5,.5}
-      }
-   },
-
    $grave_novi$={
       c=5,
       x=96,
@@ -255,7 +245,7 @@ function map_init()
       h=8,
       r={$grave 1$,1,6.5},
       $doors$={
-         {$fairy grave entrance$,2.5,4.5,2.5,2.5,.5,.5}
+         {$graveyard$,2.5,4.5,2.5,2.5,.5,.5}
       }
    },
 

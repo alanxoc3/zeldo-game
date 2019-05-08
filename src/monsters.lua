@@ -41,11 +41,11 @@ function gen_top(x, y)
          sind=58,
          touchable=true
       },
-      par={$spr_out$,$mov$,$timed$,$col$,$tcol$,$knockable$},
+      par={$spr$,$mov$,$timed$,$col$,$tcol$,$knockable$},
       tl={
-         {i=@4, t=1.5},
-         {u=@5, t=.5},
-         {i=@6, hit=@3, t=1}
+         {d=@7, i=@4, t=1.5},
+         {d=@7, u=@5, t=.5},
+         {d=@7, i=@6, hit=@3, t=1}
       }
       ]],x,y,
       -- hit
@@ -66,6 +66,7 @@ function gen_top(x, y)
       -- init 2
       function(a)
          amov_to_actor(a, g_pl, .05)
-      end
+      end,
+      scr_spr_out
    )
 end

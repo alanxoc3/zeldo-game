@@ -4,6 +4,8 @@
 -- todo: create actor/parent more simple? Very similar now.
 
 -- todo: tl embedded tl.
+-- todo: tl takes no parameters? debate about this idea.
+-- todo: pl item shakes with pl.
 
 -- todo: no double draw items
 -- todo: field fix up. Field and gravep connect better.
@@ -22,7 +24,7 @@
 -- done: fix enemy share state bug
 -- done: tl update don't use t(), or fix pausing.
 -- done: create stateful draw.
--- todo: tl update return next.
+-- done: tl update return next.
 
 -- readme todos:
 -- todo: Connect everything.
@@ -41,7 +43,7 @@
 
 -- token:
 -- 5180 5168 5166 5129 5258 5248 5244 5076 4983 5005 4994 4986 4985 4976 4965
--- 4971
+-- 4971 4979
 
 -- compress:
 -- 16285 15360
@@ -144,5 +146,5 @@ function game_init()
       gen_spawner(4, i, gen_top, 12)
    end
 
-   load_room("village", 5, 5)
+   load_room("graveyard path", 4, 4)
 end

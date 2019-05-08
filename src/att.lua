@@ -33,7 +33,7 @@ function acts_attach_helper(opt, a)
 
    if opt.tl then
       tl_attach(a, opt.tl)
-    end
+   end
 
    return a
 end
@@ -163,7 +163,9 @@ create_parent(
       draw=@1,
       reset_off=@2
    }
-]], nf, function(a)
+]], function(a, ...)
+   tl_func(a, "d", a, ...)
+end, function(a)
    a.xx, a.yy = 0, 0
 end)
 
@@ -174,19 +176,10 @@ create_parent(
       sw=1,
       sh=1,
       xf=false,
-      yf=false,
-      draw=@1
+      yf=false
    },
    par={$vec$,$drawable$}
-]], scr_spr)
-
-create_parent(
-[[ id=$spr_out$,
-   att={
-      draw=@1
-   },
-   par={$spr$}
-]], scr_spr_out)
+]])
 
 create_parent(
 [[ id=$knockable$,
@@ -202,7 +195,6 @@ end)
 create_parent(
 [[ id=$stunnable$,
    att={
-      stun_countdown=0,
       stun=@1,
       stun_update=@2
    },

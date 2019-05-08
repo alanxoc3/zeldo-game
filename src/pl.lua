@@ -32,7 +32,7 @@ function gen_pl(x, y)
             hearts=3,
             draw=@5
          },
-         par={$anim$,$col$,$mov$,$tcol$,$hurtable$,$knockable$,$stunnable$,$spr_out$},
+         par={$anim$,$col$,$mov$,$tcol$,$hurtable$,$knockable$,$stunnable$,$spr$},
          tl={
             {u=@4, hit=@3}
          }
