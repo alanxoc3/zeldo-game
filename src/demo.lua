@@ -146,5 +146,5 @@ function game_init()
       gen_spawner(4, i, gen_top, 12)
    end
 
-   load_room("graveyard path", 4, 4)
+   load_room("graveyard", 4, 4)
 end
