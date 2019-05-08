@@ -31,10 +31,12 @@ function gen_pl(x, y)
             hit=@3,
             max_hearts=3,
             hearts=3,
-            update=@4,
             draw=@5
          },
-         par={$anim$,$col$,$mov$,$tcol$,$hurtable$,$knockable$,$stunnable$,$spr_out$}
+         par={$anim$,$col$,$mov$,$tcol$,$hurtable$,$knockable$,$stunnable$,$spr_out$},
+         tl={
+            {u=@4}
+         }
       ]], x, y,
       function(self, other, xdir, ydir)
       end, function(a)
@@ -116,7 +118,7 @@ function gen_pl_item(pl, item_type)
             touchable=false,
             hit=@2
          },
-         par={$rel$,$tl$,$spr$,$col$},
+         par={$rel$,$spr$,$col$},
          tl={
             {i=@3, u=@4, t=.4},
             {u=@5}
@@ -126,8 +128,8 @@ function gen_pl_item(pl, item_type)
          -- hit
          function(a, other)
             if not other.pl then
-               local knockback_val = (a.state.tl_curr == 1) and .3 or .1
-               local hurt_val = (a.state.tl_curr == 1) and .1 or .2
+               local knockback_val = (a.tl_curr == 1) and .3 or .1
+               local hurt_val = (a.tl_curr == 1) and .1 or .2
                if other.knockable then other.knockback(other, knockback_val, a.xf and -1 or 1, 0) end
                if other.stunnable then other.stun(other, 30) end
                if other.hurtable  then other.hurt(other, .5) end
@@ -172,7 +174,7 @@ function gen_pl_item(pl, item_type)
             xf=@1,
             touchable=false,
          },
-         par={$rel$,$tl$,$spr$,$col$},
+         par={$rel$,$spr$,$col$},
          tl={
             {i=@2, u=@3}
          }
@@ -207,7 +209,7 @@ function gen_pl_item(pl, item_type)
             touchable=false,
             hit=@2
          },
-         par={$rel$,$tl$,$spr$,$col$},
+         par={$rel$,$spr$,$col$},
          tl={
             {i=@3, u=@4, t=.4},
             {u=@5}
@@ -217,10 +219,10 @@ function gen_pl_item(pl, item_type)
          -- hit
          function(a, other)
             if not other.pl then
-               local knockback_val = (a.state.tl_curr == 1) and .4 or .2
+               local knockback_val = (a.tl_curr == 1) and .4 or .2
                if other.knockable then other.knockback(other, knockback_val, a.xf and -1 or 1, 0) end
                g_pl.knockback(g_pl, .1, a.xf and 1 or -1, 0)
-               if other.stunnable and a.state.tl_curr == 1 then
+               if other.stunnable and a.tl_curr == 1 then
                   other.stun(other, 60)
                end
                a.poke=10

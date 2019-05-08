@@ -1,10 +1,8 @@
 -- todo: create palace map.
 -- todo: go through sprite file optimizations.
--- todo: change drawing functions to work with tl better. Incorporate tl even
--- more.
--- either 
+-- todo: change drawing functions to work with tl better. Incorporate tl even more.
+-- todo: create actor/parent more simple? Very similar now.
 
--- todo: tl update return next.
 -- todo: tl embedded tl.
 
 -- todo: no double draw items
@@ -14,7 +12,7 @@
 -- todo: connect up palace.
 
 -- todo: think about text interaction more.
---
+
 -- done: gun vals number
 -- done: optimize gun nums again
 -- done: player banjo walk
@@ -24,6 +22,7 @@
 -- done: fix enemy share state bug
 -- done: tl update don't use t(), or fix pausing.
 -- done: create stateful draw.
+-- todo: tl update return next.
 
 -- readme todos:
 -- todo: Connect everything.
@@ -41,7 +40,8 @@
 
 
 -- token:
--- 5180 5168 5166 5129 5258 5248 5244 5076 4983 5005 4994 4986 4985
+-- 5180 5168 5166 5129 5258 5248 5244 5076 4983 5005 4994 4986 4985 4976 4965
+-- 4971
 
 -- compress:
 -- 16285 15360
@@ -52,13 +52,12 @@ function _init()
    g_pal_norm = gun_vals("1,2,3,4,5,6,7,8,9,10,11,12,13,14,15")
    g_pal = g_pal_norm
 
-   g_tl = tl_init(gun_vals([[
-            { i=@1, u=@2, d=@3 }
-         ]],
-         -- init_logo, update_logo, draw_logo,
-         -- title_init, title_update, title_draw,
-         game_init, game_update, game_draw
-      )
+   g_tl = tl_init([[
+         { i=@1, u=@2, d=@3 }
+      ]],
+      -- init_logo, update_logo, draw_logo,
+      -- title_init, title_update, title_draw,
+      game_init, game_update, game_draw
    )
       
       --{ init_logo,  2.5, update_logo,  draw_logo },

@@ -17,7 +17,7 @@ function draw_logo(x, y)
 end
 
 -- the sound is assumed to be sfx 0!
-g_logo = tl_init(gun_vals([[
+g_logo = tl_init([[
       { d=@4, i=@1, t=.5 },
       { d=@4, i=@1, u=@2, t=.5 },
       { d=@4, t=1 },
@@ -37,5 +37,4 @@ g_logo = tl_init(gun_vals([[
    function() g_lt += 1 end,
    -- 4
    draw_logo
-   )
 )

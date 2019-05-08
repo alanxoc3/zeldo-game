@@ -31,7 +31,9 @@ function acts_attach_helper(opt, a)
       a[opt.id] = true
    end
 
-   if opt.tl then a.state = tl_init(opt.tl, a) end
+   if opt.tl then
+      tl_attach(a, opt.tl)
+    end
 
    return a
 end
@@ -59,29 +61,18 @@ create_parent(
    att={
       alive=true,
       active=true,
-      clean=@1
+      stun_countdown=0,
+      update=@1,
+      clean=@2
    }
 ]], function(a)
+   if a.stun_countdown == 0 then
+      tl_update(a, a)
+   end
+end, function(a)
    if not a.alive then
       del_act(a)
    end
-end)
-
--- this includes update
-create_parent(
-[[ id=$tl$,
-   att={
-      update=@1,
-      draw=@2
-   },
-   par={$drawable$, $stunnable$}
-]], function(a)
-   if a.stun_countdown == 0 then
-      tl_update(a.state, a)
-   end
-end,
-function(a)
-   tl_func(a.state, "d", a)
 end)
 
 create_parent(

@@ -7,12 +7,14 @@ function gen_spawner(x, y, func, buf_len, ...)
    return create_actor([[
          id=$spawner$,
          att={
-            x=@1,
-            y=@2,
             child=,
-            update=@3
+            x=@1,
+            y=@2
          },
-         par={$dim$}
+         par={$dim$},
+         tl={
+            {u=@3}
+         }
       ]], x, y,
       function(a)
          local acol = dim_collide(a, get_buf_rect(buf_len))
@@ -40,7 +42,7 @@ function gen_top(x, y)
          touchable=true,
          hit=@3
       },
-      par={$tl$,$spr_out$,$mov$,$timed$,$col$,$tcol$,$knockable$},
+      par={$spr_out$,$mov$,$timed$,$col$,$tcol$,$knockable$},
       tl={
          {i=@4, t=1.5},
          {u=@5, t=.5},
@@ -49,11 +51,11 @@ function gen_top(x, y)
       ]],x,y,
       -- hit
       function(a, other, ...)
-         if a.state.tl_curr == 3 then
+         if a.tl_curr == 3 then
             if other.pl then other.hurt(other, 1) other.stun(other, 30) end
             if other.knockable then other.knockback(other, .2, ...) end
 
-            tl_next(a.state)
+            tl_next(a)
          end
       end,
       -- init 1

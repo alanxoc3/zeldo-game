@@ -1,32 +1,5 @@
 -- lib. make sure this is first.
 
--- function tostring(any)
---     if type(any)=="function" then 
---         return "function" 
---     end
---     if any==nil then 
---         return "nil" 
---     end
---     if type(any)=="string" then
---         return any
---     end
---     if type(any)=="boolean" then
---         if any then return "true" end
---         return "false"
---     end
---     if type(any)=="table" then
---         local str = "{ "
---         for k,v in pairs(any) do
---             str=str..tostring(k).."->"..tostring(v).." "
---         end
---         return str.."}"
---     end
---     if type(any)=="number" then
---         return ""..any
---     end
---     return "unkown" -- should never show
--- end
-
 function rnd_one() return flr(rnd(3))-1 end
 
 function batch_call(func, str, ...)
@@ -92,8 +65,7 @@ function gun_vals(val_str, ...)
    return lookup[1]
 end
 
--- tl
--- If update returns true, then 
+-- tl - if update returns true, then 
 
 function tl_update(tl, ...)
 	-- switch the state
@@ -104,7 +76,10 @@ function tl_update(tl, ...)
 		tl_func(tl, "i", ...) -- init func
 	end
 
-	tl_func(tl, "u", ...) -- update func
+   -- update func
+	if tl_func(tl, "u", ...) then
+      tl.tl_time = 0
+   end
 
 	-- inc timer if enabled
 	if tl.tl_time then
@@ -129,21 +104,43 @@ end
 --    init:   init callback. called right before the first update.
 --    timer:  t > 0: measured in seconds. t == 0: done. t < 0: disabled.
 --    update: callback for every frame.
---    draw:   callback for every frame.
 
 -- pass the array into this function.
-function tl_init(tl_mast, ...)
+function tl_attach(tl, tl_mast)
    assert(#tl_mast > 0)
-
-   local tl = {
-      tl_mast=tl_mast,
-      tl_curr=1,
-      tl_next=(1 % #tl_mast)+1,
-      tl_time = tl_mast[1].t
-   }
-
-   -- init function
-   tl_func(tl, "i", ...)
-
+   tl.tl_mast, tl.tl_curr, tl.tl_next, tl.tl_time = tl_mast, 0, 1, 0
    return tl
 end
+
+function tl_init(str, ...)
+   return tl_attach({}, gun_vals(str, ...))
+end
+
+-- debug thing
+-- function tostring(any)
+--     if type(any)=="function" then 
+--         return "function" 
+--     end
+--     if any==nil then 
+--         return "nil" 
+--     end
+--     if type(any)=="string" then
+--         return any
+--     end
+--     if type(any)=="boolean" then
+--         if any then return "true" end
+--         return "false"
+--     end
+--     if type(any)=="table" then
+--         local str = "{ "
+--         for k,v in pairs(any) do
+--             str=str..tostring(k).."->"..tostring(v).." "
+--         end
+--         return str.."}"
+--     end
+--     if type(any)=="number" then
+--         return ""..any
+--     end
+--     return "unkown" -- should never show
+-- end
+
