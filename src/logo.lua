@@ -6,7 +6,7 @@ function draw_logo(x, y)
    local lc2 = lc1*4/7
    clip(x-lc1/2, y-lc2/2, lc1, lc2)
 
-   if g_logo.current != 3 then
+   if g_logo.tl_curr != 3 then
       camera(rnd(2)-1, rnd(2)-1)
    end
 

@@ -49,7 +49,7 @@ function gen_top(x, y)
       ]],x,y,
       -- hit
       function(a, other, ...)
-         if a.state.current == 3 then
+         if a.state.tl_curr == 3 then
             if other.pl then other.hurt(other, 1) other.stun(other, 30) end
             if other.knockable then other.knockback(other, .2, ...) end
 
@@ -69,5 +69,5 @@ function gen_top(x, y)
       function(a)
          amov_to_actor(a, g_pl, .05)
       end
-      )
+   )
 end

@@ -97,31 +97,31 @@ end
 
 function tl_update(tl, ...)
 	-- switch the state
-	if tl.time == 0 then
-		tl.current = tl.next
-		tl.next = (tl.current % #tl.master) + 1
-		tl.time = tl.master[tl.current].t
+	if tl.tl_time == 0 then
+		tl.tl_curr = tl.tl_next
+		tl.tl_next = (tl.tl_curr % #tl.tl_mast) + 1
+		tl.tl_time = tl.tl_mast[tl.tl_curr].t
 		tl_func(tl, "i", ...) -- init func
 	end
 
 	tl_func(tl, "u", ...) -- update func
 
 	-- inc timer if enabled
-	if tl.time then
-		tl.time = max(0, tl.time - 1/60)
+	if tl.tl_time then
+		tl.tl_time = max(0, tl.tl_time - 1/60)
 	end
 end
 
 -- optional number of which state should be loaded next.
 function tl_next(tl, num)
-   tl.time=0
-   if num then tl.next=num end
+   tl.tl_time=0
+   if num then tl.tl_next=num end
 end
 
 -- call a function if not nil
 function tl_func(tl, key, ...)
-   if tl.master[tl.current][key] then
-      return tl.master[tl.current][key](...)
+   if tl.tl_mast[tl.tl_curr][key] then
+      return tl.tl_mast[tl.tl_curr][key](...)
    end
 end
 
@@ -132,14 +132,14 @@ end
 --    draw:   callback for every frame.
 
 -- pass the array into this function.
-function tl_init(tl_master, ...)
-   assert(#tl_master > 0)
+function tl_init(tl_mast, ...)
+   assert(#tl_mast > 0)
 
    local tl = {
-      master=tl_master,
-      current=1,
-      next=(1 % #tl_master)+1,
-      time = tl_master[1].t
+      tl_mast=tl_mast,
+      tl_curr=1,
+      tl_next=(1 % #tl_mast)+1,
+      tl_time = tl_mast[1].t
    }
 
    -- init function
