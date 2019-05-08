@@ -28,14 +28,13 @@ function gen_pl(x, y)
             spd=.02,
             anim_len=3,
             anim_spd=5,
-            hit=@3,
             max_hearts=3,
             hearts=3,
             draw=@5
          },
          par={$anim$,$col$,$mov$,$tcol$,$hurtable$,$knockable$,$stunnable$,$spr_out$},
          tl={
-            {u=@4}
+            {u=@4, hit=@3}
          }
       ]], x, y,
       function(self, other, xdir, ydir)
@@ -115,13 +114,12 @@ function gen_pl_item(pl, item_type)
             sind=8,
             poke=0,
             xf=@1,
-            touchable=false,
-            hit=@2
+            touchable=false
          },
          par={$rel$,$spr$,$col$},
          tl={
-            {i=@3, u=@4, t=.4},
-            {u=@5}
+            {hit=@2, i=@3, u=@4, t=.4},
+            {hit=@2, u=@5}
          }
          ]],
          pl.xf,
@@ -206,13 +204,12 @@ function gen_pl_item(pl, item_type)
             poke=20,
             sind=14,
             xf=@1,
-            touchable=false,
-            hit=@2
+            touchable=false
          },
          par={$rel$,$spr$,$col$},
          tl={
-            {i=@3, u=@4, t=.4},
-            {u=@5}
+            {hit=@2, i=@3, u=@4, t=.4},
+            {hit=@2, u=@5}
          }
       ]],
          pl.xf,

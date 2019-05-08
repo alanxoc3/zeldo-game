@@ -39,24 +39,20 @@ function gen_top(x, y)
          xb=.4,
          yb=.4,
          sind=58,
-         touchable=true,
-         hit=@3
+         touchable=true
       },
       par={$spr_out$,$mov$,$timed$,$col$,$tcol$,$knockable$},
       tl={
          {i=@4, t=1.5},
          {u=@5, t=.5},
-         {i=@6, t=1}
+         {i=@6, hit=@3, t=1}
       }
       ]],x,y,
       -- hit
       function(a, other, ...)
-         if a.tl_curr == 3 then
-            if other.pl then other.hurt(other, 1) other.stun(other, 30) end
-            if other.knockable then other.knockback(other, .2, ...) end
-
-            tl_next(a)
-         end
+         if other.pl then other.hurt(other, 1) other.stun(other, 30) end
+         if other.knockable then other.knockback(other, .2, ...) end
+         tl_next(a)
       end,
       -- init 1
       function(a)

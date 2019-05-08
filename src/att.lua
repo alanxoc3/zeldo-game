@@ -268,7 +268,9 @@ create_parent(
       move_check=@2
    },
    par={$vec$,$dim$}
-]], nf, function(a, acts)
+]], function(a, ...)
+   tl_func(a, "hit", a, ...)
+end, function(a, acts)
    local other_list = {}
    local move_check = function(dx, dy)
       local touched = false
