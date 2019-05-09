@@ -134,7 +134,10 @@ function map_init()
       y=32,
       w=16,
       h=12,
-      u={$maze start$, 4, 7}
+      u={$maze trap$, 8, 11},
+      r={$maze trap$, 1, 6},
+      l={$maze trap$, 15, 6},
+      d={$maze trap$, 8, 1}
    },
 
    $maze start$={
@@ -154,8 +157,8 @@ function map_init()
       y=32,
       w=8,
       h=8,
-      u={$maze trap$,  8, 6},
-      l={$maze trap$,  8, 6},
+      u={$maze trap$,  8, 11},
+      l={$maze trap$,  15, 6},
       r={$maze start$, 1, 4},
       d={$maze 2$,     4, 1}
    },

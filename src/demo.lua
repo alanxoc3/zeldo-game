@@ -4,14 +4,14 @@
 -- todo: create actor/parent more simple? Very similar now.
 
 -- todo: tl embedded tl.
--- todo: tl takes no parameters? debate about this idea.
 -- todo: pl item shakes with pl.
 
 -- todo: no double draw items
 -- todo: field fix up. Field and gravep connect better.
 
+-- todo: think about connecting map logic.
 -- todo: connect up grave dungeon.
--- todo: connect up palace.
+-- todo: connect up castle
 
 -- todo: think about text interaction more.
 
@@ -25,6 +25,7 @@
 -- done: tl update don't use t(), or fix pausing.
 -- done: create stateful draw.
 -- done: tl update return next.
+-- done: tl takes no parameters? debate about this idea.
 
 -- readme todos:
 -- todo: Connect everything.
@@ -146,5 +147,5 @@ function game_init()
       gen_spawner(4, i, gen_top, 12)
    end
 
-   load_room("graveyard", 4, 4)
+   load_room("field", 4, 4)
 end
