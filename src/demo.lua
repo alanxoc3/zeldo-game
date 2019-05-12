@@ -1,3 +1,9 @@
+-- todo: house needs to clean up after itself.
+-- todo: enemy needs to collide with house correctly
+-- todo: menu enemy support must be better.
+-- todo: map rooms need separate init functions.
+-- todo: delete old map room logic.
+--
 -- todo: create palace map.
 -- todo: go through sprite file optimizations.
 -- todo: change drawing functions to work with tl better. Incorporate tl even more.
@@ -80,7 +86,7 @@ function _draw()
    cls()
    tl_func(g_tl, "d")
    ttbox_draw(7, 0)
-   draw_ma()
+   -- draw_ma()
    zprint(stat(1), 75, 4)
 end
 
@@ -125,7 +131,7 @@ function game_draw()
    end
 
 
-   acts_loop("dim", "debug_rect")
+   -- acts_loop("dim", "debug_rect")
    draw_status_bars()
    print(g_rooms[g_cur_room].n or g_cur_room, 30, 110, 7)
    -- draw_glitch_effect()
@@ -147,7 +153,7 @@ function game_init()
       gen_spawner(4, i, gen_top, 12)
    end
 
-   gen_house(36,19.5,"village")
+   gen_house(2,17.5,"lank's house")
 
-   load_room("field", 4, 4)
+   load_room("lank's path", 4, 4)
 end

@@ -174,5 +174,5 @@ function draw_status_bars()
    spr(197, 106, 2)
    zprint("9", 127-12-4+2+2, 4)
 
-   draw_ma()
+   -- draw_ma()
 end
