@@ -147,7 +147,6 @@ function map_init()
       w=8,
       h=8,
       u={$field$,     20, 17},
-      d={$maze trap$, 8,  1},
       l={$maze 1$, 7,  4}
    },
 
@@ -157,10 +156,10 @@ function map_init()
       y=32,
       w=8,
       h=8,
-      u={$maze trap$,  8, 11},
-      l={$maze trap$,  15, 6},
       r={$maze start$, 1, 4},
-      d={$maze 2$,     4, 1}
+      d={$maze 2$,     4, 1},
+      u={$maze trap$, 8, 11},
+      l={$maze trap$, 15, 6}
    },
 
    $maze 2$={
@@ -170,9 +169,9 @@ function map_init()
       w=8,
       h=8,
       u={$maze 1$,    4, 7},
-      l={$maze trap$, 8, 6},
-      r={$maze trap$, 8, 6},
-      d={$maze 3$,    4, 1}
+      d={$maze 3$,    4, 1},
+      r={$maze trap$, 1, 6},
+      l={$maze trap$, 15, 6}
    },
 
    $maze 3$={
@@ -182,9 +181,9 @@ function map_init()
       w=8,
       h=8,
       u={$maze 2$, 4, 7},
-      l={$maze trap$, 8, 6},
       r={$maze 4$,    1, 4},
-      d={$maze trap$, 8, 6}
+      l={$maze trap$, 15, 6},
+      d={$maze trap$, 8, 1}
    },
 
    $maze 4$={
@@ -193,10 +192,10 @@ function map_init()
       y=48,
       w=8,
       h=8,
-      u={$maze trap$, 8, 6},
       l={$maze 3$,    7, 4},
       r={$maze end$,  1, 4},
-      d={$maze trap$, 8, 6}
+      u={$maze trap$, 8, 11},
+      d={$maze trap$, 8, 1}
    },
 
    $maze end$={
@@ -205,9 +204,7 @@ function map_init()
       y=48,
       w=8,
       h=8,
-      u={$maze trap$,       8, 6},
       l={$maze 4$,          7, 4},
-      r={$maze trap$,       8, 6},
       d={$maze boss path$, 12, 1}
    },
 
@@ -228,7 +225,7 @@ function map_init()
       w=16,
       h=12,
       u={$maze boss path$, 4, 7},
-      d={$memory sword sanctuary$, 8, 1}
+      d={$memory sword sanctuary$, 4, 1}
    },
 
    $memory sword sanctuary$={
@@ -238,55 +235,7 @@ function map_init()
       w=16,
       h=8,
       u={$maze boss$, 8, 11}
-   },
-
-   $grave_novi$={
-      c=5,
-      x=96,
-      y=24,
-      w=5,
-      h=8,
-      r={$grave 1$,1,6.5},
-      $doors$={
-         {$graveyard$,2.5,4.5,2.5,2.5,.5,.5}
-      }
-   },
-
-   bossw={c=3, x=80,  y=0,  w=16, h=12, d={$dun73$,4,1},   u={$dun63$,5,8}},
-   gravp={c=5, x=29,  y=25, w=19, h=7,  l={$field$,29,18}, r={$grave$,0,18}, u={$templ$,8,12}},
-   mount={c=4, x=50,  y=0,  w=12, h=25, d={$field$,12,.5},  u={$castl$,8,12}},
-   templ={c=5, x=32,  y=52,  w=16, h=12, d={$gravp$,11,.5}, u={$temple_r1$,2.5,6}, $doors$={
-      {$crypt_novi$,2.5,8,3.5,1.5,.5,.5},
-      {$crypt_ivan$,2.5,8,12.5,1.5,.5,.5}
-   }},
-   temple_r1={c=5, x=54,  y=46,  w=5, h=6, d={$templ$,8,.5}, u={$temple_r2$,2.5,6}},
-   temple_r2={c=5, x=59,  y=46,  w=5, h=6, d={$temple_r1$,2.5,.5}},
-
-   lankp={c=3, x=32,  y=32, w=10, h=20, r={$villa$,0,20},   $doors$={{$lanks_house$,4,8,5,2.5,.5,.5}}},
-   grave={c=5, x=48,  y=25, w=16, h=21, l={$gravp$,19,4}, u={$grave_boss$,8,12}, $doors$={{$gravekeepers_house$,4,8,14,16.5,.5,.5}}},
-   castl={c=5, x=64,  y=12, w=16, h=12, d={$mount$,6,.5},   $doors$={{$castle_1$,8,12,8,1.5,.5,.5}}},
-
-   crypt_novi={c=13, x=118, y=24, w=5,  h=8, d={$templ$,3.5,2}, r={$crypt_r1$,0,5.5}},
-   crypt_ivan={c=13, x=123, y=24, w=5,  h=8, d={$templ$,12.5,2}, l={$crypt_r1$,16,2.5}},
-
-   crypt_r1={c=13, x=112, y=32, w=16,  h=8, d={$crypt_r2$,11.5,.5}, l={$crypt_novi$,5,5.5}, r={$crypt_ivan$,0,2.5}, u={$crypt_r3$,1.5,16}},
-   crypt_r2={c=13, x=112, y=40, w=16,  h=8, u={$crypt_r1$,11.5,8}},
-   crypt_r3={c=13, x=104, y=32, w=8,  h=16, d={$crypt_r1$,1.5,.5}, u={$crypt_r4$,4.5,8}},
-   crypt_r4={c=13, x=104, y=24, w=14,  h=8, d={$crypt_r3$,4.5,.5}, u={$crypt_boss$,8,12}},
-   crypt_boss={c=13, x=112, y=12, w=16,  h=12, d={$crypt_r4$,10,.5}},
-
-   house_1={c=4, x=42, y=46, w=6,  h=6, d={$villa$,17,8}},
-   house_2={c=4, x=48, y=46, w=6,  h=6, d={$villa$,6, 19}},
-   house_3={c=4, x=42, y=32, w=6,  h=7, d={$villa$,15,14}},
-
-   fandude_house={c=4, x=42, y=39, w=6,  h=7, d={$villa$,5,3}, u={$endless$,8,12}},
-   endless={c=3, x=80, y=12, w=16, h=12, d={$fandude_house$,3,.5}},
-
-   lanks_house={c=4, x=64, y=24, w=8,  h=8, d={$lankp$,5,3}},
-   shop={c=4, x=72, y=24, w=8,  h=8, d={$villa$,4,12} },
-   banjo_academy={c=4, x=80, y=24, w=8,  h=8, d={$villa$,17,20}},
-   gravekeepers_house={c=4, x=88, y=24, w=8,  h=8, d={$grave$,14,17}},
-   grave_boss={c=5, x=112, y=12, w=16,  h=12, d={$grave$,8,.5}}
+   }
    ]]
 end
 

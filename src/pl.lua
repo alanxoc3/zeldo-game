@@ -125,7 +125,7 @@ function gen_pl_item(pl, item_type)
          pl.xf,
          -- hit
          function(a, other)
-            if not other.pl then
+            if not other.pl and other.knockable then
                local knockback_val = (a.tl_curr == 1) and .3 or .1
                local hurt_val = (a.tl_curr == 1) and .1 or .2
                if other.knockable then other.knockback(other, knockback_val, a.xf and -1 or 1, 0) end

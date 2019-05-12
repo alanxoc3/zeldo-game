@@ -19,6 +19,7 @@ __lua__
 #include src/monsters.lua
 #include src/move_funcs.lua
 #include src/pl.lua
+#include src/objects.lua
 
 -- tests
 -- #include src/tst_logo.lua

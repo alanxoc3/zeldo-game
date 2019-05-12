@@ -31,6 +31,8 @@ function acts_attach_helper(opt, a)
       a[opt.id] = true
    end
 
+   a.id = opt.id
+
    if opt.tl then
       tl_attach(a, opt.tl)
    end
@@ -257,13 +259,17 @@ create_parent(
       xb=0,
       yb=0,
       hit=@1,
-      move_check=@2
+      contains=@2,
+      move_check=@3
    },
    par={$vec$,$dim$}
 ]], function(a, ...)
    tl_func(a, "hit", a, ...)
+end, function(a, ...)
+   tl_func(a, "contains", a, ...)
 end, function(a, acts)
-   local other_list = {}
+   local hit_list = {}
+   local in_list = {}
    local move_check = function(dx, dy)
       local touched = false
 
@@ -277,15 +283,19 @@ end, function(a, acts)
                touched = true
             end
 
-            other_list[b][axis]=spd>0 and 1 or 0 + spd<0 and 0xffff or 0
+            hit_list[b][axis]=spd>0 and 1 or 0 + spd<0 and 0xffff or 0
          end
       end
 
       foreach(acts, function(b)
-         if a != b then
+         if a != b and (not a.static or not b.static) then
             local x,y = abs(a.x+dx-b.x), abs(a.y+dy-b.y)
             if x < (a.rx+b.rx) and y < (a.ry+b.ry) then 
-               if not other_list[b] then other_list[b] = {x=0, y=0} end
+               if x < (a.rx-b.rx) and y < (a.ry-b.ry) then 
+                  if not in_list[b] then in_list[b] = true end
+               end
+
+               if not hit_list[b] then hit_list[b] = {x=0, y=0} end
 
                batch_call(col_help, [[
                   {$x$, $dx$, @1, @2, @3, @4},
@@ -308,9 +318,13 @@ end, function(a, acts)
 
    -- hitting all the acts in the list.
    -- actor b, dirs d
-   for b, d in pairs(other_list) do
+   for b, d in pairs(hit_list) do
       a.hit(a, b,  d.x,  d.y)
       b.hit(b, a, -d.x, -d.y)
+   end
+
+   for b, d in pairs(in_list) do
+      a.contains(a, b)
    end
 end)
 
