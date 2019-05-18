@@ -32,6 +32,7 @@
 -- done: create stateful draw.
 -- done: tl update return next.
 -- done: tl takes no parameters? debate about this idea.
+-- done: shield house collision.
 
 -- readme todos:
 -- todo: Connect everything.
