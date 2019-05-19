@@ -4,6 +4,8 @@ __lua__
 -- zeldo game
 -- amorg
 
+-- hello caden
+
 #include src/lib.lua
 #include src/draw.lua
 #include src/att.lua
