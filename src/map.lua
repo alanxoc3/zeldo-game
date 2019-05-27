@@ -45,9 +45,10 @@ end
 
 function map_init()
    g_rooms = gun_vals([[
+   $lark's house$=          {        c=4, x=20,   y=0,  w=6,  h=7,  d={$village$, 6, 3} },
    $lank's house$=          {        c=4, x=0,   y=7,  w=8,  h=8,  d={$lank's path$, 2, 3} },
    $lank's path$=           { i=@1,  c=3, x=0,   y=15, w=16, h=6,  r={$village$, 1, 3} },
-   $village$=               {        c=3, x=16,  y=15, w=16, h=17, l={$lank's path$,  15, 3}, r={$field$,        1,  14} },
+   $village$=               { i=@2,  c=3, x=16,  y=15, w=16, h=17, l={$lank's path$,  15, 3}, r={$field$,        1,  14} },
    $field$=                 {        c=3, x=32,  y=14, w=32, h=18, l={$village$,        15, 13}, r={$graveyard path$, 1,  3}, d={$maze start$,     4,  1} },
    $graveyard path$=        {        c=5, x=32,  y=0,  w=15, h=6,  l={$field$,     31, 9}, r={$graveyard$, 1,  29} },
    $graveyard$=             {        c=5, x=112, y=0,  w=16, h=32, l={$graveyard path$,       14, 3}, r={$canyon path$,          1, 2}, d={$graveyard$, 8, 1} },
@@ -65,9 +66,10 @@ function map_init()
    $maze boss$=             {        c=3, x=40,  y=44, w=16, h=12, u={$maze boss path$, 4, 7}, d={$memory sword sanctuary$, 4, 1} },
    $memory sword sanctuary$={        c=3, x=32,  y=56, w=16, h=8,  u={$maze boss$, 8, 11} }
    ]], function() -- @1
-      gen_house(2,17.5,"lank's house")
+      gen_house(2,17.5,"lank's house", 4, 7)
       gen_top(5, 18)
-      printh("testing alan again")
+   end, function() -- @2
+      gen_house(22,17.5,"lark's house", 3, 6)
    end)
 end
 

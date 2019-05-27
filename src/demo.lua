@@ -1,7 +1,8 @@
 -- todo: enemy needs to collide with house correctly
 -- todo: enemy needs to be stunned correctly again.
+-- todo: enemy collide with screen edge.
+
 -- todo: menu enemy support must be better.
--- todo: map rooms need separate init functions.
 -- todo: delete old map room logic.
 --
 -- todo: create palace map.
@@ -34,6 +35,7 @@
 -- done: tl update return next.
 -- done: tl takes no parameters? debate about this idea.
 -- done: shield house collision.
+-- todo: map rooms need separate init functions.
 
 -- readme todos:
 -- todo: Connect everything.
@@ -148,12 +150,6 @@ end
 
 function game_init()
    map_init()
-
    g_pl = gen_pl(0, 0)
-
-   for i=20,26 do
-      gen_spawner(4, i, gen_top, 12)
-   end
-
    load_room("lank's path", 4, 4)
 end

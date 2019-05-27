@@ -1,5 +1,5 @@
 -- todo: trim code here.
-function gen_house(x, y, room)
+function gen_house(x, y, room, rx, ry)
    return create_actor([[
       id=$house$,
       att={
@@ -21,7 +21,7 @@ function gen_house(x, y, room)
       -- hit
       function(a, other)
          if other.pl then
-            load_room(a.room, 3, 3)
+            load_room(a.room, rx, ry)
          end
       end, function(a)
          a.b1 = gen_static_block(x-.75,y, .25, .5)
