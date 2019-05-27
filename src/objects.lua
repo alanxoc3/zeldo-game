@@ -10,10 +10,10 @@ function gen_house(x, y, room)
          room=@3,
          sind=96,
          static=true,
-         destroy=@7,
+         ddestroyed=@7,
          touchable=false
       },
-      par={$spr$,$col$},
+      par={$confined$,$spr$,$col$},
       tl={
          {d=@4, contains=@5, i=@6}
       }
@@ -41,7 +41,7 @@ function gen_static_block(x, y, rx, ry)
          static=true,
          touchable=true
       },
-      par={col$},
+      par={$confined$, $col$},
       tl={{hit=@5}}
       ]],x,y,rx,ry, function() end
    )

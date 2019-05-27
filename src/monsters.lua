@@ -11,7 +11,7 @@ function gen_spawner(x, y, func, buf_len, ...)
             x=@1,
             y=@2
          },
-         par={$dim$},
+         par={$confined$,$dim$},
          tl={
             {u=@3}
          }
@@ -31,7 +31,7 @@ function gen_top(x, y)
    return create_actor([[
       id=$top$,
       att={
-         x=@2,
+         x=@1,
          y=@2,
          rx=.375,
          ry=.375,
@@ -41,7 +41,7 @@ function gen_top(x, y)
          sind=58,
          touchable=true
       },
-      par={$spr$,$mov$,$timed$,$col$,$tcol$,$knockable$},
+      par={$confined$, $spr$,$mov$,$timed$,$col$,$tcol$,$knockable$},
       tl={
          {d=@7, i=@4, t=1.5},
          {d=@7, u=@5, t=.5},

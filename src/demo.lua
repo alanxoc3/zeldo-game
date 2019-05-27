@@ -155,7 +155,5 @@ function game_init()
       gen_spawner(4, i, gen_top, 12)
    end
 
-   gen_house(2,17.5,"lank's house")
-
    load_room("lank's path", 4, 4)
 end

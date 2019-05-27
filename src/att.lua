@@ -66,18 +66,21 @@ create_parent(
       stun_countdown=0,
       update=@1,
       clean=@2,
-      destroy=@3
+      destroyed=@3,
+      kill=@4
    }
 ]], function(a)
-   if a.stun_countdown == 0 then
+   if a.alive and a.stun_countdown == 0 then
       tl_update(a)
    end
 end, function(a)
    if not a.alive then
-      a:destroy()
+      a:destroyed()
       del_act(a)
    end
-end, nf)
+end, nf, function(a) a.alive = false end)
+
+create_parent([[id=$confined$,att={kill=@4}]])
 
 create_parent(
 [[ id=$timed$,
