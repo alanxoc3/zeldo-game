@@ -14,7 +14,6 @@ function act_poke(a, ix1, ix2)
    end
 end
 
-g_item = nil
 function gen_pl(x, y)
    return create_actor(
       [[ id=$pl$,

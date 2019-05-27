@@ -69,34 +69,34 @@ end
 
 function tl_update(tl, ...)
 	-- switch the state
-	if tl.tl_time == 0 then
-		tl.tl_curr = tl.tl_next
-		tl.tl_next = (tl.tl_curr % #tl.tl_mast) + 1
-		tl.tl_time = tl.tl_mast[tl.tl_curr].t
+	if tl.tim == 0 then
+		tl.cur = tl.nxt
+		tl.nxt = (tl.cur % #tl.mas) + 1
+		tl.tim = tl.mas[tl.cur].t
 		tl_func(tl, "i", ...) -- init func
 	end
 
    -- update func
 	if tl_func(tl, "u", ...) then
-      tl.tl_time = 0
+      tl.tim = 0
    end
 
 	-- inc timer if enabled
-	if tl.tl_time then
-		tl.tl_time = max(0, tl.tl_time - 1/60)
+	if tl.tim then
+		tl.tim = max(0, tl.tim - 1/60)
 	end
 end
 
 -- optional number of which state should be loaded next.
 function tl_next(tl, num)
-   tl.tl_time=0
-   if num then tl.tl_next=num end
+   tl.tim=0
+   if num then tl.nxt=num end
 end
 
 -- call a function if not nil
 function tl_func(tl, key, ...)
-   if tl.tl_mast[tl.tl_curr][key] then
-      return tl.tl_mast[tl.tl_curr][key](...)
+   if tl.mas[tl.cur][key] then
+      return tl.mas[tl.cur][key](...)
    end
 end
 
@@ -106,9 +106,9 @@ end
 --    update: callback for every frame.
 
 -- pass the array into this function.
-function tl_attach(tl, tl_mast)
-   assert(#tl_mast > 0)
-   tl.tl_mast, tl.tl_curr, tl.tl_next, tl.tl_time = tl_mast, 0, 1, 0
+function tl_attach(tl, mas)
+   assert(#mas > 0)
+   tl.mas, tl.cur, tl.nxt, tl.tim = mas, 0, 1, 0
    return tl
 end
 

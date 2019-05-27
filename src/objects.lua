@@ -1,3 +1,4 @@
+-- todo: trim code here.
 function gen_house(x, y, room)
    return create_actor([[
       id=$house$,
@@ -9,11 +10,12 @@ function gen_house(x, y, room)
          room=@3,
          sind=96,
          static=true,
+         destroy=@7,
          touchable=false
       },
       par={$spr$,$col$},
       tl={
-         {d=@4, contains=@5, i=@6}
+         {d=@4, contains=@5, i=@6, u=@8}
       }
       ]],x,y,room,scr_spr,
       -- hit
@@ -22,10 +24,12 @@ function gen_house(x, y, room)
             load_room(a.room, 3, 3)
          end
       end, function(a)
-         gen_static_block(x-.75,y, .25, .5)
-         gen_static_block(x+.75,y, .25, .5)
-         gen_static_block(x,y-5/8, 1,.25)
-      end
+         a.b1 = gen_static_block(x-.75,y, .25, .5)
+         a.b2 = gen_static_block(x+.75,y, .25, .5)
+         a.b3 = gen_static_block(x,y-5/8, 1,.25)
+      end, function(a)
+         a.b1.alive, a.b2.alive, a.b3.alive = false
+      end, function(a) if btnp(4) then a.alive = false end end
    )
 end
 

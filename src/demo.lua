@@ -1,5 +1,5 @@
--- todo: house needs to clean up after itself.
 -- todo: enemy needs to collide with house correctly
+-- todo: enemy needs to be stunned correctly again.
 -- todo: menu enemy support must be better.
 -- todo: map rooms need separate init functions.
 -- todo: delete old map room logic.
@@ -21,6 +21,7 @@
 
 -- todo: think about text interaction more.
 
+-- done: house needs to clean up after itself.
 -- done: gun vals number
 -- done: optimize gun nums again
 -- done: player banjo walk

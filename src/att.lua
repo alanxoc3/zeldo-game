@@ -65,7 +65,8 @@ create_parent(
       active=true,
       stun_countdown=0,
       update=@1,
-      clean=@2
+      clean=@2,
+      destroy=@3
    }
 ]], function(a)
    if a.stun_countdown == 0 then
@@ -73,9 +74,10 @@ create_parent(
    end
 end, function(a)
    if not a.alive then
+      a:destroy()
       del_act(a)
    end
-end)
+end, nf)
 
 create_parent(
 [[ id=$timed$,
@@ -319,12 +321,12 @@ end, function(a, acts)
    -- hitting all the acts in the list.
    -- actor b, dirs d
    for b, d in pairs(hit_list) do
-      a.hit(a, b,  d.x,  d.y)
-      b.hit(b, a, -d.x, -d.y)
+      a:hit(b,  d.x,  d.y)
+      b:hit(a, -d.x, -d.y)
    end
 
    for b, d in pairs(in_list) do
-      a.contains(a, b)
+      a:contains(b)
    end
 end)
 
