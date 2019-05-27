@@ -15,7 +15,7 @@ function gen_house(x, y, room)
       },
       par={$spr$,$col$},
       tl={
-         {d=@4, contains=@5, i=@6, u=@8}
+         {d=@4, contains=@5, i=@6}
       }
       ]],x,y,room,scr_spr,
       -- hit
@@ -29,7 +29,7 @@ function gen_house(x, y, room)
          a.b3 = gen_static_block(x,y-5/8, 1,.25)
       end, function(a)
          a.b1.alive, a.b2.alive, a.b3.alive = false
-      end, function(a) if btnp(4) then a.alive = false end end
+      end
    )
 end
 

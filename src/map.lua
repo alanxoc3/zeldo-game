@@ -103,10 +103,7 @@ function map_init()
       h=32,
       l={$graveyard path$,       14, 3},
       r={$canyon path$,          1, 2},
-      d={$graveyard$, 8, 1},
-      $doors$={
-         {$grave_novi$,2.5,3.5,2.5,6,.5,.5}
-      }
+      d={$graveyard$, 8, 1}
    },
 
    $canyon path$={

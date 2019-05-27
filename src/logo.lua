@@ -1,12 +1,12 @@
 -- amorg logo
 -- 128 103 97 69 81 49 88 104 136 108 95 92 103
 
-function draw_logo(x, y)
+function draw_logo(logo, x, y)
    local lc1 = -sin(g_lct/2)*140
    local lc2 = lc1*4/7
    clip(x-lc1/2, y-lc2/2, lc1, lc2)
 
-   if g_logo.tl_curr != 3 then
+   if logo.tl_curr != 3 then
       camera(rnd(2)-1, rnd(2)-1)
    end
 

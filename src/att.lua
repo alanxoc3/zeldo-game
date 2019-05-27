@@ -70,7 +70,7 @@ create_parent(
    }
 ]], function(a)
    if a.stun_countdown == 0 then
-      tl_update(a, a)
+      tl_update(a)
    end
 end, function(a)
    if not a.alive then
@@ -167,8 +167,8 @@ create_parent(
       draw=@1,
       reset_off=@2
    }
-]], function(a, ...)
-   tl_func(a, "d", a, ...)
+]], function(...)
+   tl_func("d", ...)
 end, function(a)
    a.xx, a.yy = 0, 0
 end)
@@ -265,10 +265,10 @@ create_parent(
       move_check=@3
    },
    par={$vec$,$dim$}
-]], function(a, ...)
-   tl_func(a, "hit", a, ...)
-end, function(a, ...)
-   tl_func(a, "contains", a, ...)
+]], function(...)
+   tl_func("hit", ...)
+end, function(...)
+   tl_func("contains", ...)
 end, function(a, acts)
    local hit_list = {}
    local in_list = {}

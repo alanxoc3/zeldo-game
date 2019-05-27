@@ -73,11 +73,11 @@ function tl_update(tl, ...)
 		tl.cur = tl.nxt
 		tl.nxt = (tl.cur % #tl.mas) + 1
 		tl.tim = tl.mas[tl.cur].t
-		tl_func(tl, "i", ...) -- init func
+		tl_func("i", tl, ...) -- init func
 	end
 
    -- update func
-	if tl_func(tl, "u", ...) then
+	if tl_func("u", tl, ...) then
       tl.tim = 0
    end
 
@@ -94,9 +94,9 @@ function tl_next(tl, num)
 end
 
 -- call a function if not nil
-function tl_func(tl, key, ...)
+function tl_func(key, tl, ...)
    if tl.mas[tl.cur][key] then
-      return tl.mas[tl.cur][key](...)
+      return tl.mas[tl.cur][key](tl, ...)
    end
 end
 
