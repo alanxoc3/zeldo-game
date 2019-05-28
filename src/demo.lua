@@ -1,3 +1,5 @@
+-- todo: room loading draw on load.
+
 -- todo: enemy needs to collide with house correctly
 -- todo: enemy needs to be stunned correctly again.
 -- todo: enemy collide with screen edge.
@@ -151,5 +153,5 @@ end
 function game_init()
    map_init()
    g_pl = gen_pl(0, 0)
-   load_room("lank's path", 4, 4)
+   load_room("lank's path", 2, 18)
 end
