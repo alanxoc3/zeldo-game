@@ -65,6 +65,7 @@ function map_init()
       $maze end$=              {        c=3, x=56,  y=48, w=8,  h=8  },
       $maze boss path$=        {        c=3, x=48,  y=56, w=16, h=8  },
       $maze boss$=             {        c=3, x=40,  y=44, w=16, h=12 },
+      $temple$=                {        c=3, x=96,  y=32, w=32, h=32 },
       $sword sanctuary$=       {        c=3, x=32,  y=56, w=16, h=8  }
    ]], function() -- @1
       gen_house(2,17.5,"lank's house", 4, 14.5)
@@ -79,9 +80,11 @@ function map_init()
       $lank's path$=    { r={$village$,          17, 18} },
       $village$=        { l={$lank's path$,      15, 18},
                           r={$field$,            33, 28} },
+      $temple$=         { d={$field$,            48, 15} },
       $field$=          { l={$village$,          31, 28},
                           r={$graveyard path$,   33,  3},
-                          d={$maze start$,       36, 33} },
+                          d={$maze start$,       36, 33},
+                          u={$temple$,          112, 63} },
       $graveyard path$= { l={$field$,            63, 23},
                           r={$graveyard$,       113, 29} },
       $graveyard$=      { l={$graveyard path$,   46,  3},
