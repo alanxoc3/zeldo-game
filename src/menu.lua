@@ -171,7 +171,7 @@ function draw_status_bars()
    --rectfill(0, 107, 127, 127, 0)
 
    rectfill(104,2,104,9,7)
-   spr(197, 106, 2)
+   spr(192, 106, 2)
    zprint("9", 127-12-4+2+2, 4)
 
    -- draw_ma()
