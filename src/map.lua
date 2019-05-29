@@ -65,7 +65,14 @@ function map_init()
       $maze end$=              {        c=3, x=56,  y=48, w=8,  h=8  },
       $maze boss path$=        {        c=3, x=48,  y=56, w=16, h=8  },
       $maze boss$=             {        c=3, x=40,  y=44, w=16, h=12 },
-      $temple$=                {        c=3, x=96,  y=32, w=32, h=32 },
+      $temple$=                {        c=13,x=96,  y=32, w=32, h=32 },
+      $computer$=              {        c=13,x=96,  y=32, w=32, h=32 },
+      $temple 1$=              {        c=3, x=104, y=53, w=16, h=11 },
+      $temple 2$=              {        c=3, x=96,  y=53, w=9,  h=11 },
+      $temple 3$=              {        c=3, x=96,  y=32, w=9,  h=22 },
+      $temple 4$=              {        c=3, x=104, y=32, w=24, h=11 },
+      $temple 5$=              {        c=3, x=119, y=42, w=9,  h=22 },
+      $temple square$=         {        c=3, x=104, y=42, w=16, h=12 },
       $sword sanctuary$=       {        c=3, x=32,  y=56, w=16, h=8  }
    ]], function() -- @1
       gen_house(2,17.5,"lank's house", 4, 14.5)
@@ -81,6 +88,31 @@ function map_init()
       $village$=        { l={$lank's path$,      15, 18},
                           r={$field$,            33, 28} },
       $temple$=         { d={$field$,            48, 15} },
+      $temple 1$=       {
+                          u={$temple square$,   112, 53},
+                          l={$temple 2$,        104, 61},
+                          r={$temple 5$,        120, 61},
+                          d={$field$,            48, 15}
+                        },
+      $temple 2$=       {
+                          u={$temple 3$,         99, 53},
+                          r={$temple 1$,        105, 61}
+                        },
+      $temple 3$=       {
+                          d={$temple 2$,         99, 54},
+                          r={$temple 4$,        105, 35}
+                        },
+      $temple 4$=       {
+                          l={$temple 3$,        104, 35},
+                          d={$temple 5$,        125, 43}
+                        },
+      $temple 5$=       {
+                          u={$temple 4$,        125, 42},
+                          l={$temple 1$,        119, 61}
+                        },
+      $temple square$=  {
+                          d={$temple 1$,        112, 54}
+                        },
       $field$=          { l={$village$,          31, 28},
                           r={$graveyard path$,   33,  3},
                           d={$maze start$,       36, 33},
