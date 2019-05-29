@@ -154,5 +154,5 @@ function game_init()
    map_init()
    g_pl = gen_pl(0, 0)
    load_room("lank's path", 2, 18)
-   -- load_room("temple", 111, 51)
+   load_room("temple", 111, 51)
 end
