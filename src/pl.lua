@@ -21,7 +21,7 @@ function gen_pl(x, y)
             confined=false,
             x=@1,
             y=@2,
-            sinds={54, 55, 56, 57},
+            sinds={56, 57, 58, 59},
             rx=.375,
             ry=.375,
             iyy=-2,
