@@ -38,7 +38,7 @@ function gen_top(x, y)
          iyy=-2,
          xb=.4,
          yb=.4,
-         sind=58,
+         sind=60,
          touchable=true
       },
       par={$confined$, $spr$,$mov$,$timed$,$col$,$tcol$,$knockable$},
