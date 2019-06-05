@@ -136,7 +136,6 @@ function game_draw()
       draw_menu(64,59)
    end
 
-
    -- acts_loop("dim", "debug_rect")
    draw_status_bars()
    print(g_rooms[g_cur_room].n or g_cur_room, 30, 110, 7)
@@ -153,8 +152,8 @@ end
 function game_init()
    map_init()
    g_pl = gen_pl(0, 0)
-   load_room("lank's path", 2, 18)
+   -- load_room("lank's path", 2, 18)
    -- load_room("sword sanctuary", 37, 59)
-
    -- load_room("tech entrance", 120, 60) -- debug tech
+   load_room("all", 90, 29)
 end

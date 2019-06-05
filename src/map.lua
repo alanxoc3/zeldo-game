@@ -46,6 +46,7 @@ end
 
 function map_init()
    g_rooms = gun_vals([[
+      $all$=                   {        c=4, x=0,   y=0,  w=128,h=64 },
       $lark's house$=          {        c=4, x=20,  y=0,  w=6,  h=7  },
       $lank's house$=          {        c=4, x=0,   y=7,  w=8,  h=8  },
       $lank's path$=           { i=@1,  c=3, x=0,   y=15, w=16, h=6  },
