@@ -102,7 +102,7 @@ function map_init()
                           r={$canyon$,           48, 12} },
       $canyon$=         { u={$castle entrance$,  90, 19},
                           l={$canyon path$,      46, 12} },
-      $castle entrance$={ d={$canyon$,           59,  1} },
+      $castle entrance$={ d={$canyon$,           61,  1} },
       $maze trap$=      {
                           u={$maze trap$,        48, 43},
                           r={$maze trap$,        41, 38},

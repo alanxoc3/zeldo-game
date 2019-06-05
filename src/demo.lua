@@ -155,5 +155,5 @@ function game_init()
    -- load_room("lank's path", 2, 18)
    -- load_room("sword sanctuary", 37, 59)
    -- load_room("tech entrance", 120, 60) -- debug tech
-   load_room("castle entrance", 90, 5 )
+   load_room("all", 90, 5 )
 end
