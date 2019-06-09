@@ -180,13 +180,15 @@ function room_update()
    cur_door = g_doors[g_cur_room]
 
    -- plus .5 and minus .375 is because there is a screen border.
-   if g_pl.y > g_ry+g_rh-.375 and cur_door.d then
-      load_room(cur_door.d[1], cur_door.d[2], cur_door.d[3])
-   elseif g_pl.y < g_ry + .5 and cur_door.u then
-      load_room(cur_door.u[1], cur_door.u[2], cur_door.u[3])
-   elseif g_pl.x > g_rx+g_rw-.375 and cur_door.r then
-      load_room(cur_door.r[1], cur_door.r[2], cur_door.r[3])
-   elseif g_pl.x < g_rx +.5 and cur_door.l then
-      load_room(cur_door.l[1], cur_door.l[2], cur_door.l[3])
+   if cur_door then
+      if g_pl.y > g_ry+g_rh-.375 and cur_door.d then
+         load_room(cur_door.d[1], cur_door.d[2], cur_door.d[3])
+      elseif g_pl.y < g_ry + .5 and cur_door.u then
+         load_room(cur_door.u[1], cur_door.u[2], cur_door.u[3])
+      elseif g_pl.x > g_rx+g_rw-.375 and cur_door.r then
+         load_room(cur_door.r[1], cur_door.r[2], cur_door.r[3])
+      elseif g_pl.x < g_rx +.5 and cur_door.l then
+         load_room(cur_door.l[1], cur_door.l[2], cur_door.l[3])
+      end
    end
 end
