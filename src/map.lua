@@ -46,112 +46,114 @@ end
 
 function map_init()
    g_rooms = gun_vals([[
-      $all$=                   {        c=04, x=0,   y=0,  w=128,h=64 },
-      $lark's house$=          {        c=04, x=20,  y=0,  w=06, h=7  },
-      $lank's house$=          {        c=04, x=0,   y=7,  w=08, h=8  },
-      $lank's path$=           { i=@1,  c=03, x=0,   y=15, w=16, h=6  },
-      $village$=               { i=@2,  c=03, x=16,  y=15, w=16, h=17 },
-      $field$=                 {        c=03, x=32,  y=14, w=32, h=18 },
-      $graveyard path$=        {        c=05, x=32,  y=0,  w=15, h=6  },
-      $graveyard$=             {        c=05, x=112, y=0,  w=16, h=32 },
-      $canyon path$=           {        c=05, x=32,  y=6,  w=15, h=8  },
-      $canyon$=                {        c=04, x=47,  y=0,  w=17, h=14 },
-      $castle entrance$=       {        c=04, x=84,  y=0,  w=12, h=12 },
-      $maze trap$=             {        c=03, x=40,  y=32, w=16, h=12 },
-      $maze start$=            {        c=03, x=32,  y=32, w=08, h=8  },
-      $maze 1$=                {        c=03, x=56,  y=32, w=08, h=8  },
-      $maze 2$=                {        c=03, x=32,  y=40, w=08, h=8  },
-      $maze 3$=                {        c=03, x=56,  y=40, w=08, h=8  },
-      $maze 4$=                {        c=03, x=32,  y=48, w=08, h=8  },
-      $maze end$=              {        c=03, x=56,  y=48, w=08, h=8  },
-      $maze boss path$=        {        c=03, x=48,  y=56, w=16, h=8  },
-      $maze boss$=             {        c=03, x=40,  y=44, w=16, h=12 },
-      $sword sanctuary$=       {        c=03, x=32,  y=56, w=16, h=8  },
-      $tech entrance$=         {        c=13, x=112, y=56, w=16, h=8  },
-      $tech generator$=        {        c=13, x=96,  y=32, w=16, h=32 },
-      $ivan boss room$=        {        c=13, x=112, y=44, w=16, h=12 },
-      $computer room$=         {        c=13, x=112, y=32, w=16, h=12 }
+      $all$=                   { n=$debug$,           c=04, x=0,   y=0,  w=128,h=64 },
+
+      $lark_home$=             { n=$house$,           c=04, x=20,  y=0,  w=06, h=7  },
+      $lank_home$=             { n=$house$,           c=04, x=0,   y=7,  w=08, h=8  },
+
+      $lank_path$=           { n=$village$,  i=@1,  c=03, x=0,   y=15, w=16, h=6  },
+      $village$=               { n=$village$,  i=@2,  c=03, x=16,  y=15, w=16, h=17 },
+
+      $field$=                 { n=$field$,           c=03, x=32,  y=14, w=32, h=18 },
+
+      $grave_path$=        { n=$cemetary$,        c=05, x=32,  y=0,  w=15, h=6  },
+      $graveyard$=             { n=$cemetary$,        c=05, x=112, y=0,  w=16, h=32 },
+      $canyon_path$=           { n=$cemetary$,        c=05, x=32,  y=6,  w=15, h=8  },
+
+      $canyon$=                { n=$canyon$,          c=04, x=47,  y=0,  w=17, h=14 },
+      $canyon_end$=       { n=$canyon$,          c=04, x=84,  y=0,  w=12, h=12 },
+
+      $maze_trap$=             { n=$forest$,          c=03, x=40,  y=32, w=16, h=12 },
+      $maze_start$=            { n=$forest$,          c=03, x=32,  y=32, w=08, h=8  },
+      $maze_1$=                { n=$forest$,          c=03, x=56,  y=32, w=08, h=8  },
+      $maze_2$=                { n=$forest$,          c=03, x=32,  y=40, w=08, h=8  },
+      $maze_3$=                { n=$forest$,          c=03, x=56,  y=40, w=08, h=8  },
+      $maze_4$=                { n=$forest$,          c=03, x=32,  y=48, w=08, h=8  },
+      $maze_end$=              { n=$forest$,          c=03, x=56,  y=48, w=08, h=8  },
+      $maze_boss_path$=        { n=$forest$,          c=03, x=48,  y=56, w=16, h=8  },
+      $maze_boss$=             { n=$forest$,          c=03, x=40,  y=44, w=16, h=12 },
+      $sword_sanctuary$=       { n=$forest$,          c=03, x=32,  y=56, w=16, h=8  },
+
+      $tech_entrance$=         { n=$tech$,            c=13, x=112, y=56, w=16, h=8  },
+      $tech_generator$=        { n=$tech$,            c=13, x=96,  y=32, w=16, h=32 },
+      $ivan_boss_room$=        { n=$tech$,            c=13, x=112, y=44, w=16, h=12 },
+      $computer_room$=         { n=$tech$,            c=13, x=112, y=32, w=16, h=12 }
    ]], function() -- @1
-      gen_house(2,17.5,"lank's house", 4, 14.5)
+      gen_house(2,17.5,"lank_home", 4, 14.5) -- lank house.
       gen_top(5, 18)
    end, function() -- @2
-      gen_house(22,17.5,"lark's house", 23, 6.5)
+      gen_house(22,17.5,"lark_home", 23, 6.5) -- lark house
    end)
 
    g_doors = gun_vals([[
-      $lark's house$=   { d={$village$,          22, 18} },
-      $lank's house$=   { d={$lank's path$,       2, 18} },
-      $lank's path$=    { r={$village$,          17, 18} },
-      $tech entrance$=  { u={$ivan boss room$,  120, 55},
-                          l={$tech generator$,  111, 60} },
-      $tech generator$= { r={$tech entrance$,   113, 60} },
-      $ivan boss room$= { u={$computer room$,   120, 43},
-                          d={$tech entrance$,   120, 57} },
-      $computer room$=  { d={$ivan boss room$,  120, 45} },
+      $lark_home$={ d={$village$,          22, 18} },
+      $lank_home$={ d={$lank_path$,       2, 18} },
+      $lank_path$=    { r={$village$,          17, 18} },
+      $tech_entrance$=  { u={$ivan_boss_room$,  120, 55},
+                          l={$tech_generator$,  111, 60} },
+      $tech_generator$= { r={$tech_entrance$,   113, 60} },
+      $ivan_boss_room$= { u={$computer_room$,   120, 43},
+                          d={$tech_entrance$,   120, 57} },
+      $computer_room$=  { d={$ivan_boss_room$,  120, 45} },
 
-      $village$=        { l={$lank's path$,      15, 18},
+      $village$=        { l={$lank_path$,      15, 18},
                           r={$field$,            33, 28} },
       $field$=          { l={$village$,          31, 28},
-                          r={$graveyard path$,   33,  3},
-                          d={$maze start$,       36, 33} },
-      $graveyard path$= { l={$field$,            63, 23},
+                          r={$grave_path$,   33,  3},
+                          d={$maze_start$,       36, 33} },
+      $grave_path$= { l={$field$,            63, 23},
                           r={$graveyard$,       113, 29} },
-      $graveyard$=      { l={$graveyard path$,   46,  3},
-                          r={$canyon path$,      33,  8}, },
-      $canyon path$=    { l={$graveyard$,       127, 17},
+      $graveyard$=      { l={$grave_path$,   46,  3},
+                          r={$canyon_path$,      33,  8}, },
+      $canyon_path$=    { l={$graveyard$,       127, 17},
                           r={$canyon$,           48, 12} },
-      $canyon$=         { u={$castle entrance$,  90, 19},
-                          l={$canyon path$,      46, 12} },
-      $castle entrance$={ d={$canyon$,           61,  1} },
-      $maze trap$=      {
-                          u={$maze trap$,        48, 43},
-                          r={$maze trap$,        41, 38},
-                          l={$maze trap$,        55, 38},
-                          d={$maze trap$,        48, 33}
+      $canyon$=         { u={$canyon_end$,  90, 19},
+                          l={$canyon_path$,      46, 12} },
+      $canyon_end$={ d={$canyon$,           61,  1} },
+      $maze_trap$=      {
+                          u={$maze_trap$,        48, 43},
+                          r={$maze_trap$,        41, 38},
+                          l={$maze_trap$,        55, 38},
+                          d={$maze_trap$,        48, 33}
                         },
-      $maze start$=     {
+      $maze_start$=     {
                           u={$field$,            52, 31},
-                          l={$maze 1$,           63, 36}
+                          l={$maze_1$,           63, 36}
                         },
-      $maze 1$=         {
-                          r={$maze start$,       33, 36},
-                          d={$maze 2$,           36, 41},
-                          u={$maze trap$,        48, 43},
-                          l={$maze trap$,        55, 38}
+      $maze_1$=         {
+                          r={$maze_start$,       33, 36},
+                          d={$maze_2$,           36, 41},
+                          u={$maze_trap$,        48, 43},
+                          l={$maze_trap$,        55, 38}
                         },
-      $maze 2$=         {
-                          u={$maze 1$,           60, 39},
-                          d={$maze 3$,           60, 41},
-                          r={$maze trap$,        41, 38},
-                          l={$maze trap$,        55, 38}
+      $maze_2$=         {
+                          u={$maze_1$,           60, 39},
+                          d={$maze_3$,           60, 41},
+                          r={$maze_trap$,        41, 38},
+                          l={$maze_trap$,        55, 38}
                         },
-      $maze 3$=         {
-                          u={$maze 2$,           36, 47},
-                          r={$maze 4$,           33, 52},
-                          l={$maze trap$,        55, 38},
-                          d={$maze trap$,        48, 33}
+      $maze_3$=         {
+                          u={$maze_2$,           36, 47},
+                          r={$maze_4$,           33, 52},
+                          l={$maze_trap$,        55, 38},
+                          d={$maze_trap$,        48, 33}
                         },
-      $maze 4$=         {
-                          l={$maze 3$,           63, 44},
-                          r={$maze end$,         57, 52},
-                          u={$maze trap$,        48, 43},
-                          d={$maze trap$,        48, 33}
+      $maze_4$=         {
+                          l={$maze_3$,           63, 44},
+                          r={$maze_end$,         57, 52},
+                          u={$maze_trap$,        48, 43},
+                          d={$maze_trap$,        48, 33}
                         },
-      $maze end$=       {
-                          l={$maze 4$,           39, 52},
-                          d={$maze boss path$,   60, 57}
+      $maze_end$=       {
+                          l={$maze_4$,           39, 52},
+                          d={$maze_boss_path$,   60, 57}
                         },
-      $maze boss path$= { u={$maze end$,         60, 55},
-                          d={$maze boss$,        48, 45} },
-      $maze boss$=      { u={$maze boss path$,   52, 63},
-                          d={$sword sanctuary$,  36, 57} },
-      $sword sanctuary$={ u={$maze boss$,        48, 55} }
-   ]], function() -- @1
-      gen_house(2,17.5,"lank's house", 4, 7)
-      gen_top(5, 18)
-   end, function() -- @2
-      gen_house(22,17.5,"lark's house", 3, 6)
-   end)
+      $maze_boss_path$= { u={$maze_end$,         60, 55},
+                          d={$maze_boss$,        48, 45} },
+      $maze_boss$=      { u={$maze_boss_path$,   52, 63},
+                          d={$sword_sanctuary$,  36, 57} },
+      $sword_sanctuary$={ u={$maze_boss$,        48, 55} }
+   ]])
 
 end
 

@@ -121,7 +121,7 @@ function draw_menu(x, y)
       end
    end
 
-   local spr_ind = (g_menu_cursor_timer % 60 > 40) and 68 or 69
+   local spr_ind = (g_menu_cursor_timer % 60 > 40) and 38 or 39
    local rel_spr = function(x1, y1, ...) spr(spr_ind, select_x+x1, select_y+y1, ...) end
    batch_call(rel_spr, "{-5,-5,1,1,false,false}, {5,-5,1,1,true,false}, {5,5,1,1,true,true}, {-5,5,1,1,false,true}")
 
@@ -162,7 +162,7 @@ function draw_status_bars()
 
    yoff = 1
    for i=flr(g_pl.max_hearts)-1,0,-1 do
-      s = (i < g_pl.hearts) and 240 or 241
+      s = (i < g_pl.hearts) and 41 or 42
       spr(s, 15 + i*4, yoff)
       yoff = (yoff==1) and 3 or 1
    end
@@ -171,7 +171,7 @@ function draw_status_bars()
    --rectfill(0, 107, 127, 127, 0)
 
    rectfill(104,2,104,9,7)
-   spr(192, 106, 2)
+   spr(40, 106, 2)
    zprint("9", 127-12-4+2+2, 4)
 
    -- draw_ma()

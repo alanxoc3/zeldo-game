@@ -1,3 +1,4 @@
+-- todo: item selection sprites, based on pl's items.
 -- todo: room loading draw on load.
 
 -- todo: enemy needs to collide with house correctly
@@ -154,6 +155,6 @@ function game_init()
    g_pl = gen_pl(0, 0)
    -- load_room("lank's path", 2, 18)
    -- load_room("sword sanctuary", 37, 59)
-   -- load_room("tech entrance", 120, 60) -- debug tech
-   load_room("all", 90, 5 )
+   load_room("tech_entrance", 120, 60) -- debug tech
+   --load_room("all", 90, 5 )
 end
