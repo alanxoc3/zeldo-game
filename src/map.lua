@@ -46,7 +46,7 @@ end
 
 function map_init()
    g_rooms = gun_vals([[
-      $all$=                   { n=$debug$,           c=04, x=0,   y=0,  w=128,h=64 },
+      $all$=                   { n=$debug$,           c=03, x=0,   y=0,  w=128,h=64 },
 
       $lark_home$=             { n=$house$,           c=04, x=20,  y=0,  w=06, h=7  },
       $lank_home$=             { n=$house$,           c=04, x=0,   y=7,  w=08, h=8  },
@@ -64,16 +64,7 @@ function map_init()
       $canyon_2$=           { n=$canyon$,          c=04, x=84,  y=12, w=12, h=20 },
       $canyon_3$=           { n=$canyon$,          c=04, x=80,  y=0,  w=16, h=12 },
 
-      $maze_trap$=             { n=$forest$,          c=03, x=40,  y=32, w=16, h=12 },
-      $maze_start$=            { n=$forest$,          c=03, x=48,  y=32, w=08, h=8  },
-      $maze_1$=                { n=$forest$,          c=03, x=56,  y=32, w=08, h=8  },
-      $maze_2$=                { n=$forest$,          c=03, x=32,  y=40, w=08, h=8  },
-      $maze_3$=                { n=$forest$,          c=03, x=56,  y=40, w=08, h=8  },
-      $maze_4$=                { n=$forest$,          c=03, x=32,  y=48, w=08, h=8  },
-      $maze_end$=              { n=$forest$,          c=03, x=56,  y=48, w=08, h=8  },
-      $maze_boss_path$=        { n=$forest$,          c=03, x=48,  y=56, w=16, h=8  },
-      $maze_boss$=             { n=$forest$,          c=03, x=40,  y=44, w=16, h=12 },
-      $sword_sanctuary$=       { n=$forest$,          c=03, x=32,  y=56, w=16, h=8  },
+      $maze_1$=            { n=$forest$,          c=03, x=48,  y=32, w=16, h=8  },
 
       $tech_entrance$=         { n=$tech$,            c=13, x=112, y=56, w=16, h=8  },
       $tech_generator$=        { n=$tech$,            c=13, x=96,  y=32, w=16, h=32 },
@@ -90,74 +81,19 @@ function map_init()
       $lark_home$={ d={$village$,          22, 18} },
       $lank_home$={ d={$lank_path$,       2, 18} },
       $lank_path$=    { r={$village$,          17, 18} },
-      $tech_entrance$=  { u={$ivan_boss_room$,  120, 55},
-                          l={$tech_generator$,  111, 60} },
+      $tech_entrance$=  { u={$ivan_boss_room$,  120, 55}, l={$tech_generator$,  111, 60} },
       $tech_generator$= { r={$tech_entrance$,   113, 60} },
-      $ivan_boss_room$= { u={$computer_room$,   120, 43},
-                          d={$tech_entrance$,   120, 57} },
-      $computer_room$=  { d={$ivan_boss_room$,  120, 45} },
-
-      $village$=        { l={$lank_path$,      15, 18},
-                          r={$field$,            33, 28} },
-      $field$=          { l={$village$,          31, 28},
-                          r={$grave_path$,   33,  2},
-                          d={$maze_start$,       52, 33} },
-      $grave_path$= { l={$field$,            63, 29},
-                          r={$graveyard$,       97, 29} },
-      $graveyard$=      { l={$grave_path$,   47,  6},
-                          r={$canyon_path$,      33,  8}, },
-      $canyon_path$=    { l={$graveyard$,       111, 29},
-                          r={$canyon_1$,           49, 11} },
-
-      $canyon_1$=       { l={$canyon_path$, 47,11},
-                          r={$canyon_2$,    85,30} },
-      $canyon_2$=       { l={$canyon_1$, 63,04},
-                          u={$canyon_3$, 88,11} },
-      $canyon_3$=       { d={$canyon_2$, 90,13} },
-
-      $maze_trap$=      {
-                          u={$maze_trap$,        48, 43},
-                          r={$maze_trap$,        41, 38},
-                          l={$maze_trap$,        55, 38},
-                          d={$maze_trap$,        48, 33}
-                        },
-      $maze_start$=     {
-                          u={$field$,            52, 31},
-                          l={$maze_1$,           63, 36}
-                        },
-      $maze_1$=         {
-                          r={$maze_start$,       33, 36},
-                          d={$maze_2$,           36, 41},
-                          u={$maze_trap$,        48, 43},
-                          l={$maze_trap$,        55, 38}
-                        },
-      $maze_2$=         {
-                          u={$maze_1$,           60, 39},
-                          d={$maze_3$,           60, 41},
-                          r={$maze_trap$,        41, 38},
-                          l={$maze_trap$,        55, 38}
-                        },
-      $maze_3$=         {
-                          u={$maze_2$,           36, 47},
-                          r={$maze_4$,           33, 52},
-                          l={$maze_trap$,        55, 38},
-                          d={$maze_trap$,        48, 33}
-                        },
-      $maze_4$=         {
-                          l={$maze_3$,           63, 44},
-                          r={$maze_end$,         57, 52},
-                          u={$maze_trap$,        48, 43},
-                          d={$maze_trap$,        48, 33}
-                        },
-      $maze_end$=       {
-                          l={$maze_4$,           39, 52},
-                          d={$maze_boss_path$,   60, 57}
-                        },
-      $maze_boss_path$= { u={$maze_end$,         60, 55},
-                          d={$maze_boss$,        48, 45} },
-      $maze_boss$=      { u={$maze_boss_path$,   52, 63},
-                          d={$sword_sanctuary$,  36, 57} },
-      $sword_sanctuary$={ u={$maze_boss$,        48, 55} }
+      $ivan_boss_room$= { u={$computer_room$,   120, 43}, d={$tech_entrance$,   120, 57} },
+      $computer_room$=  { d={$ivan_boss_room$,  120, 45} }, 
+      $maze_1$=  { u={$field$,  52, 31} }, 
+      $village$=        { l={$lank_path$,      15, 18}, r={$field$,            33, 28} },
+      $field$=          { l={$village$,          31, 28}, r={$grave_path$,   33,  2}, d={$maze_1$,       52, 33} },
+      $grave_path$= { l={$field$,            63, 29}, r={$graveyard$,       97, 29} },
+      $graveyard$=      { l={$grave_path$,   47,  6}, r={$canyon_path$,      33,  8}, },
+      $canyon_path$=    { l={$graveyard$,       111, 29}, r={$canyon_1$,           49, 11} }, 
+      $canyon_1$=       { l={$canyon_path$, 47,11}, r={$canyon_2$,    85,30} },
+      $canyon_2$=       { l={$canyon_1$, 63,04}, u={$canyon_3$, 88,11} },
+      $canyon_3$=       { d={$canyon_2$, 90,13} }, 
    ]])
 
 end
