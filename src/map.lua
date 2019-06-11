@@ -60,6 +60,16 @@ function map_init()
       $graveyard$=             { n=$cemetary$,        c=05, x=96, y=0,  w=16, h=32 },
       $canyon_path$=           { n=$cemetary$,        c=05, x=32,  y=8,  w=16, h=7  },
 
+      $tomb_boss$=             { n=$tomb$,            c=05, x=112, y=0,  w=16, h=12  },
+      $tomb_main$=             { n=$tomb$,            c=05, x=112, y=12, w=16, h=12  },
+      $tomb_enter$=             { n=$tomb$,            c=05, x=112, y=24, w=10, h=8   },
+      $tomb_other$=             { n=$tomb$,            c=05, x=122, y=24, w=6,  h=8   },
+
+      $castle_1$=               { n=$castle$,            c=05, x=64, y=22, w=10, h=10   },
+      $castle_2$=               { n=$castle$,            c=05, x=74, y=22, w=10, h=10   },
+      $castle_3$=               { n=$castle$,            c=05, x=64, y=12, w=20, h=10   },
+      $castle_4$=               { n=$castle$,            c=05, x=64, y=0,  w=16, h=12   },
+
       $canyon_1$=           { n=$canyon$,          c=04, x=48,  y=0,  w=16, h=15 },
       $canyon_2$=           { n=$canyon$,          c=04, x=84,  y=12, w=12, h=20 },
       $canyon_3$=           { n=$canyon$,          c=04, x=80,  y=0,  w=16, h=12 },
@@ -67,8 +77,9 @@ function map_init()
       $maze_1$=            { n=$forest$,          c=03, x=48,  y=32, w=16, h=8  },
 
       $tech_entrance$=         { n=$tech$,            c=13, x=112, y=56, w=16, h=8  },
-      $tech_generator$=        { n=$tech$,            c=13, x=96,  y=32, w=16, h=32 },
+      $tech_generator$=        { n=$tech$,            c=13, x=96,  y=44, w=16, h=20 },
       $ivan_boss_room$=        { n=$tech$,            c=13, x=112, y=44, w=16, h=12 },
+      $endless_mode$=          { n=$tech$,            c=13, x=96,  y=32, w=16, h=12 },
       $computer_room$=         { n=$tech$,            c=13, x=112, y=32, w=16, h=12 }
    ]], function() -- @1
       gen_house(2,17.5,"lank_home", 4, 14.5) -- lank house.
