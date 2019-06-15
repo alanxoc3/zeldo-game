@@ -1,5 +1,4 @@
 -- todo: item selection sprites, based on pl's items.
--- todo: room loading draw on load.
 
 -- todo: enemy needs to collide with house correctly
 -- todo: enemy needs to be stunned correctly again.
@@ -25,6 +24,19 @@
 
 -- todo: think about text interaction more.
 
+-- readme todos:
+-- todo: Connect everything.
+-- todo: Create title screen.
+-- todo: Create card transitions.
+-- todo: Make area information (if no enemy).
+-- todo: Make enemy health bar.
+-- todo: Connect Tbox with menu actors.
+-- todo: Menu actor name and different backgrounds.
+-- todo: Nice functions to integrate with menu actors.
+-- todo: Make a sign
+-- todo: Create separate logic between doors and map.
+
+-- things that are done:
 -- done: house needs to clean up after itself.
 -- done: gun vals number
 -- done: optimize gun nums again
@@ -38,22 +50,8 @@
 -- done: tl update return next.
 -- done: tl takes no parameters? debate about this idea.
 -- done: shield house collision.
--- todo: map rooms need separate init functions.
-
--- readme todos:
--- todo: Connect everything.
--- todo: Create title screen.
--- todo: Create card transitions.
--- todo: Make area information (if no enemy).
--- todo: Make enemy health bar.
--- todo: Connect Tbox with menu actors.
--- todo: Menu actor name and different backgrounds.
--- todo: Nice functions to integrate with menu actors.
--- todo: Make a sign
--- todo: Create separate logic between doors and map.
-
-
-
+-- done: room loading draw on load.
+-- done: map rooms need separate init functions.
 
 -- token:
 -- 5180 5168 5166 5129 5258 5248 5244 5076 4983 5005 4994 4986 4985 4976 4965

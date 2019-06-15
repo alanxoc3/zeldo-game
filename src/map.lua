@@ -97,11 +97,12 @@ $h_lar$={      n=$house$,    c=04,x=024,y=08,w=08,h=08,d={$for_1$,060,35},u={$b_
 
 $endless$={    n=$endless$,c=13, x=96,  y=32, w=16, h=12 }
    ]], function() -- village @01
-      gen_house(16,18.5,"h_lan", 28, 15)
-      gen_house(20,24.5,"h_bob", 12, 15)
-      gen_house(12,24.5,"h_sho", 12, 07)
-      gen_house(06,22.5,"h_ban", 04, 15)
-      gen_house(26,22.5,"h_inf", 20, 15)
+      batch_call(
+         gen_house, [[
+{16,18.5,$h_lan$,28,15}, {20,24.5,$h_bob$,12,15},
+{12,24.5,$h_sho$,12,07}, {06,22.5,$h_ban$,04,15},
+{26,22.5,$h_inf$,20,15}]])
+
       gen_top(7, 26)
    end, function() -- for_1 @02
       gen_house(60,34.5,"h_lar", 28, 15)
