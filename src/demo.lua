@@ -101,6 +101,8 @@ function game_update()
    menu_update()
 
    if not g_menu_open then
+      room_update()
+
       batch_call(
          acts_loop, [[
             {$drawable$,$reset_off$},
@@ -125,7 +127,6 @@ function game_update()
       )
 
       update_view(g_pl.x, g_pl.y)
-      room_update()
    end
 end
 
@@ -137,7 +138,7 @@ function game_draw()
       draw_menu(64,59)
    end
 
-   -- acts_loop("dim", "debug_rect")
+   acts_loop("dim", "debug_rect")
    draw_status_bars()
    print(g_rooms[g_cur_room].n or g_cur_room, 30, 110, 7)
    -- draw_glitch_effect()
@@ -156,5 +157,10 @@ function game_init()
    -- load_room("lank's path", 2, 18)
    -- load_room("sword sanctuary", 37, 59)
    -- load_room("field", 52, 30) -- debug tech
-   load_room("maze_1", 52, 33)
+   load_room("villa", 21, 29)
+   --load_room("cas_1", 69, 30)
+    --load_room("tec_2", 101, 48)
+   
+    
+   -- load_room("tom_1", 115, 27)
 end

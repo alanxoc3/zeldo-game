@@ -1,5 +1,5 @@
 -- todo: trim code here.
-function gen_house(x, y, room, rx, ry)
+function gen_house(x, y, room, rx, ry, sind)
    return create_actor([[
       id=$house$,
       att={
@@ -7,29 +7,29 @@ function gen_house(x, y, room, rx, ry)
          iyy=-4,
          sw=2, sh=2,
          rx=.5, ry=.5,
-         room=@3,
-         sind=96,
+         room=@3, room_x=@4, room_y=@5,
+         sind=@10,
          static=true,
-         ddestroyed=@7,
+         destroyed=@9,
          touchable=false
       },
       par={$confined$,$spr$,$col$},
       tl={
-         {d=@4, contains=@5, i=@6}
+         {d=@6, contains=@7, i=@8}
       }
-      ]],x,y,room,scr_spr,
+      ]],x,y,room,rx,ry,scr_spr,
       -- hit
       function(a, other)
          if other.pl then
-            load_room(a.room, rx, ry)
+            load_room(a.room, a.room_x, a.room_y)
          end
       end, function(a)
-         a.b1 = gen_static_block(x-.75,y, .25, .5)
-         a.b2 = gen_static_block(x+.75,y, .25, .5)
-         a.b3 = gen_static_block(x,y-5/8, 1,.25)
+         a.b1 = gen_static_block(a.x-.75,a.y, .25, .5)
+         a.b2 = gen_static_block(a.x+.75,a.y, .25, .5)
+         a.b3 = gen_static_block(a.x,a.y-5/8, 1,.25)
       end, function(a)
          a.b1.alive, a.b2.alive, a.b3.alive = false
-      end
+      end, sind or 98 
    )
 end
 

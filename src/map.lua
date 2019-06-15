@@ -46,67 +46,72 @@ end
 
 function map_init()
    g_rooms = gun_vals([[
-      $all$=                   { n=$debug$,           c=03, x=0,   y=0,  w=128,h=64 },
+$debug$={      n=$debug$,    c=03, x=00,y=00,w=128,h=64 },
+$vilfd$={      n=$hiroll$,   c=03, x=00,y=16,w=64,h=16,l={$for_1$,063,36}},
 
-      $lark_home$=             { n=$house$,           c=04, x=20,  y=0,  w=06, h=7  },
-      $lank_home$=             { n=$house$,           c=04, x=0,   y=7,  w=08, h=8  },
+$villa$={i=@01,n=$hiroll$,   c=03,x=000,y=16,w=32,h=16,l={$for_1$,063,38},r={$field$,033,29}},
+$field$={      n=$hiroll$,   c=03,x=032,y=16,w=32,h=16,l={$villa$,031,29},r={$cem_1$,033,02}},
 
-      $lank_path$=           { n=$village$,  i=@1,  c=03, x=0,   y=15, w=16, h=6  },
-      $village$=               { n=$village$,  i=@2,  c=03, x=16,  y=15, w=16, h=17 },
+$for_1$={i=@02,n=$forest$,   c=03,x=048,y=32,w=16,h=08,r={$villa$,001,29},l={$for_2$,063,44},u={$for_0$,040,62},d={$for_0$,040,54}},
+$for_2$={      n=$forest$,   c=03,x=048,y=40,w=16,h=08,r={$for_1$,049,36},l={$for_0$,046,58},u={$for_0$,040,62},d={$for_3$,060,49}},
+$for_3$={      n=$forest$,   c=03,x=048,y=48,w=16,h=08,r={$for_0$,034,58},l={$for_4$,063,60},u={$for_2$,060,47},d={$for_0$,040,54}},
+$for_4$={i=@03,n=$forest$,   c=03,x=048,y=56,w=16,h=08,r={$for_3$,049,52},l={$for_0$,046,58},u={$for_5$,040,51},d={$for_0$,040,54}},
+$for_5$={      n=$forest$,   c=03,x=032,y=40,w=16,h=12,u={$for_6$,040,39},d={$for_4$,052,57}},
+$for_6$={      n=$forest$,   c=03,x=032,y=32,w=16,h=08,d={$for_5$,040,41}},
+$for_0$={      n=$forest$,   c=03,x=032,y=52,w=16,h=12 },
 
-      $field$=                 { n=$field$,           c=03, x=32,  y=15, w=32, h=17 },
+$cem_1$={      n=$cemetary$, c=05,x=032,y=00,w=16,h=08,l={$field$,063,29},r={$cem_2$,097,29}},
+$cem_2$={i=@04,n=$cemetary$, c=05,x=096,y=00,w=16,h=32,l={$cem_1$,047,06},r={$cem_3$,033,12}},
+$cem_3$={      n=$cemetary$, c=05,x=032,y=08,w=16,h=08,l={$cem_2$,111,29},r={$mnt_1$,049,12}},
 
-      $grave_path$=        { n=$cemetary$,        c=05, x=32,  y=0,  w=16, h=8  },
-      $graveyard$=             { n=$cemetary$,        c=05, x=96, y=0,  w=16, h=32 },
-      $canyon_path$=           { n=$cemetary$,        c=05, x=32,  y=8,  w=16, h=7  },
+$mnt_1$={      n=$canyon$,   c=04,x=048,y=00,w=16,h=16,l={$cem_3$,047,12},r={$mnt_2$,085,30}},
+$mnt_2$={      n=$canyon$,   c=04,x=084,y=12,w=12,h=20,l={$mnt_1$,063,04},u={$mnt_3$,088,11}},
+$mnt_3$={i=@05,n=$canyon$,   c=04,x=080,y=00,w=16,h=12,d={$mnt_2$,090,13}},
 
-      $tomb_boss$=             { n=$tomb$,            c=05, x=112, y=0,  w=16, h=12  },
-      $tomb_main$=             { n=$tomb$,            c=05, x=112, y=12, w=16, h=12  },
-      $tomb_enter$=             { n=$tomb$,            c=05, x=112, y=24, w=10, h=8   },
-      $tomb_other$=             { n=$tomb$,            c=05, x=122, y=24, w=6,  h=8   },
+$tom_1$={      n=$tomb$,     c=05,x=112,y=24,w=10,h=08,l={$cem_2$,109,03},u={$tom_2$,120,23}},
+$tom_2$={      n=$tomb$,     c=05,x=112,y=12,w=16,h=12,d={$tom_1$,120,25},u={$tom_3$,120,11}},
+$tom_3$={      n=$tomb$,     c=05,x=112,y=00,w=16,h=12,d={$tom_2$,120,13}},
+$tom_0$={      n=$tomb$,     c=05,x=122,y=24,w=06,h=08,r={$cem_2$,099,03}},
 
-      $castle_1$=               { n=$castle$,            c=05, x=64, y=22, w=10, h=10   },
-      $castle_2$=               { n=$castle$,            c=05, x=74, y=22, w=10, h=10   },
-      $castle_3$=               { n=$castle$,            c=05, x=64, y=12, w=20, h=10   },
-      $castle_4$=               { n=$castle$,            c=05, x=64, y=0,  w=16, h=12   },
+$cas_1$={      n=$castle$,   c=13,x=064,y=22,w=10,h=10,d={$mnt_3$,088,02},r={$cas_2$,075,27}},
+$cas_2$={      n=$castle$,   c=13,x=074,y=22,w=10,h=10,l={$cas_1$,073,27},u={$cas_3$,079,21}},
+$cas_3$={      n=$castle$,   c=13,x=064,y=12,w=20,h=10,d={$cas_2$,079,23},u={$cas_4$,072,11}},
+$cas_4$={      n=$castle$,   c=13,x=064,y=00,w=16,h=12,d={$cas_3$,072,13}},
 
-      $canyon_1$=           { n=$canyon$,          c=04, x=48,  y=0,  w=16, h=15 },
-      $canyon_2$=           { n=$canyon$,          c=04, x=84,  y=12, w=12, h=20 },
-      $canyon_3$=           { n=$canyon$,          c=04, x=80,  y=0,  w=16, h=12 },
+$tec_1$={      n=$tech$,     c=13,x=112,y=56,w=16,h=08,l={$tec_2$,111,60},u={$tec_3$,120,55}},
+$tec_2$={      n=$tech$,     c=13,x=096,y=44,w=16,h=20,r={$tec_1$,113,60}},
+$tec_3$={      n=$tech$,     c=13,x=112,y=44,w=16,h=12,d={$tec_1$,120,57},u={$tec_4$,120,43}},
+$tec_4$={      n=$tech$,     c=13,x=112,y=32,w=16,h=12,d={$tec_3$,120,45}},
 
-      $maze_1$=            { n=$forest$,          c=03, x=48,  y=32, w=16, h=8  },
+$h_gra$={      n=$house$,    c=04,x=000,y=00,w=08,h=08,d={$cem_2$,100,28}},
+$h_sho$={      n=$house$,    c=04,x=008,y=00,w=08,h=08,d={$villa$,012,25}},
+$h_nav$={      n=$house$,    c=03,x=016,y=00,w=08,h=08,d={$for_4$,056,59}},
+$b_lan$={      n=$house$,    c=04,x=024,y=00,w=08,h=08,d={$h_lan$,028,09}},
+$b_lar$={      n=$house$,    c=04,x=024,y=00,w=08,h=08,d={$h_lar$,028,09}},
 
-      $tech_entrance$=         { n=$tech$,            c=13, x=112, y=56, w=16, h=8  },
-      $tech_generator$=        { n=$tech$,            c=13, x=96,  y=44, w=16, h=20 },
-      $ivan_boss_room$=        { n=$tech$,            c=13, x=112, y=44, w=16, h=12 },
-      $endless_mode$=          { n=$tech$,            c=13, x=96,  y=32, w=16, h=12 },
-      $computer_room$=         { n=$tech$,            c=13, x=112, y=32, w=16, h=12 }
-   ]], function() -- @1
-      gen_house(2,17.5,"lank_home", 4, 14.5) -- lank house.
-      gen_top(5, 18)
-   end, function() -- @2
-      gen_house(22,17.5,"lark_home", 23, 6.5) -- lark house
+$h_ban$={      n=$house$,    c=04,x=000,y=08,w=08,h=08,d={$villa$,006,23}},
+$h_bob$={      n=$house$,    c=04,x=008,y=08,w=08,h=08,d={$villa$,020,25}},
+$h_inf$={      n=$house$,    c=04,x=016,y=08,w=08,h=08,d={$villa$,026,23}},
+$h_lan$={      n=$house$,    c=04,x=024,y=08,w=08,h=08,d={$villa$,016,19},u={$b_lan$,028,07}},
+$h_lar$={      n=$house$,    c=04,x=024,y=08,w=08,h=08,d={$for_1$,060,35},u={$b_lar$,028,07}},
+
+$endless$={    n=$endless$,c=13, x=96,  y=32, w=16, h=12 }
+   ]], function() -- village @01
+      gen_house(16,18.5,"h_lan", 28, 15)
+      gen_house(20,24.5,"h_bob", 12, 15)
+      gen_house(12,24.5,"h_sho", 12, 07)
+      gen_house(06,22.5,"h_ban", 04, 15)
+      gen_house(26,22.5,"h_inf", 20, 15)
+      gen_top(7, 26)
+   end, function() -- for_1 @02
+      gen_house(60,34.5,"h_lar", 28, 15)
+   end, function() -- for_4 @03
+      gen_house(56,58.5,"h_nav", 20, 07)
+   end, function() -- cem_2 @04
+      gen_house(100,27.5,"h_gra", 04, 07)
+   end, function() -- mnt_3 @05
+      gen_house(088,01.5,"cas_1", 69, 31, 102)
    end)
-
-   g_doors = gun_vals([[
-      $lark_home$={ d={$village$,          22, 18} },
-      $lank_home$={ d={$lank_path$,       2, 18} },
-      $lank_path$=    { r={$village$,          17, 18} },
-      $tech_entrance$=  { u={$ivan_boss_room$,  120, 55}, l={$tech_generator$,  111, 60} },
-      $tech_generator$= { r={$tech_entrance$,   113, 60} },
-      $ivan_boss_room$= { u={$computer_room$,   120, 43}, d={$tech_entrance$,   120, 57} },
-      $computer_room$=  { d={$ivan_boss_room$,  120, 45} }, 
-      $maze_1$=  { u={$field$,  52, 31} }, 
-      $village$=        { l={$lank_path$,      15, 18}, r={$field$,            33, 28} },
-      $field$=          { l={$village$,          31, 28}, r={$grave_path$,   33,  2}, d={$maze_1$,       52, 33} },
-      $grave_path$= { l={$field$,            63, 29}, r={$graveyard$,       97, 29} },
-      $graveyard$=      { l={$grave_path$,   47,  6}, r={$canyon_path$,      33,  8}, },
-      $canyon_path$=    { l={$graveyard$,       111, 29}, r={$canyon_1$,           49, 11} }, 
-      $canyon_1$=       { l={$canyon_path$, 47,11}, r={$canyon_2$,    85,30} },
-      $canyon_2$=       { l={$canyon_1$, 63,04}, u={$canyon_3$, 88,11} },
-      $canyon_3$=       { d={$canyon_2$, 90,13} }, 
-   ]])
-
 end
 
 function load_room(new_room, rx, ry)
@@ -131,7 +136,7 @@ function load_room(new_room, rx, ry)
 end
 
 function room_update()
-   cur_door = g_doors[g_cur_room]
+   cur_door = g_rooms[g_cur_room]
 
    -- plus .5 and minus .375 is because there is a screen border.
    if cur_door then
