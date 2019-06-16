@@ -1,24 +1,3 @@
-g_menu_cursor_timer=0
-g_ma_timer=0
-
-g_selected=4
-g_new_selected=4
-g_was_selected=false
-
--- 0 = banjo
--- 1 = sword
--- 2 = squareforce
--- 3 = lantern
--- 4 = interact
--- 5 = boomerang
--- 6 = bomb
--- 7 = shield
--- 8 = bow
-
-function menu_btn_helper(key_code, expr, add)
-   if btnp(key_code) and expr then g_new_selected += add end
-end
-
 g_item_descs = {
    "^banjo:play a sick tune!",
    "^sword:hurts bad guys.",
@@ -31,100 +10,145 @@ g_item_descs = {
    "^bow:shoots enemies. requires 2 power squares.",
 }
 
+function menu_init()
+   g_menu_cursor_timer=0
+   g_ma_timer=0
+
+   g_selected=4
+   g_new_selected=4
+
+   -- global_items
+   g_all_items = gun_vals([[
+      banjo    = {sind=08, desc=$^banjo:play a sick tune!$},
+      sword    = {sind=09, desc=$^sword:hurts bad guys.$},
+      force    = {sind=10, desc=$^sqr'force:don't let ivan take it from you!$},
+      shovel   = {sind=11, desc=$^shovel:dig things up. kill the grass.$},
+      interact= {sind=43, desc=$^interact:talk to people, pick up things, read signs.$},
+      boomrang = {sind=12, desc=$^b'rang:stuns enemies and kills really weak ones.$},
+      bomb     = {sind=13, desc=$^bomb:only 5 power squares to blows things up!$},
+      shield   = {sind=14, desc=$^shield:be safe from enemy attacks.$},
+      bow      = {sind=15, desc=$^bow:shoots enemies. requires 2 power squares.$},
+      letter   = {sind=44, desc=$^letter:dinner is ready for a special someone.$},
+      soul     = {sind=45, desc=$^soul:the soul of an angry family member.$},
+      chicken  = {sind=46, desc=$^chicken:looks delicious.$},
+      key      = {sind=47, desc=$^key:i wonder what it opens.$}
+   ]])
+
+   g_cur_items = { 
+      {x=0,y=0,id="key"},
+      {x=1,y=0,id="chicken"},
+      {x=2,y=0,id=nil},
+      {x=0,y=1,id=nil},
+      {x=1,y=1,id="interact"},
+      {x=2,y=1,id=nil},
+      {x=0,y=2,id=nil},
+      {x=1,y=2,id=nil},
+      {x=2,y=2,id=nil}
+   }
+end
+
+
+
+function menu_btn_helper(key_code, x, y)
+   return btnp(key_code) and g_cur_items[1+x+y*3] and g_cur_items[1+x+y*3].id
+end
+
 function menu_update()
-   if not g_menu_open and btn(5) then
-      tbox_stash_push()
-   end
+   -- tbox logic
+   if not g_menu_open and btn(5) then tbox_stash_push() end
+   if g_menu_open and not btn(5) then tbox_stash_pop() end
 
-   if g_menu_open and not btn(5) then
-      tbox_stash_pop()
-   end
+   -- reset if starting menu again.
+   -- if not (g_menu_open and g_new_selected) then g_new_selected = 4 end
 
-   old_selected = g_menu_open and g_new_selected
-   g_menu_open = btn(5)
+   g_menu_open  = btn(5)
 
    if g_menu_open then
-      if g_pl.item then g_pl.item.holding = false end
+      -- todo: do i want this logic here?
+      -- if g_pl.item then g_pl.item.holding = false end
 
-      -- for some reason, negative values don't work here.
-      batch_call(menu_btn_helper, "{0,@1,0xffff},{1,@2,1},{2,@3,0xfffd},{3,@4,3}", 
-         g_new_selected%3 - 1 >= 0,
-         g_new_selected%3 + 1 <= 2,
-         g_new_selected   - 3 >= 0,
-         g_new_selected   + 3 <= 8
-      )
+      -- below only allows movement on available items and within bounds.
+      local x = g_new_selected%3
+      local y = flr(g_new_selected/3)
 
-      if old_selected != g_new_selected then
-         tbox_clear()
-         tbox(g_item_descs[g_new_selected+1])
-         g_ma = 7+g_new_selected
-         g_ma_out = false
-      end
+      if menu_btn_helper(0,x-1,y) then x-=1 end
+      if menu_btn_helper(1,x+1,y) then x+=1 end
+      if menu_btn_helper(2,x,y-1) then y-=1 end
+      if menu_btn_helper(3,x,y+1) then y+=1 end
 
-      g_was_selected=true
-      g_menu_cursor_timer += 1
-
-      if g_menu_cursor_timer % 30 == 0 then
-         g_menu_pattern  = rotl(g_menu_pattern, 4)
-      end
+      x, y = max(0,min(x,2)), max(0,min(y,2))
+      g_new_selected = y*3+x
+      -- printh("x is: "..x.." y is: "..y)
    else
-      if g_was_selected then
-         g_selected, g_new_selected, g_was_selected = g_new_selected, 4, false
-      end
-      g_ma_out = true
-      g_ma = 54
+      -- reset next time menu is opened. set item.
+      g_selected, g_new_selected = g_new_selected, 4
    end
 
    g_ma_timer += 1
    if g_ma_timer % 15 == 0 then
       g_ma_pat = rotl(g_ma_pat, 4)
    end
+
+   g_menu_cursor_timer += 1
+   if g_menu_cursor_timer % 30 == 0 then
+      g_menu_pattern  = rotl(g_menu_pattern, 4)
+   end
 end
 
 g_menu_pattern=0x1040.1040
+
+
+function draw_inactive_box(x, y, sind)
+   rectfill(x-7,y-7,x+6,y+6,1)
+   rectfill(x-6,y-6,x+5,y+5,7)
+   fillp(flr(g_menu_pattern))
+   rectfill(x-5,y-5,x+4,y+4,0xd6)
+   fillp()
+
+   for i=1,15 do pal(i, g_pal_gray[i]) end
+   spr(sind, x-4, y-4)
+   pal()
+end
+
+function draw_active_box(x, y, sind)
+   rectfill(x-7,y-7,x+6,y+6,1)
+   rectfill(x-6,y-6,x+5,y+5,9)
+   rectfill(x-5,y-5,x+4,y+4,10)
+
+   fillp(flr(g_ma_pat))
+   rectfill(x-5,y-5,x+4,y+4,0x9a)
+   fillp()
+
+   spr(sind, x-4, y-4)
+end
 
 -- todo: make this work if item doesn't exist.
 function draw_menu(x, y)
    pal()
 
    local select_x, select_y = 0, 0
-   for i=0,2 do
-      for j=0,2 do
-         local ind, lx, ly = (i*3 + j), (x - 16 + j * 16), (y - 16 + i * 16)
-         local rel_func2 = function(x1, y1, x2, y2, c)
-            rectfill(lx+x1,ly+y1,lx+x2,ly+y2,c)
-         end
 
-         if ind == g_new_selected then
-
-            rectfill(lx-7,ly-7,lx+6,ly+6,1)
-            rectfill(lx-6,ly-6,lx+5,ly+5,9)
-            rectfill(lx-5,ly-5,lx+4,ly+4,10)
-
-            fillp(flr(g_ma_pat))
-            rectfill(lx-5,ly-5,lx+4,ly+4,0x9a)
-            fillp()
+   --printh("start")
+   for item in all(g_cur_items) do
+      local lx, ly = (x - 16 + item.x * 16), (y - 16 + item.y * 16)
+      local ind = item.x+item.y*3+1
+      if item.id then
+         --printh("index is: "..ind.." x: "..item.x.." y: "..item.y)
+         if ind-1 == g_new_selected then
+            draw_active_box(lx,ly,g_all_items[g_cur_items[ind].id].sind)
             select_x = lx-4
             select_y = ly-4
          else
-            rectfill(lx-7,ly-7,lx+6,ly+6,1)
-            rectfill(lx-6,ly-6,lx+5,ly+5,7)
-            fillp(flr(g_menu_pattern))
-            rectfill(lx-5,ly-5,lx+4,ly+4,0xd6)
-            fillp()
-
-            for i=1,15 do pal(i, g_pal_gray[i]) end
+            draw_inactive_box(lx,ly,g_all_items[g_cur_items[ind].id].sind)
          end
-
-         spr(7+ind, lx-4, ly-4)
-         pal()
+      else
+         circfill(lx,ly,1,1)
       end
    end
 
    local spr_ind = (g_menu_cursor_timer % 60 > 40) and 38 or 39
    local rel_spr = function(x1, y1, ...) spr(spr_ind, select_x+x1, select_y+y1, ...) end
    batch_call(rel_spr, "{-5,-5,1,1,false,false}, {5,-5,1,1,true,false}, {5,5,1,1,true,true}, {-5,5,1,1,false,true}")
-
 end
 
 -- menu enemy

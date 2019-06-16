@@ -22,6 +22,7 @@ function gun_vals_helper(val_str,i,new_params)
    while i <= #val_str do
       local x = sub(val_str, i, i)
       if     x == "$" then str_mode, isnum = not str_mode
+      elseif str_mode then val=val..x
       elseif x == "}" or x == "," then
          if type(val) == "string" and sub(val,1,1) == "@" then
             local sec = tonum(sub(val,2,#val))
@@ -37,7 +38,6 @@ function gun_vals_helper(val_str,i,new_params)
          if x == "}" then
             return val_list, i
          end
-      elseif str_mode then val=val..x
       elseif x == "{" then val, i, isnum = gun_vals_helper(val_str,i+1,new_params)
       elseif x == "=" then isnum, val_key, val = true, val, ""
       elseif x != " " and x != "\n" then val=val..x end

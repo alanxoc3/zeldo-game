@@ -80,6 +80,8 @@ function _init()
    --)
 
    tbox("lank:...:...:...:1234123456 901234567890 234123456 8901234567890 ")
+
+   menu_init()
 end
 
 function _update60()
