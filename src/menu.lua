@@ -1,21 +1,9 @@
-g_item_descs = {
-   "^banjo:play a sick tune!",
-   "^sword:hurts bad guys.",
-   "^sqr'force:don't let ivan take it from you!",
-   "^lantern:lights up dark places.",
-   "^interact:talk to people, pick up things, read signs.",
-   "^b'rang:stuns enemies and kills really weak ones.",
-   "^bomb:only 5 power squares to blows things up!",
-   "^shield:be safe from enemy attacks.",
-   "^bow:shoots enemies. requires 2 power squares.",
-}
-
 function menu_init()
    g_menu_cursor_timer=0
    g_ma_timer=0
 
-   g_selected=4
-   g_new_selected=4
+   g_selected=1
+   g_new_selected=1
 
    -- global_items
    g_all_items = gun_vals([[
@@ -23,7 +11,7 @@ function menu_init()
       sword    = {sind=09, desc=$^sword:hurts bad guys.$},
       force    = {sind=10, desc=$^sqr'force:don't let ivan take it from you!$},
       shovel   = {sind=11, desc=$^shovel:dig things up. kill the grass.$},
-      interact= {sind=43, desc=$^interact:talk to people, pick up things, read signs.$},
+      interact = {sind=43, desc=$^interact:talk to people, pick up things, read signs.$},
       boomrang = {sind=12, desc=$^b'rang:stuns enemies and kills really weak ones.$},
       bomb     = {sind=13, desc=$^bomb:only 5 power squares to blows things up!$},
       shield   = {sind=14, desc=$^shield:be safe from enemy attacks.$},
@@ -34,23 +22,25 @@ function menu_init()
       key      = {sind=47, desc=$^key:i wonder what it opens.$}
    ]])
 
-   g_cur_items = { 
-      {x=0,y=0,id="key"},
-      {x=1,y=0,id="chicken"},
-      {x=2,y=0,id=nil},
-      {x=0,y=1,id=nil},
-      {x=1,y=1,id="interact"},
-      {x=2,y=1,id=nil},
-      {x=0,y=2,id=nil},
-      {x=1,y=2,id=nil},
-      {x=2,y=2,id=nil}
-   }
+   g_cur_items = {}
+
+   --add(g_cur_items, "interact")
+   add(g_cur_items, "interact")
+   add(g_cur_items, "key")
+   add(g_cur_items, "interact")
+   add(g_cur_items, "bow")
+   add(g_cur_items, "letter")
+   add(g_cur_items, "soul")
+
+   del(g_cur_items, "key")
+   del(g_cur_items, "interact")
 end
 
-
-
-function menu_btn_helper(key_code, x, y)
-   return btnp(key_code) and g_cur_items[1+x+y*3] and g_cur_items[1+x+y*3].id
+g_item_order  ={5,4,6,2,8,1,3,7,9}
+g_item_reverse={6,4,7,2,1,3,8,5,9}
+function index_to_coord(ind)
+   local order = g_item_order[ind]-1
+   return order%3, flr(order/3)
 end
 
 function menu_update()
@@ -64,24 +54,26 @@ function menu_update()
    g_menu_open  = btn(5)
 
    if g_menu_open then
+      -- printh("oh ok: "..g_new_selected)
       -- todo: do i want this logic here?
       -- if g_pl.item then g_pl.item.holding = false end
 
-      -- below only allows movement on available items and within bounds.
-      local x = g_new_selected%3
-      local y = flr(g_new_selected/3)
+      -- from index to coordinate
+      local x, y = index_to_coord(g_new_selected)
 
-      if menu_btn_helper(0,x-1,y) then x-=1 end
-      if menu_btn_helper(1,x+1,y) then x+=1 end
-      if menu_btn_helper(2,x,y-1) then y-=1 end
-      if menu_btn_helper(3,x,y+1) then y+=1 end
+      if btnp(0) then x -= 1 end
+      if btnp(1) then x += 1 end
+      if btnp(2) then y -= 1 end
+      if btnp(3) then y += 1 end
 
+      -- only allow movement within bounds.
       x, y = max(0,min(x,2)), max(0,min(y,2))
-      g_new_selected = y*3+x
-      -- printh("x is: "..x.." y is: "..y)
+
+      -- from coordinate to index
+      g_new_selected = g_item_reverse[y*3+x+1]
    else
       -- reset next time menu is opened. set item.
-      g_selected, g_new_selected = g_new_selected, 4
+      g_selected, g_new_selected = g_new_selected, 1
    end
 
    g_ma_timer += 1
@@ -97,10 +89,9 @@ end
 
 g_menu_pattern=0x1040.1040
 
-
 function draw_inactive_box(x, y, sind)
-   rectfill(x-7,y-7,x+6,y+6,1)
-   rectfill(x-6,y-6,x+5,y+5,7)
+   rect(x-7,y-7,x+6,y+6,1)
+   rect(x-6,y-6,x+5,y+5,13)
    fillp(flr(g_menu_pattern))
    rectfill(x-5,y-5,x+4,y+4,0xd6)
    fillp()
@@ -128,21 +119,26 @@ function draw_menu(x, y)
 
    local select_x, select_y = 0, 0
 
-   --printh("start")
-   for item in all(g_cur_items) do
-      local lx, ly = (x - 16 + item.x * 16), (y - 16 + item.y * 16)
-      local ind = item.x+item.y*3+1
-      if item.id then
-         --printh("index is: "..ind.." x: "..item.x.." y: "..item.y)
-         if ind-1 == g_new_selected then
-            draw_active_box(lx,ly,g_all_items[g_cur_items[ind].id].sind)
-            select_x = lx-4
-            select_y = ly-4
+   printh("start")
+   for ind=1,9 do 
+      local item = g_cur_items[ind]
+      local item_x, item_y = index_to_coord(ind)
+      local lx, ly = (x - 16 + item_x * 16), (y - 16 + item_y * 16)
+
+      if ind == g_new_selected then
+         select_x = lx-4
+         select_y = ly-4
+         printh(g_new_selected)
+      end
+
+      if item then
+         if ind == g_new_selected then
+            draw_active_box(lx,ly,g_all_items[item].sind)
          else
-            draw_inactive_box(lx,ly,g_all_items[g_cur_items[ind].id].sind)
+            draw_inactive_box(lx,ly,g_all_items[item].sind)
          end
       else
-         circfill(lx,ly,1,1)
+         rectfill(lx-1,ly-1,lx,ly, 1)
       end
    end
 
@@ -181,7 +177,7 @@ function draw_status_bars()
 
    -- top bar
    -- rectfill(0, 0, 127, 10, 0)
-   spr(g_selected+7, 2, 2)
+   spr(g_selected+6, 2, 2)
    rectfill(12,2,12,9,7)
 
    yoff = 1
