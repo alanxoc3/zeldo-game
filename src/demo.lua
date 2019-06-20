@@ -79,9 +79,7 @@ function _init()
       --{ game_init,  nil, game_update,  game_draw }
    --)
 
-   tbox("lank:...:...:...:1234123456 901234567890 234123456 8901234567890 ")
-
-   menu_init()
+   inventory_init()
 end
 
 function _update60()
@@ -98,7 +96,8 @@ function _draw()
 end
 
 function game_update()
-   menu_update()
+   patterns_update()
+   inventory_update()
 
    if not g_menu_open then
       room_update()
@@ -135,7 +134,7 @@ function game_draw()
    draw_cur_room(8, 7 + 3/8)
 
    if g_menu_open then
-      draw_menu(64,59)
+      inventory_draw(64,59)
    end
 
    acts_loop("dim", "debug_rect")
@@ -160,7 +159,7 @@ function game_init()
    load_room("villa", 21, 29)
    --load_room("cas_1", 69, 30)
     --load_room("tec_2", 101, 48)
-   
     
-   -- load_room("tom_1", 115, 27)
+   -- load_room("tom_0", 125, 27)
+   tbox("lank:...:...:...:1234123456 901234567890 234123456 8901234567890 ")
 end
