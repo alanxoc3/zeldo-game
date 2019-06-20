@@ -3,6 +3,7 @@ function gen_house(x, y, room, rx, ry, sind)
    return create_actor([[
       id=$house$,
       att={
+         block=true,
          x=@1, y=@2,
          iyy=-4,
          sw=2, sh=2,
@@ -15,7 +16,7 @@ function gen_house(x, y, room, rx, ry, sind)
       },
       par={$confined$,$spr$,$col$},
       tl={
-         {d=@6, contains=@7, i=@8}
+         {d=@6, hit=@11, contains=@7, i=@8}
       }
       ]],x,y,room,rx,ry,scr_spr,
       -- hit
@@ -29,14 +30,21 @@ function gen_house(x, y, room, rx, ry, sind)
          a.b3 = gen_static_block(a.x,a.y-5/8, 1,.25)
       end, function(a)
          a.b1.alive, a.b2.alive, a.b3.alive = false
-      end, sind or 98 
+      end, sind or 98,
+      function(a, other)
+         if other.evil then
+            printh("ohohohoh")
+            other.knockback(other, .2, 0, 1)
+         end
+      end
    )
 end
 
 function gen_static_block(x, y, rx, ry)
    return create_actor([[
-      id=$block$,
+      id=$rect_block$,
       att={
+         block=true,
          x=@1, y=@2, rx=@3, ry=@4,
          static=true,
          touchable=true

@@ -31,6 +31,7 @@ function gen_top(x, y)
    return create_actor([[
       id=$top$,
       att={
+         evil=true,
          x=@1,
          y=@2,
          rx=.375,
@@ -50,9 +51,17 @@ function gen_top(x, y)
       ]],x,y,
       -- hit
       function(a, other, ...)
-         if other.pl then other.hurt(other, 1) other.stun(other, 30) end
-         if other.knockable then other.knockback(other, .2, ...) end
-         tl_next(a)
+         if other.pl then
+            other.hurt(other, 1) other.stun(other, 30)
+         end
+
+         if other.knockable then
+            other.knockback(other, .2, ...)
+         end
+
+         if not other.block then
+            tl_next(a)
+         end
       end,
       -- init 1
       function(a)
@@ -65,7 +74,7 @@ function gen_top(x, y)
       end,
       -- init 2
       function(a)
-         amov_to_actor(a, g_pl, .05)
+         amov_to_actor(a, g_pl, .06)
       end,
       scr_spr_out
    )

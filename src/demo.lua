@@ -1,6 +1,3 @@
--- todo: item selection sprites, based on pl's items.
-
--- todo: enemy needs to collide with house correctly
 -- todo: enemy needs to be stunned correctly again.
 -- todo: enemy collide with screen edge.
 
@@ -52,6 +49,8 @@
 -- done: shield house collision.
 -- done: room loading draw on load.
 -- done: map rooms need separate init functions.
+-- done: item selection sprites, based on pl's items.
+-- done: enemy needs to collide with house correctly
 
 -- token:
 -- 5180 5168 5166 5129 5258 5248 5244 5076 4983 5005 4994 4986 4985 4976 4965
@@ -137,7 +136,7 @@ function game_draw()
       inventory_draw(64,59)
    end
 
-   acts_loop("dim", "debug_rect")
+   -- acts_loop("dim", "debug_rect")
    draw_status_bars()
    print(g_rooms[g_cur_room].n or g_cur_room, 30, 110, 7)
    -- draw_glitch_effect()

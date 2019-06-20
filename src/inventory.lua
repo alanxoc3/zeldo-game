@@ -58,7 +58,7 @@ function inventory_init()
                if other.knockable then other.knockback(other, knockback_val, a.xf and -1 or 1, 0) end
                if other.stunnable then other.stun(other, 30) end
                if other.hurtable  then other.hurt(other, .5) end
-               g_pl.knockback(g_pl, .3, a.xf and 1 or -1, 0)
+               pl.knockback(pl, .3, a.xf and 1 or -1, 0)
                a.poke = 10
                g_ma = other.sind
             end
@@ -144,7 +144,7 @@ function inventory_init()
             if not other.pl and other.knockable then
                local knockback_val = (a.tl_curr == 1) and .4 or .2
                if other.knockable then other.knockback(other, knockback_val, a.xf and -1 or 1, 0) end
-               g_pl.knockback(g_pl, .1, a.xf and 1 or -1, 0)
+               pl.knockback(pl, .1, a.xf and 1 or -1, 0)
                if other.stunnable and a.tl_curr == 1 then
                   other.stun(other, 60)
                end
