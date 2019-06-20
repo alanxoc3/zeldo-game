@@ -33,7 +33,6 @@ function gen_house(x, y, room, rx, ry, sind)
       end, sind or 98,
       function(a, other)
          if other.evil then
-            printh("ohohohoh")
             other.knockback(other, .2, 0, 1)
          end
       end
@@ -49,7 +48,7 @@ function gen_static_block(x, y, rx, ry)
          static=true,
          touchable=true
       },
-      par={$confined$, $col$},
+      par={$confined$, $wall$},
       tl={{hit=@5}}
       ]],x,y,rx,ry, function() end
    )

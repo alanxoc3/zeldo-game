@@ -37,15 +37,14 @@ function gen_top(x, y)
          rx=.375,
          ry=.375,
          iyy=-2,
-         xb=.4,
-         yb=.4,
-         sind=60,
+         sinds={120,121},
+         anim_len=1,
          touchable=true
       },
-      par={$confined$, $spr$,$mov$,$timed$,$col$,$tcol$,$knockable$},
+      par={$confined$,$stunnable$,$mov$,$col$,$tcol$,$knockable$,$anim$},
       tl={
          {d=@7, i=@4, t=1.5},
-         {d=@7, u=@5, t=.5},
+         {d=@7, i=@8, u=@5, t=.5},
          {d=@7, i=@6, hit=@3, t=1}
       }
       ]],x,y,
@@ -56,26 +55,29 @@ function gen_top(x, y)
          end
 
          if other.knockable then
-            other.knockback(other, .2, ...)
+            other.knockback(other, .3, ...)
          end
 
          if not other.block then
-            tl_next(a)
+            tl_next(a, 1)
          end
       end,
       -- init 1
       function(a)
          a.ax, a.ay = 0, 0
+         a.anim_off = 0
       end,
       -- update 1
       function(a)
-         a.xx = rnd_one()
          a.xf = g_pl.x < a.x
       end,
       -- init 2
       function(a)
          amov_to_actor(a, g_pl, .06)
       end,
-      scr_spr_out
+      scr_spr_out,
+      function(a)
+         a.anim_off = 1
+      end
    )
 end

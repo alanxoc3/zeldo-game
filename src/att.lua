@@ -257,6 +257,15 @@ create_parent(
 end)
 
 create_parent(
+[[ id=$wall$,
+   att={
+      static=true,touchable=true,hit=@1
+   },
+   par={$vec$,$dim$},
+]], function() end
+)
+
+create_parent(
 [[ id=$col$,
    att={
       static=false,

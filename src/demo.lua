@@ -1,4 +1,3 @@
--- todo: enemy needs to be stunned correctly again.
 -- todo: enemy collide with screen edge.
 
 -- todo: menu enemy support must be better.
@@ -51,6 +50,7 @@
 -- done: map rooms need separate init functions.
 -- done: item selection sprites, based on pl's items.
 -- done: enemy needs to collide with house correctly
+-- done: enemy needs to be stunned correctly again.
 
 -- token:
 -- 5180 5168 5166 5129 5258 5248 5244 5076 4983 5005 4994 4986 4985 4976 4965
@@ -108,6 +108,7 @@ function game_update()
             {$act$,$update$},
             {$mov$,$move$},
             {$col$,$move_check$,@1},
+            {$col$,$move_check$,@4},
             {$tcol$,$coll_tile$,@2},
             {$rel$,$rel_update$,@3},
             {$vec$,$vec_update$},
@@ -121,7 +122,8 @@ function game_update()
                    y >= g_ry and y < g_ry+g_rh and
                    fget(mget(x, y), 1)
          end,
-         g_pl
+         g_pl,
+         g_act_arrs["wall"]
       )
 
       update_view(g_pl.x, g_pl.y)

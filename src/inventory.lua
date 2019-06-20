@@ -32,7 +32,6 @@ function inventory_init()
       return create_actor([[
          id=$lank_sword$,
          att={
-            movable=true,
             holding=true,
             rx=.5,
             ry=.375,
@@ -52,15 +51,24 @@ function inventory_init()
          pl.xf,
          -- hit
          function(a, other)
-            if not other.pl and other.knockable then
-               local knockback_val = (a.tl_curr == 1) and .3 or .1
-               local hurt_val = (a.tl_curr == 1) and .1 or .2
-               if other.knockable then other.knockback(other, knockback_val, a.xf and -1 or 1, 0) end
-               if other.stunnable then other.stun(other, 30) end
-               if other.hurtable  then other.hurt(other, .5) end
-               pl.knockback(pl, .3, a.xf and 1 or -1, 0)
+            if other.evil then
                a.poke = 10
-               g_ma = other.sind
+               if other.knockable then
+                  local knockback_val = (a.tl_curr == 1) and .3 or .1
+                  local hurt_val = (a.cur == 1) and .1 or .2
+
+                  other.knockback(other, knockback_val, a.xf and -1 or 1, 0)
+
+                  pl.knockback(pl, .3, a.xf and 1 or -1, 0)
+                  a.poke = 10
+               end
+
+               if other.stunnable then other.stun(other, 30) end
+               if other.hurtable  then other.hurt(other, hurt_val) end
+
+            end
+
+            if not other.pl and other.knockable then
             end
          end,
          -- init 1
@@ -122,7 +130,7 @@ function inventory_init()
       return create_actor([[
          id=$lank_shield$,
          att={
-            movable=true,
+            block=true,
             holding=true,
             rx=.25,
             ry=.5,
@@ -141,15 +149,18 @@ function inventory_init()
          pl.xf,
          -- hit
          function(a, other)
-            if not other.pl and other.knockable then
-               local knockback_val = (a.tl_curr == 1) and .4 or .2
-               if other.knockable then other.knockback(other, knockback_val, a.xf and -1 or 1, 0) end
-               pl.knockback(pl, .1, a.xf and 1 or -1, 0)
-               if other.stunnable and a.tl_curr == 1 then
+            if other.evil then
+               a.poke=10
+
+               if other.knockable then
+                  local knockback_val = (a.tl_curr == 1) and .4 or .2
+                  other.knockback(other, knockback_val, a.xf and -1 or 1, 0)
+                  pl.knockback(pl, .1, a.xf and 1 or -1, 0)
+               end
+
+               if a.cur == 1 and other.stunnable then
                   other.stun(other, 60)
                end
-               a.poke=10
-               g_ma = other.sind
             end
          end,
          -- init 1
