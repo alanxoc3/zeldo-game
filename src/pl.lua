@@ -18,7 +18,6 @@ function gen_pl(x, y)
    return create_actor(
       [[ id=$pl$,
          att={
-            confined=false,
             x=@1,
             y=@2,
             sinds={56, 57, 58, 59},

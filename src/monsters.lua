@@ -41,7 +41,7 @@ function gen_top(x, y)
          anim_len=1,
          touchable=true
       },
-      par={$confined$,$stunnable$,$mov$,$col$,$tcol$,$knockable$,$anim$},
+      par={$bounded$,$confined$,$stunnable$,$mov$,$col$,$tcol$,$knockable$,$anim$},
       tl={
          {d=@7, i=@4, t=1.5},
          {d=@7, i=@8, u=@5, t=.5},

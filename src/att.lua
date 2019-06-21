@@ -80,7 +80,31 @@ end, function(a)
    end
 end, nf, function(a) a.alive = false end)
 
-create_parent([[id=$confined$,att={kill=@4}]])
+create_parent([[id=$confined$,att={},par={$act$}]])
+
+create_parent([[id=$bounded$,att={check_bounds=@1},par={$act$}]], function(a)
+   local cur_room = g_rooms[g_cur_room]
+
+   if a.x+a.dx < cur_room.x+.5 then
+      a.x = cur_room.x+.5
+      a.dx = 0
+   end
+
+   if a.x+a.dx > cur_room.x+cur_room.w-.5 then
+      a.x = cur_room.x+cur_room.w-.5
+      a.dx = 0
+   end
+
+   if a.y+a.dy < cur_room.y+.5 then
+      a.y = cur_room.y+.5
+      a.dy = 0
+   end
+
+   if a.y+a.dy > cur_room.y+cur_room.h-.5 then
+      a.y = cur_room.y+cur_room.h-.5
+      a.dy = 0
+   end
+end)
 
 create_parent(
 [[ id=$timed$,
@@ -169,7 +193,8 @@ create_parent(
       yy=0,
       draw=@1,
       reset_off=@2
-   }
+   },
+   par={$act$}
 ]], function(...)
    tl_func("d", ...)
 end, function(a)

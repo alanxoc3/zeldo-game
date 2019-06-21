@@ -108,6 +108,7 @@ $endless$={    n=$endless$,c=13, x=96,  y=32, w=16, h=12 }
       gen_house(60,34.5,"h_lar", 28, 15)
    end, function() -- for_4 @03
       gen_house(56,58.5,"h_nav", 20, 07)
+      gen_top(56,60)
    end, function() -- cem_2 @04
       gen_house(100,27.5,"h_gra", 04, 07)
    end, function() -- mnt_3 @05
@@ -137,18 +138,18 @@ function load_room(new_room, rx, ry)
 end
 
 function room_update()
-   cur_door = g_rooms[g_cur_room]
+   local cur_room = g_rooms[g_cur_room]
 
    -- plus .5 and minus .375 is because there is a screen border.
-   if cur_door then
-      if g_pl.y > g_ry+g_rh-.375 and cur_door.d then
-         load_room(cur_door.d[1], cur_door.d[2], cur_door.d[3])
-      elseif g_pl.y < g_ry + .5 and cur_door.u then
-         load_room(cur_door.u[1], cur_door.u[2], cur_door.u[3])
-      elseif g_pl.x > g_rx+g_rw-.375 and cur_door.r then
-         load_room(cur_door.r[1], cur_door.r[2], cur_door.r[3])
-      elseif g_pl.x < g_rx +.5 and cur_door.l then
-         load_room(cur_door.l[1], cur_door.l[2], cur_door.l[3])
+   if cur_room then
+      if g_pl.y > g_ry+g_rh-.375 and cur_room.d then
+         load_room(cur_room.d[1], cur_room.d[2], cur_room.d[3])
+      elseif g_pl.y < g_ry + .5 and cur_room.u then
+         load_room(cur_room.u[1], cur_room.u[2], cur_room.u[3])
+      elseif g_pl.x > g_rx+g_rw-.375 and cur_room.r then
+         load_room(cur_room.r[1], cur_room.r[2], cur_room.r[3])
+      elseif g_pl.x < g_rx +.5 and cur_room.l then
+         load_room(cur_room.l[1], cur_room.l[2], cur_room.l[3])
       end
    end
 end

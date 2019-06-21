@@ -1,23 +1,11 @@
--- todo: enemy collide with screen edge.
-
 -- todo: menu enemy support must be better.
--- todo: delete old map room logic.
---
--- todo: create palace map.
+
 -- todo: go through sprite file optimizations.
 -- todo: change drawing functions to work with tl better. Incorporate tl even more.
 -- todo: create actor/parent more simple? Very similar now.
-
 -- todo: tl embedded tl.
 -- todo: pl item shakes with pl.
-
 -- todo: no double draw items
--- todo: field fix up. Field and gravep connect better.
-
--- todo: think about connecting map logic.
--- todo: connect up grave dungeon.
--- todo: connect up castle
-
 -- todo: think about text interaction more.
 
 -- readme todos:
@@ -34,6 +22,8 @@
 
 -- things that are done:
 -- done: house needs to clean up after itself.
+-- done: delete old map room logic.
+-- done: create palace map.
 -- done: gun vals number
 -- done: optimize gun nums again
 -- done: player banjo walk
@@ -51,6 +41,13 @@
 -- done: item selection sprites, based on pl's items.
 -- done: enemy needs to collide with house correctly
 -- done: enemy needs to be stunned correctly again.
+-- done: enemy collide with screen edge.
+-- done: field fix up. Field and gravep connect better.
+-- done: think about connecting map logic.
+-- done: connect up grave dungeon.
+-- done: connect up castle
+
+
 
 -- token:
 -- 5180 5168 5166 5129 5258 5248 5244 5076 4983 5005 4994 4986 4985 4976 4965
@@ -112,6 +109,7 @@ function game_update()
             {$tcol$,$coll_tile$,@2},
             {$rel$,$rel_update$,@3},
             {$vec$,$vec_update$},
+            {$bounded$,$check_bounds$},
             {$act$, $clean$},
             {$anim$,$anim_update$},
             {$timed$,$tick$}
