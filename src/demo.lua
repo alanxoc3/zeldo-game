@@ -1,24 +1,25 @@
+-- the story of zeldo
+-- amorg games
+
 -- todo: menu enemy support must be better.
 
 -- todo: go through sprite file optimizations.
--- todo: change drawing functions to work with tl better. Incorporate tl even more.
 -- todo: create actor/parent more simple? Very similar now.
 -- todo: tl embedded tl.
 -- todo: pl item shakes with pl.
--- todo: no double draw items
 -- todo: think about text interaction more.
 
 -- readme todos:
--- todo: Connect everything.
--- todo: Create title screen.
--- todo: Create card transitions.
--- todo: Make area information (if no enemy).
--- todo: Make enemy health bar.
--- todo: Connect Tbox with menu actors.
--- todo: Menu actor name and different backgrounds.
--- todo: Nice functions to integrate with menu actors.
--- todo: Make a sign
--- todo: Create separate logic between doors and map.
+-- todo: connect everything.
+-- todo: create title screen.
+-- todo: create card transitions.
+-- todo: make area information (if no enemy).
+-- todo: make enemy health bar.
+-- todo: connect tbox with menu actors.
+-- todo: menu actor name and different backgrounds.
+-- todo: nice functions to integrate with menu actors.
+-- todo: make a sign
+-- todo: create separate logic between doors and map.
 
 -- things that are done:
 -- done: house needs to clean up after itself.
@@ -46,6 +47,8 @@
 -- done: think about connecting map logic.
 -- done: connect up grave dungeon.
 -- done: connect up castle
+-- done: change drawing functions to work with tl better. Incorporate tl even more.
+-- done: no double draw items
 
 
 
@@ -155,10 +158,11 @@ function game_init()
    -- load_room("lank's path", 2, 18)
    -- load_room("sword sanctuary", 37, 59)
    -- load_room("field", 52, 30) -- debug tech
-   load_room("villa", 21, 29)
+   --load_room("villa", 21, 29)
+   -- load_room("title", 101, 36)
    --load_room("cas_1", 69, 30)
     --load_room("tec_2", 101, 48)
     
-   -- load_room("tom_0", 125, 27)
+   load_room("tom_1", 125, 27)
    tbox("lank:...:...:...:1234123456 901234567890 234123456 8901234567890 ")
 end
