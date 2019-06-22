@@ -1,13 +1,17 @@
+function act_poke(a, ix1, ix2)
+   if a.poke > 0 then
+      a.poke -= 1
+      a.ixx = a.xf and ix1 or -ix1
+   else
+      a.ixx = a.xf and ix2 or -ix2
+   end
+end
+
 function inventory_init()
    g_selected="interact"
    g_new_selected=1
 
    g_inventory = {}
-   add(g_inventory, "interact")
-   add(g_inventory, "sword")
-   add(g_inventory, "banjo")
-   add(g_inventory, "shield")
-
    -- add and delete examples
    -- add(g_inventory, "soul")
    -- del(g_inventory, "interact")
@@ -17,9 +21,9 @@ function inventory_init()
       sword    = {func=@1, sind=09, desc=$^sword:hurts bad guys.$},
       banjo    = {func=@2, sind=08, desc=$^banjo:play a sick tune!$},
       shield   = {func=@3, sind=14, desc=$^shield:be safe from enemy attacks.$},
+      brang    = {func=@4, sind=12, desc=$^brang:stun baddies. get items.$},
       force    = {sind=10, desc=$^sqr'force:don't let ivan take it from you!$},
       shovel   = {sind=11, desc=$^shovel:dig things up. kill the grass.$},
-      boomrang = {sind=12, desc=$^b'rang:stuns enemies and kills really weak ones.$},
       bomb     = {sind=13, desc=$^bomb:only 5 power squares to blows things up!$},
       bow      = {sind=15, desc=$^bow:shoots enemies. needs 2 power squares.$},
       letter   = {sind=44, desc=$^letter:dinner is ready for a special someone.$},
@@ -28,166 +32,13 @@ function inventory_init()
       key      = {sind=47, desc=$^key:i wonder what it opens.$},
       interact = {sind=43, desc=$^interact:talk to people, pick up things, read signs.$},
       nothing  = {sind=43, desc=$^empty:there is no item in this space.$}
-   ]], function(pl)
-      return create_actor([[
-         id=$lank_sword$,
-         att={
-            holding=true,
-            rx=.5,
-            ry=.375,
-            rel_y=0,
-            iyy=-2,
-            sind=9,
-            poke=0,
-            xf=@1,
-            touchable=false
-         },
-         par={$rel$,$spr$,$col$},
-         tl={
-            {hit=@2, i=@3, u=@4, t=.4},
-            {hit=@2, u=@5}
-         }
-         ]],
-         pl.xf,
-         -- hit
-         function(a, other)
-            if other.evil then
-               a.poke = 10
-               if other.knockable then
-                  local knockback_val = (a.cur == 1) and .3 or .1
-                  other.knockback(other, knockback_val, a.xf and -1 or 1, 0)
-                  pl.knockback(pl, .3, a.xf and 1 or -1, 0)
-               end
+   ]], create_sword, create_banjo, create_shield, create_brang)
 
-               if other.stunnable then other.stun(other, 30) end
-
-               if other.hurtable  then
-                  other.hurt(other, hurt_val)
-               end
-
-            end
-
-            if not other.pl and other.knockable then
-            end
-         end,
-         -- init 1
-         function(a)
-            a.rel_dx = a.xf and -.125 or .125
-            a.ixx = a.xf and -1 or 1
-            a.poke = 20
-         end,
-         -- update 1
-         function(a)
-            act_poke(a, -1, 0)
-            if abs(a.rel_dx + a.rel_x) < 1 then
-               a.rel_x += a.rel_dx
-            else
-               local neg_one = -1
-               a.rel_dx, a.rel_x = 0, a.xf and neg_one or 1
-            end
-         end,
-         -- update 2
-         function(a)
-            act_poke(a, -1, 0)
-            if not a.holding then
-               a.alive, pl.item = false
-            end
-         end
-         )
-   end, function(pl)
-      return create_actor([[
-         id=$lank_banjo$,
-         att={
-            holding=true,
-            rx=.3,
-            ry=.3,
-            sind=8,
-            xf=@1,
-            touchable=false,
-         },
-         par={$rel$,$spr$,$col$},
-         tl={
-            {i=@2, u=@3}
-         }
-         ]],
-         pl.xf,
-         -- init 1
-         function(a) 
-            -- a.rel_x=a.xf and 2/8 or -2/8
-            a.rel_y=0
-         end,
-         -- update 1
-         function(a)
-            if not a.holding then
-               a.alive, pl.item = false
-            end
-         end
-      )
-   
-   end, function(pl)
-      local dist = .625
-      return create_actor([[
-         id=$lank_shield$,
-         att={
-            block=true,
-            holding=true,
-            rx=.25,
-            ry=.5,
-            iyy=-1,
-            poke=20,
-            sind=14,
-            xf=@1,
-            touchable=false
-         },
-         par={$rel$,$spr$,$col$},
-         tl={
-            {hit=@2, i=@3, u=@4, t=.4},
-            {hit=@2, u=@5}
-         }
-      ]],
-         pl.xf,
-         -- hit
-         function(a, other)
-            if other.evil then
-               a.poke=10
-
-               if other.knockable then
-                  local knockback_val = (a.cur == 1) and .4 or .2
-                  other.knockback(other, knockback_val, a.xf and -1 or 1, 0)
-                  pl.knockback(pl, .1, a.xf and 1 or -1, 0)
-               end
-
-               if a.cur == 1 and other.stunnable then
-                  other.stun(other, 60)
-               end
-            end
-         end,
-         -- init 1
-         function(a) 
-            a.rel_dx = a.xf and -dist/10 or dist/10
-            a.ixx = a.xf and -3 or 3
-            a.poke = 20
-         end,
-         -- update 1
-         function(a)
-            act_poke(a,  0, 1)
-            if abs(a.rel_dx + a.rel_x) < dist then
-               a.rel_x += a.rel_dx
-            else
-               local neg_one = -dist
-               a.rel_dx, a.rel_x = 0, a.xf and neg_one or dist
-            end
-         end,
-         -- update 2
-         function(a)
-            act_poke(a,  0, 1)
-            if not a.holding then
-               a.alive, pl.item = false
-            end
-         end
-      )
-   
-   end)
+   add(g_inventory, "interact")
+   add(g_inventory, "sword")
+   add(g_inventory, "banjo")
+   add(g_inventory, "shield")
+   add(g_inventory, "brang")
 end
 
 g_item_order  ={5,4,6,2,8,1,3,7,9}
@@ -300,3 +151,230 @@ function inventory_draw(x, y)
    batch_call(rel_spr, "{-5,-5,1,1,false,false}, {5,-5,1,1,true,false}, {5,5,1,1,true,true}, {-5,5,1,1,false,true}")
 end
 
+
+function create_brang(pl)
+   return create_actor([[
+      id=$lank_brang$,
+      att={
+         holding=true,
+         rx=.375,
+         ry=.375,
+         sind=12,
+         xf=@1,
+         touchable=false
+      },
+      par={$confined$,$spr$,$col$,$mov$},
+      tl={
+         {d=@7, hit=@2, i=@3, u=@4},
+         {d=@7, hit=@2, i=@5, u=@6}
+      }
+      ]],
+      pl.xf,
+      -- hit
+      function(a, other)
+         if other.evil then
+            if other.knockable then
+               other.knockback(other, (a.cur == 1) and .3 or .1, a.xf and -1 or 1, 0)
+               pl.knockback(pl, .3, a.xf and 1 or -1, 0)
+            end
+
+            if other.stunnable then
+               other.stun(other, 30)
+            end
+
+            if other.hurtable  then
+               other.hurt(other, hurt_val)
+            end
+         end
+      end,
+      -- init 1
+      function(a)
+         a.x, a.y = pl.x, pl.y
+         a.ax = a.xf and -.07 or .07
+      end,
+      -- update 1
+      function(a)
+         printh("hihi")
+         if not a.holding then
+            tl_next(a)
+         end
+      end,
+      -- init 2
+      function(a)
+         if pl.item == a then
+            pl.item = nil
+         end
+
+         amov_to_actor(a, pl, .07)
+      end,
+      -- update 2
+      function(a)
+         -- if not a.holding then
+            -- a.alive, pl.item = false
+         -- end
+      end, scr_spr
+      )
+end
+
+function create_shield(pl)
+   local dist = .625
+   return create_actor([[
+      id=$lank_shield$,
+      att={
+         block=true,
+         holding=true,
+         rx=.25,
+         ry=.5,
+         iyy=-1,
+         poke=20,
+         sind=14,
+         xf=@1,
+         touchable=false
+      },
+      par={$rel$,$spr$,$col$},
+      tl={
+         {hit=@2, i=@3, u=@4, t=.4},
+         {hit=@2, u=@5}
+      }
+   ]],
+      pl.xf,
+      -- hit
+      function(a, other)
+         if other.evil then
+            a.poke=10
+
+            if other.knockable then
+               local knockback_val = (a.cur == 1) and .4 or .2
+               other.knockback(other, knockback_val, a.xf and -1 or 1, 0)
+               pl.knockback(pl, .1, a.xf and 1 or -1, 0)
+            end
+
+            if a.cur == 1 and other.stunnable then
+               other.stun(other, 60)
+            end
+         end
+      end,
+      -- init 1
+      function(a) 
+         a.rel_dx = a.xf and -dist/10 or dist/10
+         a.ixx = a.xf and -3 or 3
+         a.poke = 20
+      end,
+      -- update 1
+      function(a)
+         act_poke(a,  0, 1)
+         if abs(a.rel_dx + a.rel_x) < dist then
+            a.rel_x += a.rel_dx
+         else
+            local neg_one = -dist
+            a.rel_dx, a.rel_x = 0, a.xf and neg_one or dist
+         end
+      end,
+      -- update 2
+      function(a)
+         act_poke(a,  0, 1)
+         if not a.holding then
+            a.alive, pl.item = false
+         end
+      end
+   )
+
+end
+
+function create_banjo(pl)
+   return create_actor([[
+      id=$lank_banjo$,
+      att={
+         holding=true,
+         rx=.3,
+         ry=.3,
+         sind=8,
+         xf=@1,
+         touchable=false,
+      },
+      par={$rel$,$spr$,$col$},
+      tl={
+         {i=@2, u=@3}
+      }
+      ]],
+      pl.xf,
+      -- init 1
+      function(a) 
+         -- a.rel_x=a.xf and 2/8 or -2/8
+         a.rel_y=0
+      end,
+      -- update 1
+      function(a)
+         if not a.holding then
+            a.alive, pl.item = false
+         end
+      end
+   )
+
+end
+
+function create_sword(pl)
+   return create_actor([[
+      id=$lank_sword$,
+      att={
+         holding=true,
+         rx=.5,
+         ry=.375,
+         rel_y=0,
+         iyy=-2,
+         sind=9,
+         poke=0,
+         xf=@1,
+         touchable=false
+      },
+      par={$rel$,$spr$,$col$},
+      tl={
+         {hit=@2, i=@3, u=@4, t=.4},
+         {hit=@2, u=@5}
+      }
+      ]],
+      pl.xf,
+      -- hit
+      function(a, other)
+         if other.evil then
+            a.poke = 10
+
+            if other.knockable then
+               other.knockback(other, (a.cur == 1) and .3 or .1, a.xf and -1 or 1, 0)
+               pl.knockback(pl, .3, a.xf and 1 or -1, 0)
+            end
+
+            if other.stunnable then
+               other.stun(other, 30)
+            end
+
+            if other.hurtable  then
+               other.hurt(other, hurt_val)
+            end
+         end
+      end,
+      -- init 1
+      function(a)
+         a.rel_dx = a.xf and -.125 or .125
+         a.ixx = a.xf and -1 or 1
+         a.poke = 20
+      end,
+      -- update 1
+      function(a)
+         act_poke(a, -1, 0)
+         if abs(a.rel_dx + a.rel_x) < 1 then
+            a.rel_x += a.rel_dx
+         else
+            local neg_one = -1
+            a.rel_dx, a.rel_x = 0, a.xf and neg_one or 1
+         end
+      end,
+      -- update 2
+      function(a)
+         act_poke(a, -1, 0)
+         if not a.holding then
+            a.alive, pl.item = false
+         end
+      end
+      )
+end

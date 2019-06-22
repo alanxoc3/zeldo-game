@@ -1,19 +1,3 @@
-function btn_to_dir()
-   return (btn(0) and 0b0001 or 0) +
-          (btn(1) and 0b0010 or 0) +
-          (btn(2) and 0b0100 or 0) +
-          (btn(3) and 0b1000 or 0)
-end
-
-function act_poke(a, ix1, ix2)
-   if a.poke > 0 then
-      a.poke -= 1
-      a.ixx = a.xf and ix1 or -ix1
-   else
-      a.ixx = a.xf and ix2 or -ix2
-   end
-end
-
 function gen_pl(x, y)
    return create_actor(
       [[ id=$pl$,
@@ -65,17 +49,17 @@ function gen_pl(x, y)
          end
 
          local item = a.item
-         if (not btn(4) or btn(5)) then
-            if item then item.holding = false end
-         end
 
          if item then
-            if item then
-               a.ax /= 2 a.ay /= 2
-            else
-               a.ax, a.ay = 0, 0
+            if not item.alive then
+               a.item = nil
             end
 
+            if (not btn(4) or btn(5)) then
+               item.holding = false
+            end
+
+            a.ax /= 2 a.ay /= 2
          end
 
          a.anim_sind = nil

@@ -139,7 +139,7 @@ function game_draw()
       inventory_draw(64,59)
    end
 
-   -- acts_loop("dim", "debug_rect")
+   acts_loop("dim", "debug_rect")
    draw_status_bars()
    print(g_rooms[g_cur_room].n or g_cur_room, 30, 110, 7)
    -- draw_glitch_effect()
