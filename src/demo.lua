@@ -1,7 +1,6 @@
 -- the story of zeldo
 -- amorg games
 
--- todo: screen shake for pl hit.
 -- todo: menu enemy support must be better.
 
 -- todo: go through sprite file optimizations.
@@ -51,6 +50,7 @@
 -- done: change drawing functions to work with tl better. Incorporate tl even more.
 -- done: no double draw items
 -- done: create boomerang.
+-- done: screen shake when hitting player.
 
 
 -- token:
@@ -130,11 +130,28 @@ function game_update()
 
       update_view(g_pl.x, g_pl.y)
    end
+
+   card_shake_update()
+end
+
+g_card_shake_x=0
+g_card_shake_y=0
+g_card_shake_time=0
+function card_shake_update()
+   if g_card_shake_time > 0 then
+      g_card_shake_x = flr(rnd(3)-1)/8
+      g_card_shake_y = flr(rnd(3)-1)/8
+      g_card_shake_time -= 1
+   end
+end
+
+function card_shake(tim)
+   g_card_shake_time = tim
 end
 
 function game_draw()
    rectfill(0,0,127,127,0)
-   draw_cur_room(8, 7 + 3/8)
+   draw_cur_room(8+g_card_shake_x, 7 + 3/8+g_card_shake_y)
 
    if g_menu_open then
       inventory_draw(64,59)

@@ -52,6 +52,7 @@ function gen_top(x, y)
       function(a, other, ...)
          if other.pl then
             other.hurt(other, 1) other.stun(other, 30)
+            card_shake(15)
          end
 
          if other.knockable then
