@@ -142,6 +142,8 @@ function card_shake_update()
       g_card_shake_x = flr(rnd(3)-1)/8
       g_card_shake_y = flr(rnd(3)-1)/8
       g_card_shake_time -= 1
+   else
+      g_card_shake_x, g_card_shake_y = 0, 0
    end
 end
 
