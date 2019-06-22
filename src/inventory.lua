@@ -54,17 +54,16 @@ function inventory_init()
             if other.evil then
                a.poke = 10
                if other.knockable then
-                  local knockback_val = (a.tl_curr == 1) and .3 or .1
-                  local hurt_val = (a.cur == 1) and .1 or .2
-
+                  local knockback_val = (a.cur == 1) and .3 or .1
                   other.knockback(other, knockback_val, a.xf and -1 or 1, 0)
-
                   pl.knockback(pl, .3, a.xf and 1 or -1, 0)
-                  a.poke = 10
                end
 
                if other.stunnable then other.stun(other, 30) end
-               if other.hurtable  then other.hurt(other, hurt_val) end
+
+               if other.hurtable  then
+                  other.hurt(other, hurt_val)
+               end
 
             end
 
@@ -153,7 +152,7 @@ function inventory_init()
                a.poke=10
 
                if other.knockable then
-                  local knockback_val = (a.tl_curr == 1) and .4 or .2
+                  local knockback_val = (a.cur == 1) and .4 or .2
                   other.knockback(other, knockback_val, a.xf and -1 or 1, 0)
                   pl.knockback(pl, .1, a.xf and 1 or -1, 0)
                end

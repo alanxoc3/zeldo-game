@@ -158,10 +158,10 @@ function game_init()
    -- load_room("lank's path", 2, 18)
    -- load_room("sword sanctuary", 37, 59)
    -- load_room("field", 52, 30) -- debug tech
-   --load_room("villa", 21, 29)
+   load_room("villa", 21, 29)
    -- load_room("title", 101, 36)
-   --load_room("cas_1", 69, 30)
-    load_room("cem_2", 99, 29)
+   -- load_room("cas_1", 69, 30)
+   --load_room("cem_2", 99, 29)
     
    --load_room("tom_1", 125, 27)
    tbox("lank:...:...:...:1234123456 901234567890 234123456 8901234567890 ")
