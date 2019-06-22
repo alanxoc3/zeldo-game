@@ -1,6 +1,8 @@
 -- the story of zeldo
 -- amorg games
 
+-- todo: make and tweak an after stun timer.
+-- todo: make item (boomerang) recoil timer.
 -- todo: menu enemy support must be better.
 -- todo: no screen shake when enemy hits enemy/house.
 -- todo: tbox pause the game.
