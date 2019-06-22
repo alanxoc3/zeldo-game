@@ -10,7 +10,7 @@
 -- tbox("speaker:line:line@id:line|newspeaker:line...")
 
 -- vars:
-g_tbox_messages, g_tbox_anim, g_tbox_max_len = {}, 0, 23
+g_tbox_messages, g_tbox_anim, g_tbox_max_len = {}, 0, 25
 -- listen to 'g_tbox_active', to listen if tbox is active.
 
 function str_to_word_lines(str, line_len)
@@ -96,30 +96,31 @@ end
 
 -- draw the text boxes (if any)
 -- foreground color, background color, border width
-function ttbox_draw(fg_col, bg_col)
+function ttbox_draw(x, y)
+   camera(-x,-y)
    if g_tbox_active then -- only draw if there are messages
       batch_call(rectfill, [[
-         {20, 108, 127, 127, 5},
-         {21, 109, 126, 126, 7},
-         {22, 110, 125, 125, 0}
+         {0, 0, 106, 19, 5},
+         {1, 1, 105, 18, 6},
+         {2, 2, 104, 17, 0}
       ]])
 
       -- draw speaker
       if #g_tbox_active.speaker>0 then
          local x2 = #g_tbox_active.speaker*4+6
          batch_call(rectfill, [[
-            {20, 101, @1, 108, 5},
-            {21, 102, @2, 108, 7},
-            {22, 103, @3, 109, 0}
-         ]], 20+x2, 19+x2, 18+x2)
+            {0, -7, @1, 0, 5},
+            {1, -6, @2, 0, 6},
+            {2, -5, @3, 1, 0}
+         ]], x2, x2-1, x2-2)
 
-         zprint(g_tbox_active.speaker, 24, 105, fg_col)
+         zprint(g_tbox_active.speaker, 4, -3)
       end
 
       -- print the message
       batch_call(zprint, [[
-         {@1, 24, 112},
-         {@2, 24, 119}
+         {@1, 4, 4},
+         {@2, 4, 11}
       ]],
          sub(g_tbox_active.l1, 1, g_tbox_anim),
          sub(g_tbox_active.l2, 0, max(g_tbox_anim - #g_tbox_active.l1, 0))
@@ -127,20 +128,23 @@ function ttbox_draw(fg_col, bg_col)
 
       if g_tbox_active.continue then
          -- draw the arrow
-         batch_call(rectfill, g_tbox_anim%20 < 10 and [[
-            {118, 115, 122, 115, 1},
-            {118, 116, 122, 116, 7},
-            {119, 117, 121, 117, 7},
-            {120, 118, 120, 118, 7}
-         ]] or [[
-            {118, 116, 122,  116, 1},
-            {118, 117, 122,  117, 7},
-            {119, 118, 121,  118, 7},
-            {120, 119, 120,  119, 7}
-         ]]
-         )
+         spr(71, 100, g_tbox_anim%20<10 and 13 or 14)
+         -- batch_call(rectfill, g_tbox_anim%20 < 10 and [[
+            -- {118, 115, 122, 115, 1},
+            -- {118, 116, 122, 116, 7},
+            -- {119, 117, 121, 117, 7},
+            -- {120, 118, 120, 118, 7}
+         -- ]] or [[
+            -- {118, 116, 122,  116, 1},
+            -- {118, 117, 122,  117, 7},
+            -- {119, 118, 121,  118, 7},
+            -- {120, 119, 120,  119, 7}
+         -- ]]
+         -- )
       end
    end
+
+   camera()
 end
 
 function tbox_clear()

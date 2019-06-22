@@ -145,9 +145,6 @@ function load_room(new_room, rx, ry)
 
    load_view(x, y, w, h, 5, 11, 2, 2)
    center_view(g_pl.x, g_pl.y)
-
-   -- get rid of current text.
-   tbox_clear()
 end
 
 function room_update()

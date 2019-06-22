@@ -2,6 +2,8 @@
 -- amorg games
 
 -- todo: menu enemy support must be better.
+-- todo: no screen shake when enemy hits enemy/house.
+-- todo: tbox pause the game.
 
 -- todo: go through sprite file optimizations.
 -- todo: create actor/parent more simple? Very similar now.
@@ -90,7 +92,7 @@ end
 function _draw()
    cls()
    tl_func("d", g_tl)
-   ttbox_draw(7, 0)
+   ttbox_draw(20,107)
    -- draw_ma()
    zprint(stat(1), 75, 4)
 end
@@ -98,38 +100,35 @@ end
 function game_update()
    patterns_update()
    inventory_update()
+   room_update()
 
-   if not g_menu_open then
-      room_update()
+   batch_call(
+      acts_loop, [[
+         {$drawable$,$reset_off$},
+         {$stunnable$, $stun_update$},
+         {$act$,$update$},
+         {$mov$,$move$},
+         {$col$,$move_check$,@1},
+         {$col$,$move_check$,@4},
+         {$tcol$,$coll_tile$,@2},
+         {$rel$,$rel_update$,@3},
+         {$vec$,$vec_update$},
+         {$bounded$,$check_bounds$},
+         {$act$, $clean$},
+         {$anim$,$anim_update$},
+         {$timed$,$tick$}
+      ]],
+      g_act_arrs["col"],
+      function(x, y)
+         return x >= g_rx and x < g_rx+g_rw and
+                y >= g_ry and y < g_ry+g_rh and
+                fget(mget(x, y), 1)
+      end,
+      g_pl,
+      g_act_arrs["wall"]
+   )
 
-      batch_call(
-         acts_loop, [[
-            {$drawable$,$reset_off$},
-            {$stunnable$, $stun_update$},
-            {$act$,$update$},
-            {$mov$,$move$},
-            {$col$,$move_check$,@1},
-            {$col$,$move_check$,@4},
-            {$tcol$,$coll_tile$,@2},
-            {$rel$,$rel_update$,@3},
-            {$vec$,$vec_update$},
-            {$bounded$,$check_bounds$},
-            {$act$, $clean$},
-            {$anim$,$anim_update$},
-            {$timed$,$tick$}
-         ]],
-         g_act_arrs["col"],
-         function(x, y)
-            return x >= g_rx and x < g_rx+g_rw and
-                   y >= g_ry and y < g_ry+g_rh and
-                   fget(mget(x, y), 1)
-         end,
-         g_pl,
-         g_act_arrs["wall"]
-      )
-
-      update_view(g_pl.x, g_pl.y)
-   end
+   update_view(g_pl.x, g_pl.y)
 
    card_shake_update()
 end
@@ -184,5 +183,5 @@ function game_init()
    --load_room("cem_2", 99, 29)
     
    --load_room("tom_1", 125, 27)
-   tbox("lank:...:...:...:1234123456 901234567890 234123456 8901234567890 ")
+   tbox("lank:12341234561 1901234567890 234123456 8901234567890hh ")
 end

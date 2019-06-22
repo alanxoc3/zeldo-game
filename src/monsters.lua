@@ -41,7 +41,7 @@ function gen_top(x, y)
          anim_len=1,
          touchable=true
       },
-      par={$bounded$,$confined$,$stunnable$,$mov$,$col$,$tcol$,$knockable$,$anim$},
+      par={$bounded$,$confined$,$stunnable$,$mov$,$col$,$tcol$,$hurtable$,$knockable$,$anim$},
       tl={
          {d=@7, i=@4, t=1.5},
          {d=@7, i=@8, u=@5, t=.5},
@@ -52,7 +52,6 @@ function gen_top(x, y)
       function(a, other, ...)
          if other.pl then
             other.hurt(other, 1) other.stun(other, 30)
-            card_shake(15)
          end
 
          if other.knockable then

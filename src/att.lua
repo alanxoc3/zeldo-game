@@ -220,6 +220,7 @@ create_parent(
    },
    par={$mov$}
 ]], function(a, speed, xdir, ydir)
+   card_shake(15)
    if xdir != 0 then a.dx = xdir * speed
    else              a.dy = ydir * speed end
 end)
