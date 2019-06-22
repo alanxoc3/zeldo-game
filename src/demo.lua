@@ -1,6 +1,7 @@
 -- the story of zeldo
 -- amorg games
 
+-- todo: fix tbox arrow sprite offset.
 -- todo: make and tweak an after stun timer.
 -- todo: make item (boomerang) recoil timer.
 -- todo: menu enemy support must be better.
