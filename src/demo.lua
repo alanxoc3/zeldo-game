@@ -1,6 +1,7 @@
 -- the story of zeldo
 -- amorg games
 
+-- todo: screen shake for pl hit.
 -- todo: menu enemy support must be better.
 
 -- todo: go through sprite file optimizations.
@@ -49,7 +50,7 @@
 -- done: connect up castle
 -- done: change drawing functions to work with tl better. Incorporate tl even more.
 -- done: no double draw items
-
+-- done: create boomerang.
 
 
 -- token:
@@ -139,7 +140,7 @@ function game_draw()
       inventory_draw(64,59)
    end
 
-   acts_loop("dim", "debug_rect")
+   -- acts_loop("dim", "debug_rect")
    draw_status_bars()
    print(g_rooms[g_cur_room].n or g_cur_room, 30, 110, 7)
    -- draw_glitch_effect()

@@ -159,13 +159,15 @@ function create_brang(pl)
          holding=true,
          rx=.375,
          ry=.375,
-         sind=12,
+         sinds={12,68,69,70},
+         anim_len=4,
+         anim_spd=10,
          xf=@1,
          touchable=false
       },
-      par={$confined$,$spr$,$col$,$mov$},
+      par={$confined$,$anim$,$col$,$mov$},
       tl={
-         {d=@7, hit=@2, i=@3, u=@4},
+         {d=@7, hit=@2, i=@3, u=@4, t=.25},
          {d=@7, hit=@2, i=@5, u=@6}
       }
       ]],
@@ -174,16 +176,16 @@ function create_brang(pl)
       function(a, other)
          if other.evil then
             if other.knockable then
-               other.knockback(other, (a.cur == 1) and .3 or .1, a.xf and -1 or 1, 0)
-               pl.knockback(pl, .3, a.xf and 1 or -1, 0)
+               other.knockback(other, .05, a.xf and -1 or 1, 0)
             end
 
             if other.stunnable then
                other.stun(other, 30)
             end
-
-            if other.hurtable  then
-               other.hurt(other, hurt_val)
+         elseif other.pl then
+            if a.cur == 2 then
+               a.alive = false
+               pl.item = false
             end
          end
       end,
@@ -201,14 +203,14 @@ function create_brang(pl)
       end,
       -- init 2
       function(a)
-         if pl.item == a then
-            pl.item = nil
-         end
+         -- if pl.item == a then
+            -- pl.item = nil
+         -- end
 
-         amov_to_actor(a, pl, .07)
       end,
       -- update 2
       function(a)
+         amov_to_actor(a, pl, .07)
          -- if not a.holding then
             -- a.alive, pl.item = false
          -- end
