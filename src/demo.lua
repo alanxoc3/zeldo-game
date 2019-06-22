@@ -1,12 +1,9 @@
 -- the story of zeldo
 -- amorg games
 
--- todo: fix tbox arrow sprite offset.
 -- todo: make and tweak an after stun timer.
 -- todo: make item (boomerang) recoil timer.
--- todo: menu enemy support must be better.
 -- todo: no screen shake when enemy hits enemy/house.
--- todo: tbox pause the game.
 
 -- todo: go through sprite file optimizations.
 -- todo: create actor/parent more simple? Very similar now.
@@ -14,17 +11,26 @@
 -- todo: pl item shakes with pl.
 -- todo: think about text interaction more.
 
--- readme todos:
--- todo: connect everything.
--- todo: create title screen.
 -- todo: create card transitions.
--- todo: make area information (if no enemy).
--- todo: make enemy health bar.
+-- todo: create tbox movement/transition.
+-- todo: fix tbox arrow sprite offset.
+-- todo: tbox pause the game.
+
+-- todo: menu enemy support must be better.
+-- todo: design menu actor area/transitions.
+-- todo: nice functions to integrate with menu actors.
 -- todo: connect tbox with menu actors.
 -- todo: menu actor name and different backgrounds.
--- todo: nice functions to integrate with menu actors.
--- todo: make a sign
+-- todo: make enemy health bar.
+-- todo: make area information (if no enemy).
+
+-- todo: connect everything.
+-- todo: create title screen.
 -- todo: create separate logic between doors and map.
+-- todo: make a sign
+
+-- todo: give player money
+-- todo: make bombs work
 
 -- things that are done:
 -- done: house needs to clean up after itself.
