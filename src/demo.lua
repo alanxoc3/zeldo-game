@@ -161,8 +161,8 @@ function game_init()
    --load_room("villa", 21, 29)
    -- load_room("title", 101, 36)
    --load_room("cas_1", 69, 30)
-    --load_room("tec_2", 101, 48)
+    load_room("cem_2", 99, 29)
     
-   load_room("tom_1", 125, 27)
+   --load_room("tom_1", 125, 27)
    tbox("lank:...:...:...:1234123456 901234567890 234123456 8901234567890 ")
 end
