@@ -7,7 +7,6 @@
 
 -- todo: create actor/parent more simple? Very similar now.
 -- todo: tl embedded tl.
--- todo: do we need a begin init function?
 
 -- todo: go through sprite file optimizations.
 -- todo: think about text interaction more.
@@ -69,6 +68,7 @@
 -- done: make tl optional.
 -- done: fix string or value bug in gun nums.
 -- done: make actor update more simple (use tl?).
+-- done: do we need a begin init function? (no, embed tl can handle that).
 
 -- token:
 -- 5180 5168 5166 5129 5258 5248 5244 5076 4983 5005 4994 4986 4985 4976 4965
