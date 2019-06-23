@@ -22,17 +22,16 @@ function acts_attach_helper(opt, a)
 
    copy_atts(a,opt.att)
 
-   if not a[opt.id] then
-      g_act_arrs[opt.id] = g_act_arrs[opt.id] or {}
-      add(g_act_arrs[opt.id], a)
-      a[opt.id] = true
+   local id = opt.id
+
+   if not a[id] then
+      g_act_arrs[id] = g_act_arrs[id] or {}
+      add(g_act_arrs[id], a)
    end
 
-   a.id = opt.id
+   a.id, a[id] = id, true
 
-   if opt.tl then
-      tl_attach(a, opt.tl)
-   end
+   tl_attach(a, opt.tl)
 
    return a
 end
@@ -59,7 +58,6 @@ create_parent(
 [[ id=$act$,
    att={
       alive=true,
-      just_created=true,
       stun_countdown=0,
       i=nf, u=nf,
       update=@1,
@@ -68,19 +66,9 @@ create_parent(
       kill=@3
    }
 ]], function(a)
-   if a.just_created then
-      a.i(a)
-   end
-
    if a.alive and a.stun_countdown == 0 then
-      if a.tl_enabled then
-         tl_update(a)
-      else
-         a.u(a)
-      end
+      tl_update(a)
    end
-
-   a.just_created = false
 end, function(a)
    if not a.alive then
       a:destroyed()

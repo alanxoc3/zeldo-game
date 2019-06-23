@@ -92,7 +92,7 @@ function tl_update(tl, ...)
 	if tl.tim == 0 then
 		tl.cur = tl.tl_nxt
 		tl.tl_nxt = (tl.cur % #tl.mas) + 1
-		tl.tim = tl.mas[tl.cur].tl_tim
+		tl.tim = tl.mas[tl.cur] and tl.mas[tl.cur].tl_tim or nil
 
       copy_atts(tl, tl.mas[tl.cur])
 		call_not_nil("i", tl, ...)
@@ -115,15 +115,16 @@ function tl_next(tl, num)
    if num then tl.tl_nxt=num end
 end
 
--- tl array fields:
---    init:   init callback. called right before the first update.
---    timer:  t > 0: measured in seconds. t == 0: done. t < 0: disabled.
---    update: callback for every frame.
-
--- pass the array into this function.
+-- params: timeline control, timeline plan
 function tl_attach(tl, mas)
-   assert(#mas > 0)
-   tl.tl_enabled, tl.mas, tl.cur, tl.tl_nxt, tl.tim = true, mas, 0, 1, 0
+   copy_atts(tl, gun_vals([[
+      tl_enabled=true,
+      mas=@1,
+      cur=0,
+      tl_nxt=1,
+      tim=0
+   ]], mas or {}))
+
    return tl
 end
 
@@ -132,7 +133,7 @@ function tl_init(...)
    return tl_attach({}, gun_vals(...))
 end
 
--- debug thing
+-- debug something
 -- function tostring(any)
 --     if type(any)=="function" then 
 --         return "function" 
