@@ -12,12 +12,9 @@ function gen_house(x, y, room, rx, ry, sind)
          sind=@10,
          static=true,
          destroyed=@9,
-         touchable=false
-      },
-      par={$confined$,$spr$,$col$},
-      tl={
-         {d=@6, hit=@11, contains=@7, i=@8}
-      }
+         touchable=false,
+         d=@6, hit=@11, contains=@7, i=@8
+      }, par={$confined$,$spr$,$col$}
       ]],x,y,room,rx,ry,scr_spr,
       -- hit
       function(a, other)
@@ -48,8 +45,7 @@ function gen_static_block(x, y, rx, ry)
          static=true,
          touchable=true
       },
-      par={$confined$, $wall$},
-      tl={{hit=nf}}
+      par={$confined$, $wall$}
       ]],x,y,rx,ry
    )
 end

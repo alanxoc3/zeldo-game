@@ -296,11 +296,9 @@ function create_banjo(pl)
          sind=8,
          xf=@1,
          touchable=false,
+         i=@2, u=@3
       },
-      par={$rel$,$spr$,$col$},
-      tl={
-         {i=@2, u=@3}
-      }
+      par={$rel$,$spr$,$col$}
       ]],
       pl.xf,
       -- init 1
@@ -335,7 +333,7 @@ function create_sword(pl)
       par={$rel$,$spr$,$col$},
       tl={
          {hit=@2, i=@3, u=@4, tl_tim=.4},
-         {hit=@2, u=@5}
+         {hit=@2, i=nf, u=@5}
       }
       ]],
       pl.xf,

@@ -59,15 +59,19 @@ create_parent(
 [[ id=$act$,
    att={
       alive=true,
-      active=true,
+      just_created=true,
       stun_countdown=0,
-      u=nf,
+      i=nf, u=nf,
       update=@1,
       clean=@2,
       destroyed=$nf$,
       kill=@3
    }
 ]], function(a)
+   if a.just_created then
+      a.i(a)
+   end
+
    if a.alive and a.stun_countdown == 0 then
       if a.tl_enabled then
          tl_update(a)
@@ -75,6 +79,8 @@ create_parent(
          a.u(a)
       end
    end
+
+   a.just_created = false
 end, function(a)
    if not a.alive then
       a:destroyed()
