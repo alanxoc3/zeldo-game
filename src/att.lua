@@ -2,9 +2,8 @@
 -- goes after libraries. (lib and draw)
 
 g_act_arrs, g_attach = {}, {}
-function nf() end -- the nothing function
 
--- first parameter is parsing string
+-- params: str, opts
 function create_parent(...)
    local params = gun_vals(...)
    g_attach[params.id] = function(a)
@@ -12,18 +11,16 @@ function create_parent(...)
    end
 end
 
--- params are: actor, parsing string
+-- params: str, opts
 function create_actor(...)
    return acts_attach_helper(gun_vals(...))
 end
 
 -- opt: {id, att, par, tl}
 function acts_attach_helper(opt, a)
-   foreach(opt.par, function(sf) a = g_attach[sf](a) end)
+   foreach(opt.par, function(par_id) a = g_attach[par_id](a) end)
 
-   for k,v in pairs(opt.att) do
-      a[k] = v
-   end
+   copy_atts(a,opt.att)
 
    if not a[opt.id] then
       g_act_arrs[opt.id] = g_act_arrs[opt.id] or {}
@@ -64,21 +61,26 @@ create_parent(
       alive=true,
       active=true,
       stun_countdown=0,
+      u=nf,
       update=@1,
       clean=@2,
-      destroyed=@3,
-      kill=@4
+      destroyed=$nf$,
+      kill=@3
    }
 ]], function(a)
    if a.alive and a.stun_countdown == 0 then
-      tl_update(a)
+      if a.tl_enabled then
+         tl_update(a)
+      else
+         a.u(a)
+      end
    end
 end, function(a)
    if not a.alive then
       a:destroyed()
       del_act(a)
    end
-end, nf, function(a) a.alive = false end)
+end, function(a) a.alive = false end)
 
 create_parent([[id=$confined$,att={},par={$act$}]])
 
@@ -110,6 +112,7 @@ create_parent(
 [[ id=$timed$,
    att={
       t=0,
+      tl_tim=0,
       tick=@1
    },
    par={$act$}
@@ -182,6 +185,7 @@ create_parent(
    par={$act$}
 ]], function(a, a2)
    a.x, a.y, a.dx, a.dy = a2.x+a.rel_x, a2.y+a.rel_y, a2.dx+a.rel_dx, a2.dy+a.rel_dy
+   a.xx, a.yy = a2.xx, a2.yy
 end)
 
 create_parent(
@@ -191,13 +195,11 @@ create_parent(
       iyy=0,
       xx=0,
       yy=0,
-      draw=@1,
-      reset_off=@2
+      d=nf,
+      reset_off=@1
    },
    par={$act$}
-]], function(...)
-   tl_func("d", ...)
-end, function(a)
+]], function(a)
    a.xx, a.yy = 0, 0
 end)
 
@@ -285,11 +287,10 @@ end)
 create_parent(
 [[ id=$wall$,
    att={
-      static=true,touchable=true,hit=@1
+      static=true,touchable=true,hit=nf
    },
-   par={$vec$,$dim$},
-]], function() end
-)
+   par={$vec$,$dim$}
+]])
 
 create_parent(
 [[ id=$col$,
@@ -298,16 +299,12 @@ create_parent(
       touchable=true,
       xb=0,
       yb=0,
-      hit=@1,
-      contains=@2,
-      move_check=@3
+      hit=nf,
+      contains=nf,
+      move_check=@1
    },
    par={$vec$,$dim$}
-]], function(...)
-   tl_func("hit", ...)
-end, function(...)
-   tl_func("contains", ...)
-end, function(a, acts)
+]], function(a, acts)
    local hit_list = {}
    local in_list = {}
    local move_check = function(dx, dy)
@@ -371,11 +368,11 @@ end)
 create_parent(
 [[ id=$tcol$,
    att={
-      $tile_hit$=@1,
-      $coll_tile$=@2
+      $tile_hit$=nf,
+      $coll_tile$=@1
    },
    par={$vec$,$dim$}
-]], nf, function(a, solid_func)
+]], function(a, solid_func)
    a.x, a.dx = coll_tile_help(a.x, a.y, a.dx, a.rx, a.ry, 0, a, a.tile_hit, solid_func)
    a.y, a.dy = coll_tile_help(a.y, a.x, a.dy, a.ry, a.rx, 2, a, a.tile_hit, function(y, x) return solid_func(x, y) end)
 end)

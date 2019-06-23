@@ -1,6 +1,14 @@
 -- lib. make sure this is first.
 
+-- -1, 0, or 1
 function rnd_one() return flr(rnd(3))-1 end
+
+-- copies table attributes from the src to dest tables.
+function copy_atts(dest, src)
+   for k,v in pairs(src or {}) do
+      dest[k] = v
+   end
+end
 
 function batch_call(func, str, ...)
    local arr = gun_vals(str,...)
@@ -29,6 +37,7 @@ function gun_vals_helper(val_str,i,new_params)
             assert(sec != nil)
             if not new_params[sec] then new_params[sec] = {} end
             add(new_params[sec], {val_list, val_key or val_ind})
+         elseif val == "nf" then val = function() end
          elseif val == "true" or val == "false" or val == "" then val=val=="true"
          elseif isnum then val=0+val
          end
@@ -70,9 +79,11 @@ end
 function tl_update(tl, ...)
 	-- switch the state
 	if tl.tim == 0 then
-		tl.cur = tl.nxt
-		tl.nxt = (tl.cur % #tl.mas) + 1
-		tl.tim = tl.mas[tl.cur].t
+		tl.cur = tl.tl_nxt
+		tl.tl_nxt = (tl.cur % #tl.mas) + 1
+		tl.tim = tl.mas[tl.cur].tl_tim
+
+      copy_atts(tl, tl.mas[tl.cur])
 		tl_func("i", tl, ...) -- init func
 	end
 
@@ -90,13 +101,13 @@ end
 -- optional number of which state should be loaded next.
 function tl_next(tl, num)
    tl.tim=0
-   if num then tl.nxt=num end
+   if num then tl.tl_nxt=num end
 end
 
 -- call a function if not nil
 function tl_func(key, tl, ...)
-   if tl.mas[tl.cur] and tl.mas[tl.cur][key] then
-      return tl.mas[tl.cur][key](tl, ...)
+   if tl[key] then
+      return tl[key](tl, ...)
    end
 end
 
@@ -108,7 +119,7 @@ end
 -- pass the array into this function.
 function tl_attach(tl, mas)
    assert(#mas > 0)
-   tl.mas, tl.cur, tl.nxt, tl.tim = mas, 0, 1, 0
+   tl.tl_enabled, tl.mas, tl.cur, tl.tl_nxt, tl.tim = true, mas, 0, 1, 0
    return tl
 end
 

@@ -43,9 +43,9 @@ function gen_top(x, y)
       },
       par={$bounded$,$confined$,$stunnable$,$mov$,$col$,$tcol$,$hurtable$,$knockable$,$anim$},
       tl={
-         {d=@7, i=@4, t=1.5},
-         {d=@7, i=@8, u=@5, t=.5},
-         {d=@7, i=@6, hit=@3, t=1}
+         {d=@7, i=@4, tl_tim=1.5},
+         {d=@7, i=@8, u=@5, tl_tim=.5},
+         {d=@7, i=@6, hit=@3, tl_tim=1}
       }
       ]],x,y,
       -- hit

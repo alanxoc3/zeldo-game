@@ -167,7 +167,7 @@ function create_brang(pl)
       },
       par={$confined$,$anim$,$col$,$mov$},
       tl={
-         {d=@7, hit=@2, i=@3, u=@4, t=.25},
+         {d=@7, hit=@2, i=@3, u=@4, tl_tim=.25},
          {d=@7, hit=@2, i=@5, u=@6}
       }
       ]],
@@ -238,8 +238,8 @@ function create_shield(pl)
       },
       par={$rel$,$spr$,$col$},
       tl={
-         {hit=@2, i=@3, u=@4, t=.4},
-         {hit=@2, u=@5}
+         {hit=@2, i=@3, u=@4, tl_tim=.4},
+         {hit=@2, i=nf, u=@5}
       }
    ]],
       pl.xf,
@@ -334,7 +334,7 @@ function create_sword(pl)
       },
       par={$rel$,$spr$,$col$},
       tl={
-         {hit=@2, i=@3, u=@4, t=.4},
+         {hit=@2, i=@3, u=@4, tl_tim=.4},
          {hit=@2, u=@5}
       }
       ]],

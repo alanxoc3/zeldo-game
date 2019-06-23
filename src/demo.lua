@@ -4,11 +4,12 @@
 -- todo: make and tweak an after stun timer.
 -- todo: make item (boomerang) recoil timer.
 -- todo: no screen shake when enemy hits enemy/house.
+-- todo: fix string or value bug in gun nums.
+-- todo: make tl optional.
 
--- todo: go through sprite file optimizations.
 -- todo: create actor/parent more simple? Very similar now.
+-- todo: go through sprite file optimizations.
 -- todo: tl embedded tl.
--- todo: pl item shakes with pl.
 -- todo: think about text interaction more.
 
 -- todo: create card transitions.
@@ -26,7 +27,6 @@
 
 -- todo: connect everything.
 -- todo: create title screen.
--- todo: create separate logic between doors and map.
 -- todo: make a sign
 
 -- todo: give player money
@@ -62,7 +62,10 @@
 -- done: no double draw items
 -- done: create boomerang.
 -- done: screen shake when hitting player.
-
+-- done: pl item shakes with pl.
+-- done: create separate logic between doors and map.
+-- done: tl and actor work together better.
+-- done: add nf (nothing function) to the gun vals logic.
 
 -- token:
 -- 5180 5168 5166 5129 5258 5248 5244 5076 4983 5005 4994 4986 4985 4976 4965
@@ -147,8 +150,8 @@ g_card_shake_y=0
 g_card_shake_time=0
 function card_shake_update()
    if g_card_shake_time > 0 then
-      g_card_shake_x = flr(rnd(3)-1)/8
-      g_card_shake_y = flr(rnd(3)-1)/8
+      g_card_shake_x = rnd_one()/8
+      g_card_shake_y = rnd_one()/8
       g_card_shake_time -= 1
    else
       g_card_shake_x, g_card_shake_y = 0, 0

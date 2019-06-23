@@ -18,11 +18,11 @@ end
 
 -- the sound is assumed to be sfx 0!
 g_logo = tl_init([[
-      { d=@4, i=@1, t=.5 },
-      { d=@4, i=@1, u=@2, t=.5 },
-      { d=@4, t=1 },
-      { d=@4, i=@3, u=@2, t=.5 },
-      { d=@4, t=.5 }
+      { d=@4, i=@1, tl_tim=.5 },
+      { d=@4, i=@1, u=@2, tl_tim=.5 },
+      { d=@4, tl_tim=1 },
+      { d=@4, i=@3, u=@2, tl_tim=.5 },
+      { d=@4, tl_tim=.5 }
    ]],
    -- 1
    function()

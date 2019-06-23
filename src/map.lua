@@ -41,7 +41,7 @@ function draw_cur_room(x, y)
    scr_map(cur_room.x, cur_room.y, cur_room.x, cur_room.y, cur_room.w, cur_room.h)
 
    isorty(g_act_arrs["drawable"])
-   acts_loop("drawable", "draw")
+   acts_loop("drawable", "d")
 
    clip()
    camera(0)
@@ -141,7 +141,6 @@ function load_room(new_room, rx, ry)
 
    g_pl.x = rx
    g_pl.y = ry
-   g_ma = 54 -- todo: something about this menu actor variable.
 
    load_view(x, y, w, h, 5, 11, 2, 2)
    center_view(g_pl.x, g_pl.y)

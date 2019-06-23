@@ -49,7 +49,7 @@ function gen_static_block(x, y, rx, ry)
          touchable=true
       },
       par={$confined$, $wall$},
-      tl={{hit=@5}}
-      ]],x,y,rx,ry, function() end
+      tl={{hit=nf}}
+      ]],x,y,rx,ry
    )
 end

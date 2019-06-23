@@ -14,13 +14,10 @@ function gen_pl(x, y)
             anim_len=3,
             anim_spd=5,
             max_hearts=3,
-            hearts=3,
-            draw=@5
+            u=@4, d=@5, hit=@3,
+            hearts=3
          },
-         par={$anim$,$col$,$mov$,$tcol$,$hurtable$,$knockable$,$stunnable$,$spr$},
-         tl={
-            {u=@4, hit=@3}
-         }
+         par={$anim$,$col$,$mov$,$tcol$,$hurtable$,$knockable$,$stunnable$,$spr$}
       ]], x, y,
       function(self, other, xdir, ydir)
       end, function(a)

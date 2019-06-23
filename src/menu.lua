@@ -1,5 +1,5 @@
 -- menu enemy
-g_ma = 54
+g_ma = 56
 g_ma_out = true
 g_ma_col = 0xd6
 function draw_ma(x, y)
