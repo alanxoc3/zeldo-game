@@ -6,6 +6,7 @@
 -- todo: no screen shake when enemy hits enemy/house.
 
 -- todo: create actor/parent more simple? Very similar now.
+-- todo: create actor adds actor to g_attach.
 -- todo: tl embedded tl.
 
 -- todo: go through sprite file optimizations.
@@ -13,8 +14,7 @@
 
 -- todo: create card transitions.
 -- todo: create tbox movement/transition.
--- todo: fix tbox arrow sprite offset.
--- todo: tbox pause the game.
+-- todo: tbox pause the game. should it?
 
 -- todo: menu enemy support must be better.
 -- todo: design menu actor area/transitions.
@@ -27,6 +27,7 @@
 -- todo: connect everything.
 -- todo: create title screen.
 -- todo: make a sign
+-- todo: player stretch arm sprite (be able to do while walking).
 
 -- todo: give player money
 -- todo: make bombs work
@@ -69,6 +70,7 @@
 -- done: fix string or value bug in gun nums.
 -- done: make actor update more simple (use tl?).
 -- done: do we need a begin init function? (no, embed tl can handle that).
+-- done: fix tbox arrow sprite offset.
 
 -- token:
 -- 5180 5168 5166 5129 5258 5248 5244 5076 4983 5005 4994 4986 4985 4976 4965

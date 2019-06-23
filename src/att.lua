@@ -7,17 +7,17 @@ g_act_arrs, g_attach = {}, {}
 function create_parent(...)
    local params = gun_vals(...)
    g_attach[params.id] = function(a)
-      return acts_attach_helper(params, a or {})
+      return attach_actor(params, a or {})
    end
 end
 
 -- params: str, opts
 function create_actor(...)
-   return acts_attach_helper(gun_vals(...))
+   return attach_actor(gun_vals(...))
 end
 
 -- opt: {id, att, par, tl}
-function acts_attach_helper(opt, a)
+function attach_actor(opt, a)
    foreach(opt.par, function(par_id) a = g_attach[par_id](a) end)
 
    copy_atts(a,opt.att)
@@ -30,7 +30,6 @@ function acts_attach_helper(opt, a)
    end
 
    a.id, a[id] = id, true
-
    tl_attach(a, opt.tl)
 
    return a
