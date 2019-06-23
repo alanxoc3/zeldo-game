@@ -1,4 +1,6 @@
--- lib. make sure this is first.
+-- lib. make sure this is included first.
+
+-- util functions:
 
 -- -1, 0, or 1
 function rnd_one() return flr(rnd(3))-1 end
@@ -17,9 +19,9 @@ function call_not_nil(key, table, ...)
    end
 end
 
-function batch_call(func, str, ...)
-   local arr = gun_vals(str,...)
-   for i=1,#arr do func(munpack(arr[i])) end
+-- params: function, gun_vals
+function batch_call(func,...)
+   foreach(gun_vals(...), function(t) func(munpack(t)) end)
 end
 
 -- i should cache this too.
@@ -123,8 +125,9 @@ function tl_attach(tl, mas)
    return tl
 end
 
-function tl_init(str, ...)
-   return tl_attach({}, gun_vals(str, ...))
+-- params: str, gun_vals
+function tl_init(...)
+   return tl_attach({}, gun_vals(...))
 end
 
 -- debug thing

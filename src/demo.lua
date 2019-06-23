@@ -6,9 +6,11 @@
 -- todo: no screen shake when enemy hits enemy/house.
 -- todo: fix string or value bug in gun nums.
 
+-- todo: make actor update more simple (use tl?).
+-- todo: tl embedded tl.
+
 -- todo: create actor/parent more simple? Very similar now.
 -- todo: go through sprite file optimizations.
--- todo: tl embedded tl.
 -- todo: think about text interaction more.
 
 -- todo: create card transitions.
