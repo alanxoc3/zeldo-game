@@ -103,7 +103,7 @@ end
 
 function _draw()
    cls()
-   tl_func("d", g_tl)
+   call_not_nil("d", g_tl)
    ttbox_draw(20,107)
    -- draw_ma()
    zprint(stat(1), 75, 4)

@@ -10,6 +10,13 @@ function copy_atts(dest, src)
    end
 end
 
+-- call a function if the table and the table key are not nil
+function call_not_nil(key, table, ...)
+   if table and table[key] then
+      return table[key](table, ...)
+   end
+end
+
 function batch_call(func, str, ...)
    local arr = gun_vals(str,...)
    for i=1,#arr do func(munpack(arr[i])) end
@@ -84,11 +91,11 @@ function tl_update(tl, ...)
 		tl.tim = tl.mas[tl.cur].tl_tim
 
       copy_atts(tl, tl.mas[tl.cur])
-		tl_func("i", tl, ...) -- init func
+		call_not_nil("i", tl, ...)
 	end
 
    -- update func
-	if tl_func("u", tl, ...) then
+	if call_not_nil("u", tl, ...) then
       tl.tim = 0
    end
 
@@ -102,13 +109,6 @@ end
 function tl_next(tl, num)
    tl.tim=0
    if num then tl.tl_nxt=num end
-end
-
--- call a function if not nil
-function tl_func(key, tl, ...)
-   if tl[key] then
-      return tl[key](tl, ...)
-   end
 end
 
 -- tl array fields:
