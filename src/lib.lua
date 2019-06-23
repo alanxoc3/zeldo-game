@@ -24,7 +24,7 @@ function batch_call(func,...)
    foreach(gun_vals(...), function(t) func(munpack(t)) end)
 end
 
--- i should cache this too.
+-- unpacks a table
 -- https://gist.github.com/josefnpat/bfe4aaa5bbb44f572cd0
 function munpack(t, from, to)
   from, to = from or 1, to or #t
@@ -41,14 +41,16 @@ function gun_vals_helper(val_str,i,new_params)
       if     x == "$" then str_mode, isnum = not str_mode
       elseif str_mode then val=val..x
       elseif x == "}" or x == "," then
-         if type(val) == "string" and sub(val,1,1) == "@" then
+         if type(val) == "table" or not isnum then
+         elseif sub(val,1,1) == "@" then
             local sec = tonum(sub(val,2,#val))
             assert(sec != nil)
             if not new_params[sec] then new_params[sec] = {} end
             add(new_params[sec], {val_list, val_key or val_ind})
          elseif val == "nf" then val = function() end
-         elseif val == "true" or val == "false" or val == "" then val=val=="true"
-         elseif isnum then val=0+val
+         elseif val == "true" or val == "false" then val=val=="true"
+         elseif val == "nil" or val == "" then val=nil
+         elseif isnum then val=tonum(val)
          end
 
          val_list[val_key or val_ind], isnum, val, val_ind, val_key = val, true, "", val_key and val_ind or val_ind+1

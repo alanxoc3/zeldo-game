@@ -64,7 +64,7 @@ create_parent(
       i=nf, u=nf,
       update=@1,
       clean=@2,
-      destroyed=$nf$,
+      destroyed=nf,
       kill=@3
    }
 ]], function(a)
@@ -273,7 +273,7 @@ create_parent(
       anim_off=0,
       anim_len=1,
       anim_spd=0,
-      anim_sind=,
+      anim_sind=nil,
       anim_update=@1
    },
    par={$spr$,$timed$}

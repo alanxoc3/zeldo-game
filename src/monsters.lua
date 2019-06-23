@@ -7,7 +7,7 @@ function gen_spawner(x, y, func, buf_len, ...)
    return create_actor([[
          id=$spawner$,
          att={
-            child=,
+            child=nil,
             x=@1,
             y=@2
          },
