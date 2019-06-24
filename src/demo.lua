@@ -5,8 +5,6 @@
 -- todo: make item (boomerang) recoil timer.
 -- todo: no screen shake when enemy hits enemy/house.
 
--- todo: create actor/parent more simple? Very similar now.
--- todo: create actor adds actor to g_attach.
 -- todo: tl embedded tl.
 
 -- todo: go through sprite file optimizations.
@@ -71,6 +69,8 @@
 -- done: make actor update more simple (use tl?).
 -- done: do we need a begin init function? (no, embed tl can handle that).
 -- done: fix tbox arrow sprite offset.
+-- done: create actor/parent more simple? no. it is good.
+-- done: create actor adds actor to g_attach.
 
 -- token:
 -- 5180 5168 5166 5129 5258 5248 5244 5076 4983 5005 4994 4986 4985 4976 4965

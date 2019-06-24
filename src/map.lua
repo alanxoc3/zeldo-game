@@ -111,21 +111,21 @@ $title$={    n=$title$,  c=03, x=96,  y=32, w=11, h=10 },
 $endle$={    n=$endless$,c=13, x=96,  y=32, w=16, h=12 }
    ]], function() -- village @01
       batch_call(
-         gen_house, [[
+         g_att.house, [[
 {16,18.5,$h_lan$,28,15}, {20,24.5,$h_bob$,12,15},
 {12,24.5,$h_sho$,12,07}, {06,22.5,$h_ban$,04,15},
 {26,22.5,$h_inf$,20,15}]])
 
-      gen_top(7, 26)
+      g_att.top(7, 26)
    end, function() -- for_1 @02
-      gen_house(60,34.5,"h_lar", 28, 15)
+      g_att.house(60,34.5,"h_lar", 28, 15)
    end, function() -- for_4 @03
-      gen_house(56,58.5,"h_nav", 20, 07)
-      gen_top(56,60)
+      g_att.house(56,58.5,"h_nav", 20, 07)
+      g_att.top(56,60)
    end, function() -- cem_2 @04
-      gen_house(100,27.5,"h_gra", 04, 07)
+      g_att.house(100,27.5,"h_gra", 04, 07)
    end, function() -- mnt_3 @05
-      gen_house(088,01.5,"cas_1", 69, 31, 102)
+      g_att.house(088,01.5,"cas_1", 69, 31, 102)
    end)
 end
 

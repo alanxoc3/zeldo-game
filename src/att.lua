@@ -1,12 +1,12 @@
 -- attachment module
 -- goes after libraries. (lib and draw)
 
-g_act_arrs, g_attach = {}, {}
+g_act_arrs, g_att = {}, {}
 
 -- params: str, opts
 function create_parent(...)
    local params = gun_vals(...)
-   g_attach[params.id] = function(a)
+   g_att[params.id] = function(a)
       return attach_actor(params, a or {})
    end
 end
@@ -18,17 +18,18 @@ end
 
 -- opt: {id, att, par, tl}
 function attach_actor(opt, a)
-   foreach(opt.par, function(par_id) a = g_attach[par_id](a) end)
-
+   -- step 1: atts from parent
+   foreach(opt.par, function(par_id) a = g_att[par_id](a) end)
    copy_atts(a,opt.att)
 
+   -- step 2: add to list of objects
    local id = opt.id
-
    if not a[id] then
       g_act_arrs[id] = g_act_arrs[id] or {}
       add(g_act_arrs[id], a)
    end
 
+   -- step 3: attach timeline
    a.id, a[id] = id, true
    tl_attach(a, opt.tl)
 

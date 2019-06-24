@@ -1,5 +1,5 @@
 -- todo: trim code here.
-function gen_house(x, y, room, rx, ry, sind)
+g_att.house = function (x, y, room, rx, ry, sind)
    return create_actor([[
       id=$house$,
       att={

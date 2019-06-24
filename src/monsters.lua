@@ -27,7 +27,7 @@ function gen_spawner(x, y, func, buf_len, ...)
       end)
 end
 
-function gen_top(x, y)
+g_att.top = function(x, y)
    return create_actor([[
       id=$top$,
       att={
