@@ -5,17 +5,17 @@ g_ma_col = 0xd6
 function draw_ma(x, y)
    camera(-x,-y)
    -- rectfill(0, 108, 19, 127, 1)
-   rectfill(0, 0, 17, 17, 5)
-   rectfill(1, 1, 16, 16, 13)
+   rectfill(0, 0, 17, 19, 5)
+   rectfill(1, 1, 16, 18, 13)
    fillp(flr(g_pat_1))
-   rectfill(2, 2, 15, 15, g_ma_col)
+   rectfill(2, 3, 15, 16, g_ma_col)
 
    -- rectfill(2, 110, 17, 125, g_ma_col)
    fillp()
    if g_ma_out then
-      spr_out(g_ma, 5, 5, 1, 1, false, false, 1)
+      spr_out(g_ma, 5, 6, 1, 1, false, false, 1)
    else
-      spr(g_ma, 5, 5, 1, 1, false, false, 1)
+      spr(g_ma, 4, 4, 1, 1, false, false, 1)
    end
    -- rect(2, 110, 17, 125, 1)
    camera()
@@ -46,7 +46,4 @@ function draw_status_bars()
    rectfill(104,2,104,9,7)
    spr(40, 106, 2)
    zprint("9", 127-12-4+2+2, 4)
-
-   draw_ma(1,107)
-   -- draw_ma(109,107)
 end

@@ -114,7 +114,6 @@ function _draw()
    cls()
    call_not_nil("d", g_tl)
    ttbox_draw(20,107)
-   -- draw_ma()
    zprint(stat(1), 75, 4)
 end
 
@@ -172,15 +171,16 @@ function card_shake(tim)
 end
 
 function game_draw()
-   rectfill(0,0,127,127,0)
+   -- rect(0,0,127,127,8) -- debug
    draw_cur_room(8+g_card_shake_x, 7 + 3/8+g_card_shake_y)
 
    if g_menu_open then
       inventory_draw(64,59)
    end
 
-   -- acts_loop("dim", "debug_rect")
+   -- acts_loop("dim", "debug_rect") -- debug
    draw_status_bars()
+   draw_ma(1,107)
    print(g_rooms[g_cur_room].n or g_cur_room, 30, 110, 7)
    -- draw_glitch_effect()
 end
