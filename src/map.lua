@@ -3,8 +3,6 @@ g_off_x = 0
 g_off_y = 0
 function draw_cur_room(x, y)
    local cur_room = g_rooms[g_cur_room]
-
-   -- g_y = 0
    local rw = min(16, cur_room.w)
    local rh = min(12, cur_room.h)
    local rx = x - rw/2
