@@ -109,12 +109,12 @@ function draw_inactive_box(x, y, sind)
 end
 
 function draw_active_box(x, y, sind)
-   rectfill(x-7,y-7,x+6,y+6,1)
-   rectfill(x-6,y-6,x+5,y+5,9)
-   rectfill(x-5,y-5,x+4,y+4,10)
+   rectfill(x-6,y-6,x+5,y+5,1)
+   rectfill(x-5,y-5,x+4,y+4,9)
+   rectfill(x-4,y-4,x+3,y+3,10)
 
    fillp(flr(g_pat_1))
-   rectfill(x-5,y-5,x+4,y+4,0x9a)
+   rectfill(x-4,y-4,x+3,y+3,0x9a)
    fillp()
 
    spr(sind, x-4, y-4)

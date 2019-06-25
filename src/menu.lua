@@ -19,15 +19,17 @@ end
 -- change to sprite
 
 function draw_energy_bar(x, y, energy)
-   local width = 37
+   local width = 41
    local max_energy = 100
-   local cur_energy = min(energy/max_energy*width,width)
-   rectfill(x-1-cur_energy,y-1,x+1+cur_energy,y+2,13)
-   rectfill(x-cur_energy,y,x+cur_energy,y+1,12)
-   rect(x-width-1,y-2,x+width+1,y+3,5)
+   local cur_energy = flr(min(energy/max_energy*width,width))
+   rectfill(x-cur_energy,y-1,x+1+cur_energy,y+2,13)
+   rectfill(x+1-cur_energy,y,x+cur_energy,y+1,12)
+   rect(x-width,y-2,x+width+1,y+3,5)
 
-   rectfill(x-width-4,y-3,x-width-4,y+4,5)
+   rectfill(x-width-3,y-3,x-width-3,y+4,5)
    rectfill(x+width+4,y-3,x+width+4,y+4,5)
+
+   spr_out(g_all_items[g_selected].sind, x-3, y-3, 1, 1, false, false, 5)
 end
 
 function draw_bot_bar()
@@ -52,20 +54,18 @@ function draw_bot_bar()
 end
 
 function draw_top_bar()
-   draw_energy_bar(64,5,t()*50)
+   draw_energy_bar(66,5,flr(t()*50))
    -- zprint("009", 2, 4)
    -- spr(40, 01, 2) spr(40, 05, 3) spr(40, 09, 2) spr(40, 13, 3)
 
    -- power orbs
-   spr(40, 107, 2)
-   zprint("009", 116, 4)
+   spr(40, 0, 2)
+   zprint("009", 9, 4)
 
    -- items
-   rectfill(59,1,68,10,13)
-   rect(59,1,68,10,5)
-   spr(g_all_items[g_selected].sind, 64-4, 2)
-   spr(46, 1, 2)
-   zprint("9", 6, 4)
+   --spr(g_all_items[g_selected].sind, 64-4, 2)
+   spr(46, 114, 2)
+   zprint("9", 124, 4)
 
    -- dividers
    -- rectfill(12, 2,12, 9,7)
