@@ -179,9 +179,9 @@ function game_draw()
    end
 
    -- acts_loop("dim", "debug_rect") -- debug
-   draw_status_bars()
-   draw_ma(1,107)
-   print(g_rooms[g_cur_room].n or g_cur_room, 30, 110, 7)
+   draw_top_bar()
+   draw_bot_bar()
+   -- print(g_rooms[g_cur_room].n or g_cur_room, 30, 110, 7)
    -- draw_glitch_effect()
 end
 
