@@ -1,6 +1,10 @@
 -- the story of zeldo
 -- amorg games
 
+-- todo: change the top of the screen (new layout).
+-- todo: separate tbox speaker.
+-- todo: tbox pop up and down.
+
 -- todo: make and tweak an after stun timer.
 -- todo: make item (boomerang) recoil timer.
 -- todo: no screen shake when enemy hits enemy/house.

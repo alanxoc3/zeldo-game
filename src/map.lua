@@ -22,8 +22,8 @@ function draw_cur_room(x, y)
    clip(rx*8+4, ry*8+4, rw*8-8, rh*8-8)
 
 
-   if g_menu_open then g_pal = g_pal_gray
-   else g_pal = g_pal_norm end
+   --if g_menu_open then g_pal = g_pal_gray
+   --else g_pal = g_pal_norm end
    restore_pal()
 
    rectfill(0,0,127,127,cur_room.c)
