@@ -17,34 +17,12 @@ function draw_cur_room(x, y)
       rect(rx*8+k,ry*8+k, (rx+rw)*8-k-1, (ry+rh)*8-k-1, v)
    end
 
-
-
    clip(rx*8+4, ry*8+4, rw*8-8, rh*8-8)
-
-
-   --if g_menu_open then g_pal = g_pal_gray
-   --else g_pal = g_pal_norm end
-   restore_pal()
-
    rectfill(0,0,127,127,cur_room.c)
-
-   --- .6651
-   --- .52
-   --local x_val = scr_x(cur_room.x)
-   --local y_val = scr_y(cur_room.y)
-   --for y_it=0,cur_room.h-1 do
-      --for x_it=0,cur_room.w-1 do
-         --spr(cur_room.t, x_val+x_it*8, y_val+y_it*8)
-      --end
-   --end
-
    scr_map(cur_room.x, cur_room.y, cur_room.x, cur_room.y, cur_room.w, cur_room.h)
-
    isorty(g_act_arrs["drawable"])
    acts_loop("drawable", "d")
-
    clip()
-   camera(0)
 end
 
 function isorty(t)
