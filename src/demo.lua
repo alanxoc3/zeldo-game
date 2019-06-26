@@ -114,7 +114,7 @@ function _draw()
    cls()
    call_not_nil("d", g_tl)
    ttbox_draw(20,107)
-   zprint(stat(1), 104, 103) -- debug
+   zprint(stat(1), 104, 102) -- debug
 end
 
 function game_update()

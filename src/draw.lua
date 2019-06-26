@@ -57,8 +57,8 @@ function spr_out(sind, x, y, sw, sh, xf, yf, col)
    spr(sind, x, y, sw, sh, xf, yf)
 end
 
-function zprint(str, x, y)
-   print(str, x, y-1, 1)
+function zprint(str, x, y, shadow_below)
+   print(str, x, y + (shadow_below and 1 or -1), 1)
    print(str, x, y, 7)
 end
 
