@@ -1,6 +1,9 @@
 -- the story of zeldo
 -- amorg games
 
+-- todo: make the top "tired" bar work.
+-- todo: top and bottom bars, modular.
+--
 -- todo: change the top of the screen (new layout).
 -- todo: separate tbox speaker.
 -- todo: tbox pop up and down.
