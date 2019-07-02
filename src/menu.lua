@@ -40,28 +40,51 @@ function draw_energy_bar(x, y, energy)
 
 end
 
-function draw_bot_bar()
-   draw_ma(1,107,56)
-   draw_ma(109,107,76, true)
-   zprint("lank",21,108)
-   zprint("5/100",21,121, true)
-   zprint("cannon",84,108)
+function draw_health_bar(x, y, max_health, health)
+   health = min(max_health, flr(health))
+   health = max(0, health)
 
-   -- red
-   -- rectfill(21,115,60,117,8)
-   -- rect    (21,115,60,117,2)
+   zprint(flr(health).."/"..max_health,21,121,true)
+
+   health = (health/max_health)*37+1
 
    -- green
-   rectfill(21,115,45,117,11)
-   rect    (21,115,45,117,3)
+   rectfill(x,y,x+health,y+2,11)
+   rect    (x,y,x+health,y+2,3)
 
-
-   rect    (21,115,60,118,1)
+   rect    (x,y,x+39,y+3,1)
 
    -- tip
-   rectfill(45,116,45,117,9)
-   rectfill(45,116,45,116,10)
+   rectfill(x+health,y+1,x+health,y+2,9)
+   rectfill(x+health,y+1,x+health,y+1,10)
 
+end
+
+-- returns the x position of the text, to align right.
+function zprint_right(text,x,...)
+   zprint(text,x-#text*4-1,...)
+end
+
+function draw_bot_left(name, sind, max_health, health)
+   zprint(name,21,108)
+   draw_ma(1,107,sind)
+   draw_health_bar(21,115,max_health,health)
+end
+
+function draw_bot_right(name, sind, max_health, health)
+   zprint_right(name,109,108)
+   draw_ma(109,107,sind)
+   draw_health_bar(67,115,max_health,health)
+end
+
+function draw_bot_bar()
+   -- draw_ma(109,107,76, true)
+   -- zprint_right("5/100",109,121,true)
+   -- zprint_right("cannon",109,108)
+   draw_bot_left("lank", 56, 50, sin(t())*100)
+   draw_bot_right("cannon", 76, 50, sin(t())*100)
+
+   -- draw_health_bar(67,115,50,sin(t()+.5)*50)
 
    -- divider
    rectfill(63,107,64,126,6)
@@ -75,7 +98,7 @@ function draw_top_bar()
    spr(40, 108, 3)
    zprint("009", 116, 4)
 
-   draw_energy_bar(14,3,0*sin(t()/2)*60+50)
+   draw_energy_bar(14,3,sin(t()/2)*60+50)
 
    -- dividers
    rectfill(11,2,11,9,5)
