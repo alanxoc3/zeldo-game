@@ -1,22 +1,18 @@
--- like a box with a character inside.
+-- a box with a character inside.
 function draw_ma(x, y, sind, flip)
    camera(-x,-y)
 
-   rectfill(0, 1, 17, 18, 5)
-   rectfill(1, 2, 16, 17, 13)
+   rectfill(0, 0, 17, 17, 5)
+   rectfill(1, 1, 16, 16, 13)
 
    fillp(flr(g_pat_1))
-   rectfill(2, 3, 15, 16, 0xd6)
+   rectfill(2, 2, 15, 15, 0xd6)
    fillp()
 
-   spr_out(sind, 5, 6, 1, 1, flip, false, 1)
+   spr_out(sind, 5, 5, 1, 1, flip, false, 1)
 
    camera()
 end
-
--- change style
--- change to actor
--- change to sprite
 
 function draw_energy_bar(x, y, energy)
    local width = 88
@@ -32,65 +28,53 @@ function draw_energy_bar(x, y, energy)
    fillp()
 
    -- tip
-   rectfill(x+cur_energy,y+1,x+cur_energy,y+4,0x79)
-   rectfill(x+cur_energy,y+2,x+cur_energy,y+3,0x7a)
+   rectfill(x+cur_energy,y+1,x+cur_energy,y+4,9)
+   rectfill(x+cur_energy,y+2,x+cur_energy,y+3,10)
 
    -- outline
    rect    (x,  y,  x+width,  y+5,1)
-
 end
 
-function draw_health_bar(x, y, max_health, health)
-   health = min(max_health, flr(health))
-   health = max(0, health)
+function draw_health_bar(x, y, max_health, health, flip)
+   -- normalize health to draw
+   local health = (health/max_health)*37+1
 
-   zprint(flr(health).."/"..max_health,21,121,true)
-
-   health = (health/max_health)*37+1
+   x = flip and (x-42) or x
+   -- outline
+   rect    (x,y,x+39,y+3,1)
 
    -- green
-   rectfill(x,y,x+health,y+2,11)
-   rect    (x,y,x+health,y+2,3)
-
-   rect    (x,y,x+39,y+3,1)
+   if flip then
+      health = 39-health
+      -- green
+      rectfill(x+health,y+1,x+38,y+1,11)
+      rectfill(x+health,y+2,x+38,y+2,3)
+   else
+      -- green
+      rectfill(x+1,y+1,x+health,y+1,11)
+      rectfill(x+1,y+2,x+health,y+2,3)
+   end
 
    -- tip
    rectfill(x+health,y+1,x+health,y+2,9)
    rectfill(x+health,y+1,x+health,y+1,10)
-
 end
 
--- returns the x position of the text, to align right.
-function zprint_right(text,x,...)
-   zprint(text,x-#text*4-1,...)
+-- todo: make the code size smaller here.
+function draw_stat(x, y, name, sind, max_health, health, flip)
+   -- temp, for time.
+   health = max(0, min(max_health, flr(health)))
+
+   local operator = flip and -17 or 20
+
+   -- four things: ma, name, bar, health
+   draw_ma(flip and (x-17) or x,y,sind, flip)
+   zprint(name,x+operator,y, false, flip)
+   draw_health_bar(x+operator,y+7,max_health,health, flip)
+   zprint(flr(health).."/"..max_health,x+operator,y+13,true, flip)
 end
 
-function draw_bot_left(name, sind, max_health, health)
-   zprint(name,21,108)
-   draw_ma(1,107,sind)
-   draw_health_bar(21,115,max_health,health)
-end
-
-function draw_bot_right(name, sind, max_health, health)
-   zprint_right(name,109,108)
-   draw_ma(109,107,sind)
-   draw_health_bar(67,115,max_health,health)
-end
-
-function draw_bot_bar()
-   -- draw_ma(109,107,76, true)
-   -- zprint_right("5/100",109,121,true)
-   -- zprint_right("cannon",109,108)
-   draw_bot_left("lank", 56, 50, sin(t())*100)
-   draw_bot_right("cannon", 76, 50, sin(t())*100)
-
-   -- draw_health_bar(67,115,50,sin(t()+.5)*50)
-
-   -- divider
-   rectfill(63,107,64,126,6)
-end
-
-function draw_top_bar()
+function draw_status()
    -- item
    spr(g_all_items[g_selected].sind, 1, 2)
 
@@ -103,4 +87,12 @@ function draw_top_bar()
    -- dividers
    rectfill(11,2,11,9,5)
    rectfill(105,2,105,9,5)
+
+   -- draw bottom bar:
+   draw_stat(1,   108, "lank",   56, 50, sin(t())*100)
+   draw_stat(126, 108, "cannon", 76, 50, sin(t()+.254)*67, true)
+
+   -- divider
+   rectfill(63,107,64,126,6)
+
 end
