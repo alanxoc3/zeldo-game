@@ -80,7 +80,7 @@ function draw_status()
 
    -- power orbs
    spr(40, 108, 3)
-   zprint("009", 116, 4)
+   zprint(get_square_str(), 116, 4)
 
    draw_energy_bar(14,3,sin(t()/2)*60+50)
 

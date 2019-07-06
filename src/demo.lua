@@ -1,6 +1,10 @@
 -- the story of zeldo
 -- amorg games
 
+-- todo: create power square item.
+-- todo: create 2 parts of lank (feet and arms).
+-- todo: create a chicken object.
+-- todo: try the "just around player" status thing (caden idea.)
 -- todo: make the top "tired" bar work.
 -- todo: top and bottom bars, modular.
 --
@@ -59,11 +63,11 @@
 -- done: enemy needs to collide with house correctly
 -- done: enemy needs to be stunned correctly again.
 -- done: enemy collide with screen edge.
--- done: field fix up. Field and gravep connect better.
+-- done: field fix up. field and gravep connect better.
 -- done: think about connecting map logic.
 -- done: connect up grave dungeon.
 -- done: connect up castle
--- done: change drawing functions to work with tl better. Incorporate tl even more.
+-- done: change drawing functions to work with tl better. incorporate tl even more.
 -- done: no double draw items
 -- done: create boomerang.
 -- done: screen shake when hitting player.
@@ -78,6 +82,10 @@
 -- done: fix tbox arrow sprite offset.
 -- done: create actor/parent more simple? no. it is good.
 -- done: create actor adds actor to g_attach.
+-- done: rethink items again. chicken is duck. duck is like enemy, but not
+--       respawnable. you can pick it up too. other items are more like
+--       interactable.
+-- done: create power square variable.
 
 -- token:
 -- 5180 5168 5166 5129 5258 5248 5244 5076 4983 5005 4994 4986 4985 4976 4965

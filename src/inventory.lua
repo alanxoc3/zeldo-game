@@ -21,7 +21,7 @@ function inventory_init()
       sword    = {func=@1, sind=09, desc=$^sword:hurts bad guys.$},
       banjo    = {func=@2, sind=08, desc=$^banjo:play a sick tune!$},
       shield   = {func=@3, sind=14, desc=$^shield:be safe from enemy attacks.$},
-      brang    = {func=@4, sind=12, desc=$^brang:stun baddies. get items.h$},
+      brang    = {func=@4, sind=12, desc=$^brang:stun baddies. get items.$},
       force    = {sind=10, desc=$^sqr'force:don't let ivan take it from you!$},
       shovel   = {sind=11, desc=$^shovel:dig things up. kill the grass.$},
       bomb     = {sind=13, desc=$^bomb:only 5 power squares to blows things up!$},
