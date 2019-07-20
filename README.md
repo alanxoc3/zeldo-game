@@ -4,3 +4,5 @@ He has lost his memory! You gotta help Lank save the Land of Hiroll from the
 forces of evil!
 
 Enjoy my game.
+
+Made with <3 in PICO-8.
