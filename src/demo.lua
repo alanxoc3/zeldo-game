@@ -1,6 +1,7 @@
 -- the story of zeldo
 -- amorg games
 
+-- todo: see if caden can fetch/merge.
 -- todo: create power square item.
 -- todo: create 2 parts of lank (feet and arms).
 -- todo: create a chicken object.
