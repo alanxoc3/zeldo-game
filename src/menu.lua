@@ -14,10 +14,9 @@ function draw_ma(x, y, sind, flip)
    camera()
 end
 
-function draw_energy_bar(x, y, energy)
+function draw_energy_bar(x, y)
    local width = 88
-   local max_energy = 100
-   local cur_energy = flr(max(min(energy/max_energy*width,width-1),1))
+   local cur_energy = flr(max(min(g_energy/g_max_energy*width,width-1),1))
    -- rectfill(x,  y,x+width,y+5,1)
    -- rectfill(x,  y+2,x+width,y+3,1)
 
@@ -82,7 +81,7 @@ function draw_status()
    spr(40, 108, 3)
    zprint(get_square_str(), 116, 4)
 
-   draw_energy_bar(14,3,sin(t()/2)*60+50)
+   draw_energy_bar(14,3)
 
    -- dividers
    rectfill(11,2,11,9,5)
@@ -94,5 +93,4 @@ function draw_status()
 
    -- divider
    rectfill(63,107,64,126,6)
-
 end

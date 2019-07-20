@@ -159,6 +159,7 @@ function game_update()
       g_act_arrs["wall"]
    )
 
+   energy_update(.25)
    update_view(g_pl.x, g_pl.y)
 
    card_shake_update()
