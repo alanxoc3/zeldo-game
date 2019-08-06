@@ -92,7 +92,11 @@ $endle$={    n=$endless$,c=13, x=96,  y=32, w=16, h=12 }
 {12,24.5,$h_sho$,12,07}, {06,22.5,$h_ban$,04,15},
 {26,22.5,$h_inf$,20,15}]])
 
+      g_att.top(6, 26)
       g_att.top(7, 26)
+      g_att.top(8, 26)
+      g_att.top(9, 26)
+      g_att.top(10, 26)
    end, function() -- for_1 @02
       g_att.house(60,34.5,"h_lar", 28, 15)
    end, function() -- for_4 @03

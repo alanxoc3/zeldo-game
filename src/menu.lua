@@ -17,17 +17,16 @@ end
 function draw_energy_bar(x, y)
    local width = 88
    local cur_energy = flr(max(min(g_energy/g_max_energy*width,width-1),1))
-   -- rectfill(x,  y,x+width,y+5,1)
-   -- rectfill(x,  y+2,x+width,y+3,1)
 
-   rectfill(x,y+1,x+cur_energy,y+4,0xd)
-
+   -- blue part
    fillp(flr(g_pat_3))
-   rectfill(x,y+2,x+cur_energy,y+3,0x6c)
+   rectfill(x,y,x+cur_energy,y+5,0x6c)
    fillp()
 
+   rect(x,y+1,x+cur_energy,y+4,0xd)
+
    -- tip
-   rectfill(x+cur_energy,y+1,x+cur_energy,y+4,9)
+   rectfill(x+cur_energy,y,x+cur_energy,y+5,9)
    rectfill(x+cur_energy,y+2,x+cur_energy,y+3,10)
 
    -- outline
@@ -88,8 +87,8 @@ function draw_status()
    rectfill(105,2,105,9,5)
 
    -- draw bottom bar:
-   draw_stat(1,   108, "lank",   56, 50, sin(t())*100)
-   draw_stat(126, 108, "cannon", 76, 50, sin(t()+.254)*67, true)
+   draw_stat(1,   108, "lank",   56, g_pl.max_health, g_pl.health)
+   draw_stat(126, 108, "cannon", 76, 50, 25, true)
 
    -- divider
    rectfill(63,107,64,126,6)

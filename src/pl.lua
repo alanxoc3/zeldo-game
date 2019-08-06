@@ -13,9 +13,9 @@ function gen_pl(x, y)
             spd=.02,
             anim_len=3,
             anim_spd=5,
-            max_hearts=3,
-            u=@4, d=@5, hit=@3,
-            hearts=3
+            max_health=50,
+            health=50,
+            u=@4, d=@5, hit=@3
          },
          par={$anim$,$col$,$mov$,$tcol$,$hurtable$,$knockable$,$stunnable$,$spr$}
       ]], x, y,
