@@ -29,3 +29,16 @@ function use_energy(amount)
       return true
    end
 end
+
+g_cur_enemy = nil
+g_cur_enemy_timer = 60*5
+function change_cur_enemy(enemy)
+   g_cur_enemy = enemy
+end
+
+function update_cur_enemy()
+   g_cur_enemy_timer = max(0, g_cur_enemy_timer - 1)
+   if g_cur_enemy_timer == 0 or g_cur_enemy and not g_cur_enemy.alive then
+      g_cur_enemy = nil
+   end
+end

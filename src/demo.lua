@@ -161,6 +161,8 @@ function game_update()
    )
 
    energy_update(.25)
+   update_cur_enemy()
+
    update_view(g_pl.x, g_pl.y)
 
    card_shake_update()

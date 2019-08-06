@@ -87,8 +87,13 @@ function draw_status()
    rectfill(105,2,105,9,5)
 
    -- draw bottom bar:
-   draw_stat(1,   108, "lank",   56, g_pl.max_health, g_pl.health)
-   draw_stat(126, 108, "cannon", 76, 50, 25, true)
+   if g_pl and g_pl.alive then
+      draw_stat(1, 108, "lank", g_pl.sind, g_pl.max_health, g_pl.health)
+   end
+
+   if g_cur_enemy and g_cur_enemy.alive then
+      draw_stat(126, 108, "enemy", g_cur_enemy.sind, g_cur_enemy.max_health, g_cur_enemy.health, true)
+   end
 
    -- divider
    rectfill(63,107,64,126,6)
