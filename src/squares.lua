@@ -19,14 +19,20 @@ end
 
 g_max_energy = 100
 g_energy = 100
+g_energy_tired = false
 function energy_update(amount)
    g_energy = min(g_max_energy, g_energy + amount)
+   if g_energy_tired and g_energy >= 100 then
+      g_energy_tired = false
+   end
 end
 
 function use_energy(amount)
    if g_energy - amount >= 0 then
       g_energy = g_energy - amount
       return true
+   else
+      g_energy_tired = true
    end
 end
 

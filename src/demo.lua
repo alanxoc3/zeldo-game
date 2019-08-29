@@ -1,7 +1,6 @@
 -- the story of zeldo
 -- amorg games
 
--- todo: see if caden can fetch/merge.
 -- todo: create power square item.
 -- todo: create 2 parts of lank (feet and arms).
 -- todo: create a chicken object.
@@ -44,7 +43,9 @@
 
 -- things that are done:
 -- done: house needs to clean up after itself.
+-- done: see if caden can fetch/merge.
 -- done: delete old map room logic.
+-- done: when running out of energy
 -- done: create palace map.
 -- done: gun vals number
 -- done: optimize gun nums again

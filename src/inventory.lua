@@ -202,7 +202,8 @@ function create_brang(pl)
       end,
       -- update 1
       function(a)
-         if not use_energy(.75) or not a.holding then
+         use_energy(.75)
+         if g_energy_tired or not a.holding then
             tl_next(a)
          end
       end,
@@ -211,7 +212,6 @@ function create_brang(pl)
          -- if pl.item == a then
             -- pl.item = nil
          -- end
-
       end,
       -- update 2
       function(a)
