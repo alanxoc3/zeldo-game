@@ -249,10 +249,10 @@ create_parent(
    },
    par={$act$}
 ]], function(a, damage)
-   if a.stun_countdown == 0 then
+   -- if a.stun_countdown == 0 or a.stun_countdown == nil then
       a.health -= damage
       if a.health <= 0 then a.alive = false end
-   end
+   -- end
 end)
 
 create_parent(

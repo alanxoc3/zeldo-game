@@ -348,6 +348,7 @@ function create_sword(pl)
          if other.evil then
             a.poke = 10
             use_energy(.5)
+            change_cur_enemy(other)
 
             if other.knockable then
                other.knockback(other, (a.cur == 1) and .3 or .1, a.xf and -1 or 1, 0)
@@ -359,7 +360,7 @@ function create_sword(pl)
             end
 
             if other.hurtable  then
-               other.hurt(other, hurt_val)
+               other.hurt(other, 5)
             end
          end
       end,

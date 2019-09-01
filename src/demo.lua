@@ -30,7 +30,6 @@
 -- todo: nice functions to integrate with menu actors.
 -- todo: connect tbox with menu actors.
 -- todo: menu actor name and different backgrounds.
--- todo: make enemy health bar.
 -- todo: make area information (if no enemy).
 
 -- todo: connect everything.
@@ -88,10 +87,11 @@
 --       respawnable. you can pick it up too. other items are more like
 --       interactable.
 -- done: create power square variable.
+-- done: make enemy health bar.
 
 -- token:
 -- 5180 5168 5166 5129 5258 5248 5244 5076 4983 5005 4994 4986 4985 4976 4965
--- 4971 4979
+-- 4971 4979 6068
 
 -- compress:
 -- 16285 15360
@@ -213,10 +213,10 @@ function game_init()
    -- load_room("lank's path", 2, 18)
    -- load_room("sword sanctuary", 37, 59)
    -- load_room("field", 52, 30) -- debug tech
-   load_room("villa", 21, 29)
+   -- load_room("villa", 21, 29)
    -- load_room("title", 101, 36)
    -- load_room("cas_1", 69, 30)
-   --load_room("cem_2", 99, 29)
+   load_room("cem_2", 99, 29)
     
    --load_room("tom_1", 125, 27)
    tbox("lank:12341234561 1901234567890 234123456 8901234567890hh ")

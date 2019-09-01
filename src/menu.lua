@@ -88,11 +88,11 @@ function draw_status()
 
    -- draw bottom bar:
    if g_pl and g_pl.alive then
-      draw_stat(1, 108, "lank", g_pl.sind, g_pl.max_health, g_pl.health)
+      draw_stat(1, 108, g_pl.id, g_pl.sind, g_pl.max_health, g_pl.health)
    end
 
    if g_cur_enemy and g_cur_enemy.alive then
-      draw_stat(126, 108, "enemy", g_cur_enemy.sind, g_cur_enemy.max_health, g_cur_enemy.health, true)
+      draw_stat(126, 108, g_cur_enemy.id, g_cur_enemy.sind, g_cur_enemy.max_health, g_cur_enemy.health, true)
    end
 
    -- divider

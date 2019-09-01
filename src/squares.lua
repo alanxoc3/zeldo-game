@@ -37,9 +37,10 @@ function use_energy(amount)
 end
 
 g_cur_enemy = nil
-g_cur_enemy_timer = 60*5
+g_cur_enemy_timer = 0
 function change_cur_enemy(enemy)
    g_cur_enemy = enemy
+   g_cur_enemy_timer = 60*5
 end
 
 function update_cur_enemy()
