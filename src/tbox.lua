@@ -119,8 +119,8 @@ function ttbox_draw(x, y)
 
       -- print the message
       batch_call(zprint, [[
-         {@1, 4, 4},
-         {@2, 4, 11}
+         {@1, 4, 4, false},
+         {@2, 4, 11, true}
       ]],
          sub(g_tbox_active.l1, 1, g_tbox_anim),
          sub(g_tbox_active.l2, 0, max(g_tbox_anim - #g_tbox_active.l1, 0))

@@ -13,9 +13,9 @@ function gen_pl(x, y)
             spd=.02,
             anim_len=3,
             anim_spd=5,
-            max_hearts=3,
-            u=@4, d=@5, hit=@3,
-            hearts=3
+            max_health=50,
+            health=50,
+            u=@4, d=@5, hit=@3
          },
          par={$anim$,$col$,$mov$,$tcol$,$hurtable$,$knockable$,$stunnable$,$spr$}
       ]], x, y,
@@ -45,7 +45,7 @@ function gen_pl(x, y)
          end
 
          -- item logic
-         if btn(4) and not btn(5) and not a.item then
+         if btn(4) and not btn(5) and not a.item and not g_energy_tired then
             a.item = gen_pl_item(a, g_selected)
          end
 
@@ -56,7 +56,7 @@ function gen_pl(x, y)
                a.item = nil
             end
 
-            if (not btn(4) or btn(5)) then
+            if g_energy_tired or (not btn(4) or btn(5)) then
                item.holding = false
             end
 

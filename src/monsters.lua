@@ -51,7 +51,7 @@ g_att.top = function(x, y)
       -- hit
       function(a, other, ...)
          if other.pl then
-            other.hurt(other, 1) other.stun(other, 30)
+            other.hurt(other, 10) other.stun(other, 30)
          end
 
          if other.knockable then

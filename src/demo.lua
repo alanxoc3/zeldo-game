@@ -1,6 +1,10 @@
 -- the story of zeldo
 -- amorg games
 
+-- todo: create power square item.
+-- todo: create 2 parts of lank (feet and arms).
+-- todo: create a chicken object.
+-- todo: try the "just around player" status thing (caden idea.)
 -- todo: make the top "tired" bar work.
 -- todo: top and bottom bars, modular.
 --
@@ -26,7 +30,6 @@
 -- todo: nice functions to integrate with menu actors.
 -- todo: connect tbox with menu actors.
 -- todo: menu actor name and different backgrounds.
--- todo: make enemy health bar.
 -- todo: make area information (if no enemy).
 
 -- todo: connect everything.
@@ -39,7 +42,9 @@
 
 -- things that are done:
 -- done: house needs to clean up after itself.
+-- done: see if caden can fetch/merge.
 -- done: delete old map room logic.
+-- done: when running out of energy
 -- done: create palace map.
 -- done: gun vals number
 -- done: optimize gun nums again
@@ -59,11 +64,11 @@
 -- done: enemy needs to collide with house correctly
 -- done: enemy needs to be stunned correctly again.
 -- done: enemy collide with screen edge.
--- done: field fix up. Field and gravep connect better.
+-- done: field fix up. field and gravep connect better.
 -- done: think about connecting map logic.
 -- done: connect up grave dungeon.
 -- done: connect up castle
--- done: change drawing functions to work with tl better. Incorporate tl even more.
+-- done: change drawing functions to work with tl better. incorporate tl even more.
 -- done: no double draw items
 -- done: create boomerang.
 -- done: screen shake when hitting player.
@@ -78,10 +83,15 @@
 -- done: fix tbox arrow sprite offset.
 -- done: create actor/parent more simple? no. it is good.
 -- done: create actor adds actor to g_attach.
+-- done: rethink items again. chicken is duck. duck is like enemy, but not
+--       respawnable. you can pick it up too. other items are more like
+--       interactable.
+-- done: create power square variable.
+-- done: make enemy health bar.
 
 -- token:
 -- 5180 5168 5166 5129 5258 5248 5244 5076 4983 5005 4994 4986 4985 4976 4965
--- 4971 4979
+-- 4971 4979 6068
 
 -- compress:
 -- 16285 15360
@@ -151,6 +161,9 @@ function game_update()
       g_act_arrs["wall"]
    )
 
+   energy_update(.25)
+   update_cur_enemy()
+
    update_view(g_pl.x, g_pl.y)
 
    card_shake_update()
@@ -182,8 +195,7 @@ function game_draw()
    end
 
    -- acts_loop("dim", "debug_rect") -- debug
-   draw_top_bar()
-   draw_bot_bar()
+   draw_status()
    -- print(g_rooms[g_cur_room].n or g_cur_room, 30, 110, 7)
    -- draw_glitch_effect()
 end
@@ -201,10 +213,10 @@ function game_init()
    -- load_room("lank's path", 2, 18)
    -- load_room("sword sanctuary", 37, 59)
    -- load_room("field", 52, 30) -- debug tech
-   load_room("villa", 21, 29)
+   -- load_room("villa", 21, 29)
    -- load_room("title", 101, 36)
    -- load_room("cas_1", 69, 30)
-   --load_room("cem_2", 99, 29)
+   load_room("cem_2", 99, 29)
     
    --load_room("tom_1", 125, 27)
    tbox("lank:12341234561 1901234567890 234123456 8901234567890hh ")

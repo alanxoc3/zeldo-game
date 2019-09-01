@@ -21,7 +21,7 @@ function inventory_init()
       sword    = {func=@1, sind=09, desc=$^sword:hurts bad guys.$},
       banjo    = {func=@2, sind=08, desc=$^banjo:play a sick tune!$},
       shield   = {func=@3, sind=14, desc=$^shield:be safe from enemy attacks.$},
-      brang    = {func=@4, sind=12, desc=$^brang:stun baddies. get items.h$},
+      brang    = {func=@4, sind=12, desc=$^brang:stun baddies. get items.$},
       force    = {sind=10, desc=$^sqr'force:don't let ivan take it from you!$},
       shovel   = {sind=11, desc=$^shovel:dig things up. kill the grass.$},
       bomb     = {sind=13, desc=$^bomb:only 5 power squares to blows things up!$},
@@ -202,7 +202,8 @@ function create_brang(pl)
       end,
       -- update 1
       function(a)
-         if not a.holding then
+         use_energy(.75)
+         if g_energy_tired or not a.holding then
             tl_next(a)
          end
       end,
@@ -211,10 +212,10 @@ function create_brang(pl)
          -- if pl.item == a then
             -- pl.item = nil
          -- end
-
       end,
       -- update 2
       function(a)
+         use_energy(.5)
          amov_to_actor(a, pl, .07)
          -- if not a.holding then
             -- a.alive, pl.item = false
@@ -249,6 +250,7 @@ function create_shield(pl)
       function(a, other)
          if other.evil then
             a.poke=10
+            use_energy(.25)
 
             if other.knockable then
                local knockback_val = (a.cur == 1) and .4 or .2
@@ -269,6 +271,7 @@ function create_shield(pl)
       end,
       -- update 1
       function(a)
+         use_energy(.75)
          act_poke(a,  0, 1)
          if abs(a.rel_dx + a.rel_x) < dist then
             a.rel_x += a.rel_dx
@@ -279,6 +282,7 @@ function create_shield(pl)
       end,
       -- update 2
       function(a)
+         use_energy(.25)
          act_poke(a,  0, 1)
          if not a.holding then
             a.alive, pl.item = false
@@ -343,6 +347,8 @@ function create_sword(pl)
       function(a, other)
          if other.evil then
             a.poke = 10
+            use_energy(.5)
+            change_cur_enemy(other)
 
             if other.knockable then
                other.knockback(other, (a.cur == 1) and .3 or .1, a.xf and -1 or 1, 0)
@@ -354,7 +360,7 @@ function create_sword(pl)
             end
 
             if other.hurtable  then
-               other.hurt(other, hurt_val)
+               other.hurt(other, 5)
             end
          end
       end,
@@ -366,6 +372,7 @@ function create_sword(pl)
       end,
       -- update 1
       function(a)
+         use_energy(.75)
          act_poke(a, -1, 0)
          if abs(a.rel_dx + a.rel_x) < 1 then
             a.rel_x += a.rel_dx
@@ -376,6 +383,7 @@ function create_sword(pl)
       end,
       -- update 2
       function(a)
+         use_energy(.25)
          act_poke(a, -1, 0)
          if not a.holding then
             a.alive, pl.item = false
