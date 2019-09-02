@@ -9,6 +9,7 @@ function draw_ma(x, y, a)
       {2, 2, 15, 15, 0}
    ]], patternize(0x43,4))
 
+   clip(x+2, y+2, 14, 14)
    spr_out(a.sind, 5 + zsgn(a.ax), 5 + zsgn(a.ay), 1, 1, a.xf, a.yf, 1)
    if a.item then
       local item = a.item
@@ -16,6 +17,7 @@ function draw_ma(x, y, a)
                      7+(item.y-a.y)*8 + zsgn(a.ay) + item.iyy,
                      1, 1, item.xf, item.yf, 1)
    end
+   clip()
 
    camera()
 end
@@ -89,5 +91,5 @@ function draw_status()
       {126, 108, @2, true}
    ]], g_pl, g_cur_enemy)
 
-   spr(g_all_items[g_selected].sind, 30, 106)
+   -- spr(g_all_items[g_selected].sind, 30, 106)
 end
