@@ -126,21 +126,9 @@ function ttbox_draw(x, y)
          sub(g_tbox_active.l2, 0, max(g_tbox_anim - #g_tbox_active.l1, 0))
       )
 
+      -- draw the arrow
       if g_tbox_active.continue then
-         -- draw the arrow
          spr(71, 100, g_tbox_anim%20<10 and 13 or 14)
-         -- batch_call(rectfill, g_tbox_anim%20 < 10 and [[
-            -- {118, 115, 122, 115, 1},
-            -- {118, 116, 122, 116, 7},
-            -- {119, 117, 121, 117, 7},
-            -- {120, 118, 120, 118, 7}
-         -- ]] or [[
-            -- {118, 116, 122,  116, 1},
-            -- {118, 117, 122,  117, 7},
-            -- {119, 118, 121,  118, 7},
-            -- {120, 119, 120,  119, 7}
-         -- ]]
-         -- )
       end
    end
 

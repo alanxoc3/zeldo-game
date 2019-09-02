@@ -243,16 +243,14 @@ end)
 create_parent(
 [[ id=$hurtable$,
    att={
-      health=50,
-      max_health=50,
+      health=33,
+      max_health=33,
       hurt=@1
    },
    par={$act$}
 ]], function(a, damage)
-   -- if a.stun_countdown == 0 or a.stun_countdown == nil then
-      a.health -= damage
-      if a.health <= 0 then a.alive = false end
-   -- end
+   a.health = min(a.max_health, a.health-damage)
+   if a.health <= 0 then a.alive = false end
 end)
 
 create_parent(

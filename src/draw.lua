@@ -57,13 +57,11 @@ function spr_out(sind, x, y, sw, sh, xf, yf, col)
    spr(sind, x, y, sw, sh, xf, yf)
 end
 
-function zprint(str, x, y, shadow_below, align_right)
-   x = align_right and (x-#str*4-1) or x
+function align_right(str, x)
+   return x-#str*4-1
+end
+
+function zprint(str, x, y, shadow_below)
    print(str, x, y + (shadow_below and 1 or -1), 1)
    print(str, x, y, 7)
 end
-
--- .2604 (bad outline)
--- .2537 (working on outline, should get to be smaller).
--- .2388 (no outline)
---

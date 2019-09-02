@@ -1,6 +1,5 @@
 -- 5181
-g_off_x = 0
-g_off_y = 0
+g_off_x, g_off_y = 0, 0
 function draw_cur_room(x, y)
    local cur_room = g_rooms[g_cur_room]
    local rw = min(16, cur_room.w)
