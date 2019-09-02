@@ -2,12 +2,12 @@
 function draw_ma(x, y, sind, flip)
    camera(-x,-y)
 
-   rectfill(0, 0, 17, 17, 5)
-   rectfill(1, 1, 16, 16, 13)
-
-   fillp(flr(g_pat_1))
-   rectfill(2, 2, 15, 15, 0xd6)
-   fillp()
+   batch_call(rectfill, [[
+      {0, 0, 17, 17, 5},
+      {1, 1, 16, 16, 13},
+      {2, 2, 15, 15, @1},
+      {-1, -1, -1, -1, 0x1000}
+   ]], patternize(0xd6,1))
 
    spr_out(sind, 5, 5, 1, 1, flip, false, 1)
 
@@ -18,19 +18,15 @@ function draw_energy_bar(x, y)
    local width = 102
    local cur_energy = flr(max(min(g_energy/g_max_energy*width,width-1),1))
 
-   -- blue part
-   fillp(flr(g_pat_3))
-   rectfill(x,y,x+cur_energy,y+5,0x6c)
-   fillp()
-
-   rect(x,y+1,x+cur_energy,y+4,0xd)
-
-   -- tip
-   rectfill(x+cur_energy,y,x+cur_energy,y+5,9)
-   rectfill(x+cur_energy,y+2,x+cur_energy,y+3,10)
-
-   -- outline
-   rect    (x,  y,  x+width,  y+5,1)
+   camera(-x,-y)
+   batch_call(rect, [[
+      {0,2,@1,3,@2},
+      {1,1,@1,4,0x100d},
+      {@1,0,@1,5,9},
+      {@1,2,@1,3,10},
+      {0,0,@3,5,1}
+   ]], cur_energy, patternize(0x6c,3), width)
+   camera()
 end
 
 -- 5927
@@ -45,7 +41,7 @@ function draw_health_bar(x, y, max_health, health, flip)
    end
 
    camera(-x,-y)
-   batch_call(rectfill, [[
+   batch_call(rect, [[
       {0, 0, 39, 3, 1},
       {@1, 1, @2, 1, 11},
       {@1, 2, @2, 2, 3},
@@ -65,10 +61,10 @@ function draw_stat(x, y, a, flip)
          operator, operator2 = x-17, x-59
       end
 
-      -- four things: ma, name, bar, health
       draw_ma(flip and (x-17) or x,y,a.sind, flip)
-      zprint(a.id,align_text(a.id, operator, flip),y, false)
       draw_health_bar(operator2,y+7,a.max_health,a.health, flip)
+
+      zprint(a.id,align_text(a.id, operator, flip),y)
       zprint(health_str,align_text(health_str, operator, flip),y+13,true)
    end
 end
@@ -82,6 +78,8 @@ function draw_status()
    draw_energy_bar(1,3)
 
    -- status panels
-   draw_stat(1, 108, g_pl)
-   draw_stat(126, 108, g_cur_enemy, true)
+   batch_call(draw_stat, [[
+      {1, 108, @1},
+      {126, 108, @2, true}
+   ]], g_pl, g_cur_enemy)
 end

@@ -96,36 +96,35 @@ function inventory_update()
    end
 end
 
-function draw_inactive_box(x, y, sind)
-   rect(x-7,y-7,x+6,y+6,1)
-   rect(x-6,y-6,x+5,y+5,13)
-   fillp(flr(g_pat_2))
-   rectfill(x-5,y-5,x+4,y+4,0xd6)
+
+function draw_inv_box(x, y, sind, inactive)
+   camera(-x,-y)
+
+   local pattern, color = patternize(0x9a, 1), 9
+   if inactive then
+      pattern, color = patternize(0xd6, 2), 13
+   end
+
+   batch_call(rectfill, [[
+      {-7,-7,6,6,1},
+      {-6,-6,5,5,@1},
+      {-5,-5,4,4,@2}
+   ]], color, pattern)
    fillp()
 
-   for i=1,15 do pal(i, g_pal_gray[i]) end
-   spr(sind, x-4, y-4)
+   if inactive then
+      for i=1,15 do pal(i, g_pal_gray[i]) end
+   end
+
+   spr(sind, -4, -4)
    pal()
+
+   camera()
 end
 
-function draw_active_box(x, y, sind)
-   rectfill(x-7,y-7,x+6,y+6,1)
-   rectfill(x-6,y-6,x+5,y+5,9)
-
-   fillp(flr(g_pat_1))
-   rectfill(x-5,y-5,x+4,y+4,0x9a)
-   fillp()
-
-   spr(sind, x-4, y-4)
-end
-
--- todo: make this work if item doesn't exist.
 function inventory_draw(x, y)
-   pal()
-
    local select_x, select_y = 0, 0
 
-   -- printh("start")
    for ind=1,9 do 
       local item = g_inventory[ind]
       local item_x, item_y = index_to_coord(ind)
@@ -134,15 +133,10 @@ function inventory_draw(x, y)
       if ind == g_new_selected then
          select_x = lx-4
          select_y = ly-4
-         -- printh(g_new_selected)
       end
 
       if item then
-         if ind == g_new_selected then
-            draw_active_box(lx,ly,g_all_items[item].sind)
-         else
-            draw_inactive_box(lx,ly,g_all_items[item].sind)
-         end
+         draw_inv_box(lx,ly,g_all_items[item].sind, ind ~= g_new_selected)
       else
          rectfill(lx-1,ly-1,lx,ly, 1)
       end

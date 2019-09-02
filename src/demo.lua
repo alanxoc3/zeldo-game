@@ -1,7 +1,8 @@
 -- the story of zeldo
 -- amorg games
 
--- todo: token cleanup on status bars
+-- todo: create own rectfill, that always cleans up fillp()
+
 -- todo: create power square item.
 -- todo: create 2 parts of lank (feet and arms).
 -- todo: create a chicken object.
@@ -90,10 +91,11 @@
 -- done: make the top "tired" bar work.
 -- done: connect the map.
 -- done: make the code size smaller in menu.
+-- done: token cleanup on status bars
 
 -- token:
 -- 5180 5168 5166 5129 5258 5248 5244 5076 4983 5005 4994 4986 4985 4976 4965
--- 4971 4979 6068 6057 6053
+-- 4971 4979 6068 6057 6053 5881 5811 5795 5778
 
 -- compress:
 -- 16285 15360
