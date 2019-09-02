@@ -108,6 +108,7 @@ $endle$={    n=$endless$,c=13, x=96,  y=32, w=16, h=12 }
    end)
 end
 
+
 function load_room(new_room, rx, ry)
    g_cur_room = new_room
    cur_room = g_rooms[g_cur_room]
@@ -125,19 +126,34 @@ function load_room(new_room, rx, ry)
    center_view(g_pl.x, g_pl.y)
 end
 
+g_transition = 0
+g_transitioning = false
+function transition_room(new_room, rx, ry)
+   g_transitioning = true
+   transition_routine = cocreate(function()
+      for i=0,10 do g_transition = sin(i/40+.5)*20 yield() end
+      load_room(new_room, rx, ry)
+      yield()
+      for i=10,0,-1 do g_transition = sin(i/40+.5)*20 yield() end
+      g_transitioning = false
+   end)
+end
+
 function room_update()
    local cur_room = g_rooms[g_cur_room]
 
    -- plus .5 and minus .375 is because there is a screen border.
-   if cur_room then
+   if g_transitioning then
+      coresume(transition_routine)
+   elseif cur_room then
       if g_pl.y > g_ry+g_rh-.375 and cur_room.d then
-         load_room(cur_room.d[1], cur_room.d[2], cur_room.d[3])
+         transition_room(cur_room.d[1], cur_room.d[2], cur_room.d[3])
       elseif g_pl.y < g_ry + .5 and cur_room.u then
-         load_room(cur_room.u[1], cur_room.u[2], cur_room.u[3])
+         transition_room(cur_room.u[1], cur_room.u[2], cur_room.u[3])
       elseif g_pl.x > g_rx+g_rw-.375 and cur_room.r then
-         load_room(cur_room.r[1], cur_room.r[2], cur_room.r[3])
+         transition_room(cur_room.r[1], cur_room.r[2], cur_room.r[3])
       elseif g_pl.x < g_rx +.5 and cur_room.l then
-         load_room(cur_room.l[1], cur_room.l[2], cur_room.l[3])
+         transition_room(cur_room.l[1], cur_room.l[2], cur_room.l[3])
       end
    end
 end

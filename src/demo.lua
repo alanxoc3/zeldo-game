@@ -192,7 +192,8 @@ end
 
 function game_draw()
    -- rect(0,0,127,127,8) -- debug
-   draw_cur_room(8+g_card_shake_x, 7 + 3/8+g_card_shake_y)
+
+   draw_cur_room(8+g_card_shake_x, g_transition + 7 + 3/8+g_card_shake_y)
 
    if g_menu_open then
       inventory_draw(64,59)
@@ -202,6 +203,7 @@ function game_draw()
    draw_status()
    -- print(g_rooms[g_cur_room].n or g_cur_room, 30, 110, 7)
    -- draw_glitch_effect()
+   print("t: "..g_transition, 30, 30, 7)
 end
 
 function draw_glitch_effect()
