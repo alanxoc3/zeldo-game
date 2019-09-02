@@ -60,17 +60,16 @@ function draw_stat(x, y, a, flip)
       local health_str = flr(a.health).."/"..a.max_health
       local operator = x+20
       local operator2 = operator
-      local operator3 = operator
 
       if flip then
-         operator, operator2, operator3 = align_right(a.id, x-17), x-59, align_right(health_str, x-17)
+         operator, operator2 = x-17, x-59
       end
 
       -- four things: ma, name, bar, health
       draw_ma(flip and (x-17) or x,y,a.sind, flip)
-      zprint(a.id,operator,y, false)
+      zprint(a.id,align_text(a.id, operator, flip),y, false)
       draw_health_bar(operator2,y+7,a.max_health,a.health, flip)
-      zprint(health_str,operator3,y+13,true)
+      zprint(health_str,align_text(health_str, operator, flip),y+13,true)
    end
 end
 

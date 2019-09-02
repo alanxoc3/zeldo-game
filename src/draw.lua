@@ -57,8 +57,8 @@ function spr_out(sind, x, y, sw, sh, xf, yf, col)
    spr(sind, x, y, sw, sh, xf, yf)
 end
 
-function align_right(str, x)
-   return x-#str*4-1
+function align_text(str, x, right)
+   return x - (right and (#str*4+1) or 0)
 end
 
 function zprint(str, x, y, shadow_below)
