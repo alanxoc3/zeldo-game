@@ -1,21 +1,27 @@
+--
 -- a box with a character inside.
-function draw_ma(x, y, sind, flip)
+function draw_ma(x, y, a)
    camera(-x,-y)
 
    batch_call(rectfill, [[
       {0, 0, 17, 17, 5},
-      {1, 1, 16, 16, 13},
-      {2, 2, 15, 15, @1},
-      {-1, -1, -1, -1, 0x1000}
-   ]], patternize(0xd6,1))
+      {1, 1, 16, 16, 6},
+      {2, 2, 15, 15, 0}
+   ]], patternize(0x43,4))
 
-   spr_out(sind, 5, 5, 1, 1, flip, false, 1)
+   spr_out(a.sind, 5 + zsgn(a.ax), 5 + zsgn(a.ay), 1, 1, a.xf, a.yf, 1)
+   if a.item then
+      local item = a.item
+      spr(item.sind, 5+(item.x-a.x)*8 + zsgn(a.ax) + item.ixx,
+                     7+(item.y-a.y)*8 + zsgn(a.ay) + item.iyy,
+                     1, 1, item.xf, item.yf, 1)
+   end
 
    camera()
 end
 
 function draw_energy_bar(x, y)
-   local width = 102
+   local width = 103
    local cur_energy = flr(max(min(g_energy/g_max_energy*width,width-1),1))
 
    camera(-x,-y)
@@ -61,7 +67,7 @@ function draw_stat(x, y, a, flip)
          operator, operator2 = x-17, x-59
       end
 
-      draw_ma(flip and (x-17) or x,y,a.sind, flip)
+      draw_ma(flip and (x-17) or x,y,a)
       draw_health_bar(operator2,y+7,a.max_health,a.health, flip)
 
       zprint(a.id,align_text(a.id, operator, flip),y)
@@ -82,4 +88,6 @@ function draw_status()
       {1, 108, @1},
       {126, 108, @2, true}
    ]], g_pl, g_cur_enemy)
+
+   spr(g_all_items[g_selected].sind, 30, 106)
 end

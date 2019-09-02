@@ -235,8 +235,8 @@ function create_shield(pl)
       },
       par={$rel$,$spr$,$col$},
       tl={
-         {hit=@2, i=@3, u=@4, tl_tim=.4},
-         {hit=@2, i=nf, u=@5}
+         {d=@6, hit=@2, i=@3, u=@4, tl_tim=.4},
+         {d=@6, hit=@2, i=nf, u=@5}
       }
    ]],
       pl.xf,
@@ -281,9 +281,8 @@ function create_shield(pl)
          if not a.holding then
             a.alive, pl.item = false
          end
-      end
+      end, scr_spr
    )
-
 end
 
 function create_banjo(pl)
@@ -296,7 +295,7 @@ function create_banjo(pl)
          sind=8,
          xf=@1,
          touchable=false,
-         i=@2, u=@3
+         i=@2, u=@3, d=@4
       },
       par={$rel$,$spr$,$col$}
       ]],
@@ -311,7 +310,7 @@ function create_banjo(pl)
          if not a.holding then
             a.alive, pl.item = false
          end
-      end
+      end, scr_spr
    )
 
 end
@@ -332,8 +331,8 @@ function create_sword(pl)
       },
       par={$rel$,$spr$,$col$},
       tl={
-         {hit=@2, i=@3, u=@4, tl_tim=.4},
-         {hit=@2, i=nf, u=@5}
+         {d=@6, hit=@2, i=@3, u=@4, tl_tim=.4},
+         {d=@6, hit=@2, i=nf, u=@5}
       }
       ]],
       pl.xf,
@@ -382,6 +381,6 @@ function create_sword(pl)
          if not a.holding then
             a.alive, pl.item = false
          end
-      end
-      )
+      end, scr_spr
+   )
 end

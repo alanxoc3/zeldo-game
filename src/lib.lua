@@ -1,6 +1,11 @@
 -- lib. make sure this is included first.
 
 -- util functions:
+--
+
+function zsgn(num)
+   return num == 0 and 0 or sgn(num)
+end
 
 -- -1, 0, or 1
 function rnd_one() return flr(rnd(3))-1 end

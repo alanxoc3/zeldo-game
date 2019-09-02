@@ -78,12 +78,8 @@ function gen_pl(x, y)
                a.item.xx = a.xx
             end
          end
-      end, function(a)
-      scr_spr_out(a)
-      if a.item then
-         scr_spr(a.item)
-      end
-   end)
+      end, scr_spr_out
+   )
 end
 
 function gen_pl_item(pl, item_type)

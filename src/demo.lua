@@ -1,14 +1,16 @@
 -- the story of zeldo
 -- amorg games
 
+-- done: don't try the "just around player" status thing (caden idea.)
+-- todo: change the top of the screen (new layout).
+-- todo: connect tbox with menu actors.
+
 -- todo: create own rectfill, that always cleans up fillp()
 
 -- todo: create power square item.
 -- todo: create 2 parts of lank (feet and arms).
 -- todo: create a chicken object.
--- todo: try the "just around player" status thing (caden idea.)
 
--- todo: change the top of the screen (new layout).
 -- todo: separate tbox speaker.
 -- todo: tbox pop up and down.
 
@@ -28,7 +30,6 @@
 -- todo: menu enemy support must be better.
 -- todo: design menu actor area/transitions.
 -- todo: nice functions to integrate with menu actors.
--- todo: connect tbox with menu actors.
 -- todo: menu actor name and different backgrounds.
 -- todo: make area information (if no enemy).
 
