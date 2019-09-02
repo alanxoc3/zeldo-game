@@ -92,10 +92,10 @@ $endle$={    n=$endless$,c=13, x=96,  y=32, w=16, h=12 }
 {26,22.5,$h_inf$,20,15}]])
 
       g_att.top(6, 26)
-      g_att.top(7, 26)
-      g_att.top(8, 26)
-      g_att.top(9, 26)
-      g_att.top(10, 26)
+      g_att.top(7, 25)
+      g_att.top(8, 24)
+      g_att.top(9, 27)
+      g_att.top(10, 28)
    end, function() -- for_1 @02
       g_att.house(60,34.5,"h_lar", 28, 15)
    end, function() -- for_4 @03

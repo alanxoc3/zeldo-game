@@ -1,18 +1,16 @@
 -- the story of zeldo
 -- amorg games
 
--- done: don't try the "just around player" status thing (caden idea.)
 -- todo: change the top of the screen (new layout).
 -- todo: connect tbox with menu actors.
+-- todo: separate tbox speaker.
+-- todo: tbox pop up and down.
 
 -- todo: create own rectfill, that always cleans up fillp()
 
 -- todo: create power square item.
 -- todo: create 2 parts of lank (feet and arms).
 -- todo: create a chicken object.
-
--- todo: separate tbox speaker.
--- todo: tbox pop up and down.
 
 -- todo: make and tweak an after stun timer.
 -- todo: make item (boomerang) recoil timer.
@@ -52,6 +50,7 @@
 -- done: player banjo walk
 -- done: player no run
 -- done: player item in front.
+-- done: try the "just around player" status thing (caden idea.)
 -- done: think about sub table gun_vals cache. don't want. problem was state.
 -- done: fix enemy share state bug
 -- done: tl update don't use t(), or fix pausing.
@@ -96,7 +95,7 @@
 
 -- token:
 -- 5180 5168 5166 5129 5258 5248 5244 5076 4983 5005 4994 4986 4985 4976 4965
--- 4971 4979 6068 6057 6053 5881 5811 5795 5778 5855
+-- 4971 4979 6068 6057 6053 5881 5811 5795 5778 5855 5748
 
 -- compress:
 -- 16285 15360

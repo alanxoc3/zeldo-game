@@ -26,16 +26,16 @@ end
 
 -- params: function, gun_vals
 function batch_call(func,...)
-   foreach(gun_vals(...), function(t) func(munpack(t)) end)
+   foreach(gun_vals(...), function(t) func(t[1], t[2], t[3], t[4], t[5], t[6], t[7], t[8]) end)
 end
 
 -- unpacks a table
 -- https://gist.github.com/josefnpat/bfe4aaa5bbb44f572cd0
-function munpack(t, from, to)
-  from, to = from or 1, to or #t
-  if from > to then return end
-  return t[from], munpack(t, from+1, to)
-end
+-- function munpack(t, from, to)
+--   from, to = from or 1, to or #t
+--   if from > to then return end
+--   return t[from], munpack(t, from+1, to)
+-- end
 
 -- returns the parsed table, the current position, and the parameter locations
 function gun_vals_helper(val_str,i,new_params)

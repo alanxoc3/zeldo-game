@@ -1,31 +1,31 @@
-function get_buf_rect(buf_len)
-   return {x=g_x+8, y=g_y+8, rx=buf_len, ry=buf_len}
-end
+-- function get_buf_rect(buf_len)
+   -- return {x=g_x+8, y=g_y+8, rx=buf_len, ry=buf_len}
+-- end
 
-function gen_spawner(x, y, func, buf_len, ...)
-   local args = {...}
-   return create_actor([[
-         id=$spawner$,
-         att={
-            child=nil,
-            x=@1,
-            y=@2
-         },
-         par={$confined$,$dim$},
-         tl={
-            {u=@3}
-         }
-      ]], x, y,
-      function(a)
-         local acol = dim_collide(a, get_buf_rect(buf_len))
-         if not a.child and acol then
-            a.child = func(a.x, a.y, munpack(args))
-         elseif a.child and not acol and not dim_collide(a.child, get_buf_rect(buf_len)) then
-            a.child.alive = false
-            a.child = nil
-         end
-      end)
-end
+-- function gen_spawner(x, y, func, buf_len, ...)
+--    local args = {...}
+--    return create_actor([[
+--          id=$spawner$,
+--          att={
+--             child=nil,
+--             x=@1,
+--             y=@2
+--          },
+--          par={$confined$,$dim$},
+--          tl={
+--             {u=@3}
+--          }
+--       ]], x, y,
+--       function(a)
+--          local acol = dim_collide(a, get_buf_rect(buf_len))
+--          if not a.child and acol then
+--             a.child = func(a.x, a.y, munpack(args))
+--          elseif a.child and not acol and not dim_collide(a.child, get_buf_rect(buf_len)) then
+--             a.child.alive = false
+--             a.child = nil
+--          end
+--       end)
+-- end
 
 g_att.top = function(x, y)
    return create_actor([[
