@@ -1,42 +1,37 @@
 -- the story of zeldo
 -- amorg games
 
--- todo: change the top of the screen (new layout).
 -- todo: connect tbox with menu actors.
 -- todo: separate tbox speaker.
 -- todo: tbox pop up and down.
 
--- todo: create own rectfill, that always cleans up fillp()
+-- todo: think about text interaction more.
+-- todo: tbox pause the game. should it? if so, do it.
+
+-- todo: design menu actor area/transitions.
+-- todo: create tbox movement/transition.
+-----------------------------------------
+-- todo: create own rectfill, that always cleans up fillp()?
+-- todo: tl embedded tl.
 
 -- todo: create power square item.
--- todo: create 2 parts of lank (feet and arms).
 -- todo: create a chicken object.
+-- todo: make a sign
+-- todo: make bombs work
 
 -- todo: make and tweak an after stun timer.
 -- todo: make item (boomerang) recoil timer.
--- todo: no screen shake when enemy hits enemy/house.
 
--- todo: tl embedded tl.
-
--- todo: go through sprite file optimizations.
--- todo: think about text interaction more.
-
--- todo: create card transitions.
--- todo: create tbox movement/transition.
--- todo: tbox pause the game. should it?
-
--- todo: menu enemy support must be better.
--- todo: design menu actor area/transitions.
--- todo: nice functions to integrate with menu actors.
--- todo: menu actor name and different backgrounds.
--- todo: make area information (if no enemy).
-
--- todo: create title screen.
--- todo: make a sign
+-- todo: create 2 parts of lank (feet and arms).
 -- todo: player stretch arm sprite (be able to do while walking).
 
+-- todo: no screen shake when enemy hits enemy/house.
+
+-- todo: go through sprite file optimizations.
+
 -- todo: give player money
--- todo: make bombs work
+
+-- todo: create title screen.
 
 
 -- things that are done:
@@ -92,10 +87,16 @@
 -- done: connect the map.
 -- done: make the code size smaller in menu.
 -- done: token cleanup on status bars
+-- done: menu actor name and different backgrounds. opted with black background.
+-- done: nice functions to integrate with menu actors. think i did this.
+-- done: create card transitions.
+-- done: change the top of the screen (new layout).
+-- done: menu enemy support must be better.
+-- done: make area information (if no enemy). opted no, i can have signs.
 
 -- token:
 -- 5180 5168 5166 5129 5258 5248 5244 5076 4983 5005 4994 4986 4985 4976 4965
--- 4971 4979 6068 6057 6053 5881 5811 5795 5778 5855 5748
+-- 4971 4979 6068 6057 6053 5881 5811 5795 5778 5855 5748 5835
 
 -- compress:
 -- 16285 15360
