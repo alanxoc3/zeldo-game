@@ -96,7 +96,7 @@
 
 -- token:
 -- 5180 5168 5166 5129 5258 5248 5244 5076 4983 5005 4994 4986 4985 4976 4965
--- 4971 4979 6068 6057 6053 5881 5811 5795 5778 5855 5748 5835
+-- 4971 4979 6068 6057 6053 5881 5811 5795 5778 5855 5748 5835 5918
 
 -- compress:
 -- 16285 15360
@@ -140,34 +140,41 @@ function game_update()
    inventory_update()
    room_update()
 
-   batch_call(
-      acts_loop, [[
-         {$drawable$,$reset_off$},
-         {$stunnable$, $stun_update$},
-         {$act$,$update$},
-         {$mov$,$move$},
-         {$col$,$move_check$,@1},
-         {$col$,$move_check$,@4},
-         {$tcol$,$coll_tile$,@2},
-         {$rel$,$rel_update$,@3},
-         {$vec$,$vec_update$},
-         {$bounded$,$check_bounds$},
-         {$act$, $clean$},
-         {$anim$,$anim_update$},
-         {$timed$,$tick$}
-      ]],
-      g_act_arrs["col"],
-      function(x, y)
-         return x >= g_rx and x < g_rx+g_rw and
-                y >= g_ry and y < g_ry+g_rh and
-                fget(mget(x, y), 1)
-      end,
-      g_pl,
-      g_act_arrs["wall"]
-   )
+   if not g_transitioning then
+      batch_call(
+         acts_loop, [[
+            {$drawable$,$reset_off$},
+            {$stunnable$, $stun_update$},
+            {$act$,$update$},
+            {$mov$,$move$},
+            {$col$,$move_check$,@1},
+            {$col$,$move_check$,@4},
+            {$tcol$,$coll_tile$,@2},
+            {$rel$,$rel_update$,@3},
+            {$vec$,$vec_update$},
+            {$bounded$,$check_bounds$},
+            {$act$, $clean$},
+            {$anim$,$anim_update$},
+            {$timed$,$tick$}
+         ]],
+         g_act_arrs["col"],
+         function(x, y)
+            return x >= g_rx and x < g_rx+g_rw and
+                   y >= g_ry and y < g_ry+g_rh and
+                   fget(mget(x, y), 1)
+         end,
+         g_pl,
+         g_act_arrs["wall"]
+      )
+      energy_update(.25)
+      update_cur_enemy()
+   else
+      if g_pl.item then
+         g_pl.item.alive = false
+      end
 
-   energy_update(.25)
-   update_cur_enemy()
+      g_pl.item = nil
+   end
 
    update_view(g_pl.x, g_pl.y)
 
@@ -194,7 +201,7 @@ end
 function game_draw()
    -- rect(0,0,127,127,8) -- debug
 
-   draw_cur_room(8+g_card_shake_x, g_transition + 7 + 3/8+g_card_shake_y)
+   draw_cur_room(g_transition_x+8+g_card_shake_x, g_transition_y + 7 + 3/8+g_card_shake_y)
 
    if g_menu_open then
       inventory_draw(64,59)
@@ -204,7 +211,7 @@ function game_draw()
    draw_status()
    -- print(g_rooms[g_cur_room].n or g_cur_room, 30, 110, 7)
    -- draw_glitch_effect()
-   print("t: "..g_transition, 30, 30, 7)
+   print("t: "..g_transition_y, 30, 30, 7)
 end
 
 function draw_glitch_effect()
