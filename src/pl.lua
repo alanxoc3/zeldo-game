@@ -15,7 +15,7 @@ function gen_pl(x, y)
             anim_spd=5,
             max_health=50,
             health=50,
-            u=@4, d=@5, hit=@3
+            u=@4, d=@5, hit=@3, destroyed=@6
          },
          par={$anim$,$col$,$mov$,$tcol$,$hurtable$,$knockable$,$stunnable$,$spr$}
       ]], x, y,
@@ -78,7 +78,9 @@ function gen_pl(x, y)
                a.item.xx = a.xx
             end
          end
-      end, scr_spr_out
+      end, scr_spr_out, function(a)
+         if a.item then a.item.alive = false end
+      end
    )
 end
 
