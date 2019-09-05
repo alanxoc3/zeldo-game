@@ -1,6 +1,8 @@
 -- 5181
 g_off_x, g_off_y = 0, 0
+g_card_fade = 0
 function draw_cur_room(x, y)
+   fade(g_card_fade)
    local cur_room = g_rooms[g_cur_room]
    local rw = min(16, cur_room.w)
    local rh = min(12, cur_room.h)
@@ -20,6 +22,7 @@ function draw_cur_room(x, y)
    isorty(g_act_arrs["drawable"])
    acts_loop("drawable", "d")
    clip()
+   fade(0)
 end
 
 function isorty(t)
@@ -133,29 +136,31 @@ function transition_room(new_room, rx, ry, dir)
    if not g_transitioning then
       g_transitioning = true
       g_transition_routine = cocreate(function()
-         for i=0,20 do
+         for i=0,15 do
+            g_card_fade = i/20*8
             if dir == 'u' then
-               g_transition_y = sin(i/80+.5)*20
+               g_transition_y = sin(i/80+.5)*10
             elseif dir == 'd' then
-               g_transition_y = sin(i/80)*20
+               g_transition_y = sin(i/80)*10
             elseif dir == 'l' then
-               g_transition_x = sin(i/80+.5)*20
+               g_transition_x = sin(i/80+.5)*10
             elseif dir == 'r' then
-               g_transition_x = sin(i/80)*20
+               g_transition_x = sin(i/80)*10
             end
             yield()
          end
          load_room(new_room, rx, ry)
          yield()
-         for i=20,0,-1 do
+         for i=15,0,-1 do
+            g_card_fade = i/10*8
             if dir == 'u' then
-               g_transition_y = sin(i/80)*20
+               g_transition_y = sin(i/80)
             elseif dir == 'd' then
-               g_transition_y = sin(i/80+.5)*20
+               g_transition_y = sin(i/80+.5)
             elseif dir == 'l' then
-               g_transition_x = sin(i/80)*20
+               g_transition_x = sin(i/80)
             elseif dir == 'r' then
-               g_transition_x = sin(i/80+.5)*20
+               g_transition_x = sin(i/80+.5)
             end
             yield()
          end
