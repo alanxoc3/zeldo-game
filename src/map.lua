@@ -136,8 +136,8 @@ function transition_room(new_room, rx, ry, dir)
    if not g_transitioning then
       g_transitioning = true
       g_transition_routine = cocreate(function()
-         for i=0,15 do
-            g_card_fade = i/20*8
+         for i=0,20 do
+            g_card_fade = i/20*10
             if dir == 'u' then
                g_transition_y = sin(i/80+.5)*10
             elseif dir == 'd' then
@@ -151,16 +151,16 @@ function transition_room(new_room, rx, ry, dir)
          end
          load_room(new_room, rx, ry)
          yield()
-         for i=15,0,-1 do
-            g_card_fade = i/10*8
+         for i=20,0,-1 do
+            g_card_fade = i/20*10
             if dir == 'u' then
-               g_transition_y = sin(i/80)
+               g_transition_y = sin(i/80)*10
             elseif dir == 'd' then
-               g_transition_y = sin(i/80+.5)
+               g_transition_y = sin(i/80+.5)*10
             elseif dir == 'l' then
-               g_transition_x = sin(i/80)
+               g_transition_x = sin(i/80)*10
             elseif dir == 'r' then
-               g_transition_x = sin(i/80+.5)
+               g_transition_x = sin(i/80+.5)*10
             end
             yield()
          end
