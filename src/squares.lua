@@ -35,12 +35,7 @@ end
 
 function change_cur_enemy(enemy)
    g_cur_enemy = enemy
-   g_cur_enemy_timer = 60*5
-end
-
-function update_cur_enemy()
-   g_cur_enemy_timer = max(0, g_cur_enemy_timer - 1)
-   if g_cur_enemy_timer == 0 or g_cur_enemy and not g_cur_enemy.alive then
+   create_timer("cur_enemy", 60*3, function()
       g_cur_enemy = nil
-   end
+   end)
 end

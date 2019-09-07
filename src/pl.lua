@@ -17,7 +17,7 @@ function gen_pl(x, y)
             health=50,
             u=@4, d=@5, hit=@3, destroyed=@6
          },
-         par={$anim$,$col$,$mov$,$tcol$,$hurtable$,$knockable$,$stunnable$,$spr$}
+         par={$anim$,$col$,$mov$,$tcol$,$hurtable$,$knockable$,$stunnable$,$ospr$}
       ]], x, y,
       function(self, other, xdir, ydir)
       end, function(a)

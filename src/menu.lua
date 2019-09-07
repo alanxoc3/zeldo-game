@@ -13,6 +13,13 @@ function draw_ma(x, y, a)
    spr_out(a.sind, 5 + zsgn(a.ax), 5 + zsgn(a.ay), 1, 1, a.xf, a.yf, 1)
    if a.item then
       local item = a.item
+      spr_out(item.sind, 5+(item.x-a.x)*8 + zsgn(a.ax) + item.ixx,
+                     7+(item.y-a.y)*8 + zsgn(a.ay) + item.iyy,
+                     1, 1, item.xf, item.yf, 1)
+   end
+   spr(a.sind, 5 + zsgn(a.ax), 5 + zsgn(a.ay), 1, 1, a.xf, a.yf, 1)
+   if a.item then
+      local item = a.item
       spr(item.sind, 5+(item.x-a.x)*8 + zsgn(a.ax) + item.ixx,
                      7+(item.y-a.y)*8 + zsgn(a.ay) + item.iyy,
                      1, 1, item.xf, item.yf, 1)

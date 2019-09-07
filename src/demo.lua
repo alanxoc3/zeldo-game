@@ -167,7 +167,7 @@ function game_update()
          g_act_arrs["wall"]
       )
       energy_update(.25)
-      update_cur_enemy()
+      update_timers()
    else
       if g_pl.item then
          g_pl.item.alive = false

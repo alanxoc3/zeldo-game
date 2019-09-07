@@ -7,15 +7,15 @@ g_att.house = function (x, y, room, rx, ry, sind)
          x=@1, y=@2,
          iyy=-4,
          sw=2, sh=2,
-         rx=.5, ry=.5,
+         rx=.5, ry=.875,
          room=@3, room_x=@4, room_y=@5,
-         sind=@10,
+         sind=@9,
          static=true,
-         destroyed=@9,
+         destroyed=@8,
          touchable=false,
-         d=@6, hit=@11, contains=@7, i=@8
-      }, par={$confined$,$spr$,$col$}
-      ]],x,y,room,rx,ry,scr_spr,
+         hit=@10, contains=@6, i=@7
+      }, par={$confined$,$ospr$,$col$}
+      ]],x,y,room,rx,ry,
       -- hit
       function(a, other)
          if other.pl then

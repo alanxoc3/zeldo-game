@@ -9,23 +9,24 @@ end
 function scr_spr_out(a) scr_spr(a, spr_out) end
 
 g_out_cache = {}
-function create_outline(sind)
+function create_outline(sind, sw, sh)
+   local sh_end = sh*8-1
    local bounds, is_bkgd = {}, function(x, y)
-      return mid(0,x,7) == x and sget(x+sind*8%128, y+flr(sind/16)*8) != 0
+      return mid(0,x,sh_end) == x and sget(x+sind*8%128, y+flr(sind/16)*8) != 0
    end
 
    local calc_bound = function(x)
       local top, bot
 
-      for i=0,7 do
-         top, bot = top or is_bkgd(x,i) and i-1, bot or is_bkgd(x,7-i) and 8-i
+      for i=0,sh_end do
+         top, bot = top or is_bkgd(x,i) and i-1, bot or is_bkgd(x,sh_end-i) and sh*8-i
       end
 
-      return {top=top or 10, bot=bot or 0}
+      return {top=top or sh*8+2, bot=bot or 0}
    end
 
    g_out_cache[sind] = {}
-   for i=0xffff,8 do
+   for i=0xffff,sw*8 do
       -- prev, cur, next
       local p, c, n = calc_bound(i-1), calc_bound(i), calc_bound(i+1)
       local top, bot = min(min(p.top, c.top), n.top), max(max(p.bot, c.bot), n.bot)
@@ -37,13 +38,16 @@ function create_outline(sind)
 end
 
 function spr_out(sind, x, y, sw, sh, xf, yf, col)
-   if not g_out_cache[sind] then
-      create_outline(sind)
-   end
+   if not sw then sw = 1 end
+   if not sh then sh = 1 end
 
    local ox, x_mult, oy, y_mult = x, 1, y, 1
-   if xf then ox, x_mult = 7+x, 0xffff end
-   if yf then oy, y_mult = 7+y, 0xffff end
+   if xf then ox, x_mult = sw*8-1+x, 0xffff end
+   if yf then oy, y_mult = sh*8-1+y, 0xffff end
+
+   if not g_out_cache[sind] then
+      create_outline(sind, sw, sh)
+   end
 
    foreach(g_out_cache[sind], function(r)
       rectfill(
@@ -51,10 +55,10 @@ function spr_out(sind, x, y, sw, sh, xf, yf, col)
          oy+y_mult*r.y1,
          ox+x_mult*r.x2,
          oy+y_mult*r.y2,
-         col)
+      col)
    end)
 
-   spr(sind, x, y, sw, sh, xf, yf)
+   -- spr(sind, x, y, sw, sh, xf, yf)
 end
 
 function align_text(str, x, right)

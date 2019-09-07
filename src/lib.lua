@@ -82,16 +82,19 @@ function gun_vals(val_str, ...)
 
    local params, lookup = {...}, param_cache[val_str]
    for k,v in pairs(lookup[3]) do
-      for x in all(lookup[3][k]) do
+      foreach(lookup[3][k], function(x)
          x[1][x[2]] = params[k]
-      end
+      end)
    end
 
    return lookup[1]
 end
 
 -- tl - if update returns true, then 
+-- tl in tl.. how to do it?
+-- tl_update takes in a tl.
 
+-- can return something for recursion?
 function tl_update(tl, ...)
 	-- switch the state
 	if tl.tim == 0 then
@@ -125,6 +128,7 @@ function tl_attach(tl, mas)
    copy_atts(tl, gun_vals([[
       tl_enabled=true,
       mas=@1,
+      tl_lvl=0,
       cur=0,
       tl_nxt=1,
       tim=0

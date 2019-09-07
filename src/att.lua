@@ -204,10 +204,19 @@ create_parent(
       sw=1,
       sh=1,
       xf=false,
-      yf=false
+      yf=false,
+      draw_spr=@1
    },
    par={$vec$,$drawable$}
-]])
+]], scr_spr)
+
+create_parent(
+[[ id=$ospr$,
+   att={
+      draw_out=@1
+   },
+   par={$spr$}
+]], scr_spr_out)
 
 create_parent(
 [[ id=$knockable$,

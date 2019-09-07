@@ -116,6 +116,7 @@ function draw_inv_box(x, y, sind, inactive)
       for i=1,15 do pal(i, g_pal_gray[i]) end
    end
 
+   spr_out(sind, -4, -4, 1, 1, false, false, 1)
    spr(sind, -4, -4)
    pal()
 
@@ -142,7 +143,7 @@ function inventory_draw(x, y)
       end
    end
 
-   local spr_ind = (g_tim % 60 > 40) and 38 or 39
+   local spr_ind = (t()*60 % 60 > 40) and 38 or 39
    local rel_spr = function(x1, y1, ...) spr(spr_ind, select_x+x1, select_y+y1, ...) end
    batch_call(rel_spr, "{-5,-5,1,1,false,false}, {5,-5,1,1,true,false}, {5,5,1,1,true,true}, {-5,5,1,1,false,true}")
 end
@@ -161,10 +162,10 @@ function create_brang(pl)
          xf=@1,
          touchable=false
       },
-      par={$confined$,$anim$,$col$,$mov$},
+      par={$confined$,$anim$,$col$,$mov$,$ospr$},
       tl={
-         {d=@7, hit=@2, i=@3, u=@4, tl_tim=.25},
-         {d=@7, hit=@2, i=@5, u=@6}
+         {hit=@2, i=@3, u=@4, tl_tim=.25},
+         {hit=@2, i=@5, u=@6}
       }
       ]],
       pl.xf,
@@ -180,7 +181,7 @@ function create_brang(pl)
             end
 
             if a.cur == 1 then
-               tl_next(a)
+               return true
             end
          elseif other.pl then
             if a.cur == 2 then
@@ -198,7 +199,7 @@ function create_brang(pl)
       function(a)
          use_energy(.75)
          if g_energy_tired or not a.holding then
-            tl_next(a)
+            -- return true
          end
       end,
       -- init 2
@@ -214,7 +215,7 @@ function create_brang(pl)
          -- if not a.holding then
             -- a.alive, pl.item = false
          -- end
-      end, scr_spr
+      end
       )
 end
 
@@ -233,10 +234,10 @@ function create_shield(pl)
          xf=@1,
          touchable=false
       },
-      par={$rel$,$spr$,$col$},
+      par={$rel$,$spr$,$col$,$ospr$},
       tl={
-         {d=@6, hit=@2, i=@3, u=@4, tl_tim=.4},
-         {d=@6, hit=@2, i=nf, u=@5}
+         {hit=@2, i=@3, u=@4, tl_tim=.4},
+         {hit=@2, i=nf, u=@5}
       }
    ]],
       pl.xf,
@@ -281,7 +282,7 @@ function create_shield(pl)
          if not a.holding then
             a.alive, pl.item = false
          end
-      end, scr_spr
+      end
    )
 end
 
@@ -295,9 +296,9 @@ function create_banjo(pl)
          sind=8,
          xf=@1,
          touchable=false,
-         i=@2, u=@3, d=@4
+         i=@2, u=@3
       },
-      par={$rel$,$spr$,$col$}
+      par={$rel$,$spr$,$col$,$ospr$}
       ]],
       pl.xf,
       -- init 1
@@ -310,7 +311,7 @@ function create_banjo(pl)
          if not a.holding then
             a.alive, pl.item = false
          end
-      end, scr_spr
+      end
    )
 
 end
@@ -329,10 +330,10 @@ function create_sword(pl)
          xf=@1,
          touchable=false
       },
-      par={$rel$,$spr$,$col$},
+      par={$rel$,$spr$,$col$,$ospr$},
       tl={
-         {d=@6, hit=@2, i=@3, u=@4, tl_tim=.4},
-         {d=@6, hit=@2, i=nf, u=@5}
+         {hit=@2, i=@3, u=@4, tl_tim=.4},
+         {hit=@2, i=nf, u=@5}
       }
       ]],
       pl.xf,
@@ -381,6 +382,6 @@ function create_sword(pl)
          if not a.holding then
             a.alive, pl.item = false
          end
-      end, scr_spr
+      end
    )
 end

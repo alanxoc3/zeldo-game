@@ -1,10 +1,10 @@
 -- amorg logo
 -- 128 103 97 69 81 49 88 104 136 108 95 92 103
 
-g_lct = 0
+g_logo_tim = 0
 g_logo_shake = false
 function draw_logo(logo, x, y)
-   fade(8-g_lct)
+   fade(8-g_logo_tim)
 
    if g_logo_shake then
       camera(rnd(2)-1, rnd(2)-1)
@@ -24,11 +24,11 @@ g_logo = tl_init([[
       { u=@3, d=@2}
    ]],
    -- 1 update logo
-   function() g_logo_shake = true g_lct = min(8, g_lct+8/30) end,
+   function() g_logo_shake = true g_logo_tim = min(8, g_logo_tim+8/30) end,
    -- 2
    draw_logo,
    -- 3
-   function() g_logo_shake = true g_lct = max(0, g_lct-8/30) end,
+   function() g_logo_shake = true g_logo_tim = max(0, g_logo_tim-8/30) end,
    -- 4
    function() g_logo_shake = false end
 )

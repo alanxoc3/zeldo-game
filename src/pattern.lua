@@ -6,13 +6,13 @@ g_patterns = gun_vals([[
    {pat=0x70e0.b0d0, rot=12, tim=1}
 ]])
 
-g_tim=0
+-- 6054
 function patterns_update()
-   g_tim += 1
-   for i=1,#g_patterns do
-      local pattern = g_patterns[i]
-      if g_tim % pattern.tim == 0 then pattern.pat = rotl(pattern.pat, pattern.rot) end
-   end
+   foreach(g_patterns, function(x)
+      if ti(x.tim) == 0 then
+         x.pat = rotl(x.pat, x.rot)
+      end
+   end)
 end
 
 function patternize(col, pat)

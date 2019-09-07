@@ -41,7 +41,7 @@ g_att.top = function(x, y)
          anim_len=1,
          touchable=true
       },
-      par={$bounded$,$confined$,$stunnable$,$mov$,$col$,$tcol$,$hurtable$,$knockable$,$anim$},
+      par={$bounded$,$confined$,$stunnable$,$mov$,$col$,$tcol$,$hurtable$,$knockable$,$anim$,$ospr$},
       tl={
          {d=@7, i=@4, hit=nf, u=nf, tl_tim=1.5},
          {d=@7, i=@8, hit=nf, u=@5, tl_tim=.5},
