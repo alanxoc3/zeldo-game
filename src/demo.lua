@@ -1,6 +1,7 @@
 -- the story of zeldo
 -- amorg games
 
+-- todo: copy logic for contains, between trigger and col (or remove it from col).
 -- todo: tbox only interact if in interact state.
 -- todo: more efficient trigger (only interact with player, at least think about this more).
 -- todo: fix screen pause and tbox double press bugs.
