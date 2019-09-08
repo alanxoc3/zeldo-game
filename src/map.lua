@@ -129,6 +129,9 @@ end
 
 
 function load_room(new_room, rx, ry)
+   -- reload the map (remove shovel things).
+   reload(0x1000, 0x1000, 0x2000)
+
    g_cur_room = new_room
    cur_room = g_rooms[g_cur_room]
 
