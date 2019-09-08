@@ -353,7 +353,7 @@ function create_sword(pl)
             end
 
             if other.hurtable  then
-               other.hurt(other, 5)
+               other.hurt(other, 55)
             end
          end
       end,

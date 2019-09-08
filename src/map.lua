@@ -94,9 +94,21 @@ $endle$={    n=$endless$,c=13, x=96,  y=32, w=16, h=12 }
    ]], function() -- village @01
       batch_call(
          g_att.house, [[
-{16,18.5,$h_lan$,28,15}, {20,24.5,$h_bob$,12,15},
-{12,24.5,$h_sho$,12,07}, {06,22.5,$h_ban$,04,15},
-{26,22.5,$h_inf$,20,15}]])
+            {16,18.5,$h_lan$,28,15},
+            {20,24.5,$h_bob$,12,15},
+            {12,24.5,$h_sho$,12,07},
+            {06,22.5,$h_ban$,04,15},
+            {26,22.5,$h_inf$,20,15}
+      ]])
+
+      batch_call(
+         g_att.sign, [[
+            {14.5,19.5,$sign:mayor lank's home$},
+            {18.5,24.5,$sign:bob and bobett's home$},
+            {13.5,24.5,$sign:hiroll shop$},
+            {04.5,22.5,$sign:ole banjo's house$},
+            {27.5,22.5,$sign:hiroll tutorial$}
+         ]])
 
       g_att.top(6, 26)
       g_att.top(7, 25)

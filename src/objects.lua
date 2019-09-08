@@ -1,5 +1,5 @@
 -- todo: trim code here.
-g_att.house = function (x, y, room, rx, ry, sind)
+g_att.house = function(x, y, room, rx, ry, sind)
    return create_actor([[
       id=$house$,
       att={
@@ -28,6 +28,25 @@ g_att.house = function (x, y, room, rx, ry, sind)
          if other.evil then
             other.knockback(other, .2, 0, 1)
          end
+      end
+   )
+end
+
+g_att.sign = function(x, y, text)
+   return create_actor([[
+      id=$sign$,
+      att={
+         sind=51,rx=.5,ry=.5,
+         x=@1, y=@2,
+         text=@3, i=@4
+      }, par={$confined$,$ospr$,$wall$}
+      ]],x,y,text,
+      function(a)
+         a.trig = gen_trigger_block(a.x, a.y+1, 7/8, .5, function(a, other)
+            if btnp(4) then
+               tbox(text) --printh(text)
+            end
+         end)
       end
    )
 end

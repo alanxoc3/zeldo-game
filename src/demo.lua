@@ -1,28 +1,30 @@
 -- the story of zeldo
 -- amorg games
 
+-- todo: tbox only interact if in interact state.
+-- todo: more efficient trigger (only interact with player, at least think about this more).
+-- todo: fix screen pause and tbox double press bugs.
+
 -- todo: connect tbox with menu actors.
 -- todo: separate tbox speaker.
 -- todo: tbox pop up and down.
 
 -- todo: think about text interaction more.
--- todo: tbox pause the game. should it? if so, do it.
+-- todo: ma don't move if pl not moving (look at dx/dy)
 
 -- todo: design menu actor area/transitions.
 -- todo: create tbox movement/transition.
 -----------------------------------------
 -- todo: create own rectfill, that always cleans up fillp()?
--- todo: tl embedded tl.
 
 -- todo: create power square item.
 -- todo: create a chicken object.
--- todo: make a sign
 -- todo: make bombs work
 
 -- todo: make and tweak an after stun timer.
 -- todo: make item (boomerang) recoil timer.
 
--- todo: create 2 parts of lank (feet and arms).
+-- todo: fix ma player 2 parts (for enemies). this may require smarter parenting. 
 -- todo: player stretch arm sprite (be able to do while walking).
 
 -- todo: no screen shake when enemy hits enemy/house.
@@ -93,10 +95,14 @@
 -- done: change the top of the screen (new layout).
 -- done: menu enemy support must be better.
 -- done: make area information (if no enemy). opted no, i can have signs.
+-- done: tl embedded tl. decided on no!
+-- done: tbox pause the game. should it? if so, do it. it is right now.
+-- done: make a sign
+-- done: create 2 parts of lank (feet and arms).
 
 -- token:
 -- 5180 5168 5166 5129 5258 5248 5244 5076 4983 5005 4994 4986 4985 4976 4965
--- 4971 4979 6068 6057 6053 5881 5811 5795 5778 5855 5748 5835 5918
+-- 4971 4979 6068 6057 6053 5881 5811 5795 5778 5855 5748 5835 5918 6343
 
 -- compress:
 -- 16285 15360
@@ -140,7 +146,7 @@ function game_update()
    inventory_update()
    room_update()
 
-   if not g_transitioning then
+   if not g_tbox_active and not g_transitioning then
       batch_call(
          acts_loop, [[
             {$drawable$,$reset_off$},
