@@ -290,7 +290,7 @@ end)
 create_parent(
 [[ id=$wall$,
    att={
-      static=true,touchable=true,hit=nf
+      block=true,static=true,touchable=true,hit=nf
    },
    par={$vec$,$dim$}
 ]])
