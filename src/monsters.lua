@@ -81,3 +81,28 @@ g_att.top = function(x, y)
       end
    )
 end
+
+
+g_att.bat = function(x, y)
+   return create_actor([[
+      id=$bat$,
+      att={
+         evil=true,
+         x=@1, y=@2,
+         rx=.375, ry=.375,
+         sinds={122,123},
+         anim_len=2,
+         anim_spd=10,
+         touchable=true
+      },
+      par={$bounded$,$confined$,$stunnable$,$mov$,$col$,$hurtable$,$knockable$,$anim$,$ospr$},
+      tl={
+         {i=@3, tl_tim=1.5}
+      }
+      ]],x,y,
+      -- init
+      function(a)
+         a.ax = .01
+      end
+   )
+end

@@ -110,6 +110,9 @@ $endle$={    n=$endless$,c=13, x=96,  y=32, w=16, h=12 }
             {27.5,22.5,$sign:hiroll tutorial$}
          ]])
 
+      g_att.bat(10, 26)
+      g_att.bat(11, 26)
+
       g_att.top(6, 26)
       g_att.top(7, 25)
       g_att.top(8, 24)
