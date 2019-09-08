@@ -23,7 +23,7 @@ function inventory_init()
       shield   = {func=@3, sind=14, desc=$^shield:be safe from enemy attacks.$},
       brang    = {func=@4, sind=12, desc=$^brang:stun baddies. get items.$},
       force    = {sind=10, desc=$^sqr'force:don't let ivan take it from you!$},
-      shovel   = {sind=11, desc=$^shovel:dig things up. kill the grass.$},
+      shovel   = {func=@5, sind=11, desc=$^shovel:dig things up. kill the grass.$},
       bomb     = {sind=13, desc=$^bomb:only 5 power squares to blows things up!$},
       bow      = {sind=15, desc=$^bow:shoots enemies. needs 2 power squares.$},
       letter   = {sind=44, desc=$^letter:dinner is ready for a special someone.$},
@@ -32,7 +32,7 @@ function inventory_init()
       key      = {sind=47, desc=$^key:i wonder what it opens.$},
       interact = {sind=43, desc=$^interact:talk to people, pick up things, read signs.$},
       nothing  = {sind=43, desc=$^empty:there is no item in this space.$}
-   ]], create_sword, create_banjo, create_shield, create_brang)
+   ]], create_sword, create_banjo, create_shield, create_brang, create_shovel)
 
    add(g_inventory, "interact")
    add(g_inventory, "chicken")
@@ -314,6 +314,42 @@ function create_banjo(pl)
       end
    )
 end
+
+function create_shovel(pl)
+   return create_actor([[
+      id=$lank_shovel$,
+      att={
+         holding=true,
+         rx=.3,
+         ry=.3,
+         sind=11,
+         xf=@1,
+         touchable=false,
+         i=@2, u=@3
+      },
+      par={$rel$,$ospr$}
+      ]],
+      not pl.xf,
+      -- init 1
+      function(a) 
+         a.rel_x=a.xf and 5/8 or -5/8
+         a.rel_y=0
+      end,
+      -- update 1
+      function(a)
+         local val = mget(a.x,a.y)
+         -- todo: shorten this
+         if val == 16 or val == 17 or val == 18 or val == 19 or val == 20 then
+            mset(a.x, a.y, 25)
+         end
+
+         if not a.holding then
+            a.alive, pl.item = false
+         end
+      end
+   )
+end
+
 
 function create_sword(pl)
    return create_actor([[

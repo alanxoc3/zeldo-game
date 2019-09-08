@@ -207,8 +207,6 @@ function card_shake(tim)
 end
 
 function game_draw()
-   -- rect(0,0,127,127,8) -- debug
-
    draw_cur_room(g_transition_x+8+g_card_shake_x, g_transition_y + 7 + 3/8+g_card_shake_y)
 
    if g_menu_open then
