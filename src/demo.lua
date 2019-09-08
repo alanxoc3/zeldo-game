@@ -155,6 +155,7 @@ function game_update()
             {$mov$,$move$},
             {$col$,$move_check$,@1},
             {$col$,$move_check$,@4},
+            {$trig$,$is_in_trig$,@3},
             {$tcol$,$coll_tile$,@2},
             {$rel$,$rel_update$,@3},
             {$vec$,$vec_update$},

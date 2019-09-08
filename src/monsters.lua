@@ -93,7 +93,7 @@ g_att.bat = function(x, y)
          sinds={122,123},
          anim_len=2,
          anim_spd=10,
-         touchable=true
+         touchable=false
       },
       par={$bounded$,$confined$,$stunnable$,$mov$,$col$,$hurtable$,$knockable$,$anim$,$ospr$},
       tl={

@@ -111,12 +111,6 @@ $endle$={    n=$endless$,c=13, x=96,  y=32, w=16, h=12 }
          ]])
 
       g_att.bat(10, 26)
-      g_att.bat(11, 26)
-
-      g_att.top(6, 26)
-      g_att.top(7, 25)
-      g_att.top(8, 24)
-      g_att.top(9, 27)
       g_att.top(10, 28)
    end, function() -- for_1 @02
       g_att.house(60,34.5,"h_lar", 28, 15)

@@ -296,6 +296,20 @@ create_parent(
 ]])
 
 create_parent(
+[[ id=$trig$,
+   att={
+      trigger=nf,
+      is_in_trig=@1
+   },
+   par={$vec$,$dim$}
+]], function(a, pl)
+   if pl.x-pl.rx > a.x-a.rx and pl.x+pl.rx < a.x+a.rx
+      and pl.y-pl.ry > a.y-a.ry and pl.y+pl.ry < a.y+a.ry then
+      a.trigger(a, pl)
+   end
+end)
+
+create_parent(
 [[ id=$col$,
    att={
       static=false,
