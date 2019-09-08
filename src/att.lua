@@ -317,13 +317,11 @@ create_parent(
       xb=0,
       yb=0,
       hit=nf,
-      contains=nf,
       move_check=@1
    },
    par={$vec$,$dim$}
 ]], function(a, acts)
    local hit_list = {}
-   local in_list = {}
    local move_check = function(dx, dy)
       local touched = false
 
@@ -345,10 +343,6 @@ create_parent(
          if a != b and (not a.static or not b.static) then
             local x,y = abs(a.x+dx-b.x), abs(a.y+dy-b.y)
             if x < (a.rx+b.rx) and y < (a.ry+b.ry) then 
-               if x < (a.rx-b.rx) and y < (a.ry-b.ry) then 
-                  if not in_list[b] then in_list[b] = true end
-               end
-
                if not hit_list[b] then hit_list[b] = {x=0, y=0} end
 
                batch_call(col_help, [[
@@ -375,10 +369,6 @@ create_parent(
    for b, d in pairs(hit_list) do
       a:hit(b,  d.x,  d.y)
       b:hit(a, -d.x, -d.y)
-   end
-
-   for b, d in pairs(in_list) do
-      a:contains(b)
    end
 end)
 

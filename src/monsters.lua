@@ -1,32 +1,3 @@
--- function get_buf_rect(buf_len)
-   -- return {x=g_x+8, y=g_y+8, rx=buf_len, ry=buf_len}
--- end
-
--- function gen_spawner(x, y, func, buf_len, ...)
---    local args = {...}
---    return create_actor([[
---          id=$spawner$,
---          att={
---             child=nil,
---             x=@1,
---             y=@2
---          },
---          par={$confined$,$dim$},
---          tl={
---             {u=@3}
---          }
---       ]], x, y,
---       function(a)
---          local acol = dim_collide(a, get_buf_rect(buf_len))
---          if not a.child and acol then
---             a.child = func(a.x, a.y, munpack(args))
---          elseif a.child and not acol and not dim_collide(a.child, get_buf_rect(buf_len)) then
---             a.child.alive = false
---             a.child = nil
---          end
---       end)
--- end
-
 g_att.top = function(x, y)
    return create_actor([[
       id=$top$,
@@ -103,6 +74,53 @@ g_att.bat = function(x, y)
       -- init
       function(a)
          a.ax = .01
+      end
+   )
+end
+
+g_att.skelly = function(x, y)
+   return create_actor([[
+      id=$skelly$,
+      att={
+         evil=true,
+         x=@1, y=@2,
+         rx=.375, ry=.375,
+         sinds={74},
+         anim_len=1
+      },
+      par={$bounded$,$confined$,$stunnable$,$mov$,$col$,$tcol$,$hurtable$,$knockable$,$anim$,$ospr$},
+      tl={
+         {i=@3, tl_tim=1.5}
+      }
+      ]],x,y,
+      -- init
+      function(a)
+         a.ay = .01
+         a.ax = .005
+      end
+   )
+end
+
+g_att.ghost = function(x, y)
+   return create_actor([[
+      id=$ghost$,
+      att={
+         evil=true,
+         x=@1, y=@2,
+         rx=.375, ry=.375,
+         sinds={91},
+         anim_len=1,
+         touchable=false
+      },
+      par={$bounded$,$confined$,$stunnable$,$mov$,$col$,$hurtable$,$knockable$,$anim$,$ospr$},
+      tl={
+         {i=@3, tl_tim=1.5}
+      }
+      ]],x,y,
+      -- init
+      function(a)
+         a.ax = sin(t())/50
+         a.xf = sgn(a.ax) < 1
       end
    )
 end
