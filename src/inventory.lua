@@ -313,7 +313,6 @@ function create_banjo(pl)
          end
       end
    )
-
 end
 
 function create_sword(pl)

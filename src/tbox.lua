@@ -43,16 +43,20 @@ function tbox_interact(sound)
    if g_tbox_active then
       g_tbox_anim += .5
 
-      if g_tbox_anim < #g_tbox_active.l1+#g_tbox_active.l2 and sound then
-         sfx(sound)
+      if g_tbox_anim > #g_tbox_active.l1+#g_tbox_active.l2 then
+         g_tbox_anim = #g_tbox_active.l1+#g_tbox_active.l2
       end
 
+      -- if g_tbox_anim < #g_tbox_active.l1+#g_tbox_active.l2 and sound then
+         -- sfx(sound)
+      -- end
+
       if btnp(4) and g_tbox_anim > .5 and g_tbox_active.continue then
-         if g_tbox_anim < #g_tbox_active.l1+#g_tbox_active.l2 then
-            g_tbox_anim = #g_tbox_active.l1+#g_tbox_active.l2
-         else
+         if g_tbox_anim >= #g_tbox_active.l1+#g_tbox_active.l2 then
             del(g_tbox_messages, g_tbox_active)
             g_tbox_active, g_tbox_anim = g_tbox_messages[1], 0
+         else
+            g_tbox_anim = #g_tbox_active.l1+#g_tbox_active.l2
          end
       end
    end
@@ -128,7 +132,7 @@ function ttbox_draw(x, y)
 
       -- draw the arrow
       if g_tbox_active.continue then
-         spr(71, 100, g_tbox_anim%20<10 and 13 or 14)
+         spr(71, 100, ti(40)<20 and 13 or 14)
       end
    end
 

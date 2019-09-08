@@ -11,6 +11,7 @@ function draw_ma(x, y, a)
 
    clip(x+2, y+2, 14, 14)
    spr_out(a.sind, 5 + zsgn(a.ax), 5 + zsgn(a.ay), 1, 1, a.xf, a.yf, 1)
+   spr_out(59, 5 + zsgn(a.ax), 5 + zsgn(a.ay), 1, 1, a.xf, a.yf, 1)
    if a.item then
       local item = a.item
       spr_out(item.sind, 5+(item.x-a.x)*8 + zsgn(a.ax) + item.ixx,
@@ -18,6 +19,7 @@ function draw_ma(x, y, a)
                      1, 1, item.xf, item.yf, 1)
    end
    spr(a.sind, 5 + zsgn(a.ax), 5 + zsgn(a.ay), 1, 1, a.xf, a.yf, 1)
+   spr(59, 5 + zsgn(a.ax), 5 + zsgn(a.ay), 1, 1, a.xf, a.yf, 1)
    if a.item then
       local item = a.item
       spr(item.sind, 5+(item.x-a.x)*8 + zsgn(a.ax) + item.ixx,

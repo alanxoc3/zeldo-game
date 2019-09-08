@@ -1,4 +1,19 @@
+function create_lank_top()
+   return create_actor([[
+      id=$lank_top$,
+      att={
+         sind=59,
+         iyy=-2,
+         u=@1
+      }, par={$rel$,$ospr$}
+   ]], function(a)
+      a.xf = g_pl.xf
+      a.alive = g_pl.alive
+   end)
+end
+
 function gen_pl(x, y)
+   create_lank_top()
    return create_actor(
       [[ id=$pl$,
          att={
