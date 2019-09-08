@@ -124,3 +124,27 @@ g_att.ghost = function(x, y)
       end
    )
 end
+
+g_att.chicken = function(x, y)
+   return create_actor([[
+      id=$skelly$,
+      att={
+         evil=true,
+         x=@1, y=@2,
+         rx=.375, ry=.375,
+         sinds={46},
+         anim_len=1
+      },
+      par={$bounded$,$confined$,$stunnable$,$mov$,$col$,$tcol$,$hurtable$,$knockable$,$anim$,$ospr$},
+      tl={
+         {i=@3, tl_tim=1.5}
+      }
+      ]],x,y,
+      -- init
+      function(a)
+         a.ay = sgn(rnd(1)-.5) * .01
+         a.ax = sgn(rnd(1)-.5) * .01
+         a.xf = sgn(a.ax) < 1
+      end
+   )
+end

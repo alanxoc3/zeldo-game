@@ -114,6 +114,7 @@ $endle$={    n=$endless$,c=13, x=96,  y=32, w=16, h=12 }
       g_att.top(10, 28)
       g_att.skelly(10, 25)
       g_att.ghost(10, 25)
+      g_att.chicken(9, 25)
    end, function() -- for_1 @02
       g_att.house(60,34.5,"h_lar", 28, 15)
    end, function() -- for_4 @03
