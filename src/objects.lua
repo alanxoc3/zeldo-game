@@ -46,6 +46,26 @@ g_att.sign = function(x, y, text)
    )
 end
 
+g_att.money = function(x, y, dx, dy)
+   return create_actor([[
+      id=$money$,
+      att={
+         sind=40,rx=.375,ry=.375,
+         x=@1, y=@2,
+         dx=@3, dy=@4,
+         touchable=false,
+         hit=@5,
+      }, par={$confined$,$tcol$,$ospr$,$col$,$mov$}
+      ]],x,y,dx,dy,
+      function(a, other)
+         if other.pl then
+            add_money(10)
+            a.alive = false
+         end
+      end
+   )
+end
+
 function gen_static_block(x, y, rx, ry)
    return create_actor([[
       id=$rect_block$,

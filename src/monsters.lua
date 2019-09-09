@@ -1,3 +1,7 @@
+function destroy_func(a)
+   g_att.money(a.x, a.y, a.dx, a.dy)
+end
+
 g_att.top = function(x, y)
    return create_actor([[
       id=$top$,
@@ -10,7 +14,8 @@ g_att.top = function(x, y)
          iyy=-2,
          sinds={120,121},
          anim_len=1,
-         touchable=true
+         touchable=true,
+         destroyed=@9
       },
       par={$bounded$,$confined$,$stunnable$,$mov$,$col$,$tcol$,$hurtable$,$knockable$,$anim$,$ospr$},
       tl={
@@ -49,7 +54,7 @@ g_att.top = function(x, y)
       scr_spr_out,
       function(a)
          a.anim_off = 1
-      end
+      end, destroy_func
    )
 end
 
@@ -64,6 +69,7 @@ g_att.bat = function(x, y)
          sinds={122,123},
          anim_len=2,
          anim_spd=10,
+         destroyed=@4,
          touchable=false
       },
       par={$bounded$,$confined$,$stunnable$,$mov$,$col$,$hurtable$,$knockable$,$anim$,$ospr$},
@@ -74,7 +80,7 @@ g_att.bat = function(x, y)
       -- init
       function(a)
          a.ax = .01
-      end
+      end, destroy_func
    )
 end
 
@@ -86,6 +92,7 @@ g_att.skelly = function(x, y)
          x=@1, y=@2,
          rx=.375, ry=.375,
          sinds={74},
+         destroyed=@4,
          anim_len=1
       },
       par={$bounded$,$confined$,$stunnable$,$mov$,$col$,$tcol$,$hurtable$,$knockable$,$anim$,$ospr$},
@@ -97,7 +104,7 @@ g_att.skelly = function(x, y)
       function(a)
          a.ay = .01
          a.ax = .005
-      end
+      end, destroy_func
    )
 end
 
@@ -110,6 +117,7 @@ g_att.ghost = function(x, y)
          rx=.375, ry=.375,
          sinds={91},
          anim_len=1,
+         destroyed=@4,
          touchable=false
       },
       par={$bounded$,$confined$,$stunnable$,$mov$,$col$,$hurtable$,$knockable$,$anim$,$ospr$},
@@ -121,18 +129,19 @@ g_att.ghost = function(x, y)
       function(a)
          a.ax = sin(t())/50
          a.xf = sgn(a.ax) < 1
-      end
+      end, destroy_func
    )
 end
 
 g_att.chicken = function(x, y)
    return create_actor([[
-      id=$skelly$,
+      id=$chicken$,
       att={
          evil=true,
          x=@1, y=@2,
          rx=.375, ry=.375,
          sinds={46},
+         destroyed=@4,
          anim_len=1
       },
       par={$bounded$,$confined$,$stunnable$,$mov$,$col$,$tcol$,$hurtable$,$knockable$,$anim$,$ospr$},
@@ -145,6 +154,6 @@ g_att.chicken = function(x, y)
          a.ay = sgn(rnd(1)-.5) * .01
          a.ax = sgn(rnd(1)-.5) * .01
          a.xf = sgn(a.ax) < 1
-      end
+      end, destroy_func
    )
 end

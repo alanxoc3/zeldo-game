@@ -61,7 +61,11 @@ function gen_pl(x, y)
 
          -- item logic
          if btn(4) and not btn(5) and not a.item and not g_energy_tired then
-            a.item = gen_pl_item(a, g_selected)
+            if g_selected != "bomb" or remove_money(5) then
+               a.item = gen_pl_item(a, g_selected)
+            else
+               -- todo: insert sfx here.
+            end
          end
 
          local item = a.item

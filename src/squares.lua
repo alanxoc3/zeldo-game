@@ -1,20 +1,21 @@
 -- power squares
-g_squares, g_max_energy, g_energy, g_energy_tired = 0, 100, 100, false
+g_max_energy, g_energy, g_energy_tired = 100, 100, false
 g_cur_enemy, g_cur_enemy_timer = nil, 0
+g_money = 0
 
-function add_squares(amount)
-   g_squares = min(999, g_squares + amount)
+function add_money(amount)
+   g_money = min(g_money + amount, 999)
 end
 
-function remove_squares(amount)
-   if g_squares - amount >= 0 then
-      g_squares = g_squares - amount
+function remove_money(amount)
+   if g_money - amount >= 0 then
+      g_money -= amount
       return true
    end
 end
 
-function get_square_str()
-   local new_str = "00"..g_squares
+function get_money_str()
+   local new_str = "00"..g_money
    return sub(new_str, #new_str-2, #new_str)
 end
 

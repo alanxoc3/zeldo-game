@@ -22,9 +22,9 @@ function inventory_init()
       banjo    = {func=@2, sind=08, desc=$^banjo:play a sick tune!$},
       shield   = {func=@3, sind=14, desc=$^shield:be safe from enemy attacks.$},
       brang    = {func=@4, sind=12, desc=$^brang:stun baddies. get items.$},
-      force    = {sind=10, desc=$^sqr'force:don't let ivan take it from you!$},
       shovel   = {func=@5, sind=11, desc=$^shovel:dig things up. kill the grass.$},
-      bomb     = {sind=13, desc=$^bomb:only 5 power squares to blows things up!$},
+      bomb     = {func=@6, sind=13, desc=$^bomb:only 5 power squares to blows things up!$},
+      force    = {sind=10, desc=$^sqr'force:don't let ivan take it from you!$},
       bow      = {sind=15, desc=$^bow:shoots enemies. needs 2 power squares.$},
       letter   = {sind=44, desc=$^letter:dinner is ready for a special someone.$},
       soul     = {sind=45, desc=$^soul:the soul of an angry family member.$},
@@ -32,16 +32,16 @@ function inventory_init()
       key      = {sind=47, desc=$^key:i wonder what it opens.$},
       interact = {sind=43, desc=$^interact:talk to people, pick up things, read signs.$},
       nothing  = {sind=43, desc=$^empty:there is no item in this space.$}
-   ]], create_sword, create_banjo, create_shield, create_brang, create_shovel)
+   ]], create_sword, create_banjo, create_shield, create_brang, create_shovel, create_bomb)
 
    add(g_inventory, "interact")
    add(g_inventory, "chicken")
-   add(g_inventory, "key")
    add(g_inventory, "shovel")
    add(g_inventory, "sword")
    add(g_inventory, "banjo")
    add(g_inventory, "shield")
    add(g_inventory, "brang")
+   add(g_inventory, "bomb")
 end
 
 g_item_order  ={5,4,6,2,8,1,3,7,9}
@@ -148,6 +148,33 @@ function inventory_draw(x, y)
    batch_call(rel_spr, "{-5,-5,1,1,false,false}, {5,-5,1,1,true,false}, {5,5,1,1,true,true}, {-5,5,1,1,false,true}")
 end
 
+function create_bomb(pl)
+   return create_actor([[
+      id=$lank_bomb$,
+      att={
+         holding=true,
+         rx=.375,
+         ry=.375,
+         sind=13,
+         xf=@1
+      },
+      par={$confined$,$col$,$mov$,$ospr$},
+      tl={
+         {i=@2, u=@3}
+      }
+      ]],
+      pl.xf,
+      -- init
+      function(a)
+         a.x, a.y = pl.x, pl.y
+      end,
+      -- update
+      function(a)
+         if btnp(1) then
+            a.alive = false
+         end
+      end)
+end
 
 function create_brang(pl)
    return create_actor([[
