@@ -55,7 +55,7 @@ g_att.money = function(x, y, dx, dy)
          dx=@3, dy=@4,
          touchable=false,
          hit=@5,
-      }, par={$confined$,$tcol$,$ospr$,$col$,$mov$}
+      }, par={$bounded$,$confined$,$tcol$,$ospr$,$col$,$mov$}
       ]],x,y,dx,dy,
       function(a, other)
          if other.pl then
@@ -100,7 +100,7 @@ g_att.arrow = function(x, y, left)
          touchable=false,
          ax=@4
       },
-      par={$mov$,$col$,$ospr$},
+      par={$confined$,$mov$,$col$,$ospr$},
       tl={
          {hit=@5, tl_tim=3},
          {i=@6}

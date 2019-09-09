@@ -136,7 +136,7 @@ function load_room(new_room, rx, ry)
    cur_room = g_rooms[g_cur_room]
 
    -- take care of actors.
-   acts_loop("confined", "kill")
+   acts_loop("confined", "delete")
    if cur_room.i then cur_room.i() end
 
    local x, y, w, h = cur_room.x, cur_room.y, cur_room.w, cur_room.h

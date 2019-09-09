@@ -79,7 +79,12 @@ function gen_pl(x, y)
                item.holding = false
             end
 
-            a.ax /= 2 a.ay /= 2
+            if item.id == "lank_banjo" then
+               a.ax = 0
+               a.ay = 0
+            else
+               a.ax /= 2 a.ay /= 2
+            end
          end
 
          a.anim_sind = nil

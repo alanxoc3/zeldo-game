@@ -63,7 +63,7 @@ create_parent(
       update=@1,
       clean=@2,
       destroyed=nf,
-      kill=@3
+      delete=@3
    }
 ]], function(a)
    if a.alive and a.stun_countdown == 0 then
@@ -72,9 +72,9 @@ create_parent(
 end, function(a)
    if not a.alive then
       a:destroyed()
-      del_act(a)
+      a:delete()
    end
-end, function(a) a.alive = false end)
+end, function(a) del_act(a) end)
 
 create_parent([[id=$confined$,att={},par={$act$}]])
 
