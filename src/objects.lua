@@ -38,8 +38,8 @@ g_att.sign = function(x, y, text)
       ]],x,y,text,
       function(a)
          a.trig = gen_trigger_block(a.x, a.y+1, 7/8, .5, function(a, other)
-            if btnp(4) then
-               tbox(text) --printh(text)
+            if btnp(4) and g_selected == "interact" then
+               tbox(text)
             end
          end)
       end
@@ -55,13 +55,19 @@ g_att.money = function(x, y, dx, dy)
          dx=@3, dy=@4,
          touchable=false,
          hit=@5,
-      }, par={$bounded$,$confined$,$tcol$,$ospr$,$col$,$mov$}
+      }, par={$bounded$,$confined$,$tcol$,$ospr$,$col$,$mov$},
+      tl={
+         {tl_tim=5},
+         {i=@6}
+      }
       ]],x,y,dx,dy,
       function(a, other)
          if other.pl then
             add_money(10)
             a.alive = false
          end
+      end, function(a)
+         a.alive = false
       end
    )
 end
@@ -96,7 +102,7 @@ g_att.arrow = function(x, y, left)
       att={
          x=@1, y=@2,
          rx=.375,ry=.375,
-         sind=9,xf=@3,
+         sind=42,xf=@3,
          touchable=false,
          ax=@4
       },
@@ -120,7 +126,6 @@ g_att.arrow = function(x, y, left)
       end,
       -- init
       function(a)
-         printh("i'm confused")
          a.alive = false
       end
    )

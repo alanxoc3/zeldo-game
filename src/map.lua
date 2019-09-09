@@ -109,7 +109,6 @@ $endle$={    n=$endless$,c=13, x=96,  y=32, w=16, h=12 }
             {04.5,22.5,$sign:ole banjo's house$},
             {27.5,22.5,$sign:hiroll tutorial$}
          ]])
-
       g_att.bat(10, 26)
       g_att.top(10, 28)
       g_att.skelly(10, 25)
@@ -126,7 +125,6 @@ $endle$={    n=$endless$,c=13, x=96,  y=32, w=16, h=12 }
       g_att.house(088,01.5,"cas_1", 69, 31, 102)
    end)
 end
-
 
 function load_room(new_room, rx, ry)
    -- reload the map (remove shovel things).

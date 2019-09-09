@@ -217,7 +217,7 @@ function game_draw()
    draw_status()
    -- print(g_rooms[g_cur_room].n or g_cur_room, 30, 110, 7)
    -- draw_glitch_effect()
-   print("t: "..g_transition_y, 30, 30, 7)
+   -- print("t: "..g_transition_y, 30, 30, 7)
 end
 
 function draw_glitch_effect()

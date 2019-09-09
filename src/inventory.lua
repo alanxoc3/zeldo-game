@@ -25,14 +25,14 @@ function inventory_init()
       shovel   = {func=@5, sind=11, desc=$^shovel:dig things up. kill the grass.$},
       bomb     = {func=@6, sind=13, desc=$^bomb:only 5 power squares to blows things up!$},
       bow      = {func=@7, sind=15, desc=$^bow:shoots enemies. needs 2 power squares.$},
-      force    = {sind=10, desc=$^sqr'force:don't let ivan take it from you!$},
+      force    = {func=@8, sind=10, desc=$^sqr'force:don't let ivan take it from you!$},
       interact = {sind=43, desc=$^interact:talk to people, pick up things, read signs.$},
       letter   = {sind=44, desc=$^letter:dinner is ready for a special someone.$},
       soul     = {sind=45, desc=$^soul:the soul of an angry family member.$},
       chicken  = {sind=46, desc=$^chicken:looks delicious.$},
       key      = {sind=47, desc=$^key:i wonder what it opens.$},
       nothing  = {sind=43, desc=$^empty:there is no item in this space.$}
-   ]], create_sword, create_banjo, create_shield, create_brang, create_shovel, create_bomb, create_bow)
+   ]], create_sword, create_banjo, create_shield, create_brang, create_shovel, create_bomb, create_bow, create_force)
 
    add(g_inventory, "interact")
    add(g_inventory, "bow")
@@ -262,7 +262,7 @@ function create_shield(pl)
          xf=@1,
          touchable=false
       },
-      par={$rel$,$spr$,$col$,$ospr$},
+      par={$confined$,$rel$,$spr$,$col$,$ospr$},
       tl={
          {hit=@2, i=@3, u=@4, tl_tim=.4},
          {hit=@2, i=nf, u=@5}
@@ -326,7 +326,7 @@ function create_banjo(pl)
          touchable=false,
          i=@2, u=@3
       },
-      par={$rel$,$spr$,$col$,$ospr$}
+      par={$confined$,$rel$,$spr$,$col$,$ospr$}
       ]],
       pl.xf,
       -- init 1
@@ -355,7 +355,7 @@ function create_shovel(pl)
          touchable=false,
          i=@2, u=@3
       },
-      par={$rel$,$ospr$}
+      par={$confined$,$rel$,$ospr$}
       ]],
       not pl.xf,
       -- init 1
@@ -378,6 +378,40 @@ function create_shovel(pl)
    )
 end
 
+g_save_spots = gun_vals([[
+   {x=02,  y=12, room=$h_ban$},
+   {x=52,  y=60, room=$for_4$},
+   {x=69,  y=17, room=$cas_3$},
+   {x=123, y=14, room=$tom_2$},
+   {x=123, y=60, room=$tec_1$}
+]])
+
+-- teleports to different places
+function create_force(pl)
+   return create_actor([[
+      id=$lank_force$,
+      att={
+         holding=true,
+         rx=.3,
+         ry=.3,
+         sind=10,
+         xf=@1,
+         destroyed=@2,
+         u=@3,
+         touchable=false
+      },
+      par={$confined$,$rel$,$ospr$}
+      ]], pl.xf, function(a)
+         -- random room index
+         local i = flr(rnd(5))+1
+         transition_room(g_save_spots[i].room, g_save_spots[i].x, g_save_spots[i].y)
+      end, function(a)
+         if not a.holding then
+            a.alive = false
+         end
+      end
+   )
+end
 
 function create_sword(pl)
    return create_actor([[
@@ -393,7 +427,7 @@ function create_sword(pl)
          xf=@1,
          touchable=false
       },
-      par={$rel$,$spr$,$col$,$ospr$},
+      par={$confined$,$rel$,$spr$,$col$,$ospr$},
       tl={
          {hit=@2, i=@3, u=@4, tl_tim=.4},
          {hit=@2, i=nf, u=@5}
@@ -458,7 +492,7 @@ function create_bow(pl)
          destroyed=@5,
          touchable=false
       },
-      par={$rel$,$ospr$},
+      par={$confined$,$rel$,$ospr$},
       tl={
          {i=@2, u=@3, tl_tim=.4},
          {i=nf, u=@4}
