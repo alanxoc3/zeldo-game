@@ -24,24 +24,25 @@ function inventory_init()
       brang    = {func=@4, sind=12, desc=$^brang:stun baddies. get items.$},
       shovel   = {func=@5, sind=11, desc=$^shovel:dig things up. kill the grass.$},
       bomb     = {func=@6, sind=13, desc=$^bomb:only 5 power squares to blows things up!$},
+      bow      = {func=@7, sind=15, desc=$^bow:shoots enemies. needs 2 power squares.$},
       force    = {sind=10, desc=$^sqr'force:don't let ivan take it from you!$},
-      bow      = {sind=15, desc=$^bow:shoots enemies. needs 2 power squares.$},
+      interact = {sind=43, desc=$^interact:talk to people, pick up things, read signs.$},
       letter   = {sind=44, desc=$^letter:dinner is ready for a special someone.$},
       soul     = {sind=45, desc=$^soul:the soul of an angry family member.$},
       chicken  = {sind=46, desc=$^chicken:looks delicious.$},
       key      = {sind=47, desc=$^key:i wonder what it opens.$},
-      interact = {sind=43, desc=$^interact:talk to people, pick up things, read signs.$},
       nothing  = {sind=43, desc=$^empty:there is no item in this space.$}
-   ]], create_sword, create_banjo, create_shield, create_brang, create_shovel, create_bomb)
+   ]], create_sword, create_banjo, create_shield, create_brang, create_shovel, create_bomb, create_bow)
 
    add(g_inventory, "interact")
-   add(g_inventory, "chicken")
+   add(g_inventory, "bow")
    add(g_inventory, "shovel")
    add(g_inventory, "sword")
    add(g_inventory, "banjo")
    add(g_inventory, "shield")
    add(g_inventory, "brang")
    add(g_inventory, "bomb")
+   add(g_inventory, "force")
 end
 
 g_item_order  ={5,4,6,2,8,1,3,7,9}
@@ -411,13 +412,8 @@ function create_sword(pl)
                pl.knockback(pl, .3, a.xf and 1 or -1, 0)
             end
 
-            if other.stunnable then
-               other.stun(other, 30)
-            end
-
-            if other.hurtable  then
-               other.hurt(other, 55)
-            end
+            call_not_nil("stun", other, 30)
+            call_not_nil("hurt", other, 55)
          end
       end,
       -- init 1
@@ -443,6 +439,60 @@ function create_sword(pl)
          act_poke(a, -1, 0)
          if not a.holding then
             a.alive, pl.item = false
+         end
+      end
+   )
+end
+
+function create_bow(pl)
+   return create_actor([[
+      id=$lank_bow$,
+      att={
+         holding=true,
+         rx=.5,
+         ry=.375,
+         rel_y=0,
+         iyy=-1,
+         sind=15,
+         xf=@1,
+         destroyed=@5,
+         touchable=false
+      },
+      par={$rel$,$ospr$},
+      tl={
+         {i=@2, u=@3, tl_tim=.4},
+         {i=nf, u=@4}
+      }
+      ]],
+      pl.xf,
+      -- init 1
+      function(a)
+         a.rel_dx = a.xf and -.125 or .125
+         a.ixx = a.xf and -1 or 1
+         a.poke = 20
+      end,
+      -- update 1
+      function(a)
+         use_energy(.75)
+         act_poke(a, -1, 0)
+         local dist = 3/8
+         if abs(a.rel_dx + a.rel_x) < dist then
+            a.rel_x += a.rel_dx
+         else
+            local neg_one = -dist
+            a.rel_dx, a.rel_x = 0, a.xf and neg_one or dist
+         end
+      end,
+      -- update 2
+      function(a)
+         use_energy(.25)
+         act_poke(a, -1, 0)
+         if not a.holding then
+            a.alive, pl.item = false
+         end
+      end, function(a)
+         if remove_money(1) then
+            g_att.arrow(a.x, a.y, a.xf)
          end
       end
    )

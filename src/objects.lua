@@ -89,3 +89,39 @@ function gen_trigger_block(x, y, rx, ry, contains)
       ]],x,y,rx,ry,contains
    )
 end
+
+g_att.arrow = function(x, y, left)
+   return create_actor([[
+      id=$arrow$,
+      att={
+         x=@1, y=@2,
+         rx=.375,ry=.375,
+         sind=9,xf=@3,
+         touchable=false,
+         ax=@4
+      },
+      par={$mov$,$col$,$ospr$},
+      tl={
+         {hit=@5, tl_tim=3},
+         {i=@6}
+      }
+      ]], x, y, left, left and -.1 or .1,
+      -- hit
+      function(a, other)
+         if other.evil then
+            change_cur_enemy(other)
+
+            call_not_nil("knockback", other, (a.cur == 1) and .3 or .1, a.xf and -1 or 1, 0)
+            call_not_nil("stun", other, 30)
+            call_not_nil("hurt", other, 1)
+
+            a.alive = false
+         end
+      end,
+      -- init
+      function(a)
+         printh("i'm confused")
+         a.alive = false
+      end
+   )
+end
