@@ -9,6 +9,8 @@ __lua__
 #include src/att.lua
 #include src/clock.lua
 
+#include src/save.lua
+#include src/story.lua
 #include src/map.lua
 #include src/pattern.lua
 #include src/inventory.lua

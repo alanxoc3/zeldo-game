@@ -25,8 +25,12 @@ function call_not_nil(key, table, ...)
 end
 
 -- params: function, gun_vals
+function batch_call_table(func,table)
+   foreach(table, function(t) func(t[1], t[2], t[3], t[4], t[5], t[6], t[7], t[8]) end)
+end
+
 function batch_call(func,...)
-   foreach(gun_vals(...), function(t) func(t[1], t[2], t[3], t[4], t[5], t[6], t[7], t[8]) end)
+   batch_call_table(func,gun_vals(...))
 end
 
 -- unpacks a table
