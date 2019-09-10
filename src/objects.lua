@@ -130,3 +130,15 @@ g_att.arrow = function(x, y, left)
       end
    )
 end
+
+g_att.pot = function(x, y)
+   return create_actor([[
+      id=$pot$,
+      att={
+         sind=49,rx=.375,ry=.375,
+         x=@1, y=@2,
+         touchable=true,
+      }, par={$bounded$,$confined$,$tcol$,$ospr$,$col$,$mov$},
+      ]],x,y
+   )
+end

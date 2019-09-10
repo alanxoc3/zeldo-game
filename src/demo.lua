@@ -108,6 +108,8 @@
 -- compress:
 -- 16285 15360
 
+g_debug = false
+
 function _init()
    poke(0x5f34, 1) -- for pattern colors.
    g_pal_gray = gun_vals("5,5,13,13,5,6,6,6,6,6,6,6,13,6,6")
@@ -131,6 +133,7 @@ function _init()
 end
 
 function _update60()
+   if btnp(5) then g_debug = not g_debug end
    tl_update(g_tl)
    tbox_interact()
 end
@@ -139,7 +142,7 @@ function _draw()
    cls()
    call_not_nil("d", g_tl)
    ttbox_draw(20,107)
-   zprint(stat(1), 104, 102) -- debug
+   if g_debug then zprint(stat(1), 104, 102) end
 end
 
 function game_update()
@@ -213,7 +216,8 @@ function game_draw()
       inventory_draw(64,59)
    end
 
-   -- acts_loop("dim", "debug_rect") -- debug
+   if g_debug then acts_loop("dim", "debug_rect") end
+
    draw_status()
    -- print(g_rooms[g_cur_room].n or g_cur_room, 30, 110, 7)
    -- draw_glitch_effect()
@@ -230,13 +234,7 @@ end
 function game_init()
    map_init()
    g_pl = gen_pl(0, 0)
-   -- load_room("lank's path", 2, 18)
-   -- load_room("sword sanctuary", 37, 59)
-   -- load_room("field", 52, 30) -- debug tech
    load_room("villa", 21, 29)
-   -- load_room("title", 101, 36)
-   -- load_room("cas_1", 69, 30)
-   -- load_room("cem_2", 99, 29)
     
    --load_room("tom_1", 125, 27)
    tbox("lank:12341234561 1901234567890 234123456 8901234567890hh ")

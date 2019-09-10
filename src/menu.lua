@@ -1,4 +1,3 @@
---
 -- a box with a character inside.
 function draw_ma(x, y, a)
    camera(-x,-y)
