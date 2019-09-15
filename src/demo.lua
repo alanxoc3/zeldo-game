@@ -153,20 +153,20 @@ function game_update()
    if not g_tbox_active and not g_transitioning then
       batch_call(
          acts_loop, [[
-            {$drawable$,$reset_off$},
-            {$stunnable$, $stun_update$},
-            {$act$,$update$},
-            {$mov$,$move$},
-            {$col$,$move_check$,@1},
-            {$col$,$move_check$,@4},
-            {$trig$,$is_in_trig$,@3},
-            {$tcol$,$coll_tile$,@2},
-            {$rel$,$rel_update$,@3},
-            {$vec$,$vec_update$},
-            {$bounded$,$check_bounds$},
-            {$act$, $clean$},
-            {$anim$,$anim_update$},
-            {$timed$,$tick$}
+            {"drawable","reset_off"},
+            {"stunnable", "stun_update"},
+            {"act","update"},
+            {"mov","move"},
+            {"col","move_check",@1},
+            {"col","move_check",@4},
+            {"trig","is_in_trig",@3},
+            {"tcol","coll_tile",@2},
+            {"rel","rel_update",@3},
+            {"vec","vec_update"},
+            {"bounded","check_bounds"},
+            {"act", "clean"},
+            {"anim","anim_update"},
+            {"timed","tick"}
          ]],
          g_act_arrs["col"],
          function(x, y)
@@ -237,5 +237,5 @@ function game_init()
    load_room("villa", 21, 29)
     
    --load_room("tom_1", 125, 27)
-   tbox("lank:12341234561 1901234567890 234123456 8901234567890hh ")
+   tbox("|lank:12341234561 1901234567890 234123456 8901234567890hh ")
 end

@@ -55,7 +55,7 @@ end
 
 -- to generate an actor.
 create_parent(
-[[ id=$act$,
+[[ id="act",
    att={
       alive=true,
       stun_countdown=0,
@@ -76,9 +76,9 @@ end, function(a)
    end
 end, function(a) del_act(a) end)
 
-create_parent([[id=$confined$,att={},par={$act$}]])
+create_parent([[id="confined",att={},par={"act"}]])
 
-create_parent([[id=$bounded$,att={check_bounds=@1},par={$act$}]], function(a)
+create_parent([[id="bounded",att={check_bounds=@1},par={"act"}]], function(a)
    local cur_room = g_rooms[g_cur_room]
 
    if a.x+a.dx < cur_room.x+.5 then
@@ -103,42 +103,42 @@ create_parent([[id=$bounded$,att={check_bounds=@1},par={$act$}]], function(a)
 end)
 
 create_parent(
-[[ id=$timed$,
+[[ id="timed",
    att={
       t=0,
       tl_tim=0,
       tick=@1
    },
-   par={$act$}
+   par={"act"}
 ]], function(a)
    a.t += 1
 end)
 
 create_parent(
-[[ id=$pos$,
+[[ id="pos",
    att={
       x=0,
       y=0
    },
-   par={$act$}
+   par={"act"}
 ]]
 )
 
 create_parent(
-[[ id=$vec$,
+[[ id="vec",
    att={
       dx=0,
       dy=0,
       vec_update=@1
    },
-   par={$pos$}
+   par={"pos"}
 ]], function(a)
    a.x += a.dx
    a.y += a.dy
 end)
 
 create_parent(
-[[ id=$mov$,
+[[ id="mov",
    att={
       ix=.85,
       iy=.85,
@@ -146,7 +146,7 @@ create_parent(
       ay=0,
       move=@1
    },
-   par={$vec$}
+   par={"vec"}
 ]], function(a)
    a.dx += a.ax a.dy += a.ay
    a.dx *= a.ix a.dy *= a.iy
@@ -155,20 +155,20 @@ create_parent(
 end)
 
 create_parent(
-[[ id=$dim$,
+[[ id="dim",
    att={
       rx=.375,
       ry=.375,
       debug_rect=@1
    },
-   par={$pos$}
+   par={"pos"}
 ]], function(a)
    scr_rect(a.x-a.rx,a.y-a.ry,a.x+a.rx,a.y+a.ry, 8)
 end)
 
 -- used with player items/weapons.
 create_parent(
-[[ id=$rel$,
+[[ id="rel",
    att={
       rel_x=0,
       rel_y=0,
@@ -176,14 +176,14 @@ create_parent(
       rel_dy=0,
       rel_update=@1
    },
-   par={$act$}
+   par={"act"}
 ]], function(a, a2)
    a.x, a.y, a.dx, a.dy = a2.x+a.rel_x, a2.y+a.rel_y, a2.dx+a.rel_dx, a2.dy+a.rel_dy
    a.xx, a.yy = a2.xx, a2.yy
 end)
 
 create_parent(
-[[ id=$drawable$,
+[[ id="drawable",
    att={
       ixx=0,
       iyy=0,
@@ -192,13 +192,13 @@ create_parent(
       d=nf,
       reset_off=@1
    },
-   par={$act$}
+   par={"act"}
 ]], function(a)
    a.xx, a.yy = 0, 0
 end)
 
 create_parent(
-[[ id=$spr$,
+[[ id="spr",
    att={
       sind=0,
       sw=1,
@@ -207,23 +207,23 @@ create_parent(
       yf=false,
       draw_spr=@1
    },
-   par={$vec$,$drawable$}
+   par={"vec","drawable"}
 ]], scr_spr)
 
 create_parent(
-[[ id=$ospr$,
+[[ id="ospr",
    att={
       draw_out=@1
    },
-   par={$spr$}
+   par={"spr"}
 ]], scr_spr_out)
 
 create_parent(
-[[ id=$knockable$,
+[[ id="knockable",
    att={
       knockback=@1
    },
-   par={$mov$}
+   par={"mov"}
 ]], function(a, speed, xdir, ydir)
    card_shake(15)
    if xdir != 0 then a.dx = xdir * speed
@@ -231,12 +231,12 @@ create_parent(
 end)
 
 create_parent(
-[[ id=$stunnable$,
+[[ id="stunnable",
    att={
       stun=@1,
       stun_update=@2
    },
-   par={$mov$,$drawable$}
+   par={"mov","drawable"}
 ]], function(a, len)
    if a.stun_countdown == 0 then
       a.stun_countdown = len
@@ -250,20 +250,20 @@ end, function(a)
 end)
 
 create_parent(
-[[ id=$hurtable$,
+[[ id="hurtable",
    att={
       health=33,
       max_health=33,
       hurt=@1
    },
-   par={$act$}
+   par={"act"}
 ]], function(a, damage)
    a.health = min(a.max_health, a.health-damage)
    if a.health <= 0 then a.alive = false end
 end)
 
 create_parent(
-[[ id=$anim$,
+[[ id="anim",
    att={
       sinds={},
       anim_loc=1,
@@ -273,7 +273,7 @@ create_parent(
       anim_sind=nil,
       anim_update=@1
    },
-   par={$spr$,$timed$}
+   par={"spr","timed"}
 ]], function(a)
    if a.anim_sind then
       a.sind = a.anim_sind
@@ -288,20 +288,20 @@ create_parent(
 end)
 
 create_parent(
-[[ id=$wall$,
+[[ id="wall",
    att={
       block=true,static=true,touchable=true,hit=nf
    },
-   par={$vec$,$dim$}
+   par={"vec","dim"}
 ]])
 
 create_parent(
-[[ id=$trig$,
+[[ id="trig",
    att={
       trigger=nf,
       is_in_trig=@1
    },
-   par={$vec$,$dim$}
+   par={"vec","dim"}
 ]], function(a, pl)
    if pl.x-pl.rx > a.x-a.rx and pl.x+pl.rx < a.x+a.rx
       and pl.y-pl.ry > a.y-a.ry and pl.y+pl.ry < a.y+a.ry then
@@ -310,7 +310,7 @@ create_parent(
 end)
 
 create_parent(
-[[ id=$col$,
+[[ id="col",
    att={
       static=false,
       touchable=true,
@@ -319,7 +319,7 @@ create_parent(
       hit=nf,
       move_check=@1
    },
-   par={$vec$,$dim$}
+   par={"vec","dim"}
 ]], function(a, acts)
    local hit_list = {}
    local move_check = function(dx, dy)
@@ -346,8 +346,8 @@ create_parent(
                if not hit_list[b] then hit_list[b] = {x=0, y=0} end
 
                batch_call(col_help, [[
-                  {$x$, $dx$, @1, @2, @3, @4},
-                  {$y$, $dy$, @1, @2, @5, @6}
+                  {"x", "dx", @1, @2, @3, @4},
+                  {"y", "dy", @1, @2, @5, @6}
                ]], a, b, x, dx, y, dy)
             end
          end
@@ -373,12 +373,12 @@ create_parent(
 end)
 
 create_parent(
-[[ id=$tcol$,
+[[ id="tcol",
    att={
-      $tile_hit$=nf,
-      $coll_tile$=@1
+      "tile_hit"=nf,
+      "coll_tile"=@1
    },
-   par={$vec$,$dim$}
+   par={"vec","dim"}
 ]], function(a, solid_func)
    a.x, a.dx = coll_tile_help(a.x, a.y, a.dx, a.rx, a.ry, 0, a, a.tile_hit, solid_func)
    a.y, a.dy = coll_tile_help(a.y, a.x, a.dy, a.ry, a.rx, 2, a, a.tile_hit, function(y, x) return solid_func(x, y) end)

@@ -3,35 +3,8 @@ version 18
 __lua__
 -- zeldo game
 -- amorg
+#include _compiled.lua
 
-#include src/lib.lua
-#include src/draw.lua
-#include src/att.lua
-#include src/clock.lua
-
-#include src/save.lua
-#include src/story.lua
-#include src/map.lua
-#include src/pattern.lua
-
-#include src/menu.lua
-#include src/logo.lua
-#include src/tbox.lua
-#include src/tcol.lua
-#include src/view.lua
-
-#include src/monsters.lua
-#include src/objects.lua
-#include src/npcs.lua
-#include src/inventory.lua
-
-#include src/move_funcs.lua
-#include src/pl.lua
-
-#include src/squares.lua
-
--- the game
-#include src/demo.lua
 __gfx__
 00000000001111000111100001111000001111000111111011111111011111105d00000000000000000000000000000000000000000000000000000000000000
 00000000013363101149411011d6d110111661111566665112dddd211166661056d00000000000000000000000000040000000000009000000000000001d0000

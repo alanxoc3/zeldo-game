@@ -1,14 +1,14 @@
 g_att.lark = function(x, y)
    return create_actor([[
-      id=$lark$,
+      id="lark",
       att={
          sind=108,rx=.5,ry=.5,iyy=-2,
          x=@1, y=@2, i=@3, u=@4
-      }, par={$confined$,$ospr$,$wall$}
+      }, par={"confined","ospr","wall"}
       ]],x,y, function(a)
          local func = function()
             if btnp(4) and g_selected == "interact" then
-               tbox("lark:heya lank, i'm yer biggest fan!")
+               tbox("|lark:heya lank, i'm yer biggest fan!")
             end
          end
 

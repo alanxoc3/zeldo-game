@@ -18,20 +18,20 @@ function inventory_init()
 
    -- global_items
    g_all_items = gun_vals([[
-      sword    = {func=@1, sind=09, desc=$^sword:hurts bad guys.$},
-      banjo    = {func=@2, sind=08, desc=$^banjo:play a sick tune!$},
-      shield   = {func=@3, sind=14, desc=$^shield:be safe from enemy attacks.$},
-      brang    = {func=@4, sind=12, desc=$^brang:stun baddies. get items.$},
-      shovel   = {func=@5, sind=11, desc=$^shovel:dig things up. kill the grass.$},
-      bomb     = {func=@6, sind=13, desc=$^bomb:only 5 power squares to blows things up!$},
-      bow      = {func=@7, sind=15, desc=$^bow:shoots enemies. needs 2 power squares.$},
-      force    = {func=@8, sind=10, desc=$^sqr'force:don't let ivan take it from you!$},
-      interact = {sind=43, desc=$^interact:talk to people, pick up things, read signs.$},
-      letter   = {sind=44, desc=$^letter:dinner is ready for a special someone.$},
-      soul     = {sind=45, desc=$^soul:the soul of an angry family member.$},
-      chicken  = {sind=46, desc=$^chicken:looks delicious.$},
-      key      = {sind=47, desc=$^key:i wonder what it opens.$},
-      nothing  = {sind=43, desc=$^empty:there is no item in this space.$}
+      sword    = {func=@1, sind=09, desc="|^sword:hurts bad guys."},
+      banjo    = {func=@2, sind=08, desc="|^banjo:play a sick tune!"},
+      shield   = {func=@3, sind=14, desc="|^shield:be safe from enemy attacks."},
+      brang    = {func=@4, sind=12, desc="|^brang:stun baddies. get items."},
+      shovel   = {func=@5, sind=11, desc="|^shovel:dig things up. kill the grass."},
+      bomb     = {func=@6, sind=13, desc="|^bomb:only 5 power squares to blows things up!"},
+      bow      = {func=@7, sind=15, desc="|^bow:shoots enemies. needs 2 power squares."},
+      force    = {func=@8, sind=10, desc="|^sqr'force:don't let ivan take it from you!"},
+      interact = {sind=43, desc="|^interact:talk to people, pick up things, read signs."},
+      letter   = {sind=44, desc="|^letter:dinner is ready for a special someone."},
+      soul     = {sind=45, desc="|^soul:the soul of an angry family member."},
+      chicken  = {sind=46, desc="|^chicken:looks delicious."},
+      key      = {sind=47, desc="|^key:i wonder what it opens."},
+      nothing  = {sind=43, desc="|^empty:there is no item in this space."}
    ]], create_sword, create_banjo, create_shield, create_brang, create_shovel, create_bomb, create_bow, create_force)
 
    add(g_inventory, "interact")
@@ -138,7 +138,7 @@ function inventory_draw(x, y)
       end
 
       if item then
-         draw_inv_box(lx,ly,g_all_items[item].sind, ind ~= g_new_selected)
+         draw_inv_box(lx,ly,g_all_items[item].sind, ind != g_new_selected)
       else
          rectfill(lx-1,ly-1,lx,ly, 1)
       end
@@ -151,7 +151,7 @@ end
 
 function create_bomb(pl)
    return create_actor([[
-      id=$lank_bomb$,
+      id="lank_bomb",
       att={
          holding=true,
          rx=.375,
@@ -159,7 +159,7 @@ function create_bomb(pl)
          sind=13,
          xf=@1
       },
-      par={$confined$,$col$,$mov$,$ospr$},
+      par={"confined","col","mov","ospr"},
       tl={
          {i=@2, u=@3}
       }
@@ -179,7 +179,7 @@ end
 
 function create_brang(pl)
    return create_actor([[
-      id=$lank_brang$,
+      id="lank_brang",
       att={
          holding=true,
          rx=.375,
@@ -190,7 +190,7 @@ function create_brang(pl)
          xf=@1,
          touchable=false
       },
-      par={$confined$,$anim$,$col$,$mov$,$ospr$},
+      par={"confined","anim","col","mov","ospr"},
       tl={
          {hit=@2, i=@3, u=@4, tl_tim=.25},
          {hit=@2, i=@5, u=@6}
@@ -250,7 +250,7 @@ end
 function create_shield(pl)
    local dist = .625
    return create_actor([[
-      id=$lank_shield$,
+      id="lank_shield",
       att={
          block=true,
          holding=true,
@@ -262,7 +262,7 @@ function create_shield(pl)
          xf=@1,
          touchable=false
       },
-      par={$confined$,$rel$,$spr$,$col$,$ospr$},
+      par={"confined","rel","spr","col","ospr"},
       tl={
          {hit=@2, i=@3, u=@4, tl_tim=.4},
          {hit=@2, i=nf, u=@5}
@@ -316,7 +316,7 @@ end
 
 function create_banjo(pl)
    return create_actor([[
-      id=$lank_banjo$,
+      id="lank_banjo",
       att={
          holding=true,
          rx=.3,
@@ -326,7 +326,7 @@ function create_banjo(pl)
          touchable=false,
          i=@2, u=@3
       },
-      par={$confined$,$rel$,$spr$,$col$,$ospr$}
+      par={"confined","rel","spr","col","ospr"}
       ]],
       pl.xf,
       -- init 1
@@ -345,7 +345,7 @@ end
 
 function create_shovel(pl)
    return create_actor([[
-      id=$lank_shovel$,
+      id="lank_shovel",
       att={
          holding=true,
          rx=.3,
@@ -355,7 +355,7 @@ function create_shovel(pl)
          touchable=false,
          i=@2, u=@3
       },
-      par={$confined$,$rel$,$ospr$}
+      par={"confined","rel","ospr"}
       ]],
       not pl.xf,
       -- init 1
@@ -381,7 +381,7 @@ end
 -- teleports to different places
 function create_force(pl)
    return create_actor([[
-      id=$lank_force$,
+      id="lank_force",
       att={
          holding=true,
          rx=.3,
@@ -392,7 +392,7 @@ function create_force(pl)
          u=@3,
          touchable=false
       },
-      par={$confined$,$rel$,$ospr$}
+      par={"confined","rel","ospr"}
       ]], pl.xf, function(a)
          -- random room index
          local i = flr(rnd(5))+1
@@ -407,7 +407,7 @@ end
 
 function create_sword(pl)
    return create_actor([[
-      id=$lank_sword$,
+      id="lank_sword",
       att={
          holding=true,
          rx=.5,
@@ -419,7 +419,7 @@ function create_sword(pl)
          xf=@1,
          touchable=false
       },
-      par={$confined$,$rel$,$spr$,$col$,$ospr$},
+      par={"confined","rel","spr","col","ospr"},
       tl={
          {hit=@2, i=@3, u=@4, tl_tim=.4},
          {hit=@2, i=nf, u=@5}
@@ -472,7 +472,7 @@ end
 
 function create_bow(pl)
    return create_actor([[
-      id=$lank_bow$,
+      id="lank_bow",
       att={
          holding=true,
          rx=.5,
@@ -484,7 +484,7 @@ function create_bow(pl)
          destroyed=@5,
          touchable=false
       },
-      par={$confined$,$rel$,$ospr$},
+      par={"confined","rel","ospr"},
       tl={
          {i=@2, u=@3, tl_tim=.4},
          {i=nf, u=@4}

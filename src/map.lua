@@ -113,7 +113,7 @@ function room_update()
       elseif g_pl.x < g_rx +.5       then dir = 'l'
       end
 
-      if dir ~= nil and cur_room[dir] then
+      if dir != nil and cur_room[dir] then
          transition_room(cur_room[dir][1], cur_room[dir][2], cur_room[dir][3], dir)
       end
    end

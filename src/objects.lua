@@ -1,7 +1,7 @@
 -- todo: trim code here.
 g_att.house = function(x, y, room, rx, ry, sind)
    return create_actor([[
-      id=$house$,
+      id="house",
       att={
          x=@1, y=@2,
          room=@3, room_x=@4, room_y=@5,
@@ -9,7 +9,7 @@ g_att.house = function(x, y, room, rx, ry, sind)
          destroyed=@8, sind=@9,
          iyy=-4,
          sw=2, sh=2
-      }, par={$confined$,$ospr$}
+      }, par={"confined","ospr"}
       ]],x,y,room,rx,ry,
       -- trigger
       function(a, other)
@@ -29,12 +29,12 @@ end
 
 g_att.sign = function(x, y, text)
    return create_actor([[
-      id=$sign$,
+      id="sign",
       att={
          sind=51,rx=.5,ry=.5,
          x=@1, y=@2,
          text=@3, i=@4
-      }, par={$confined$,$ospr$,$wall$}
+      }, par={"confined","ospr","wall"}
       ]],x,y,text,
       function(a)
          a.trig = gen_trigger_block(a.x, a.y+1, 7/8, .5, function(a, other)
@@ -48,14 +48,14 @@ end
 
 g_att.money = function(x, y, dx, dy)
    return create_actor([[
-      id=$money$,
+      id="money",
       att={
          sind=40,rx=.375,ry=.375,
          x=@1, y=@2,
          dx=@3, dy=@4,
          touchable=false,
          hit=@5,
-      }, par={$bounded$,$confined$,$tcol$,$ospr$,$col$,$mov$},
+      }, par={"bounded","confined","tcol","ospr","col","mov"},
       tl={
          {tl_tim=5},
          {i=@6}
@@ -74,31 +74,31 @@ end
 
 function gen_static_block(x, y, rx, ry)
    return create_actor([[
-      id=$rect_block$,
+      id="rect_block",
       att={
          x=@1, y=@2, rx=@3, ry=@4,
          static=true,
          touchable=true
       },
-      par={$confined$, $wall$}
+      par={"confined", "wall"}
       ]],x,y,rx,ry
    )
 end
 
 function gen_trigger_block(x, y, rx, ry, contains)
    return create_actor([[
-      id=$trigger_block$,
+      id="trigger_block",
       att={
          x=@1, y=@2, rx=@3, ry=@4, trigger=@5
       },
-      par={$confined$, $trig$}
+      par={"confined", "trig"}
       ]],x,y,rx,ry,contains
    )
 end
 
 g_att.arrow = function(x, y, left)
    return create_actor([[
-      id=$arrow$,
+      id="arrow",
       att={
          x=@1, y=@2,
          rx=.375,ry=.375,
@@ -106,7 +106,7 @@ g_att.arrow = function(x, y, left)
          touchable=false,
          ax=@4
       },
-      par={$confined$,$mov$,$col$,$ospr$},
+      par={"confined","mov","col","ospr"},
       tl={
          {hit=@5, tl_tim=3},
          {i=@6}
@@ -133,12 +133,12 @@ end
 
 g_att.pot = function(x, y)
    return create_actor([[
-      id=$pot$,
+      id="pot",
       att={
          sind=49,rx=.375,ry=.375,
          x=@1, y=@2,
          touchable=true,
-      }, par={$bounded$,$confined$,$tcol$,$ospr$,$col$,$mov$},
+      }, par={"bounded","confined","tcol","ospr","col","mov"},
       ]],x,y
    )
 end

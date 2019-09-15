@@ -1,11 +1,11 @@
 function create_lank_top()
    return create_actor([[
-      id=$lank_top$,
+      id="lank_top",
       att={
          sind=59,
          iyy=-2,
          u=@1
-      }, par={$rel$,$ospr$}
+      }, par={"rel","ospr"}
    ]], function(a)
       a.xf = g_pl.xf
       a.alive = g_pl.alive
@@ -15,7 +15,7 @@ end
 function gen_pl(x, y)
    create_lank_top()
    return create_actor(
-      [[ id=$pl$,
+      [[ id="pl",
          att={
             x=@1,
             y=@2,
@@ -32,7 +32,7 @@ function gen_pl(x, y)
             health=50,
             u=@4, d=@5, hit=@3, destroyed=@6
          },
-         par={$anim$,$col$,$mov$,$tcol$,$hurtable$,$knockable$,$stunnable$,$ospr$}
+         par={"anim","col","mov","tcol","hurtable","knockable","stunnable","ospr"}
       ]], x, y,
       function(self, other, xdir, ydir)
       end, function(a)

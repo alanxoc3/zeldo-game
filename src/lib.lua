@@ -47,7 +47,8 @@ function gun_vals_helper(val_str,i,new_params)
 
    while i <= #val_str do
       local x = sub(val_str, i, i)
-      if     x == "$" then str_mode, isnum = not str_mode
+      if     x == "\"" then str_mode, isnum = not str_mode
+      elseif x == "|" then -- do nothing, for perl minimizer.
       elseif str_mode then val=val..x
       elseif x == "}" or x == "," then
          if type(val) == "table" or not isnum then
