@@ -310,6 +310,12 @@ create_parent(
 end)
 
 create_parent(
+[[ id="item",
+   att={},
+   par={"confined","ospr"}
+]])
+
+create_parent(
 [[ id="col",
    att={
       static=false,

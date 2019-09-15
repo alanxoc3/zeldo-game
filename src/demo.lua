@@ -1,7 +1,6 @@
--- token: 7026 > 7026
--- compr: 2774 > 2805
+-- token: 7026 > 7026 > 7029 > 7012
+-- compr: 2774 > 2805 > 2829 > 2881
 
--- todo: copy logic for contains, between trigger and col (or remove it from col).
 -- todo: tbox only interact if in interact state.
 -- todo: more efficient trigger (only interact with player, at least think about this more).
 -- todo: fix screen pause and tbox double press bugs.
@@ -38,6 +37,7 @@
 
 
 -- things that are done:
+-- done: copy logic for contains, between trigger and col (or remove it from col).
 -- done: house needs to clean up after itself.
 -- done: see if caden can fetch/merge.
 -- done: delete old map room logic.

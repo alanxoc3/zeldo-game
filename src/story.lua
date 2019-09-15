@@ -15,7 +15,8 @@ function map_init()
          {"sign",13.5,24.5,"|sign:hiroll shop"},
          {"sign",04.5,22.5,"|sign:ole banjo's house"},
          {"sign",27.5,22.5,"|sign:hiroll tutorial"},
-         {"lark",14,28}
+         {"lark",14,28},
+         {"top",15,29}
       },
 
       "field"={n="hiroll",   c=03,t=17,x=032,y=16,w=32,h=16,l={"villa",031,29},r={"cem_1",033,02}},
