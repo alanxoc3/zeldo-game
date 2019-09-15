@@ -84,7 +84,7 @@ function draw_stat(x, y, a, flip)
       draw_ma(flip and (x-17) or x,y,a)
       draw_health_bar(operator2,y+7,a.max_health,a.health, flip)
 
-      zprint(a.id,align_text(a.id, operator, flip),y)
+      zprint(a.name,align_text(a.name, operator, flip),y)
       zprint(health_str,align_text(health_str, operator, flip),y+13,true)
    end
 end

@@ -6,6 +6,7 @@ g_att.top = function(x, y)
    return create_actor([[
       id="top",
       att={
+         name="|topper",
          evil=true,
          x=@1,
          y=@2,
