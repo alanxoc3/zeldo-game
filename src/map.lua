@@ -34,7 +34,7 @@ function isorty(t)
         local i=n
         while i>1 and t[i].y<t[i-1].y do
             t[i],t[i-1]=t[i-1],t[i]
-            i-=1
+            i=i-1
         end
     end
 end

@@ -68,27 +68,6 @@ sub remove_spaces {
    return @new_lines;
 }
 
-sub remove_spaces2 {
-   my @new_lines;
-
-   for (@_) {
-      my $line = $_;
-      $line =~ s/^\s+|\s+$//g;
-      $line =~ s/ +/ /g;
-      $line =~ s/" and/"and/g;
-      $line =~ s/" or/"or/g;
-      $line =~ s/" then/"then/g;
-      # get rid of spaces between symbols.
-      # \-\*\+\=\<\>\{\}\(\)\[\]
-      $line =~ s/\s?([\,\%\!\/\.])\s?/$1/g;
-      if (length($line) > 0) {
-         push @new_lines, $line;
-      }
-   }
-
-   return @new_lines;
-}
-
 sub remove_comments {
    my @new_lines;
 
@@ -174,6 +153,17 @@ sub tokenize_lines {
    for (@_) {
       my $line = $_;
       $line =~ s/([\W]*\b)([a-z_]\w*)/test_eval($1,$2)/ge;
+      push @new_lines, $line;
+   }
+
+   return @new_lines
+}
+
+sub pop_text_logics {
+   my @new_lines;
+
+   for (@_) {
+      my $line = $_;
       $line =~ s/(P_TEXT_LOGIC)/pop_text($1)/ge;
       push @new_lines, $line;
    }
@@ -184,9 +174,11 @@ sub tokenize_lines {
 @lines = remove_spaces(@lines);
 my $file_line = join(" ",@lines);
 @lines = ($file_line);
-@lines = remove_spaces2(@lines);
+@lines = remove_spaces(@lines);
 @lines = tokenize_lines(@lines);
-# $file_line = remove_spaces_one_line($file_line);
 
-# print "$file_line\n";
-print "$_\n" for(@lines);
+# Uncomment for each thing to go on its own line.
+# Note that this is slightly more compression space.
+# $lines[0] =~ s/([^\"]) ([^\"])/$1\n$2/g;
+@lines = pop_text_logics(@lines);
+print "$_" for @lines;
