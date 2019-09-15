@@ -1,7 +1,5 @@
 #!/usr/bin/perl
 
-# lowercase()
-
 use warnings;
 use strict;
 use experimental 'smartmatch';
@@ -23,7 +21,9 @@ stop menuitem type tostr tonum extcmd ls fillp time assert t _update_buttons
 count mapdraw self ? __index rotl
 );
 
-my $char_inc = "abcdefghijklmnopqrstuvwxyz";
+# Order of commonly used letters in the English language.
+# Saves *about* 30 compression tokens.
+my $char_inc = "etaoinsrhldcumfpgwybvkxjqz";
 
 my @cur_char_arr;
 sub get_next_var_name { 
@@ -107,6 +107,8 @@ sub remove_texts {
 }
 
 sub populate_vars {
+   # tokenize based on most used tokens.
+   # this saves about 100 compression tokens.
    my %vars;
    for (@_) {
       my $line = $_;
@@ -114,11 +116,20 @@ sub populate_vars {
       foreach(@matches) {
          if (not ($_ ~~ @pico8_api or $_ ~~ @lua_keywords)) {
             if (not exists($vars{$_})) {
-               $vars{$_} = get_next_var_name();
+               $vars{$_} = 0;
+            } else {
+               $vars{$_}++;
             }
          }
       }
    }
+
+   # assign most used tokens to correct variables.
+   foreach my $name (reverse sort { $vars{$a} <=> $vars{$b} } keys %vars) {
+      print STDERR "$vars{$name}: $name\n";
+      $vars{$name} = get_next_var_name();
+   }
+
    return %vars;
 }
 

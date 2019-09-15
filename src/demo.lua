@@ -1,5 +1,5 @@
--- the story of zeldo
--- amorg games
+-- token:  7026 >
+-- compr: 12774 >
 
 -- todo: copy logic for contains, between trigger and col (or remove it from col).
 -- todo: tbox only interact if in interact state.
@@ -101,12 +101,6 @@
 -- done: make a sign
 -- done: create 2 parts of lank (feet and arms).
 
--- token:
--- 5180 5168 5166 5129 5258 5248 5244 5076 4983 5005 4994 4986 4985 4976 4965
--- 4971 4979 6068 6057 6053 5881 5811 5795 5778 5855 5748 5835 5918 6343
-
--- compress:
--- 16285 15360
 
 g_debug = false
 

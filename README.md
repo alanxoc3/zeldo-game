@@ -1,8 +1,5 @@
 # A Story Of Zeldo
-Lank finds himself waking up from a goodnight's rest, but something is missing.
-He has lost his memory! You gotta help Lank save the Land of Hiroll from the
-forces of evil!
+Lank wakes up from a good night's rest only to find Hiroll in danger! You gotta
+help him save the Land of Hiroll from the forces of evil.
 
-Enjoy my game.
-
-Made with <3 in PICO-8.
+Enjoy my game. Made with <3 in PICO-8.
