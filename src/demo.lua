@@ -1,5 +1,5 @@
--- token: 7026 > 7026 > 7029 > 7012
--- compr: 2774 > 2805 > 2829 > 2881
+-- token: 7026 > 7026 > 7029 > 7012 > 7047
+-- compr: 2774 > 2805 > 2829 > 2881 > 2940
 
 -- todo: tbox only interact if in interact state.
 -- todo: more efficient trigger (only interact with player, at least think about this more).

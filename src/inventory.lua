@@ -207,9 +207,8 @@ function create_brang(pl)
             if other.stunnable then
                other.stun(other, 60)
             end
-
             if a.cur == 1 then
-               return true
+               tl_next(a, 2)
             end
          elseif other.pl then
             if a.cur == 2 then
@@ -222,27 +221,22 @@ function create_brang(pl)
       function(a)
          a.x, a.y = pl.x, pl.y
          a.ax = a.xf and -.07 or .07
+         use_energy(10)
       end,
       -- update 1
       function(a)
-         use_energy(.75)
+         pause_energy()
          if g_energy_tired or not a.holding then
-            -- return true
+            return true
          end
       end,
       -- init 2
       function(a)
-         -- if pl.item == a then
-            -- pl.item = nil
-         -- end
       end,
       -- update 2
       function(a)
-         use_energy(.5)
+         pause_energy()
          amov_to_actor(a, pl, .07)
-         -- if not a.holding then
-            -- a.alive, pl.item = false
-         -- end
       end
       )
 end
@@ -299,8 +293,7 @@ function create_shovel(pl)
       -- update 1
       function(a)
          local val = mget(a.x,a.y)
-         -- todo: shorten this
-         if val == 16 or val == 17 or val == 18 or val == 19 or val == 20 then
+         if val >= 16 and val <= 20 then
             mset(a.x, a.y, 25)
          end
 
@@ -364,10 +357,10 @@ function create_bow(pl)
          a.rel_dx = a.xf and -.125 or .125
          a.ixx = a.xf and -1 or 1
          a.poke = 20
+         use_energy(5)
       end,
       -- update 1
       function(a)
-         use_energy(.75)
          act_poke(a, -1, 0)
          local dist = 3/8
          if abs(a.rel_dx + a.rel_x) < dist then
@@ -376,14 +369,15 @@ function create_bow(pl)
             local neg_one = -dist
             a.rel_dx, a.rel_x = 0, a.xf and neg_one or dist
          end
+         pause_energy()
       end,
       -- update 2
       function(a)
-         use_energy(.25)
          act_poke(a, -1, 0)
          if not a.holding then
             a.alive, pl.item = false
          end
+         pause_energy()
       end, function(a)
          if remove_money(1) then
             g_att.arrow(a.x, a.y, a.xf)
@@ -396,7 +390,9 @@ end
 function sword_shield_hit(a, o, a_knock, o_knock, o_stun, o_hurt, poke, energy)
    if o.evil then
       a.poke = poke
-      use_energy(energy)
+      if a.cur != 1 then
+         use_energy(energy)
+      end
       change_cur_enemy(o)
 
       if o.knockable then
@@ -419,7 +415,7 @@ function create_sword(pl)
          rel_y=0,
          iyy=-2,
          sind=9,
-         poke=0,
+         poke=20,
          xf=@1,
          touchable=false
       },
@@ -432,17 +428,16 @@ function create_sword(pl)
       pl.xf,
       -- hit
       function(a, other)
-         sword_shield_hit(a,other,.3, (a.cur == 1) and .3 or .1, 30, 55, 10, .5)
+         sword_shield_hit(a,other,.3, (a.cur == 1) and .3 or .1, 30, (a.cur == 1) and 10 or 5, 10, 10)
       end,
       -- init 1
       function(a)
          a.rel_dx = a.xf and -.125 or .125
          a.ixx = a.xf and -1 or 1
-         a.poke = 20
+         use_energy(20)
       end,
       -- update 1
       function(a)
-         use_energy(.75)
          act_poke(a, -1, 0)
          if abs(a.rel_dx + a.rel_x) < 1 then
             a.rel_x += a.rel_dx
@@ -450,14 +445,15 @@ function create_sword(pl)
             local neg_one = -1
             a.rel_dx, a.rel_x = 0, a.xf and neg_one or 1
          end
+         pause_energy()
       end,
       -- update 2
       function(a)
-         use_energy(.25)
          act_poke(a, -1, 0)
          if not a.holding then
             a.alive, pl.item = false
          end
+         pause_energy()
       end
    )
 end
@@ -475,6 +471,7 @@ function create_shield(pl)
          poke=20,
          sind=14,
          xf=@1,
+         poke=20,
          touchable=false
       },
       par={"item","rel","col"},
@@ -486,17 +483,16 @@ function create_shield(pl)
       pl.xf,
       -- hit
       function(a, other)
-         sword_shield_hit(a,other,.1, (a.cur == 1) and .4 or .2, a.cur == 1 and other.stunnable and 60 or 0, 0, 10, .25)
+         sword_shield_hit(a,other,.1, (a.cur == 1) and .4 or .2, a.cur == 1 and other.stunnable and 60 or 0, 0, 10, 5)
       end,
       -- init 1
       function(a) 
          a.rel_dx = a.xf and -dist/10 or dist/10
          a.ixx = a.xf and -3 or 3
-         a.poke = 20
+         use_energy(10)
       end,
       -- update 1
       function(a)
-         use_energy(.75)
          act_poke(a,  0, 1)
          if abs(a.rel_dx + a.rel_x) < dist then
             a.rel_x += a.rel_dx
@@ -504,14 +500,15 @@ function create_shield(pl)
             local neg_one = -dist
             a.rel_dx, a.rel_x = 0, a.xf and neg_one or dist
          end
+         pause_energy()
       end,
       -- update 2
       function(a)
-         use_energy(.25)
          act_poke(a,  0, 1)
          if not a.holding then
             a.alive, pl.item = false
          end
+         pause_energy()
       end
    )
 end
