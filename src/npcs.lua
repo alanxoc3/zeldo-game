@@ -7,7 +7,7 @@ g_att.lark = function(x, y)
       }, par={"confined","ospr","wall"}
       ]],x,y, function(a)
          local func = function()
-            if btnp(4) and g_selected == "interact" then
+            if btnp(4) and g_selected == G_INTERACT then
                tbox("|lark:heya lank bro, i'm yer biggest fan!")
             end
          end

@@ -1,5 +1,5 @@
--- token: 7026 > 7026 > 7029 > 7012 > 7047
--- compr: 2774 > 2805 > 2829 > 2881 > 2940
+-- token: 7026 7026 7029 7012 7047 7047 7013 6991
+-- compr: 2774 2805 2829 2881 2940 2763 2750 2748
 
 -- todo: tbox only interact if in interact state.
 -- todo: more efficient trigger (only interact with player, at least think about this more).
@@ -127,7 +127,7 @@ function _init()
 end
 
 function _update60()
-   if btnp(5) then g_debug = not g_debug end
+   if btnp(5) and btn(4) then g_debug = not g_debug end
    tl_update(g_tl)
    tbox_interact()
 end

@@ -1,3 +1,5 @@
+G_INTERACT = 5
+
 function act_poke(a, ix1, ix2)
    if a.poke > 0 then
       a.poke -= 1
@@ -8,60 +10,39 @@ function act_poke(a, ix1, ix2)
 end
 
 function inventory_init()
-   g_selected="interact"
-   g_new_selected=1
-
-   g_inventory = {}
-   -- add and delete examples
-   -- add(g_inventory, "soul")
-   -- del(g_inventory, "interact")
-
    -- global_items
-   g_all_items = gun_vals([[
-      sword    = {func=@1, sind=09, desc="|^sword:hurts bad guys."},
-      banjo    = {func=@2, sind=08, desc="|^banjo:play a sick tune!"},
-      shield   = {func=@3, sind=14, desc="|^shield:be safe from enemy attacks."},
-      brang    = {func=@4, sind=12, desc="|^brang:stun baddies. get items."},
-      shovel   = {func=@5, sind=11, desc="|^shovel:dig things up. kill the grass."},
-      bomb     = {func=@6, sind=13, desc="|^bomb:only 5 power squares to blows things up!"},
-      bow      = {func=@7, sind=15, desc="|^bow:shoots enemies. needs 2 power squares."},
-      force    = {func=@8, sind=10, desc="|^sqr'force:don't let ivan take it from you!"},
-      interact = {sind=43, desc="|^interact:talk to people, pick up things, read signs."},
-      letter   = {sind=44, desc="|^letter:dinner is ready for a special someone."},
-      soul     = {sind=45, desc="|^soul:the soul of an angry family member."},
-      chicken  = {sind=46, desc="|^chicken:looks delicious."},
-      key      = {sind=47, desc="|^key:i wonder what it opens."},
-      nothing  = {sind=43, desc="|^empty:there is no item in this space."}
-   ]], create_sword, create_banjo, create_shield, create_brang, create_shovel, create_bomb, create_bow, create_force)
+   g_items = gun_vals([[
+      {name="banjo"   , enabled=true, func=@1, sind=08, desc="|^banjo:play a sick tune!"},
+      {name="brang"   , enabled=true, func=@2, sind=12, desc="|^brang:stun baddies. get items."},
+      {name="shovel"  , enabled=true, func=@3, sind=11, desc="|^shovel:dig things up. kill the grass."},
+      {name="shield"  , enabled=true, func=@4, sind=14, desc="|^shield:be safe from enemy attacks."},
+      {name="interact", enabled=true, func=nf, sind=43, desc="|^interact:talk to people, pick up things, read signs."},
+      {name="sword"   , enabled=true, func=@5, sind=09, desc="|^sword:hurts bad guys."},
+      {name="bomb"    , enabled=true, func=@6, sind=13, desc="|^bomb:only 5 power squares to blows things up!"},
+      {name="bow"     , enabled=true, func=@7, sind=15, desc="|^bow:shoots enemies. needs 2 power squares."},
+      {name="force"   , enabled=true, func=@8, sind=10, desc="|^sqr'force:don't let ivan take it from you!"}
+   ]], create_banjo, create_brang, create_shovel, create_shield, create_sword, create_bomb, create_bow, create_force)
 
-   add(g_inventory, "interact")
-   add(g_inventory, "bow")
-   add(g_inventory, "shovel")
-   add(g_inventory, "sword")
-   add(g_inventory, "banjo")
-   add(g_inventory, "shield")
-   add(g_inventory, "brang")
-   add(g_inventory, "bomb")
-   add(g_inventory, "force")
+   g_selected=G_INTERACT
 end
 
-g_item_order  ={5,4,6,2,8,1,3,7,9}
-g_item_reverse={6,4,7,2,1,3,8,5,9}
-function index_to_coord(ind)
-   local order = g_item_order[ind]-1
-   return order%3, flr(order/3)
+function get_selected_item(ind)
+   local item = g_items[ind or g_selected]
+   return item.enabled and item or nil
 end
 
 function inventory_update()
    -- tbox logic
+   local item = get_selected_item()
+
    if not g_menu_open and btn(5) then
       tbox_stash_push()
-      tbox(g_all_items[g_inventory[g_new_selected]].desc)
+      tbox(g_items[g_selected].desc)
    end
 
    if g_menu_open and not btn(5) then
       tbox_stash_pop()
-      g_selected, g_new_selected = g_inventory[g_new_selected] or "interact", 1
+      g_next_selected = G_INTERACT
    end
 
    g_menu_open  = btn(5)
@@ -70,7 +51,7 @@ function inventory_update()
       if g_pl.item then g_pl.item.holding = false end
 
       -- from index to coordinate
-      local x, y = index_to_coord(g_new_selected)
+      local x, y = (g_selected-1)%3, flr((g_selected-1)/3)
 
       if btnp(0) then x -= 1 end
       if btnp(1) then x += 1 end
@@ -81,19 +62,19 @@ function inventory_update()
       x, y = max(0,min(x,2)), max(0,min(y,2))
 
       -- from coordinate to index
-      local next_selected = g_item_reverse[y*3+x+1]
+      local next_selected = y*3+x+1
 
-      if g_new_selected != next_selected then
+      if g_selected != next_selected then
          tbox_clear()
 
-         if g_inventory[next_selected] then
-            tbox(g_all_items[g_inventory[next_selected]].desc)
+         if get_selected_item(next_selected) then
+            tbox(get_selected_item(next_selected).desc)
          else
-            tbox(g_all_items.nothing.desc)
+            tbox("|^nothing:no item selected")
          end
       end
 
-      g_new_selected = next_selected
+      g_selected = next_selected
    end
 end
 
@@ -128,17 +109,17 @@ function inventory_draw(x, y)
    local select_x, select_y = 0, 0
 
    for ind=1,9 do 
-      local item = g_inventory[ind]
-      local item_x, item_y = index_to_coord(ind)
+      local item = get_selected_item(ind)
+      local item_x, item_y = (ind-1)%3, flr((ind-1)/3)
       local lx, ly = (x - 16 + item_x * 16), (y - 16 + item_y * 16)
 
-      if ind == g_new_selected then
+      if ind == g_selected then
          select_x = lx-4
          select_y = ly-4
       end
 
       if item then
-         draw_inv_box(lx,ly,g_all_items[item].sind, ind != g_new_selected)
+         draw_inv_box(lx,ly,item.sind, ind != g_selected)
       else
          rectfill(lx-1,ly-1,lx,ly, 1)
       end

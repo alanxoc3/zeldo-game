@@ -38,7 +38,7 @@ g_att.sign = function(x, y, text)
       ]],x,y,text,
       function(a)
          a.trig = gen_trigger_block(a.x, a.y+1, 7/8, .5, function(a, other)
-            if btnp(4) and g_selected == "interact" then
+            if btnp(4) and g_selected == G_INTERACT then
                tbox(text)
             end
          end)

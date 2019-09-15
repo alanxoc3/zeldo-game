@@ -1,0 +1,48 @@
+#!/usr/bin/perl
+
+use warnings;
+use strict;
+use experimental 'smartmatch';
+
+sub remove_spaces {
+   my @new_lines;
+
+   for (@_) {
+      my $line = $_;
+      $line =~ s/^\s+|\s+$//g;
+      $line =~ s/ +/ /g;
+      $line =~ s/" and/"and/g;
+      $line =~ s/" or/"or/g;
+      $line =~ s/" then/"then/g;
+      # get rid of spaces between symbols.
+      $line =~ s/\s?([\%\!\/\-\*\+\=\<\>\{\}\(\)\[\]\,\.])\s?/$1/g;
+      if (length($line) > 0) {
+         push @new_lines, $line;
+      }
+   }
+
+   return @new_lines;
+}
+
+sub remove_comments {
+   my @new_lines;
+
+   for (@_) {
+      my $line = $_;
+
+      my @matches = ($line =~ /--.*/g);
+      foreach(@matches) { $line =~ s/\Q$_\E//g; }
+
+      if (length($line) > 0) {
+         push @new_lines, $line;
+      }
+   }
+
+   return @new_lines;
+}
+
+my @lines = <>;
+chomp(@lines);
+@lines = remove_comments(@lines);
+@lines = remove_spaces(@lines);
+print "$_\n" for @lines;

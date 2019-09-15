@@ -62,7 +62,7 @@ function gen_pl(x, y)
 
          -- item logic
          if btn(4) and not btn(5) and not a.item and not g_energy_tired then
-            if g_selected != "bomb" or remove_money(5) then
+            if get_selected_item().name != "bomb" or remove_money(5) then
                a.item = gen_pl_item(a, g_selected)
             else
                -- todo: insert sfx here.
@@ -110,5 +110,5 @@ function gen_pl(x, y)
 end
 
 function gen_pl_item(pl, item_type)
-   return g_all_items[item_type] and g_all_items[item_type].func and g_all_items[item_type].func(pl)
+   return get_selected_item() and get_selected_item().func(pl)
 end

@@ -104,6 +104,4 @@ function draw_status()
       {1, 108, @1},
       {126, 108, @2, true}
    ]], g_pl, g_cur_enemy)
-
-   -- spr(g_all_items[g_selected].sind, 30, 106)
 end

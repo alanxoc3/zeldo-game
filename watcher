@@ -13,6 +13,6 @@ done
 inotifywait -e close_write,moved_to,create -m $DIRS |
 while read -r directory; do
   echo "'$directory' was changed."
-  # Compiling the game again, with my own minifier :D.
-  ./minifier $files_in_order > _compiled.lua
+  ./minifier_debug $files_in_order > _compiled_debug.lua
+  ./minifier_prod $files_in_order > _compiled_prod.lua
 done
