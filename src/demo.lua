@@ -1,5 +1,5 @@
--- token:  7026 >
--- compr: 12774 >
+-- token: 7026 > 7026
+-- compr: 2774 > 2805
 
 -- todo: copy logic for contains, between trigger and col (or remove it from col).
 -- todo: tbox only interact if in interact state.
