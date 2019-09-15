@@ -8,7 +8,7 @@ g_att.lark = function(x, y)
       ]],x,y, function(a)
          local func = function()
             if btnp(4) and g_selected == "interact" then
-               tbox("|lark:heya lank, i'm yer biggest fan!")
+               tbox("|lark:heya lank bro, i'm yer biggest fan!")
             end
          end
 
