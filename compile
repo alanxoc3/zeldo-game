@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+files_in_order="src/lib.lua src/draw.lua src/att.lua src/clock.lua src/save.lua src/story.lua src/map.lua src/pattern.lua src/menu.lua src/logo.lua src/tbox.lua src/tcol.lua src/view.lua src/monsters.lua src/objects.lua src/npcs.lua src/inventory.lua src/move_funcs.lua src/pl.lua src/squares.lua src/demo.lua"
+
+./minifier_debug $files_in_order > _compiled_debug.lua
+./minifier_prod $files_in_order > _compiled_prod.lua

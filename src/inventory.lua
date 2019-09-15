@@ -36,7 +36,7 @@ function inventory_update()
    local item = get_selected_item()
 
    if not g_menu_open and btn(5) then
-      g_selected = G_INTERACT
+      g_selected = G_INTERACT 
       tbox_stash_push()
       tbox(g_items[g_selected].desc)
    end
