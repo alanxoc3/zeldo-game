@@ -1,6 +1,8 @@
 -- token: 6991 6928 6926 6907
 -- compr: 2748 2816 2782 2776
 
+-- idea: for compression, reuse words from text boxes. It might just be a good idea.
+
 -- todo: tbox only interact if in interact state.
 -- todo: more efficient trigger (only interact with player, at least think about this more).
 -- todo: fix screen pause and tbox double press bugs.
