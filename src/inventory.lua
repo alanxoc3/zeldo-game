@@ -371,28 +371,62 @@ function create_bow(pl)
 end
 
 -- sword and shield
-function sword_shield_hit(a, o, a_knock, o_knock, o_stun, o_hurt, poke, energy)
+function sword_shield_hit(a, o)
    if o.evil then
-      a.poke = poke
+      a.poke = a.poke_val
       if a.cur != 1 then
-         use_energy(energy)
+         use_energy(a.energy)
       end
       change_cur_enemy(o)
 
       if o.knockable then
-         o.knockback(o, o_knock, a.xf and -1 or 1, 0)
-         g_pl.knockback(g_pl, a_knock, a.xf and 1 or -1, 0)
+         o.knockback(o, (a.cur == 1) and (a.o_knock*2) or a.o_knock, a.xf and -1 or 1, 0)
+         g_pl.knockback(g_pl, a.pl_knock, a.xf and 1 or -1, 0)
       end
 
-      call_not_nil("stun", o, o_stun)
-      call_not_nil("hurt", o, o_hurt)
+      call_not_nil("stun", o, (a.cur == 1) and a.max_stun_val or a.min_stun_val)
+      call_not_nil("hurt", o, (a.cur == 1) and (a.o_hurt*2) or a.o_hurt)
    end
+end
+
+function sword_shield_u1(a)
+   act_poke(a, a.poke_beg, a.poke_end)
+   if abs(a.rel_dx + a.rel_x) < a.dist then
+      a.rel_x += a.rel_dx
+   else
+      a.rel_dx, a.rel_x = 0, a.xf and -a.dist or a.dist
+   end
+   pause_energy()
+end
+
+function sword_shield_i1(a, energy, number, xfspeed)
+   a.rel_dx = a.xf and -xfspeed or xfspeed
+   a.ixx = a.xf and -number or number
+   use_energy(energy)
+end
+
+function sword_shield_u2(a)
+   act_poke(a, a.poke_beg, a.poke_end)
+   if not a.holding then
+      a.alive, g_pl.item = false
+   end
+   pause_energy()
 end
 
 function create_sword(pl)
    return create_actor([[
       id="lank_sword",
       att={
+         max_stun_val=20,
+         min_stun_val=10,
+         energy=10,
+         poke_val=10,
+         pl_knock=.3,
+         o_knock=.1,
+         o_hurt=5,
+         poke_beg=-1,
+         poke_end=0,
+         dist=1,
          holding=true,
          rx=.5,
          ry=.375,
@@ -409,44 +443,27 @@ function create_sword(pl)
          {hit=@2, i=nf, u=@5}
       }
       ]],
-      pl.xf,
-      -- hit
-      function(a, other)
-         sword_shield_hit(a,other,.3, (a.cur == 1) and .3 or .1, 30, (a.cur == 1) and 10 or 5, 10, 10)
-      end,
-      -- init 1
+      pl.xf, sword_shield_hit,
       function(a)
-         a.rel_dx = a.xf and -.125 or .125
-         a.ixx = a.xf and -1 or 1
-         use_energy(20)
-      end,
-      -- update 1
-      function(a)
-         act_poke(a, -1, 0)
-         if abs(a.rel_dx + a.rel_x) < 1 then
-            a.rel_x += a.rel_dx
-         else
-            local neg_one = -1
-            a.rel_dx, a.rel_x = 0, a.xf and neg_one or 1
-         end
-         pause_energy()
-      end,
-      -- update 2
-      function(a)
-         act_poke(a, -1, 0)
-         if not a.holding then
-            a.alive, pl.item = false
-         end
-         pause_energy()
-      end
+         sword_shield_i1(a, 20, 1, .125)
+      end, sword_shield_u1, sword_shield_u2
    )
 end
 
 function create_shield(pl)
-   local dist = .625
    return create_actor([[
       id="lank_shield",
       att={
+         max_stun_val=60,
+         min_stun_val=0,
+         energy=5,
+         poke_val=10,
+         pl_knock=.1,
+         o_knock=.2,
+         o_hurt=0,
+         poke_beg=0,
+         poke_end=1,
+         dist=.625,
          block=true,
          holding=true,
          rx=.25,
@@ -464,36 +481,10 @@ function create_shield(pl)
          {hit=@2, i=nf, u=@5}
       }
    ]],
-      pl.xf,
-      -- hit
-      function(a, other)
-         sword_shield_hit(a,other,.1, (a.cur == 1) and .4 or .2, a.cur == 1 and other.stunnable and 60 or 0, 0, 10, 5)
-      end,
-      -- init 1
+      pl.xf, sword_shield_hit,
       function(a) 
-         a.rel_dx = a.xf and -dist/10 or dist/10
-         a.ixx = a.xf and -3 or 3
-         use_energy(10)
-      end,
-      -- update 1
-      function(a)
-         act_poke(a,  0, 1)
-         if abs(a.rel_dx + a.rel_x) < dist then
-            a.rel_x += a.rel_dx
-         else
-            local neg_one = -dist
-            a.rel_dx, a.rel_x = 0, a.xf and neg_one or dist
-         end
-         pause_energy()
-      end,
-      -- update 2
-      function(a)
-         act_poke(a,  0, 1)
-         if not a.holding then
-            a.alive, pl.item = false
-         end
-         pause_energy()
-      end
+         sword_shield_i1(a, 10, 3, .625/10)
+      end, sword_shield_u1, sword_shield_u2
    )
 end
 
