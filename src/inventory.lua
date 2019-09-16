@@ -14,7 +14,7 @@ function inventory_init()
    g_items = gun_vals([[
       {name="banjo"   , enabled=true, func=@1, sind=08, desc="|^banjo:play a sick tune!"},
       {name="brang"   , enabled=true, func=@2, sind=12, desc="|^brang:stun baddies. get items."},
-      {name="shovel"  , enabled=true, func=@3, sind=11, desc="|^shovel:dig things up. kill the grass."},
+      {name="shovel"  , enabled=false, func=@3, sind=11, desc="|^shovel:dig things up. kill the grass."},
       {name="shield"  , enabled=true, func=@4, sind=14, desc="|^shield:be safe from enemy attacks."},
       {name="interact", enabled=true, func=nf, sind=43, desc="|^interact:talk to people, pick up things, read signs."},
       {name="sword"   , enabled=true, func=@5, sind=09, desc="|^sword:hurts bad guys."},
@@ -43,6 +43,9 @@ function inventory_update()
 
    if g_menu_open and not btn(5) then
       tbox_stash_pop()
+      if not get_selected_item() then
+         g_selected = G_INTERACT
+      end
    end
 
    g_menu_open  = btn(5)
