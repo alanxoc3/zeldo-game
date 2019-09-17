@@ -123,13 +123,13 @@ end
 -- tl in tl.. how to do it?
 -- tl_update takes in a tl.
 
--- can return something for recursion?
+-- true is still executing
+-- false means that we are done looping
 function tl_update(tl, ...)
 	-- switch the state
 	if tl.tim == 0 then
       if not tl.tl_loop and tl.cur > 0 and tl.tl_nxt == 1 then
-         tl.alive = false
-         return
+         return false
       end
 
 		tl.cur = tl.tl_nxt
@@ -149,6 +149,8 @@ function tl_update(tl, ...)
 	if tl.tim then
 		tl.tim = max(0, tl.tim - 1/60)
 	end
+
+   return true
 end
 
 -- optional number of which state should be loaded next.

@@ -68,7 +68,9 @@ create_parent(
    }
 ]], function(a)
    if a.alive and a.stun_countdown == 0 then
-      tl_update(a)
+      if not tl_update(a) then
+         a.alive = false
+      end
    end
 end, function(a)
    if not a.alive then
