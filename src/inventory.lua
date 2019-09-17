@@ -137,28 +137,44 @@ function create_bomb(pl)
    return create_actor([[
       id="lank_bomb",
       att={
-         holding=true,
-         rx=.375,
-         ry=.375,
+         rx=.5,
+         ry=.5,
          sind=13,
+         tl_loop=false,
+         touchable = false,
          xf=@1
       },
       par={"item","col","mov"},
       tl={
-         {i=@2, u=@3}
+         {i=@2, u=@5, tl_tim=.25},
+         {i=@3, tl_tim=.75},
+         {i=@4, rx=1, ry=1, hit=@6, tl_tim=.25}
       }
       ]],
       pl.xf,
-      -- init
       function(a)
-         a.x, a.y = pl.x, pl.y
+         a.x, a.y = pl.x+(pl.xf and -1 or 1), pl.y
+         use_energy(5)
       end,
-      -- update
       function(a)
-         if btnp(1) then
-            a.alive = false
+         if a == g_pl.item then
+            g_pl.item = nil
          end
-      end)
+      end,
+      function(a)
+         a.rx = 1
+         a.ry = 1
+      end, function(a)
+         pause_energy()
+      end, function(a, other)
+         
+         if other.knockable then
+            other.knockback(other, .5, 1, 1)
+         end
+
+         call_not_nil("hurt", other, 15)
+      end
+   )
 end
 
 function create_brang(pl)
@@ -177,7 +193,7 @@ function create_brang(pl)
       par={"item","anim","col","mov"},
       tl={
          {hit=@2, i=@3, u=@4, tl_tim=.25},
-         {hit=@2, i=@5, u=@6}
+         {hit=@2, i=nf, u=@5}
       }
       ]],
       pl.xf,
@@ -204,23 +220,23 @@ function create_brang(pl)
       -- init 1
       function(a)
          a.x, a.y = pl.x, pl.y
-         a.ax = a.xf and -.07 or .07
+         a.ax = a.xf and -.1 or .1
          use_energy(10)
       end,
       -- update 1
       function(a)
+         if btn(2) then a.ay = -.05 end
+         if btn(3) then a.ay = .05 end
+         if not btn(3) and not btn(2) then a.ay = 0 end
          pause_energy()
          if g_energy_tired or not a.holding then
             return true
          end
       end,
-      -- init 2
-      function(a)
-      end,
       -- update 2
       function(a)
          pause_energy()
-         amov_to_actor(a, pl, .07)
+         amov_to_actor(a, pl, .1)
       end
       )
 end
@@ -456,7 +472,7 @@ function create_shield(pl)
       att={
          max_stun_val=60,
          min_stun_val=0,
-         energy=5,
+         energy=2,
          poke_val=10,
          pl_knock=.1,
          o_knock=.2,

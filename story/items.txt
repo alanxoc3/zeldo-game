@@ -42,4 +42,4 @@ Cluck
    - A chicken. Place it with Cannon. Impossible to defeat.
 
 Squareforce
-   - Just a key. Can't actually wield it?
+   - Key for computer place.

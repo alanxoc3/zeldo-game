@@ -1,6 +1,6 @@
 -- power squares
 g_cur_enemy, g_cur_enemy_timer = nil, 0
-g_money = 0
+g_money = 300
 
 function add_money(amount)
    g_money = min(g_money + amount, 999)

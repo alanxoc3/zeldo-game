@@ -20,6 +20,8 @@ end
 function attach_actor(opt, a)
    -- step 1: atts from parent
    foreach(opt.par, function(par_id) a = g_att[par_id](a) end)
+
+   tl_attach(a, opt.tl)
    copy_atts(a,opt.att)
 
    -- step 2: add to list of objects
@@ -31,7 +33,6 @@ function attach_actor(opt, a)
 
    -- step 3: attach timeline
    a.id, a[id] = id, true
-   tl_attach(a, opt.tl)
 
    return a
 end

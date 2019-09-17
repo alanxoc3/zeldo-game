@@ -80,11 +80,13 @@ function gen_pl(x, y)
                item.holding = false
             end
 
-            if item.id == "lank_banjo" then
-               a.ax = 0
-               a.ay = 0
-            else
-               a.ax /= 2 a.ay /= 2
+            if item.id != "lank_bomb" then
+               if item.id == "lank_banjo" or item.id == "lank_brang" then
+                  a.ax = 0
+                  a.ay = 0
+               else
+                  a.ax /= 2 a.ay /= 2
+               end
             end
          end
 

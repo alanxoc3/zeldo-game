@@ -3,6 +3,30 @@
 -- util functions:
 --
 
+function xbtn()
+   if btn(0) and btn(1) then
+      return 0
+   elseif btn(0) then
+      return -1
+   elseif btn(1) then
+      return 1
+   end
+
+   return 0
+end
+
+function ybtn()
+   if btn(2) and btn(3) then
+      return 0
+   elseif btn(2) then
+      return -1
+   elseif btn(3) then
+      return 1
+   end
+
+   return 0
+end
+
 function zsgn(num)
    return num == 0 and 0 or sgn(num)
 end
@@ -103,6 +127,11 @@ end
 function tl_update(tl, ...)
 	-- switch the state
 	if tl.tim == 0 then
+      if not tl.tl_loop and tl.cur > 0 and tl.tl_nxt == 1 then
+         tl.alive = false
+         return
+      end
+
 		tl.cur = tl.tl_nxt
 		tl.tl_nxt = (tl.cur % #tl.mas) + 1
 		tl.tim = tl.mas[tl.cur] and tl.mas[tl.cur].tl_tim or nil
@@ -136,6 +165,7 @@ function tl_attach(tl, mas)
       tl_lvl=0,
       cur=0,
       tl_nxt=1,
+      tl_loop=true,
       tim=0
    ]], mas or {}))
 

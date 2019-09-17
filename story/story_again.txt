@@ -46,3 +46,6 @@
 - Or maybe it can enable something for hard mode.
 
 
+
+Ideas:
+   - In hard mode, don't lose song memory.
