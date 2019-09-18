@@ -67,10 +67,12 @@ create_parent(
       delete=@3
    }
 ]], function(a)
-   if a.alive and a.stun_countdown == 0 then
+   if a.alive and a.stun_countdown <= 0 then
       if not tl_update(a) then
          a.alive = false
       end
+   elseif a.stun_countdown > 0 then
+      a.stun_countdown -= 1
    end
 end, function(a)
    if not a.alive then
@@ -229,26 +231,20 @@ create_parent(
    par={"mov"}
 ]], function(a, speed, xdir, ydir)
    card_shake(15)
-   if xdir != 0 then a.dx = xdir * speed
-   else              a.dy = ydir * speed end
+   a.dx = xdir * speed
+   a.dy = ydir * speed
 end)
 
 create_parent(
 [[ id="stunnable",
    att={
-      stun=@1,
-      stun_update=@2
+      stun_update=@1
    },
    par={"mov","drawable"}
-]], function(a, len)
-   if a.stun_countdown == 0 then
-      a.stun_countdown = len
-   end
-end, function(a)
-   if a.stun_countdown != 0 then
+]], function(a)
+   if a.stun_countdown > 0 then
       a.ay, a.ax = 0, 0
       a.xx = rnd_one()
-      a.stun_countdown -= 1
    end
 end)
 
@@ -260,9 +256,12 @@ create_parent(
       hurt=@1
    },
    par={"act"}
-]], function(a, damage)
-   a.health = min(a.max_health, a.health-damage)
-   if a.health <= 0 then a.alive = false end
+]], function(a, damage, stun_val)
+   if a.stun_countdown <= 0 then
+      a.stun_countdown = stun_val
+      a.health = min(a.max_health, a.health-damage)
+      if a.health <= 0 then a.alive = false end
+   end
 end)
 
 create_parent(

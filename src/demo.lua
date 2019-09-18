@@ -176,11 +176,11 @@ function game_update()
       energy_update(.25)
       update_timers()
    else
-      if g_pl.item then
-         g_pl.item.alive = false
-      end
+      -- if g_pl.item then
+         -- g_pl.item.alive = false
+      -- end
 
-      g_pl.item = nil
+      -- g_pl.item = nil
    end
 
    update_view(g_pl.x, g_pl.y)

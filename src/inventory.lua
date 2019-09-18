@@ -137,14 +137,13 @@ function create_bomb(pl)
    return create_actor([[
       id="lank_bomb",
       att={
-         rx=.5,
-         ry=.5,
+         rx=.375,
+         ry=.375,
          sind=13,
          tl_loop=false,
-         touchable = false,
          xf=@1
       },
-      par={"item","col","mov"},
+      par={"bounded","confined","item","col","mov","knockable"},
       tl={
          {i=@2, u=@5, tl_tim=.25},
          {i=@3, tl_tim=.75},
@@ -167,12 +166,16 @@ function create_bomb(pl)
       end, function(a)
          pause_energy()
       end, function(a, other)
+         if other.evil then
+            change_cur_enemy(other)
+         end
          
          if other.knockable then
-            other.knockback(other, .5, 1, 1)
+            local ang = atan2(other.x-a.x, other.y-a.y)
+            other.knockback(other, .5, cos(ang), sin(ang))
          end
 
-         call_not_nil("hurt", other, 15)
+         call_not_nil("hurt", other, 15, 30)
       end
    )
 end
@@ -200,13 +203,11 @@ function create_brang(pl)
       -- hit
       function(a, other)
          if other.evil then
+            change_cur_enemy(other)
             if other.knockable then
                other.knockback(other, .05, a.xf and -1 or 1, 0)
             end
 
-            if other.stunnable then
-               other.stun(other, 60)
-            end
             if a.cur == 1 then
                tl_next(a, 2)
             end
@@ -400,8 +401,7 @@ function sword_shield_hit(a, o)
          g_pl.knockback(g_pl, a.pl_knock, a.xf and 1 or -1, 0)
       end
 
-      call_not_nil("stun", o, (a.cur == 1) and a.max_stun_val or a.min_stun_val)
-      call_not_nil("hurt", o, (a.cur == 1) and (a.o_hurt*2) or a.o_hurt)
+      call_not_nil("hurt", o, (a.cur == 1) and (a.o_hurt*2) or a.o_hurt, 30)
    end
 end
 

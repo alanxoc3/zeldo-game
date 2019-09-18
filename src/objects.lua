@@ -119,7 +119,7 @@ g_att.arrow = function(x, y, left)
 
             call_not_nil("knockback", other, (a.cur == 1) and .3 or .1, a.xf and -1 or 1, 0)
             call_not_nil("stun", other, 30)
-            call_not_nil("hurt", other, 1)
+            call_not_nil("hurt", other, 1, 30)
 
             a.alive = false
          end
