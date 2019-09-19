@@ -127,14 +127,15 @@ end
 -- false means that we are done looping
 function tl_update(tl, ...)
 	-- switch the state
-	if tl.tim == 0 then
+	if tl.tim and tl.tim >= tl.tl_max_tim then
       if not tl.tl_loop and tl.cur > 0 and tl.tl_nxt == 1 then
          return false
       end
 
 		tl.cur = tl.tl_nxt
 		tl.tl_nxt = (tl.cur % #tl.mas) + 1
-		tl.tim = tl.mas[tl.cur] and tl.mas[tl.cur].tl_tim or nil
+      tl.tl_max_tim = tl.mas[tl.cur] and tl.mas[tl.cur].tl_tim or 0
+		tl.tim = tl.tl_max_tim != 0 and 0 or nil
 
       copy_atts(tl, tl.mas[tl.cur])
 		call_not_nil("i", tl, ...)
@@ -142,12 +143,12 @@ function tl_update(tl, ...)
 
    -- update func
 	if call_not_nil("u", tl, ...) then
-      tl.tim = 0
+      tl.tim = tl.tl_max_tim
    end
 
 	-- inc timer if enabled
 	if tl.tim then
-		tl.tim = max(0, tl.tim - 1/60)
+		tl.tim = min(tl.tim + 1/60, tl.tl_max_tim)
 	end
 
    return true
@@ -155,13 +156,14 @@ end
 
 -- optional number of which state should be loaded next.
 function tl_next(tl, num)
-   tl.tim=0
+   tl.tim=tl.tl_max_tim
    if num then tl.tl_nxt=num end
 end
 
 -- params: timeline control, timeline plan
 function tl_attach(tl, mas)
    copy_atts(tl, gun_vals([[
+      tl_max_tim=0,
       tl_enabled=true,
       mas=@1,
       tl_lvl=0,

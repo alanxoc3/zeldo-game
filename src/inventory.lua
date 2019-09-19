@@ -143,11 +143,11 @@ function create_bomb(pl)
          tl_loop=false,
          xf=@1
       },
-      par={"bounded","confined","item","col","mov","knockable"},
+      par={"shape","bounded","confined","item","col","mov","knockable"},
       tl={
          {i=@2, u=@5, tl_tim=.25},
          {i=@3, tl_tim=.75},
-         {i=@4, rx=1, ry=1, hit=@6, tl_tim=.25}
+         {d=@7, draw_spr=nf,draw_out=nf,i=@4, rx=1, ry=1, hit=@6, tl_tim=.25}
       }
       ]],
       pl.xf,
@@ -161,11 +161,13 @@ function create_bomb(pl)
          end
       end,
       function(a)
-         a.rx = 1
-         a.ry = 1
-      end, function(a)
-         pause_energy()
-      end, function(a, other)
+         a.rx, a.ry = 1, 1
+      end, pause_energy,
+      function(a, other)
+         if other.lank_bomb and other.cur < 3 then
+            tl_next(other, 3)
+         end
+
          if other.evil then
             change_cur_enemy(other)
          end
@@ -176,6 +178,12 @@ function create_bomb(pl)
          end
 
          call_not_nil("hurt", other, 15, 30)
+      end, function(a)
+         scr_circfill(a.x, a.y, sin(a.tim/.25), 8)
+         scr_circfill(a.x+rnd(2)-1, a.y+rnd(2)-1, sin(a.tim/.25)*rnd(.25)+.25, 1)
+         scr_circfill(a.x+rnd(2)-1, a.y+rnd(2)-1, sin(a.tim/.25)*rnd(.25)+.25, 2)
+         scr_circfill(a.x+rnd(2)-1, a.y+rnd(2)-1, sin(a.tim/.25)*rnd(.25)+.25, 9)
+         scr_circfill(a.x+rnd(2)-1, a.y+rnd(2)-1, sin(a.tim/.25)*rnd(.25)+.25, 10)
       end
    )
 end
@@ -396,12 +404,13 @@ function sword_shield_hit(a, o)
       end
       change_cur_enemy(o)
 
-      if o.knockable then
-         o.knockback(o, (a.cur == 1) and (a.o_knock*2) or a.o_knock, a.xf and -1 or 1, 0)
-         g_pl.knockback(g_pl, a.pl_knock, a.xf and 1 or -1, 0)
-      end
 
       call_not_nil("hurt", o, (a.cur == 1) and (a.o_hurt*2) or a.o_hurt, 30)
+   end
+
+   if o.knockable and not o.pl then
+      o.knockback(o, (a.cur == 1) and (a.o_knock*2) or a.o_knock, a.xf and -1 or 1, 0)
+      g_pl.knockback(g_pl, a.pl_knock, a.xf and 1 or -1, 0)
    end
 end
 

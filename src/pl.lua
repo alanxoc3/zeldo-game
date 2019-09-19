@@ -31,12 +31,10 @@ function gen_pl(x, y)
             anim_spd=5,
             max_health=50,
             health=50,
-            u=@4, d=@5, hit=@3, destroyed=@6
+            u=@3, destroyed=@4
          },
          par={"anim","col","mov","tcol","hurtable","knockable","stunnable","ospr"}
-      ]], x, y,
-      function(self, other, xdir, ydir)
-      end, function(a)
+      ]], x, y, function(a)
          -- movement logic
          if a.stun_countdown == 0 then
             if not btn(5) and not (btn(0) and btn(1)) then
@@ -105,7 +103,7 @@ function gen_pl(x, y)
                a.item.xx = a.xx
             end
          end
-      end, scr_spr_out, function(a)
+      end, function(a)
          if a.item then a.item.alive = false end
       end
    )

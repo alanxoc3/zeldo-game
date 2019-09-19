@@ -9,6 +9,7 @@ function create_parent(...)
    g_att[params.id] = function(a)
       return attach_actor(params, a or {})
    end
+   g_act_arrs[params.id] = g_act_arrs[params.id] or {}
 end
 
 -- params: str, opts
@@ -194,13 +195,18 @@ create_parent(
       iyy=0,
       xx=0,
       yy=0,
-      d=nf,
       reset_off=@1
    },
    par={"act"}
 ]], function(a)
    a.xx, a.yy = 0, 0
 end)
+
+create_parent(
+[[ id="shape",
+   att={d=nf},
+   par={"act","drawable"}
+]])
 
 create_parent(
 [[ id="spr",
@@ -313,9 +319,11 @@ end)
 
 create_parent(
 [[ id="item",
-   att={},
+   att={destroyed=@1},
    par={"confined","ospr"}
-]])
+]], function(a)
+   g_pl.item = nil
+end)
 
 create_parent(
 [[ id="col",

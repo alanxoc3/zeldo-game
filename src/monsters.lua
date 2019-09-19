@@ -16,16 +16,16 @@ g_att.top = function(x, y)
          sinds={120,121},
          anim_len=1,
          touchable=true,
-         destroyed=@9
+         destroyed=@8
       },
       par={"bounded","confined","stunnable","mov","col","tcol","hurtable","knockable","anim","ospr"},
       tl={
-         {d=@7, i=@4, hit=nf, u=nf, tl_tim=1.5},
-         {d=@7, i=@8, hit=nf, u=@5, tl_tim=.5},
-         {d=@7, i=@6, hit=@3, u=nf, tl_tim=1}
+         {i=@4, hit=nf, u=nf, tl_tim=1.5},
+         {i=@7, hit=nf, u=@5, tl_tim=.5},
+         {i=@6, hit=@3, u=nf, tl_tim=1}
       }
       ]],x,y,
-      -- hit
+      -- hit @3
       function(a, other, ...)
          if other.pl then
             other.hurt(other, 10, 30)
@@ -39,20 +39,19 @@ g_att.top = function(x, y)
             tl_next(a, 1)
          end
       end,
-      -- init 1
+      -- init 1 @4
       function(a)
          a.ax, a.ay = 0, 0
          a.anim_off = 0
       end,
-      -- update 1
+      -- update 1 @5
       function(a)
          a.xf = g_pl.x < a.x
       end,
-      -- init 2
+      -- init 2 @6
       function(a)
          amov_to_actor(a, g_pl, .06)
       end,
-      scr_spr_out,
       function(a)
          a.anim_off = 1
       end, destroy_func

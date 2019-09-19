@@ -3,6 +3,7 @@
 
 -- idea: for compression, reuse words from text boxes. It might just be a good idea.
 
+-- todo: add state name to tl
 -- todo: tbox only interact if in interact state.
 -- todo: more efficient trigger (only interact with player, at least think about this more).
 -- todo: fix screen pause and tbox double press bugs.
@@ -112,6 +113,7 @@ function _init()
    g_pal_norm = gun_vals("1,2,3,4,5,6,7,8,9,10,11,12,13,14,15")
    g_pal = g_pal_norm
 
+	init_particles({ g_snow, g_rain })
    g_tl = tl_init([[
          { i=@1, u=@2, d=@3 }
       ]],
@@ -146,7 +148,7 @@ function game_update()
    inventory_update()
    room_update()
 
-   if not g_tbox_active and not g_transitioning then
+   -- if not g_tbox_active and not g_transitioning then
       batch_call(
          acts_loop, [[
             {"drawable","reset_off"},
@@ -175,15 +177,19 @@ function game_update()
       )
       energy_update(.25)
       update_timers()
-   else
+   -- else
       -- if g_pl.item then
          -- g_pl.item.alive = false
       -- end
-
+-- 
       -- g_pl.item = nil
-   end
+   -- end
 
    update_view(g_pl.x, g_pl.y)
+
+	-- spawn_particles(1, 0, 0, 10, 10)
+	spawn_particles(2, 0, 0, 10, 10)
+	update_particles()
 
    card_shake_update()
 end
