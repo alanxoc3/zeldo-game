@@ -35,20 +35,17 @@ function inventory_update()
    -- tbox logic
    local item = get_selected_item()
 
-   if not g_menu_open and btn(5) then
+   if not g_tbox_active and not g_menu_open and btn(5) then
       g_selected = G_INTERACT 
-      tbox_stash_push()
-      tbox(g_items[g_selected].desc)
    end
+   g_menu_open = not g_tbox_active and btn(5)
 
    if g_menu_open and not btn(5) then
-      tbox_stash_pop()
       if not get_selected_item() then
          g_selected = G_INTERACT
       end
    end
 
-   g_menu_open  = btn(5)
 
    if g_menu_open then
       if g_pl.item then g_pl.item.holding = false end
@@ -68,12 +65,12 @@ function inventory_update()
       local next_selected = y*3+x+1
 
       if g_selected != next_selected then
-         tbox_clear()
+         -- tbox_clear()
 
          if get_selected_item(next_selected) then
-            tbox(get_selected_item(next_selected).desc)
+            -- tbox(get_selected_item(next_selected).desc)
          else
-            tbox("|^nothing:no item selected")
+            -- tbox("|^nothing:no item selected")
          end
       end
 

@@ -69,6 +69,11 @@ function gen_pl(x, y)
 
          local item = a.item
 
+         -- todo: make this better. this is so ugly.
+         if g_transitioning or g_tbox_active then
+            a.ax = 0 a.ay = 0
+         end
+
          if item then
             if not item.alive then
                a.item = nil
@@ -78,13 +83,11 @@ function gen_pl(x, y)
                item.holding = false
             end
 
-            if item.id != "lank_bomb" then
-               if item.id == "lank_banjo" or item.id == "lank_brang" then
-                  a.ax = 0
-                  a.ay = 0
-               else
-                  a.ax /= 2 a.ay /= 2
-               end
+            if item.id == "lank_banjo" or item.id == "lank_brang" then
+               a.ax = 0
+               a.ay = 0
+            elseif item.id != "lank_bomb" then
+               a.ax /= 2 a.ay /= 2
             end
          end
 
