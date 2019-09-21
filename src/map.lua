@@ -1,43 +1,6 @@
 -- 5181
 g_off_x, g_off_y = 0, 0
 g_card_fade = 0
-function draw_cur_room(x, y)
-   fade(g_card_fade)
-   local cur_room = g_rooms[g_cur_room]
-   local rw = min(14, cur_room.w)
-   local rh = min(12, cur_room.h)
-   local rx = x - rw/2
-   local ry = y - rh/2
-
-   g_off_x = -(16-rw)/2+rx
-   g_off_y = -(16-rh)/2+ry
-
-   for k,v in pairs({5, 1, 1}) do
-      rect(rx*8+k,ry*8+k, (rx+rw)*8-k-1, (ry+rh)*8-k-1, v)
-   end
-
-   clip(rx*8+4, ry*8+4, rw*8-8, rh*8-8)
-   rectfill(0,0,127,127,cur_room.c)
-   scr_map(cur_room.x, cur_room.y, cur_room.x, cur_room.y, cur_room.w, cur_room.h)
-   isorty(g_act_arrs.ospr)
-   isorty(g_act_arrs.spr)
-   isorty(g_act_arrs.shape)
-   acts_loop("ospr", "draw_out")
-   acts_loop("spr", "draw_spr")
-   acts_loop("shape", "d")
-
-   if g_pl.alive and g_menu_open then
-      inventory_draw(64,59)
-   end
-
-   draw_particles()
-   clip()
-
-   acts_loop("inventory_item", "draw_out")
-   acts_loop("inventory_item", "draw_spr")
-
-   fade(0)
-end
 
 function isorty(t)
     for n=2,#t do
@@ -65,7 +28,7 @@ function load_room(new_room, rx, ry)
    g_pl.x = rx
    g_pl.y = ry
 
-   load_view(x, y, w, h, 5, 11, 2, 2, 1, 1)
+   load_view(x, y, w, h, 5, 11, 2, 2, 2, 2)
    center_view(g_pl.x, g_pl.y)
 end
 

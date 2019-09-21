@@ -163,7 +163,7 @@ function create_bomb(pl)
       par={"shape","bounded","confined","item","col","mov","knockable"},
       tl={
          {i=@2, u=@5, tl_tim=.25},
-         {i=@3, tl_tim=.75},
+         {i=@3, tl_tim=1.25},
          {d=@7, draw_spr=nf,draw_out=nf,i=@4, rx=1, ry=1, hit=@6, tl_tim=.25}
       }
       ]],

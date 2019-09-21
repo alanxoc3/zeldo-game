@@ -206,15 +206,49 @@ function card_shake(tim)
 end
 
 function game_draw()
-   draw_status()
+   local x = g_transition_x+8+g_card_shake_x
+   local y = g_transition_y + 7 + 3/8+g_card_shake_y
 
-   draw_cur_room(g_transition_x+8+g_card_shake_x, g_transition_y + 7 + 3/8+g_card_shake_y)
+   fade(g_card_fade)
+   local cur_room = g_rooms[g_cur_room]
+   local rw = min(12, cur_room.w)
+   local rh = min(12, cur_room.h)
+   local rx = x - rw/2
+   local ry = y - rh/2
+
+   g_off_x = -(16-rw)/2+rx
+   g_off_y = -(16-rh)/2+ry
+
+
+   for k,v in pairs({5, 1, 1}) do
+      rect(rx*8+k,ry*8+k, (rx+rw)*8-k-1, (ry+rh)*8-k-1, v)
+   end
+
+   clip(rx*8+4, ry*8+4, rw*8-8, rh*8-8)
+   rectfill(0,0,127,127,cur_room.c)
+   scr_map(cur_room.x, cur_room.y, cur_room.x, cur_room.y, cur_room.w, cur_room.h)
+   isorty(g_act_arrs.ospr)
+   isorty(g_act_arrs.spr)
+   isorty(g_act_arrs.shape)
+   acts_loop("ospr", "draw_out")
+   acts_loop("spr", "draw_spr")
+   acts_loop("shape", "d")
 
    if g_debug then acts_loop("dim", "debug_rect") end
 
-   -- print(g_rooms[g_cur_room].n or g_cur_room, 30, 110, 7)
-   -- draw_glitch_effect()
-   -- print("t: "..g_transition_y, 30, 30, 7)
+   if g_pl.alive and g_menu_open then
+      inventory_draw(64,59)
+   end
+
+   draw_particles()
+   clip()
+
+   draw_status()
+
+   acts_loop("inventory_item", "draw_out")
+   acts_loop("inventory_item", "draw_spr")
+
+   fade(0)
 end
 
 function draw_glitch_effect()
