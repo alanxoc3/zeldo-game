@@ -56,11 +56,11 @@ g_att.inventory_item = function(x, y, item)
    return create_actor([[
       id="inventory_item",
       att={
-         rel_x=@1, rel_y=@2, sind=@3, visible=@3
+         rel_x=@1, rel_y=@2, sind=@3, visible=@3, xf=@4
       },
       par={"rel","ospr"},
       tl={}
-      ]],x,y,item.sind
+      ]],x,y,item.sind,g_pl.xf
    )
 end
 

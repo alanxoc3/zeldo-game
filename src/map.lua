@@ -4,7 +4,7 @@ g_card_fade = 0
 function draw_cur_room(x, y)
    fade(g_card_fade)
    local cur_room = g_rooms[g_cur_room]
-   local rw = min(16, cur_room.w)
+   local rw = min(14, cur_room.w)
    local rh = min(12, cur_room.h)
    local rx = x - rw/2
    local ry = y - rh/2
@@ -32,6 +32,10 @@ function draw_cur_room(x, y)
 
    draw_particles()
    clip()
+
+   acts_loop("inventory_item", "draw_out")
+   acts_loop("inventory_item", "draw_spr")
+
    fade(0)
 end
 
@@ -61,7 +65,7 @@ function load_room(new_room, rx, ry)
    g_pl.x = rx
    g_pl.y = ry
 
-   load_view(x, y, w, h, 5, 11, 2, 2)
+   load_view(x, y, w, h, 5, 11, 2, 2, 1, 1)
    center_view(g_pl.x, g_pl.y)
 end
 
