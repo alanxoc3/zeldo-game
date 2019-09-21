@@ -26,6 +26,10 @@ function draw_cur_room(x, y)
    acts_loop("spr", "draw_spr")
    acts_loop("shape", "d")
 
+   if g_pl.alive and g_menu_open then
+      inventory_draw(64,59)
+   end
+
    draw_particles()
    clip()
    fade(0)

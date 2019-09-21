@@ -208,10 +208,6 @@ end
 function game_draw()
    draw_cur_room(g_transition_x+8+g_card_shake_x, g_transition_y + 7 + 3/8+g_card_shake_y)
 
-   if g_menu_open then
-      inventory_draw(64,59)
-   end
-
    if g_debug then acts_loop("dim", "debug_rect") end
 
    draw_status()

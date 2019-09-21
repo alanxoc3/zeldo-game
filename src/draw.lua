@@ -3,7 +3,9 @@ function restore_pal()
 end
 
 function scr_spr(a, spr_func)
-   (spr_func or spr)(a.sind, scr_x(a.x-a.sw*.5)+a.ixx+a.xx, scr_y(a.y-a.sh*.5)+a.iyy+a.yy, a.sw, a.sh, a.xf, a.yf, 1)
+   if a.visible then
+      (spr_func or spr)(a.sind, scr_x(a.x-a.sw*.5)+a.ixx+a.xx, scr_y(a.y-a.sh*.5)+a.iyy+a.yy, a.sw, a.sh, a.xf, a.yf, 1)
+   end
 end
 
 function scr_spr_out(a) scr_spr(a, spr_out) end

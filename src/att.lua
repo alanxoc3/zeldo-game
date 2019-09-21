@@ -195,6 +195,7 @@ create_parent(
       iyy=0,
       xx=0,
       yy=0,
+      visible=true,
       reset_off=@1
    },
    par={"act"}
