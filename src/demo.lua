@@ -182,7 +182,7 @@ function game_update()
    update_view(g_pl.x, g_pl.y)
 
 	-- spawn_particles(1, 0, 0, 10, 10)
-	spawn_particles(2, 0, 0, 10, 10)
+   -- spawn_particles(2, 0, 0, 10, 10)
 	update_particles()
 
    card_shake_update()
