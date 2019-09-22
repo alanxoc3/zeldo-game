@@ -1,28 +1,41 @@
 # Characters
-Ivon   - Novi's twin. Cannon's fairy. Novi tried to kill him, but it survived.
-Novi   - Ivon's twin. Lank's fairy. Lank told it to kill Ivon. Became a ghost,
-         seeking revenge on Lank, because Lank had him die.
+Lank - Main character
+Ivan - Evil fairy.
 
-Barry  - The banjo teacher. He was the last hero of Hiroll. Now he dedicates
-         his life to music.
-Grover - The gravedigger. He has many angry dead relatives.
-Keep   - The shopkeeper. 
+Navy - Older brother of Lime, first boss.
+Lime - Younger sister of Navy, gives you the sword.
 
-Lank   - The main character. Saved Hiroll last year from Cannon and his evil
-         fairy. Being tricked by Ivon.
-Lark   - Lank's fan.
+Bob - Husband of Bobette.
+Jane - Bob's wife.
 
-Cannon - The king. Zeldo's husband. Ivon tricked him last year to try to
-         destroy Hiroll.
+Novi - Lank's previous fairy.
+Barry - The banjo teacher.
+Grover - The gravedigger.
+Teach - The teacher.
 
-Zeldo  - The princess. Cannon's wife.
+Keep - The shopkeeper.
+Lark - Mayor of town.
 
-Karla  - A chubby homemaker. She likes to cook and eat.
-Bobb   - A chubby bridge builder. He likes to eat and work on bridges. His wife
-         is Sarah.
+Cannon - The king. Zeldo's husband.
+Zeldo  - The queen. Cannon's wife.
 
-Navy   - Nest's brother. He lost forest in the woods last year.
-Nest   - Navy's brother. He has been trapped in the woods for a year and went
-         crazy.
+# Enemies
+Batty - Everywhere.
+Slimy - Everywhere.
+Skelly - Graveyard.
+Planty - Forest.
+Handy - Crypt.
+Topy - Canyon.
+Mowy - Field.
+Knighty - Castle.
+Zomby - Hard mode (village).
 
+# Boss
+Cannon
+Navy
+Ivan
+Kluck
 
+# Special Enemy/Mini-boss
+Shadow Lank
+Ghost
