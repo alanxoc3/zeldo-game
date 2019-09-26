@@ -1,5 +1,5 @@
--- token: 6991 6928 6926 6907 7086
--- compr: 2748 2816 2782 2776 2994
+-- token: 6991 6928 6926 6907 7086 7707
+-- compr: 2748 2816 2782 2776 2994 2317
 
 -- idea: for compression, reuse words from text boxes. It might just be a good idea.
 
@@ -261,7 +261,7 @@ end
 function game_init()
    map_init()
    g_pl = gen_pl(0, 0)
-   load_room("villa", 21, 29)
+   load_room("village", 12, 7)
     
    --load_room("tom_1", 125, 27)
    tbox("|lank:12341234561 1901234567890 234123456 8901234567890hh ")

@@ -1,4 +1,3 @@
--- 5181
 g_off_x, g_off_y = 0, 0
 g_card_fade = 0
 
@@ -25,8 +24,8 @@ function load_room(new_room, rx, ry)
 
    local x, y, w, h = cur_room.x, cur_room.y, cur_room.w, cur_room.h
 
-   g_pl.x = rx
-   g_pl.y = ry
+   g_pl.x = rx + cur_room.x
+   g_pl.y = ry + cur_room.y
 
    load_view(x, y, w, h, 5, 11, 2, 2, 2, 2)
    center_view(g_pl.x, g_pl.y)
