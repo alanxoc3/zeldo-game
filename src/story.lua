@@ -1,9 +1,10 @@
 function map_init()
    g_rooms = gun_vals([[
-      "village"={ c=3, qx=0, qy=0,
+      "village"={
+         c=3, qx=0, qy=0,
          x =0,   y =10,
          w =24,  h =10,
-         l={"lank_front_yard",11,5},
+         l={"lank_front_yard",11.5,5},
          r={"field",.5,9},
          {"sign",5.5,14.5,"|sign:testing sign"}
       },
@@ -15,7 +16,7 @@ function map_init()
       "field"={ c=3, qx=1, qy=1,
          x =0,   y =20,
          w =24,  h =12,
-         l={"village",23,7}
+         l={"village",23.5,7}
       }
    ]])
 
