@@ -1,3 +1,20 @@
+-- right = 0.5
+-- down = 0.5
+-- left = width - .5
+-- up = height - .5
+
+--sign
+--skelly
+--chicken
+--top
+--bat
+--ghost
+--money
+--lark
+--pot
+--house
+
+
 function map_init()
    g_rooms = gun_vals([[
       "village"={
@@ -16,7 +33,14 @@ function map_init()
       "field"={ c=3, qx=1, qy=1,
          x =0,   y =20,
          w =24,  h =12,
-         l={"village",23.5,7}
+         l={"village",23.5,7},
+         r={"graveyard_entrance",.5,3}
+      },
+      "graveyard_entrance"={ c=13, qx=3, qy=0,
+         x =0,   y =0,
+         w =12,  h =10,
+         l={"field",23.5,3},
+         {"sign",105.5,4.5,"|sign:here lies an old person (probably)"}
       }
    ]])
 
