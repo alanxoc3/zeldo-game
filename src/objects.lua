@@ -23,7 +23,7 @@ g_att.house = function(x, y, room, rx, ry, sind)
          a.trig = gen_trigger_block(a.x,a.y+1/8,.5,5/8,a.contains)
       end, function(a)
          a.b1.alive, a.b2.alive, a.b3.alive, a.trig.alive = false
-      end, sind or 98
+      end, sind or 46
    )
 end
 
@@ -31,7 +31,7 @@ g_att.sign = function(x, y, text)
    return create_actor([[
       id="sign",
       att={
-         sind=51,rx=.5,ry=.5,
+         sind=43,rx=.5,ry=.5,
          x=@1, y=@2,
          text=@3, i=@4
       }, par={"confined","ospr","wall"}
@@ -50,7 +50,7 @@ g_att.money = function(x, y, dx, dy)
    return create_actor([[
       id="money",
       att={
-         sind=40,rx=.375,ry=.375,
+         sind=39,rx=.375,ry=.375,
          x=@1, y=@2,
          dx=@3, dy=@4,
          touchable=false,
@@ -102,7 +102,7 @@ g_att.arrow = function(x, y, left)
       att={
          x=@1, y=@2,
          rx=.375,ry=.375,
-         sind=42,xf=@3,
+         sind=23,xf=@3,
          touchable=false,
          ax=@4
       },

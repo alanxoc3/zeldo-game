@@ -2,7 +2,7 @@ function create_lank_top()
    return create_actor([[
       id="lank_top",
       att={
-         sind=59,
+         sind=147,
          iyy=-2,
          u=@1
       }, par={"rel","ospr"}
@@ -20,7 +20,7 @@ function gen_pl(x, y)
             name="|lank",
             x=@1,
             y=@2,
-            sinds={56, 57, 58, 59},
+            sinds={144, 145, 146},
             rx=.375,
             ry=.375,
             xb=.25,

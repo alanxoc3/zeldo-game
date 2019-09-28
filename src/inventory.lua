@@ -91,15 +91,15 @@ end
 function inventory_init()
    -- global_items
    g_items = gun_vals([[
-      {name="banjo"   , enabled=true, func=@1, sind=08, desc="|^banjo:play a sick tune!"},
-      {name="brang"   , enabled=true, func=@2, sind=12, desc="|^brang:stun baddies. get items."},
-      {name="shovel"  , enabled=false, func=@3, sind=11, desc="|^shovel:dig things up. kill the grass."},
-      {name="shield"  , enabled=true, func=@4, sind=14, desc="|^shield:be safe from enemy attacks."},
+      {name="banjo"   , enabled=true, func=@1, sind=1, desc="|^banjo:play a sick tune!"},
+      {name="brang"   , enabled=true, func=@2, sind=4, desc="|^brang:stun baddies. get items."},
+      {name="shovel"  , enabled=false, func=@3, sind=3, desc="|^shovel:dig things up. kill the grass."},
+      {name="shield"  , enabled=true, func=@4, sind=6, desc="|^shield:be safe from enemy attacks."},
       {name="interact", enabled=true, func=nf, sind=false, desc="|^interact:talk to people, pick up things, read signs."},
-      {name="sword"   , enabled=true, func=@5, sind=09, desc="|^sword:hurts bad guys."},
-      {name="bomb"    , enabled=true, func=@6, sind=13, desc="|^bomb:only 5 power squares to blows things up!"},
-      {name="bow"     , enabled=true, func=@7, sind=15, desc="|^bow:shoots enemies. needs 2 power squares."},
-      {name="force"   , enabled=true, func=@8, sind=10, desc="|^sqr'force:don't let ivan take it from you!"}
+      {name="sword"   , enabled=true, func=@5, sind=2, desc="|^sword:hurts bad guys."},
+      {name="bomb"    , enabled=true, func=@6, sind=5, desc="|^bomb:only 5 power squares to blows things up!"},
+      {name="bow"     , enabled=true, func=@7, sind=7, desc="|^bow:shoots enemies. needs 2 power squares."},
+      {name="force"   , enabled=true, func=@8, sind=36, desc="|^sqr'force:don't let ivan take it from you!"}
    ]], create_banjo, create_brang, create_shovel, create_shield, create_sword, create_bomb, create_bow, create_force)
 
    g_selected=G_INTERACT
@@ -156,7 +156,7 @@ function create_bomb(pl)
       att={
          rx=.375,
          ry=.375,
-         sind=13,
+         sind=5,
          tl_loop=false,
          xf=@1
       },
@@ -212,13 +212,11 @@ function create_brang(pl)
          holding=true,
          rx=.375,
          ry=.375,
-         sinds={12,68,69,70},
-         anim_len=4,
-         anim_spd=10,
+         sind=4,
          xf=@1,
          touchable=false
       },
-      par={"item","anim","col","mov"},
+      par={"item","ospr","col","mov"},
       tl={
          {hit=@2, i=@3, u=@4, tl_tim=.25},
          {hit=@2, i=nf, u=@5}
@@ -274,7 +272,7 @@ function create_banjo(pl)
          holding=true,
          rx=.3,
          ry=.3,
-         sind=8,
+         sind=1,
          xf=@1,
          touchable=false,
          i=@2, u=@3
@@ -303,7 +301,7 @@ function create_shovel(pl)
          holding=true,
          rx=.3,
          ry=.3,
-         sind=11,
+         sind=3,
          xf=@1,
          touchable=false,
          i=@2, u=@3
@@ -338,7 +336,7 @@ function create_force(pl)
          holding=true,
          rx=.3,
          ry=.3,
-         sind=10,
+         sind=36,
          xf=@1,
          destroyed=@2,
          u=@3,
@@ -366,7 +364,7 @@ function create_bow(pl)
          ry=.375,
          rel_y=0,
          iyy=-1,
-         sind=15,
+         sind=7,
          xf=@1,
          destroyed=@5,
          touchable=false
@@ -474,7 +472,7 @@ function create_sword(pl)
          ry=.375,
          rel_y=0,
          iyy=-2,
-         sind=9,
+         sind=2,
          poke=20,
          xf=@1,
          touchable=false
@@ -512,7 +510,7 @@ function create_shield(pl)
          ry=.5,
          iyy=-1,
          poke=20,
-         sind=14,
+         sind=6,
          xf=@1,
          poke=20,
          touchable=false

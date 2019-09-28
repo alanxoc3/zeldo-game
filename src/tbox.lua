@@ -132,7 +132,7 @@ function ttbox_draw(x, y)
 
       -- draw the arrow
       if g_tbox_active.continue then
-         spr(71, 100, ti(40)<20 and 13 or 14)
+         spr(38, 100, ti(40)<20 and 13 or 14)
       end
    end
 

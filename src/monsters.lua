@@ -13,7 +13,7 @@ g_att.top = function(x, y)
          rx=.375,
          ry=.375,
          iyy=-2,
-         sinds={120,121},
+         sinds={112,113},
          anim_len=1,
          touchable=true,
          destroyed=@8
@@ -66,7 +66,7 @@ g_att.bat = function(x, y)
          evil=true,
          x=@1, y=@2,
          rx=.375, ry=.375,
-         sinds={122,123},
+         sinds={114,115},
          anim_len=2,
          anim_spd=10,
          destroyed=@4,
@@ -91,7 +91,7 @@ g_att.skelly = function(x, y)
          evil=true,
          x=@1, y=@2,
          rx=.375, ry=.375,
-         sinds={74},
+         sinds={66},
          destroyed=@4,
          anim_len=1
       },
@@ -115,7 +115,7 @@ g_att.ghost = function(x, y)
          evil=true,
          x=@1, y=@2,
          rx=.375, ry=.375,
-         sinds={91},
+         sinds={84},
          anim_len=1,
          destroyed=@4,
          touchable=false
@@ -140,7 +140,7 @@ g_att.chicken = function(x, y)
          evil=true,
          x=@1, y=@2,
          rx=.375, ry=.375,
-         sinds={46},
+         sinds={32},
          destroyed=@4,
          anim_len=1
       },

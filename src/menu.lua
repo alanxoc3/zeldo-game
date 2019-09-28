@@ -11,7 +11,7 @@ function draw_ma(x, y, a)
    clip(x+2, y+2, 14, 14)
    spr_out(a.sind, 5 + zsgn(a.ax), 5 + zsgn(a.ay), 1, 1, a.xf, a.yf, 1)
    if a.pl then
-      spr_out(59, 5 + zsgn(a.ax), 5 + zsgn(a.ay), 1, 1, a.xf, a.yf, 1)
+      spr_out(147, 5 + zsgn(a.ax), 5 + zsgn(a.ay), 1, 1, a.xf, a.yf, 1)
    end
    if a.item then
       local item = a.item
@@ -21,7 +21,7 @@ function draw_ma(x, y, a)
    end
    spr(a.sind, 5 + zsgn(a.ax), 5 + zsgn(a.ay), 1, 1, a.xf, a.yf, 1)
    if a.pl then
-      spr(59, 5 + zsgn(a.ax), 5 + zsgn(a.ay), 1, 1, a.xf, a.yf, 1)
+      spr(147, 5 + zsgn(a.ax), 5 + zsgn(a.ay), 1, 1, a.xf, a.yf, 1)
    end
    if a.item then
       local item = a.item
@@ -91,8 +91,8 @@ end
 
 function draw_status()
    -- power orbs
-   spr_out(40, 107, 2, 1, 1, false, false, 1)
-   spr(40, 107, 2)
+   spr_out(39, 107, 2, 1, 1, false, false, 1)
+   spr(39, 107, 2)
 
    zprint(get_money_str(), 116, 4)
 
