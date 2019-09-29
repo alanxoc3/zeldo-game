@@ -10,6 +10,11 @@ end
 
 function scr_spr_out(a) scr_spr(a, spr_out) end
 
+function scr_spr_and_out(...)
+   scr_spr_out(...)
+   scr_spr(...)
+end
+
 g_out_cache = {}
 function create_outline(sind, sw, sh)
    local sh_end = sh*8-1

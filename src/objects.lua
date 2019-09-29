@@ -9,7 +9,7 @@ g_att.house = function(x, y, room, rx, ry, sind)
          destroyed=@8, sind=@9,
          iyy=-4,
          sw=2, sh=2
-      }, par={"confined","ospr"}
+      }, par={"confined","spr"}
       ]],x,y,room,rx,ry,
       -- trigger
       function(a, other)
@@ -36,7 +36,7 @@ g_att.money = function(x, y, dx, dy)
          dx=@3, dy=@4,
          touchable=false,
          hit=@5,
-      }, par={"bounded","confined","tcol","ospr","col","mov"},
+      }, par={"bounded","confined","tcol","spr","col","mov"},
       tl={
          {tl_tim=5},
          {i=@6}
@@ -92,7 +92,7 @@ g_att.arrow = function(x, y, left)
          touchable=false,
          ax=@4
       },
-      par={"confined","mov","col","ospr"},
+      par={"confined","mov","col","spr"},
       tl={
          {hit=@5, tl_tim=3},
          {i=@6}
@@ -124,7 +124,7 @@ g_att.pot = function(x, y)
          sind=49,rx=.375,ry=.375,
          x=@1, y=@2,
          touchable=true,
-      }, par={"bounded","confined","tcol","ospr","col","mov"},
+      }, par={"bounded","confined","tcol","spr","col","mov"},
       ]],x,y
    )
 end

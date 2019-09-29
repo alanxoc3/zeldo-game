@@ -17,7 +17,7 @@ g_att.item_selector = function()
          d=@1,
          u=@2
       },
-      par={"rel","shape"}
+      par={"rel","drawable"}
       ]],function(a)
          scr_rect(a.x-.75,a.y-.75,a.x+.75,a.y+.75,8)
       end, function(a)
@@ -56,7 +56,7 @@ g_att.inventory_item = function(x, y, item)
       att={
          rel_x=@1, rel_y=@2, sind=@3, visible=@3, xf=@4
       },
-      par={"rel","ospr"},
+      par={"rel","spr_obj"},
       tl={}
       ]],x,y,item.sind,g_pl.xf
    )
@@ -141,13 +141,6 @@ function draw_inv_box(x, y, sind, inactive)
    -- pal()
 end
 
-function inventory_draw(x, y)
-   -- local select_x, select_y = 0, 0
-   -- local spr_ind = (t()*60 % 60 > 40) and 38 or 39
-   -- local rel_spr = function(x1, y1, ...) spr(spr_ind, select_x+x1, select_y+y1, ...) end
-   -- batch_call(rel_spr, "{-5,-5,1,1,false,false}, {5,-5,1,1,true,false}, {5,5,1,1,true,true}, {-5,5,1,1,false,true}")
-end
-
 function create_bomb(pl)
    return create_actor([[
       id="lank_bomb",
@@ -158,7 +151,7 @@ function create_bomb(pl)
          tl_loop=false,
          xf=@1
       },
-      par={"shape","bounded","confined","item","col","mov","knockable"},
+      par={"bounded","confined","item","col","mov","knockable","spr"},
       tl={
          {i=@2, u=@5, tl_tim=.25},
          {i=@3, tl_tim=1.25},
@@ -214,7 +207,7 @@ function create_brang(pl)
          xf=@1,
          touchable=false
       },
-      par={"item","ospr","col","mov"},
+      par={"item","spr","col","mov"},
       tl={
          {hit=@2, i=@3, u=@4, tl_tim=.25},
          {hit=@2, i=nf, u=@5}

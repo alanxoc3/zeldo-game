@@ -4,7 +4,7 @@ g_att.lark = function(x, y)
       att={
          sind=99,rx=.5,ry=.5,iyy=-2,
          x=@1, y=@2, i=@3, u=@4
-      }, par={"confined","ospr","wall"}
+      }, par={"confined","spr","wall"}
       ]],x,y, function(a)
          local big_w, text = 6/8, "|lark:heya lank bro, i'm yer biggest fan!"
          batch_call(gen_text_trigger_block, [[
@@ -23,7 +23,7 @@ g_att.sign = function(x, y, text, sind)
       att={
          sind=@3,rx=.5,ry=.5,
          x=@1, y=@2, i=@4
-      }, par={"confined","ospr","wall"}
+      }, par={"confined","spr","wall"}
       ]],x,y,sind or 43,
       function(a)
          a.trig = gen_text_trigger_block(a, 3, text)

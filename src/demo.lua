@@ -3,10 +3,11 @@
 
 -- idea: for compression, reuse words from text boxes. It might just be a good idea.
 
+-- todo: cell shading only for sub items.
 -- todo: add state name to tl
 -- todo: tbox only interact if in interact state.
 -- todo: more efficient trigger (only interact with player, at least think about this more).
--- todo: fix screen pause and tbox double press bugs.
+-- todo: fix tbox screen pause
 
 -- todo: connect tbox with menu actors.
 -- todo: separate tbox speaker.
@@ -15,7 +16,6 @@
 -- todo: think about text interaction more.
 -- todo: ma don't move if pl not moving (look at dx/dy)
 
--- todo: design menu actor area/transitions.
 -- todo: create tbox movement/transition.
 -----------------------------------------
 -- todo: create own rectfill, that always cleans up fillp()?
@@ -26,6 +26,8 @@
 -- todo: create title screen.
 
 -- things that are done:
+-- done: design menu actor area/transitions. this is done by fading now.
+-- done: fix tbox double press bugs.
 -- done: no screen shake when enemy hits enemy/house.
 -- done: give player money
 -- done: create power square item.
@@ -220,28 +222,17 @@ function game_draw()
    clip(rx*8+4, ry*8+4, rw*8-8, rh*8-8)
    rectfill(0,0,127,127,cur_room.c)
    scr_map(cur_room.x, cur_room.y, cur_room.x, cur_room.y, cur_room.w, cur_room.h)
-   isorty(g_act_arrs.ospr)
-   isorty(g_act_arrs.spr)
-   isorty(g_act_arrs.shape)
-   acts_loop("ospr", "draw_out")
-   acts_loop("spr", "draw_spr")
-   acts_loop("shape", "d")
 
-   if g_debug then acts_loop("dim", "debug_rect") end
-
-   if g_pl.alive and g_menu_open then
-      inventory_draw(64,59)
-   end
+   isorty(g_act_arrs.drawable)
+   acts_loop("drawable", "d")
 
    draw_particles()
    clip()
-
    draw_status()
-
-   acts_loop("inventory_item", "draw_out")
-   acts_loop("inventory_item", "draw_spr")
-
+   acts_loop("inventory_item", "draw_both")
    fade(0)
+
+   if g_debug then acts_loop("dim", "debug_rect") end
 end
 
 function draw_glitch_effect()
@@ -256,6 +247,5 @@ function game_init()
    g_pl = gen_pl(0, 0)
    load_room("village", 12, 7)
     
-   --load_room("tom_1", 125, 27)
    tbox("|lank:12341234561 1901234567890 234123456 8901234567890hh ")
 end

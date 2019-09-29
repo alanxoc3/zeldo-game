@@ -18,7 +18,7 @@ g_att.top = function(x, y)
          touchable=true,
          destroyed=@8
       },
-      par={"bounded","confined","stunnable","mov","col","tcol","hurtable","knockable","anim","ospr"},
+      par={"bounded","confined","stunnable","mov","col","tcol","hurtable","knockable","anim","spr"},
       tl={
          {i=@4, hit=nf, u=nf, tl_tim=1.5},
          {i=@7, hit=nf, u=@5, tl_tim=.5},
@@ -72,7 +72,7 @@ g_att.bat = function(x, y)
          destroyed=@4,
          touchable=false
       },
-      par={"bounded","confined","stunnable","mov","col","hurtable","knockable","anim","ospr"},
+      par={"bounded","confined","stunnable","mov","col","hurtable","knockable","anim","spr"},
       tl={
          {i=@3, tl_tim=1.5}
       }
@@ -95,7 +95,7 @@ g_att.skelly = function(x, y)
          destroyed=@4,
          anim_len=1
       },
-      par={"bounded","confined","stunnable","mov","col","tcol","hurtable","knockable","anim","ospr"},
+      par={"bounded","confined","stunnable","mov","col","tcol","hurtable","knockable","anim","spr"},
       tl={
          {i=@3, tl_tim=1.5}
       }
@@ -120,7 +120,7 @@ g_att.ghost = function(x, y)
          destroyed=@4,
          touchable=false
       },
-      par={"bounded","confined","stunnable","mov","col","hurtable","knockable","anim","ospr"},
+      par={"bounded","confined","stunnable","mov","col","hurtable","knockable","anim","spr"},
       tl={
          {i=@3, tl_tim=1.5}
       }
@@ -144,7 +144,7 @@ g_att.chicken = function(x, y)
          destroyed=@4,
          anim_len=1
       },
-      par={"bounded","confined","stunnable","mov","col","tcol","hurtable","knockable","anim","ospr"},
+      par={"bounded","confined","stunnable","mov","col","tcol","hurtable","knockable","anim","spr"},
       tl={
          {i=@3, tl_tim=1.5}
       }

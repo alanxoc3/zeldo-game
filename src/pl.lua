@@ -5,7 +5,7 @@ function create_lank_top()
          sind=147,
          iyy=-2,
          u=@1
-      }, par={"rel","ospr"}
+      }, par={"rel","spr_obj"}
    ]], function(a)
       a.xf = g_pl.xf
       a.alive = g_pl.alive
@@ -13,7 +13,7 @@ function create_lank_top()
 end
 
 function gen_pl(x, y)
-   create_lank_top()
+   local ltop = create_lank_top()
    return create_actor(
       [[ id="pl",
          att={
@@ -31,9 +31,9 @@ function gen_pl(x, y)
             anim_spd=5,
             max_health=50,
             health=50,
-            u=@3, destroyed=@4
+            u=@3, destroyed=@4, d=@5
          },
-         par={"anim","col","mov","tcol","hurtable","knockable","stunnable","ospr"}
+         par={"anim","col","mov","tcol","hurtable","knockable","stunnable","spr"}
       ]], x, y, function(a)
          -- movement logic
          if a.stun_countdown == 0 then
@@ -96,6 +96,19 @@ function gen_pl(x, y)
          end
       end, function(a)
          if a.item then a.item.alive = false end
+      -- draw
+      end, function(a)
+         scr_spr_out(ltop)
+         scr_spr_out(a)
+         if a.item and not a.item.spr then
+            scr_spr_out(a.item)
+         end
+
+         scr_spr(ltop)
+         scr_spr(a)
+         if a.item and not a.item.spr then
+            scr_spr(a.item)
+         end
       end
    )
 end

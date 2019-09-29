@@ -189,7 +189,7 @@ create_parent(
 end)
 
 create_parent(
-[[ id="drawable",
+[[ id="drawable_obj",
    att={
       ixx=0,
       iyy=0,
@@ -204,31 +204,34 @@ create_parent(
 end)
 
 create_parent(
-[[ id="shape",
+[[ id="drawable",
    att={d=nf},
-   par={"act","drawable"}
+   par={"act", "drawable_obj"}
 ]])
 
 create_parent(
-[[ id="spr",
+[[ id="spr_obj",
    att={
       sind=0,
       sw=1,
       sh=1,
       xf=false,
       yf=false,
-      draw_spr=@1
+      draw_spr=@1,
+      draw_out=@2,
+      draw_both=@3
    },
-   par={"vec","drawable"}
-]], scr_spr)
+   par={"vec", "drawable_obj"}
+]], scr_spr, scr_out, scr_spr_and_out
+)
 
 create_parent(
-[[ id="ospr",
+[[ id="spr",
    att={
-      draw_out=@1
+      d=@1
    },
-   par={"spr"}
-]], scr_spr_out)
+   par={"vec","spr_obj","drawable"}
+]], scr_spr_and_out)
 
 create_parent(
 [[ id="knockable",
@@ -247,7 +250,7 @@ create_parent(
    att={
       stun_update=@1
    },
-   par={"mov","drawable"}
+   par={"mov","drawable_obj"}
 ]], function(a)
    if a.stun_countdown > 0 then
       a.ay, a.ax = 0, 0
@@ -321,7 +324,7 @@ end)
 create_parent(
 [[ id="item",
    att={destroyed=@1},
-   par={"confined","ospr"}
+   par={"confined","spr_obj"}
 ]], function(a)
    g_pl.item = nil
 end)
