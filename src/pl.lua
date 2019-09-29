@@ -37,24 +37,12 @@ function gen_pl(x, y)
       ]], x, y, function(a)
          -- movement logic
          if a.stun_countdown == 0 then
-            if not btn(5) and not (btn(0) and btn(1)) then
-               if btn(0) then
-                  if not a.item then a.xf = true end
-                  a.ax = -a.spd
-               elseif btn(1) then
-                  if not a.item then a.xf = false end
-                  a.ax =  a.spd
-               else a.ax = 0 end
+            if not btn(5) then
+               if not a.item and (xbtn() != 0) then a.xf = btn(0) end
+               a.ax = xbtn()*a.spd
+               a.ay = ybtn()*a.spd
             else
-               a.ax = 0
-            end
-
-            if not btn(5) and not (btn(2) and btn(3)) then
-               if     btn(2) then a.ay = -a.spd
-               elseif btn(3) then a.ay =  a.spd
-               else a.ay = 0 end
-            else
-               a.ay = 0
+               a.ax = 0 a.ay = 0
             end
          end
 

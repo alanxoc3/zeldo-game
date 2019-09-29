@@ -27,25 +27,6 @@ g_att.house = function(x, y, room, rx, ry, sind)
    )
 end
 
-g_att.sign = function(x, y, text)
-   return create_actor([[
-      id="sign",
-      att={
-         sind=43,rx=.5,ry=.5,
-         x=@1, y=@2,
-         text=@3, i=@4
-      }, par={"confined","ospr","wall"}
-      ]],x,y,text,
-      function(a)
-         a.trig = gen_trigger_block(a.x, a.y+1, 7/8, .5, function(a, other)
-            if not g_tbox_active and btnp(4) and g_selected == G_INTERACT then
-               tbox(text)
-            end
-         end)
-      end
-   )
-end
-
 g_att.money = function(x, y, dx, dy)
    return create_actor([[
       id="money",
@@ -94,6 +75,11 @@ function gen_trigger_block(x, y, rx, ry, contains)
       par={"confined", "trig"}
       ]],x,y,rx,ry,contains
    )
+end
+
+function gen_trigger_block_dir(a, dir, contains)
+   local x, y = dir_to_coord(dir)
+   return gen_trigger_block(x*a.rx*2+a.x,y*a.ry*2+a.y,.5+abs(y)*3/8,.5+abs(x)*3/8, contains)
 end
 
 g_att.arrow = function(x, y, left)

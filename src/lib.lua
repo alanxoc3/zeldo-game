@@ -1,31 +1,21 @@
 -- lib. make sure this is included first.
 
 -- util functions:
---
 
-function xbtn()
-   if btn(0) and btn(1) then
-      return 0
-   elseif btn(0) then
-      return -1
-   elseif btn(1) then
-      return 1
-   end
-
-   return 0
+-- 7661 -> 7650
+function dir_to_coord(dir)
+   return dir == 0 and 0xffff or dir == 1 and 1 or 0, dir == 2 and 0xffff or dir == 3 and 1 or 0
 end
 
-function ybtn()
-   if btn(2) and btn(3) then
-      return 0
-   elseif btn(2) then
-      return -1
-   elseif btn(3) then
-      return 1
-   end
-
-   return 0
+function btn_helper(f, a, b)
+   return f(a) and f(b) and 0 or f(a) and 0xffff or f(b) and 1 or 0
 end
+
+function xbtn() return btn_helper(btn, 0, 1) end
+function ybtn() return btn_helper(btn, 2, 3) end
+
+function xbtnp() return btn_helper(btnp, 0, 1) end
+function ybtnp() return btn_helper(btnp, 2, 3) end
 
 function zsgn(num)
    return num == 0 and 0 or sgn(num)

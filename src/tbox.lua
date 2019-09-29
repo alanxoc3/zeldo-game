@@ -39,7 +39,7 @@ end
 
 -- if you press the button while text is still being displayed, then the text
 -- finishes its display.
-function tbox_interact(sound)
+function tbox_interact()
    if g_tbox_active then
       g_tbox_anim += .5
 
@@ -47,11 +47,12 @@ function tbox_interact(sound)
          g_tbox_anim = #g_tbox_active.l1+#g_tbox_active.l2
       end
 
-      -- if g_tbox_anim < #g_tbox_active.l1+#g_tbox_active.l2 and sound then
-         -- sfx(sound)
-      -- end
+      if g_tbox_anim < #g_tbox_active.l1+#g_tbox_active.l2 then
+         sfx(0)
+      end
 
       if btnp(4) and g_tbox_anim > .5 and g_tbox_active.continue then
+         sfx(1)
          if g_tbox_anim >= #g_tbox_active.l1+#g_tbox_active.l2 then
             del(g_tbox_messages, g_tbox_active)
             g_tbox_active, g_tbox_anim = g_tbox_messages[1], 0

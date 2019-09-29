@@ -3,16 +3,15 @@
 -- left = width - .5
 -- up = height - .5
 
---sign
---skelly
---chicken
---top
---bat
---ghost
---money
---lark
---pot
---house
+--sign x y text sprite_number
+--skelly x y
+--chicken x y
+--top x y
+--bat x y
+--ghost x y
+--lark x y
+--pot x y
+--house x y
 
 
 function map_init()
@@ -23,7 +22,8 @@ function map_init()
          w =24,  h =10,
          l={"lank_front_yard",11.5,5},
          r={"field",.5,9},
-         {"sign",5.5,14.5,"|sign:testing sign"}
+         {"sign",5.5,14.5,"|sign:testing sign"},
+         {"lark",8.5,14.5}
       },
       "lank_front_yard"={ c=3, qx=0, qy=0,
          x =12,  y =0,
@@ -40,7 +40,7 @@ function map_init()
          x =0,   y =0,
          w =12,  h =10,
          l={"field",23.5,3},
-         {"sign",105.5,4.5,"|sign:here lies an old person (probably)"}
+         {"sign",105.5,4.5,"|sign:here lies an old person (probably)",45}
       }
    ]])
 

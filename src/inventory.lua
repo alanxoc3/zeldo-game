@@ -24,10 +24,8 @@ g_att.item_selector = function()
          -- from index to coordinate
          local x, y = (g_selected-1)%3, flr((g_selected-1)/3)
 
-         if btnp(0) then x -= 1 end
-         if btnp(1) then x += 1 end
-         if btnp(2) then y -= 1 end
-         if btnp(3) then y += 1 end
+         x += xbtnp()
+         y += ybtnp()
 
          -- only allow movement within bounds.
          x, y = max(0,min(x,2)), max(0,min(y,2))
@@ -249,9 +247,7 @@ function create_brang(pl)
       end,
       -- update 1
       function(a)
-         if btn(2) then a.ay = -.05 end
-         if btn(3) then a.ay = .05 end
-         if not btn(3) and not btn(2) then a.ay = 0 end
+         a.ay = ybtn()*.05
          pause_energy()
          if g_energy_tired or not a.holding then
             return true

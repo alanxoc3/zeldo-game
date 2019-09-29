@@ -1,5 +1,5 @@
--- token: 6991 6928 6926 6907 7086 7707
--- compr: 2748 2816 2782 2776 2994 2317
+-- token: 6991 6928 6926 6907 7086 7707 7723 7768 7707
+-- compr: 2748 2816 2782 2776 2994 2317 2471 2471 2471
 
 -- idea: for compression, reuse words from text boxes. It might just be a good idea.
 
@@ -20,26 +20,19 @@
 -----------------------------------------
 -- todo: create own rectfill, that always cleans up fillp()?
 
--- todo: create power square item.
--- todo: create a chicken object.
--- todo: make bombs work
-
--- todo: make and tweak an after stun timer.
--- todo: make item (boomerang) recoil timer.
-
 -- todo: fix ma player 2 parts (for enemies). this may require smarter parenting. 
 -- todo: player stretch arm sprite (be able to do while walking).
-
--- todo: no screen shake when enemy hits enemy/house.
-
 -- todo: go through sprite file optimizations.
-
--- todo: give player money
-
 -- todo: create title screen.
 
-
 -- things that are done:
+-- done: no screen shake when enemy hits enemy/house.
+-- done: give player money
+-- done: create power square item.
+-- done: create a chicken object.
+-- done: make bombs work
+-- done: make and tweak an after stun timer.
+-- done: make item (boomerang) recoil timer.
 -- done: copy logic for contains, between trigger and col (or remove it from col).
 -- done: house needs to clean up after itself.
 -- done: see if caden can fetch/merge.
