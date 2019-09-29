@@ -32,4 +32,4 @@ g_logo = tl_init([[
    -- 4
    function() g_logo_shake = false end
 )
-music(0)
+music(0,0,3)

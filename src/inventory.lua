@@ -64,6 +64,7 @@ end
 
 function create_inventory_items()
    if not g_items_drawn then
+      sfx"3"
       g_item_selector = g_att.item_selector()
       g_items_drawn = {}
       for ind=1,9 do 
@@ -80,6 +81,7 @@ end
 function destroy_inventory_items()
    foreach(g_items_drawn, function(a) a.alive = false end)
    if g_item_selector then
+      sfx"4"
       g_item_selector.alive = false
    end
    g_item_selector = nil
@@ -112,12 +114,12 @@ function inventory_update()
    -- tbox logic
    local item = get_selected_item()
 
-   if not g_tbox_active and not g_menu_open and btn(5) then
+   if not g_tbox_active and not g_menu_open and btn"5" then
       g_selected = G_INTERACT 
    end
-   g_menu_open = not g_tbox_active and btn(5)
+   g_menu_open = not g_tbox_active and btn"5"
 
-   if g_menu_open and not btn(5) then
+   if g_menu_open and not btn"5" then
       if not get_selected_item() then
          g_selected = G_INTERACT
       end
@@ -148,6 +150,7 @@ function create_bomb(pl)
          rx=.375,
          ry=.375,
          sind=5,
+         touchable=true,
          tl_loop=false,
          xf=@1
       },
@@ -169,7 +172,8 @@ function create_bomb(pl)
          end
       end,
       function(a)
-         a.rx, a.ry = 1, 1
+         a.rx, a.ry = .75, .75
+         sfx"8"
       end, pause_energy,
       function(a, other)
          if other.lank_bomb and other.cur < 3 then
@@ -203,13 +207,18 @@ function create_brang(pl)
          holding=true,
          rx=.375,
          ry=.375,
-         sind=4,
+         sinds={4,260,516,772},
+         anim_len=4,
+         anim_spd=3,
          xf=@1,
+         ix=.8,
+         iy=.8,
          touchable=false
       },
-      par={"item","spr","col","mov"},
+      par={"item","anim","col","mov"},
       tl={
-         {hit=@2, i=@3, u=@4, tl_tim=.25},
+         {hit=@2, i=@3, u=@4, tl_tim=.125},
+         {hit=@2, i=nf, u=@6, tl_tim=.5},
          {hit=@2, i=nf, u=@5}
       }
       ]],
@@ -218,17 +227,19 @@ function create_brang(pl)
       function(a, other)
          if other.evil then
             change_cur_enemy(other)
+         end
+         if other.pl then
+            if a.cur != 1 then
+               a.alive = false
+            end
+         elseif other.touchable then
             if other.knockable then
                other.knockback(other, .05, a.xf and -1 or 1, 0)
             end
 
-            if a.cur == 1 then
-               tl_next(a, 2)
-            end
-         elseif other.pl then
-            if a.cur == 2 then
-               a.alive = false
-               pl.item = false
+            card_shake()
+            if a.cur < 3 then
+               tl_next(a)
             end
          end
       end,
@@ -242,14 +253,21 @@ function create_brang(pl)
       function(a)
          a.ay = ybtn()*.05
          pause_energy()
-         if g_energy_tired or not a.holding then
-            return true
-         end
       end,
       -- update 2
       function(a)
          pause_energy()
          amov_to_actor(a, pl, .1)
+      end, 
+      -- update 3
+      function(a)
+         pause_energy()
+         a.ax = xbtn()*.05
+         a.ay = ybtn()*.05
+         if not a.holding then
+            return true
+         end
+         -- amov_to_actor(a, pl, .1)
       end
       )
 end
@@ -393,6 +411,7 @@ function create_bow(pl)
          pause_energy()
       end, function(a)
          if remove_money(1) then
+            sfx"6"
             g_att.arrow(a.x, a.y, a.xf)
          end
       end

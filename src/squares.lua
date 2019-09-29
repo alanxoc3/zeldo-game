@@ -25,12 +25,12 @@ function energy_update(amount)
 
    if g_energy_amount > 0 then
       g_energy_amount = max(0, g_energy_amount-1)
-      g_energy = max(0, g_energy - 1)
+      g_energy = g_energy - 1
    elseif not g_energy_pause then
       g_energy = min(g_max_energy, g_energy + amount)
    end
 
-   if g_energy == 0 then
+   if g_energy <= 0 then
       g_energy_tired = true
    end
 

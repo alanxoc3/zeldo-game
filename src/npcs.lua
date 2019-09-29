@@ -33,7 +33,7 @@ end
 
 function gen_text_trigger_block(a, dir, text)
    return gen_trigger_block_dir(a, dir, function(a, other)
-      if not g_tbox_active and btnp(4) and g_selected == G_INTERACT then
+      if not g_tbox_active and btnp"4" and g_selected == G_INTERACT then
          tbox(text)
       end
    end)

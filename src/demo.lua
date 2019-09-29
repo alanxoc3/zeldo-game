@@ -1,5 +1,5 @@
--- token: 6991 6928 6926 6907 7086 7707 7723 7768 7707
--- compr: 2748 2816 2782 2776 2994 2317 2471 2471 2471
+-- token: 6991 6928 6926 6907 7086 7707 7723 7768 7707 7741 7732 7718
+-- compr: 2748 2816 2782 2776 2994 2317 2471 2471 2471 2571 2593 2628
 
 -- idea: for compression, reuse words from text boxes. It might just be a good idea.
 
@@ -7,6 +7,8 @@
 -- todo: add state name to tl
 -- todo: tbox only interact if in interact state.
 -- todo: more efficient trigger (only interact with player, at least think about this more).
+-- todo: bomb throwing (make it 2 items).
+-- todo: just make bombs better in general.
 -- todo: fix tbox screen pause
 
 -- todo: connect tbox with menu actors.
@@ -126,7 +128,7 @@ function _init()
 end
 
 function _update60()
-   if btnp(5) and btn(4) then g_debug = not g_debug end
+   if btnp"5" and btn"4" then g_debug = not g_debug end
    tl_update(g_tl)
    tbox_interact()
 end
@@ -134,7 +136,6 @@ end
 function _draw()
    cls()
    call_not_nil("d", g_tl)
-   ttbox_draw(20,107)
    if g_debug then zprint(stat(1), 104, 102) end
 end
 
@@ -193,11 +194,14 @@ function card_shake_update()
       g_card_shake_time -= 1
    else
       g_card_shake_x, g_card_shake_y = 0, 0
+      sfx(9,-2)
    end
 end
 
-function card_shake(tim)
-   g_card_shake_time = tim
+function card_shake()
+   if g_card_shake_time == 0 then
+      g_card_shake_time = 15
+   end
 end
 
 function game_draw()
@@ -230,6 +234,7 @@ function game_draw()
    clip()
    draw_status()
    acts_loop("inventory_item", "draw_both")
+   ttbox_draw(20,107)
    fade(0)
 
    if g_debug then acts_loop("dim", "debug_rect") end

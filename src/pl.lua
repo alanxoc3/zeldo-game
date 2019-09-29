@@ -37,8 +37,8 @@ function gen_pl(x, y)
       ]], x, y, function(a)
          -- movement logic
          if a.stun_countdown == 0 then
-            if not btn(5) then
-               if not a.item and (xbtn() != 0) then a.xf = btn(0) end
+            if not btn"5" then
+               if not a.item and (xbtn() != 0) then a.xf = btn"0" end
                a.ax = xbtn()*a.spd
                a.ay = ybtn()*a.spd
             else
@@ -47,18 +47,25 @@ function gen_pl(x, y)
          end
 
          -- item logic
-         if btn(4) and not btn(5) and not a.item and not g_energy_tired then
-            if get_selected_item().name != "bomb" or remove_money(5) then
-               a.item = gen_pl_item(a, g_selected)
-            else
-               -- todo: insert sfx here.
+         if not btn"5" and not a.item then
+            if btnp"4" and g_energy_tired then
+               if g_selected != G_INTERACT then
+                  sfx"7"
+               end
+            elseif btn"4" and not g_energy_tired then
+               if get_selected_item().name != "bomb" or remove_money(5) then
+                  if g_selected != G_INTERACT then
+                     a.item = gen_pl_item(a, g_selected)
+                     sfx"5"
+                  end
+               end
             end
          end
 
          local item = a.item
 
          -- todo: make this better. this is so ugly.
-         if g_transitioning or g_tbox_active then
+         if g_transitioning then
             a.ax = 0 a.ay = 0
          end
 
@@ -67,16 +74,11 @@ function gen_pl(x, y)
                a.item = nil
             end
 
-            if g_energy_tired or (not btn(4) or btn(5)) then
+            if (not btn"4" or btn"5") then
                item.holding = false
             end
 
-            if item.id == "lank_banjo" or item.id == "lank_brang" then
-               a.ax = 0
-               a.ay = 0
-            elseif item.id != "lank_bomb" then
-               a.ax /= 2 a.ay /= 2
-            end
+            a.ax, a.ay = 0, 0
          end
 
          a.anim_sind = nil

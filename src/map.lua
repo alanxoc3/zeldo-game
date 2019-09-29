@@ -19,7 +19,7 @@ function load_room(new_room, rx, ry)
    cur_room = g_rooms[g_cur_room]
 
    -- take care of actors.
-   acts_loop("confined", "delete")
+   acts_loop("confined", "kill")
    if cur_room.i then cur_room.i() end
 
    local x, y, w, h = cur_room.x, cur_room.y, cur_room.w, cur_room.h
@@ -27,7 +27,7 @@ function load_room(new_room, rx, ry)
    g_pl.x = rx + cur_room.x
    g_pl.y = ry + cur_room.y
 
-   load_view(x, y, w, h, 5, 11, 2, 2, 2, 2)
+   load_view(x, y, w, h, 6.5, 9.5, 2, 2, 2, 2)
    center_view(g_pl.x, g_pl.y)
 end
 
@@ -52,6 +52,7 @@ function transition_room(new_room, rx, ry, dir)
             yield()
          end
          load_room(new_room, rx, ry)
+         tbox_clear()
          yield()
          for i=20,0,-1 do
             g_card_fade = i/20*10

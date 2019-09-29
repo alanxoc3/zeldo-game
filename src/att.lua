@@ -65,7 +65,7 @@ create_parent(
       update=@1,
       clean=@2,
       destroyed=nf,
-      delete=@3
+      kill=@3
    }
 ]], function(a)
    if a.alive and a.stun_countdown <= 0 then
@@ -78,9 +78,9 @@ create_parent(
 end, function(a)
    if not a.alive then
       a:destroyed()
-      a:delete()
+      del_act(a)
    end
-end, function(a) del_act(a) end)
+end, function(a) a.alive = nil end)
 
 create_parent([[id="confined",att={},par={"act"}]])
 
@@ -240,7 +240,7 @@ create_parent(
    },
    par={"mov"}
 ]], function(a, speed, xdir, ydir)
-   card_shake(15)
+   card_shake()
    a.dx = xdir * speed
    a.dy = ydir * speed
 end)

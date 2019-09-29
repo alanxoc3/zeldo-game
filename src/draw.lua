@@ -4,7 +4,16 @@ end
 
 function scr_spr(a, spr_func)
    if a.visible then
-      (spr_func or spr)(a.sind, scr_x(a.x-a.sw*.5)+a.ixx+a.xx, scr_y(a.y-a.sh*.5)+a.iyy+a.yy, a.sw, a.sh, a.xf, a.yf, 1)
+      local dir = flr(a.sind/256)
+      local sind = a.sind % 256
+      local xf, yf = a.xf, a.yf
+
+      if dir != 0 then
+         xf = dir == 2 or dir == 3
+         yf = dir == 1 or dir == 2
+      end
+
+      (spr_func or spr)(sind, scr_x(a.x-a.sw*.5)+a.ixx+a.xx, scr_y(a.y-a.sh*.5)+a.iyy+a.yy, a.sw, a.sh, xf, yf, 1)
    end
 end
 
