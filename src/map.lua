@@ -82,8 +82,8 @@ function room_update()
       local dir = nil
       if g_pl.y > g_ry+g_rh-.375     then dir = 'd'
       elseif g_pl.y < g_ry + .5      then dir = 'u'
-      elseif g_pl.x > g_rx+g_rw-.375 then dir = 'r'
-      elseif g_pl.x < g_rx +.5       then dir = 'l'
+      elseif g_pl.x > g_view.rx+g_rw-.375 then dir = 'r'
+      elseif g_pl.x < g_view.rx +.5       then dir = 'l'
       end
 
       if dir != nil and cur_room[dir] then

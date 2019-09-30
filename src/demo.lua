@@ -168,7 +168,7 @@ function game_update()
          ]],
          g_act_arrs["col"],
          function(x, y)
-            return x >= g_rx and x < g_rx+g_rw and
+            return x >= g_view.rx and x < g_view.rx+g_rw and
                    y >= g_ry and y < g_ry+g_rh and
                    fget(mget(x, y), 1)
          end,
