@@ -225,8 +225,8 @@ function game_draw()
 
    fade(g_card_fade)
    local cur_room = g_rooms[g_cur_room]
-   local rw = min(4, cur_room.w)
-   local rh = min(4, cur_room.h)
+   local rw = min(10, cur_room.w)
+   local rh = min(10, cur_room.h)
    local rx = x - rw/2
    local ry = y - rh/2
 
