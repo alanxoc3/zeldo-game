@@ -1,4 +1,4 @@
--- right = 0.5
+﻿-- right = 0.5
 -- down = 0.5
 -- left = width - .5
 -- up = height - .5
@@ -40,8 +40,14 @@ function map_init()
          x =0,   y =0,
          w =12,  h =10,
          l={"field",23.5,3},
+	   r={“graveyard”,.5,17.5},
          {"sign",105.5,4.5,"|sign:here lies an old person (probably)",45}
-      }
+      },
+	"graveyard"={ c=13, qx=2, qy=1,
+         x =0,   y =0,
+         w =12,  h =20,
+         l={"graveyard_entrance",-.5,2}
+	}
    ]])
 
    for k, v in pairs(g_rooms) do
