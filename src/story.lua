@@ -1,19 +1,3 @@
-﻿-- right = 0.5
--- down = 0.5
--- left = width - .5
--- up = height - .5
-
---sign x y text sprite_number
---skelly x y
---chicken x y
---top x y
---bat x y
---ghost x y
---lark x y
---pot x y
---house x y
-
-
 function map_init()
    g_rooms = gun_vals([[
       "village"={
@@ -43,11 +27,11 @@ function map_init()
 	   r={“graveyard”,.5,17.5},
          {"sign",105.5,4.5,"|sign:here lies an old person (probably)",45}
       },
-	"graveyard"={ c=13, qx=2, qy=1,
+      "graveyard"={
+         c=13, qx=2, qy=1,
          x =0,   y =0,
-         w =12,  h =20,
-         l={"graveyard_entrance",-.5,2}
-	}
+         w =12,  h =20
+      }
    ]])
 
    for k, v in pairs(g_rooms) do
