@@ -221,12 +221,12 @@ end
 
 function game_draw()
    local x = g_transition_x+8+g_card_shake_x
-   local y = g_transition_y+8+g_card_shake_y
+   local y = g_transition_y+8-6/8+g_card_shake_y
 
    fade(g_card_fade)
    local cur_room = g_rooms[g_cur_room]
-   local rw = min(10, cur_room.w)
-   local rh = min(10, cur_room.h)
+   local rw = min(12, cur_room.w)
+   local rh = min(12, cur_room.h)
    local rx = x - rw/2
    local ry = y - rh/2
 
