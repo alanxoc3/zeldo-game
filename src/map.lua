@@ -27,7 +27,7 @@ function load_room(new_room, rx, ry)
    g_pl.x = rx + cur_room.x
    g_pl.y = ry + cur_room.y
 
-   load_view(x, y, w, h, 6.5, 9.5, 2, 2, 2, 2)
+   load_view(x, y, w, h, 8, 8, 6, 6, 6, 6)
    center_view(g_pl.x, g_pl.y)
 end
 
