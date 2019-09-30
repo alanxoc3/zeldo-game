@@ -1,11 +1,10 @@
 g_view = gun_vals([[
-   rx=0,
-   ry=0,
-   rw=0,
-   rh=0
+   rx=0, ry=0,
+   rw=0, rh=0,
+   s1=8, s2=8,
+   v1=6, v2=6,
+   h1=6, h2=6
 ]])
-
-load_view(x, y, w, h, 8, 8, 6, 6, 6, 6)
 
 function load_view(...)
    g_rx, g_ry, g_rw, g_rh, g_s1, g_s2, g_v1, g_v2, g_h1, g_h2 = ...
