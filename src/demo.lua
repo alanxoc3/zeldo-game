@@ -1,5 +1,9 @@
--- token: 6991 6928 6926 6907 7086 7707 7723 7768 7707 7741 7732 7718
--- compr: 2748 2816 2782 2776 2994 2317 2471 2471 2471 2571 2593 2628
+-- token: 7560
+-- compr: 2561
+
+-- older stats:
+-- token: 6991 6928 6926 6907 7086 7707 7723 7768 7707 7741 7732 7718 7560
+-- compr: 2748 2816 2782 2776 2994 2317 2471 2471 2471 2571 2593 2628 2561
 
 -- idea: for compression, reuse words from text boxes. It might just be a good idea.
 
@@ -198,8 +202,9 @@ function card_shake_update()
    end
 end
 
-function card_shake()
+function card_shake(fx)
    if g_card_shake_time == 0 then
+      sfx(fx)
       g_card_shake_time = 15
    end
 end

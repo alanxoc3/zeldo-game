@@ -93,7 +93,7 @@ function inventory_init()
    g_items = gun_vals([[
       {name="banjo"   , enabled=true, func=@1, sind=1, desc="|^banjo:play a sick tune!"},
       {name="brang"   , enabled=true, func=@2, sind=4, desc="|^brang:stun baddies. get items."},
-      {name="shovel"  , enabled=false, func=@3, sind=3, desc="|^shovel:dig things up. kill the grass."},
+      {name="shovel"  , enabled=true, func=@3, sind=3, desc="|^shovel:dig things up. kill the grass."},
       {name="shield"  , enabled=true, func=@4, sind=6, desc="|^shield:be safe from enemy attacks."},
       {name="interact", enabled=true, func=nf, sind=false, desc="|^interact:talk to people, pick up things, read signs."},
       {name="sword"   , enabled=true, func=@5, sind=2, desc="|^sword:hurts bad guys."},
@@ -173,7 +173,7 @@ function create_bomb(pl)
       end,
       function(a)
          a.rx, a.ry = .75, .75
-         sfx"8"
+         card_shake"8"
       end, pause_energy,
       function(a, other)
          if other.lank_bomb and other.cur < 3 then
@@ -237,7 +237,7 @@ function create_brang(pl)
                other.knockback(other, .05, a.xf and -1 or 1, 0)
             end
 
-            card_shake()
+            card_shake(9)
             if a.cur < 3 then
                tl_next(a)
             end
@@ -324,8 +324,8 @@ function create_shovel(pl)
       -- update 1
       function(a)
          local val = mget(a.x,a.y)
-         if val >= 16 and val <= 20 then
-            mset(a.x, a.y, 25)
+         if val == 58 or val == 59 or val == 60 or val == 76 or val == 77 then
+            mset(a.x, a.y, 73)
          end
 
          if not a.holding then

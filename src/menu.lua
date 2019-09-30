@@ -1,6 +1,15 @@
 -- a box with a character inside.
 function draw_ma(x, y, a)
-   camera(-x,-y)
+   local ox, oy, oox, ooy = g_x, g_y, g_off_x, g_off_y
+   --local old_off_y = g_off_y
+   camera(-x, -y)
+   g_off_x = -a.x
+   g_off_y = -a.y
+   g_x = -9/8
+   g_y = -11/8
+   -- function scr_x(x) return (x+g_off_x)*8-flr(g_x*8) end
+   -- print(g_off_x, 50, 2)
+   -- print(g_off_y, 100, 2)
 
    batch_call(rectfill, [[
       {0, 0, 17, 17, 5},
@@ -9,29 +18,10 @@ function draw_ma(x, y, a)
    ]], patternize(0x43,4))
 
    clip(x+2, y+2, 14, 14)
-   spr_out(a.sind, 5 + zsgn(a.ax), 5 + zsgn(a.ay), 1, 1, a.xf, a.yf, 1)
-   if a.pl then
-      spr_out(147, 5 + zsgn(a.ax), 5 + zsgn(a.ay), 1, 1, a.xf, a.yf, 1)
-   end
-   if a.item then
-      local item = a.item
-      spr_out(item.sind, 5+(item.x-a.x)*8 + zsgn(a.ax) + item.ixx,
-                     7+(item.y-a.y)*8 + zsgn(a.ay) + item.iyy,
-                     1, 1, item.xf, item.yf, 1)
-   end
-   spr(a.sind, 5 + zsgn(a.ax), 5 + zsgn(a.ay), 1, 1, a.xf, a.yf, 1)
-   if a.pl then
-      spr(147, 5 + zsgn(a.ax), 5 + zsgn(a.ay), 1, 1, a.xf, a.yf, 1)
-   end
-   if a.item then
-      local item = a.item
-      spr(item.sind, 5+(item.x-a.x)*8 + zsgn(a.ax) + item.ixx,
-                     7+(item.y-a.y)*8 + zsgn(a.ay) + item.iyy,
-                     1, 1, item.xf, item.yf, 1)
-   end
-   clip()
+   acts_loop("drawable", "d")
 
-   camera()
+   clip() camera()
+   g_x, g_y, g_off_x, g_off_y = ox, oy, oox, ooy
 end
 
 function draw_energy_bar(x, y)

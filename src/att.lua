@@ -240,7 +240,6 @@ create_parent(
    },
    par={"mov"}
 ]], function(a, speed, xdir, ydir)
-   card_shake()
    a.dx = xdir * speed
    a.dy = ydir * speed
 end)
