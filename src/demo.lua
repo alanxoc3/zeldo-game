@@ -1,5 +1,5 @@
--- token: 7560
--- compr: 2561
+-- token: 7560 7575
+-- compr: 2561 2569
 
 -- older stats:
 -- token: 6991 6928 6926 6907 7086 7707 7723 7768 7707 7741 7732 7718 7560
@@ -168,7 +168,7 @@ function game_update()
          ]],
          g_act_arrs["col"],
          function(x, y)
-            return x >= g_rx and x < g_rx+g_rw and
+            return x >= g_view.rx and x < g_view.rx+g_rw and
                    y >= g_ry and y < g_ry+g_rh and
                    fget(mget(x, y), 1)
          end,
@@ -209,26 +209,7 @@ function card_shake(fx)
    end
 end
 
-function game_draw()
-   local x = g_transition_x+8+g_card_shake_x
-   local y = g_transition_y + 7 + 3/8+g_card_shake_y
-
-   fade(g_card_fade)
-   local cur_room = g_rooms[g_cur_room]
-   local rw = min(12, cur_room.w)
-   local rh = min(12, cur_room.h)
-   local rx = x - rw/2
-   local ry = y - rh/2
-
-   g_off_x = -(16-rw)/2+rx
-   g_off_y = -(16-rh)/2+ry
-
-
-   for k,v in pairs({5, 1, 1}) do
-      rect(rx*8+k,ry*8+k, (rx+rw)*8-k-1, (ry+rh)*8-k-1, v)
-   end
-
-   clip(rx*8+4, ry*8+4, rw*8-8, rh*8-8)
+function map_and_act_draw()
    rectfill(0,0,127,127,cur_room.c)
    scr_map(cur_room.x, cur_room.y, cur_room.x, cur_room.y, cur_room.w, cur_room.h)
 
@@ -236,6 +217,28 @@ function game_draw()
    acts_loop("drawable", "d")
 
    draw_particles()
+end
+
+function game_draw()
+   local x = g_transition_x+8+g_card_shake_x
+   local y = g_transition_y+8+g_card_shake_y
+
+   fade(g_card_fade)
+   local cur_room = g_rooms[g_cur_room]
+   local rw = min(4, cur_room.w)
+   local rh = min(4, cur_room.h)
+   local rx = x - rw/2
+   local ry = y - rh/2
+
+   g_off_x = -(16-rw)/2+rx
+   g_off_y = -(16-rh)/2+ry
+
+   for k,v in pairs({5, 1, 1}) do
+      rect(rx*8+k,ry*8+k, (rx+rw)*8-k-1, (ry+rh)*8-k-1, v)
+   end
+
+   clip(rx*8+4, ry*8+4, rw*8-8, rh*8-8)
+   map_and_act_draw()
    clip()
    draw_status()
    acts_loop("inventory_item", "draw_both")

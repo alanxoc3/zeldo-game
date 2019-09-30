@@ -18,8 +18,7 @@ function draw_ma(x, y, a)
    ]], patternize(0x43,4))
 
    clip(x+2, y+2, 14, 14)
-   acts_loop("drawable", "d")
-
+   map_and_act_draw()
    clip() camera()
    g_x, g_y, g_off_x, g_off_y = ox, oy, oox, ooy
 end

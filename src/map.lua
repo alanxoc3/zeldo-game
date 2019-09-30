@@ -27,7 +27,7 @@ function load_room(new_room, rx, ry)
    g_pl.x = rx + cur_room.x
    g_pl.y = ry + cur_room.y
 
-   load_view(x, y, w, h, 6.5, 9.5, 2, 2, 2, 2)
+   load_view(x, y, w, h, 8, 8, 6, 6, 6, 6)
    center_view(g_pl.x, g_pl.y)
 end
 
@@ -82,8 +82,8 @@ function room_update()
       local dir = nil
       if g_pl.y > g_ry+g_rh-.375     then dir = 'd'
       elseif g_pl.y < g_ry + .5      then dir = 'u'
-      elseif g_pl.x > g_rx+g_rw-.375 then dir = 'r'
-      elseif g_pl.x < g_rx +.5       then dir = 'l'
+      elseif g_pl.x > g_view.rx+g_rw-.375 then dir = 'r'
+      elseif g_pl.x < g_view.rx +.5       then dir = 'l'
       end
 
       if dir != nil and cur_room[dir] then

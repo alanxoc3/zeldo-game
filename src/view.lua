@@ -1,5 +1,13 @@
+g_view = gun_vals([[
+   rx=0, ry=0,
+   rw=0, rh=0,
+   s1=8, s2=8,
+   v1=6, v2=6,
+   h1=6, h2=6
+]])
+
 function load_view(...)
-   g_rx, g_ry, g_rw, g_rh, g_s1, g_s2, g_v1, g_v2, g_h1, g_h2 = ...
+   g_view.rx, g_ry, g_rw, g_rh, g_s1, g_s2, g_v1, g_v2, g_h1, g_h2 = ...
 end
 
 function center_view(x, y)
@@ -20,7 +28,7 @@ end
 
 -- example usage: update_view
 function update_view(p_x, p_y)
-   g_x, g_y = update_view_helper(p_x, g_x, g_rx-g_h1, g_rw+g_h1+g_h2), update_view_helper(p_y, g_y, g_ry-g_v1, g_rh+g_v1+g_v2)
+   g_x, g_y = update_view_helper(p_x, g_x, g_view.rx-g_h1, g_rw+g_h1+g_h2), update_view_helper(p_y, g_y, g_ry-g_v1, g_rh+g_v1+g_v2)
 end
 
 -- some utility functions
