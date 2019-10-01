@@ -1,13 +1,13 @@
 -- a box with a character inside.
 function draw_ma(x, y, a)
-   local ox, oy, oox, ooy = g_x, g_y, g_off_x, g_off_y
+   local ox, oy, oox, ooy = g_view.x, g_view.y, g_off_x, g_off_y
    --local old_off_y = g_off_y
    camera(-x, -y)
    g_off_x = -a.x
    g_off_y = -a.y
-   g_x = -9/8
-   g_y = -11/8
-   -- function scr_x(x) return (x+g_off_x)*8-flr(g_x*8) end
+   g_view.x = -9/8
+   g_view.y = -11/8
+   -- function scr_x(x) return (x+g_off_x)*8-flr(g_view.x*8) end
    -- print(g_off_x, 50, 2)
    -- print(g_off_y, 100, 2)
 
@@ -20,7 +20,7 @@ function draw_ma(x, y, a)
    clip(x+2, y+2, 14, 14)
    map_and_act_draw()
    clip() camera()
-   g_x, g_y, g_off_x, g_off_y = ox, oy, oox, ooy
+   g_view.x, g_view.y, g_off_x, g_off_y = ox, oy, oox, ooy
 end
 
 function draw_energy_bar(x, y)

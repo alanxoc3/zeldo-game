@@ -15,6 +15,7 @@ function load_room(new_room, rx, ry)
    -- reload the map (remove shovel things).
    reload(0x1000, 0x1000, 0x2000)
 
+   -- todo: here
    g_cur_room = new_room
    cur_room = g_rooms[g_cur_room]
 
@@ -22,12 +23,18 @@ function load_room(new_room, rx, ry)
    acts_loop("confined", "kill")
    if cur_room.i then cur_room.i() end
 
-   local x, y, w, h = cur_room.x, cur_room.y, cur_room.w, cur_room.h
-
    g_pl.x = rx + cur_room.x
    g_pl.y = ry + cur_room.y
 
-   load_view(x, y, w, h, 8, 8, 2, 2, 2, 2)
+   g_view = gun_vals([[
+      c=@1,
+      rx=@2, ry=@3,
+      rw=@4, rh=@5,
+      s1=6, s2=10,
+      v1=2, v2=2,
+      h1=2, h2=2
+   ]], cur_room.c, cur_room.x, cur_room.y, cur_room.w, cur_room.h)
+
    center_view(g_pl.x, g_pl.y)
 end
 
@@ -80,9 +87,9 @@ function room_update()
       coresume(g_transition_routine)
    elseif cur_room then
       local dir = nil
-      if g_pl.y > g_ry+g_rh-.375     then dir = 'd'
-      elseif g_pl.y < g_ry + .5      then dir = 'u'
-      elseif g_pl.x > g_view.rx+g_rw-.375 then dir = 'r'
+      if g_pl.y > g_view.ry+g_view.rh-.375     then dir = 'd'
+      elseif g_pl.y < g_view.ry + .5      then dir = 'u'
+      elseif g_pl.x > g_view.rx+g_view.rw-.375 then dir = 'r'
       elseif g_pl.x < g_view.rx +.5       then dir = 'l'
       end
 

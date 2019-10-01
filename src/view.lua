@@ -1,25 +1,13 @@
-g_view = gun_vals([[
-   rx=0, ry=0,
-   rw=0, rh=0,
-   s1=8, s2=8,
-   v1=6, v2=6,
-   h1=6, h2=6
-]])
-
-function load_view(...)
-   g_view.rx, g_ry, g_rw, g_rh, g_s1, g_s2, g_v1, g_v2, g_h1, g_h2 = ...
-end
-
 function center_view(x, y)
-   g_x, g_y = x - 8, y - 8
+   g_view.x, g_view.y = x - 8, y - 8
    update_view(x, y)
 end
 
 function update_view_helper(pc, gc, rc, rd)
    -- order matters here.
    -- this helper shaved over 30 tokens.
-   if pc < gc + g_s1 then gc = pc - g_s1 end
-   if pc > gc + g_s2 then gc = pc - g_s2 end
+   if pc < gc + g_view.s1 then gc = pc - g_view.s1 end
+   if pc > gc + g_view.s2 then gc = pc - g_view.s2 end
    if gc < rc        then gc = rc end
    if gc+16 > rc+rd  then gc = rc+rd-16 end
    if rd < 16        then gc = rd/2 - 8 + rc end
@@ -28,12 +16,12 @@ end
 
 -- example usage: update_view
 function update_view(p_x, p_y)
-   g_x, g_y = update_view_helper(p_x, g_x, g_view.rx-g_h1, g_rw+g_h1+g_h2), update_view_helper(p_y, g_y, g_ry-g_v1, g_rh+g_v1+g_v2)
+   g_view.x, g_view.y = update_view_helper(p_x, g_view.x, g_view.rx-g_view.h1, g_view.rw+g_view.h1+g_view.h2), update_view_helper(p_y, g_view.y, g_view.ry-g_view.v1, g_view.rh+g_view.v1+g_view.v2)
 end
 
 -- some utility functions
-function scr_x(x) return (x+g_off_x)*8-flr(g_x*8) end
-function scr_y(y) return (y+g_off_y)*8-flr(g_y*8) end
+function scr_x(x) return (x+g_off_x)*8-flr(g_view.x*8) end
+function scr_y(y) return (y+g_off_y)*8-flr(g_view.y*8) end
 
 function scr_rect(x1, y1, x2, y2, col)
    rect(scr_x(x1),scr_y(y1),scr_x(x2)-1,scr_y(y2)-1,col)

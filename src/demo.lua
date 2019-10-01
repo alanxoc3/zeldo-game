@@ -168,8 +168,8 @@ function game_update()
          ]],
          g_act_arrs["col"],
          function(x, y)
-            return x >= g_view.rx and x < g_view.rx+g_rw and
-                   y >= g_ry and y < g_ry+g_rh and
+            return x >= g_view.rx and x < g_view.rx+g_view.rw and
+                   y >= g_view.ry and y < g_view.ry+g_view.rh and
                    fget(mget(x, y), 1)
          end,
          g_pl,
@@ -210,8 +210,8 @@ function card_shake(fx)
 end
 
 function map_and_act_draw()
-   rectfill(0,0,127,127,cur_room.c)
-   scr_map(cur_room.x, cur_room.y, cur_room.x, cur_room.y, cur_room.w, cur_room.h)
+   rectfill(0,0,127,127,g_view.c)
+   scr_map(g_view.rx, g_view.ry, g_view.rx, g_view.ry, g_view.rw, g_view.rh)
 
    isorty(g_act_arrs.drawable)
    acts_loop("drawable", "d")
@@ -224,9 +224,8 @@ function game_draw()
    local y = g_transition_y+8-6/8+g_card_shake_y
 
    fade(g_card_fade)
-   local cur_room = g_rooms[g_cur_room]
-   local rw = min(12, cur_room.w)
-   local rh = min(12, cur_room.h)
+   local rw = min(12, g_view.rw)
+   local rh = min(12, g_view.rh)
    local rx = x - rw/2
    local ry = y - rh/2
 
