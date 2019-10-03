@@ -1,15 +1,16 @@
+
 -- a box with a character inside.
 function draw_ma(x, y, a)
-   local ox, oy, oox, ooy = g_view.x, g_view.y, g_off_x, g_off_y
-   --local old_off_y = g_off_y
+   local old_g_view = g_view
+   g_view = gun_vals([[
+      off_x=@1, off_y=@2,
+      x=@3, y=@4,
+      s1=6, s2=6,
+      v1=2, v2=2,
+      h1=2, h2=2
+   ]], -a.x, -a.y, -9/8, -11/8)
+
    camera(-x, -y)
-   g_off_x = -a.x
-   g_off_y = -a.y
-   g_view.x = -9/8
-   g_view.y = -11/8
-   -- function scr_x(x) return (x+g_off_x)*8-flr(g_view.x*8) end
-   -- print(g_off_x, 50, 2)
-   -- print(g_off_y, 100, 2)
 
    batch_call(rectfill, [[
       {0, 0, 17, 17, 5},
@@ -20,7 +21,7 @@ function draw_ma(x, y, a)
    clip(x+2, y+2, 14, 14)
    map_and_act_draw()
    clip() camera()
-   g_view.x, g_view.y, g_off_x, g_off_y = ox, oy, oox, ooy
+   g_view = old_g_view
 end
 
 function draw_energy_bar(x, y)

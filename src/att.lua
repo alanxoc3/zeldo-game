@@ -85,23 +85,23 @@ end, function(a) a.alive = nil end)
 create_parent([[id="confined",att={},par={"act"}]])
 
 create_parent([[id="bounded",att={check_bounds=@1},par={"act"}]], function(a)
-   if a.x+a.dx < g_view.rx+.5 then
-      a.x = g_view.rx+.5
+   if a.x+a.dx < g_cur_room.x+.5 then
+      a.x = g_cur_room.x+.5
       a.dx = 0
    end
 
-   if a.x+a.dx > g_view.rx+g_view.rw-.5 then
-      a.x = g_view.rx+g_view.rw-.5
+   if a.x+a.dx > g_cur_room.x+g_cur_room.w-.5 then
+      a.x = g_cur_room.x+g_cur_room.w-.5
       a.dx = 0
    end
 
-   if a.y+a.dy < g_view.ry+.5 then
-      a.y = g_view.ry+.5
+   if a.y+a.dy < g_cur_room.y+.5 then
+      a.y = g_cur_room.y+.5
       a.dy = 0
    end
 
-   if a.y+a.dy > g_view.ry+g_view.rh-.5 then
-      a.y = g_view.ry+g_view.rh-.5
+   if a.y+a.dy > g_cur_room.y+g_cur_room.h-.5 then
+      a.y = g_cur_room.y+g_cur_room.h-.5
       a.dy = 0
    end
 end)

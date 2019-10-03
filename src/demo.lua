@@ -168,8 +168,8 @@ function game_update()
          ]],
          g_act_arrs["col"],
          function(x, y)
-            return x >= g_view.rx and x < g_view.rx+g_view.rw and
-                   y >= g_view.ry and y < g_view.ry+g_view.rh and
+            return x >= g_cur_room.x and x < g_cur_room.x+g_cur_room.w and
+                   y >= g_cur_room.y and y < g_cur_room.y+g_cur_room.h and
                    fget(mget(x, y), 1)
          end,
          g_pl,
@@ -210,8 +210,8 @@ function card_shake(fx)
 end
 
 function map_and_act_draw()
-   rectfill(0,0,127,127,g_view.c)
-   scr_map(g_view.rx, g_view.ry, g_view.rx, g_view.ry, g_view.rw, g_view.rh)
+   rectfill(0,0,127,127,g_cur_room.c)
+   scr_map(g_cur_room.x, g_cur_room.y, g_cur_room.x, g_cur_room.y, g_cur_room.w, g_cur_room.h)
 
    isorty(g_act_arrs.drawable)
    acts_loop("drawable", "d")
@@ -224,13 +224,13 @@ function game_draw()
    local y = g_transition_y+8-6/8+g_card_shake_y
 
    fade(g_card_fade)
-   local rw = min(12, g_view.rw)
-   local rh = min(12, g_view.rh)
+   local rw = min(12, g_cur_room.w)
+   local rh = min(12, g_cur_room.h)
    local rx = x - rw/2
    local ry = y - rh/2
 
-   g_off_x = -(16-rw)/2+rx
-   g_off_y = -(16-rh)/2+ry
+   g_view.off_x = -(16-rw)/2+rx
+   g_view.off_y = -(16-rh)/2+ry
 
    for k,v in pairs({5, 1, 1}) do
       rect(rx*8+k,ry*8+k, (rx+rw)*8-k-1, (ry+rh)*8-k-1, v)
