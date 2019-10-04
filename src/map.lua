@@ -24,11 +24,16 @@ function load_room(new_room_name, rx, ry)
    g_pl.x = rx + g_cur_room.x
    g_pl.y = ry + g_cur_room.y
 
-   g_view = gun_vals[[
+   g_view = gun_vals([[
+      w=@1, h=@2,
+      s1=6, s2=10,
       s1=6, s2=10,
       v1=2, v2=2,
       h1=2, h2=2
-   ]]
+   ]], min(12, g_cur_room.w), min(12, g_cur_room.h))
+
+   local rw = min(12, g_cur_room.w)
+   local rh = min(12, g_cur_room.h)
 
    center_view(g_pl.x, g_pl.y)
 end

@@ -224,19 +224,14 @@ function game_draw()
    local y = g_transition_y+8-6/8+g_card_shake_y
 
    fade(g_card_fade)
-   local rw = min(12, g_cur_room.w)
-   local rh = min(12, g_cur_room.h)
-   local rx = x - rw/2
-   local ry = y - rh/2
-
-   g_view.off_x = -(16-rw)/2+rx
-   g_view.off_y = -(16-rh)/2+ry
+   local rx = x - g_view.w/2
+   local ry = y - g_view.h/2
 
    for k,v in pairs({5, 1, 1}) do
-      rect(rx*8+k,ry*8+k, (rx+rw)*8-k-1, (ry+rh)*8-k-1, v)
+      rect(rx*8+k,ry*8+k, (rx+g_view.w)*8-k-1, (ry+g_view.h)*8-k-1, v)
    end
 
-   clip(rx*8+4, ry*8+4, rw*8-8, rh*8-8)
+   clip(rx*8+4, ry*8+4, g_view.w*8-8, g_view.h*8-8)
    map_and_act_draw()
    clip()
    draw_status()

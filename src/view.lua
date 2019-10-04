@@ -15,9 +15,17 @@ function update_view_helper(pc, gc, rc, rd)
    return gc
 end
 
--- example usage: update_view
-function update_view(p_x, p_y)
-   g_view.x, g_view.y = update_view_helper(p_x, g_view.x, g_cur_room.x-g_view.h1, g_cur_room.w+g_view.h1+g_view.h2), update_view_helper(p_y, g_view.y, g_cur_room.y-g_view.v1, g_cur_room.h+g_view.v1+g_view.v2)
+-- updates the view, centering on the x and y.
+function update_view(x, y)
+   g_view.x, g_view.y = update_view_helper(x, g_view.x, g_cur_room.x-g_view.h1, g_cur_room.w+g_view.h1+g_view.h2), update_view_helper(y, g_view.y, g_cur_room.y-g_view.v1, g_cur_room.h+g_view.v1+g_view.v2)
+
+   local x = g_transition_x+8+g_card_shake_x
+   local y = g_transition_y+8-6/8+g_card_shake_y
+   local rh = x - g_view.w/2
+   local ry = y - g_view.h/2
+
+   g_view.off_x = -(16-g_view.w)/2+rx
+   g_view.off_y = -(16-g_view.h)/2+ry
 end
 
 -- some utility functions
