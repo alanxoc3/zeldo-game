@@ -209,7 +209,19 @@ function card_shake(fx)
    end
 end
 
-function map_and_act_draw()
+function map_and_act_draw(x, y, border_colors)
+   local rx = x - g_view.w/2
+   local ry = y - g_view.h/2
+
+   g_view.off_x = -(16-g_view.w)/2+rx
+   g_view.off_y = -(16-g_view.h)/2+ry
+
+   for k,v in pairs(border_colors) do
+      rectfill(rx*8+k,ry*8+k, (rx+g_view.w)*8-k-1, (ry+g_view.h)*8-k-1, v)
+   end
+
+   clip(rx*8+4, ry*8+4, g_view.w*8-8, g_view.h*8-8)
+
    rectfill(0,0,127,127,g_cur_room.c)
    scr_map(g_cur_room.x, g_cur_room.y, g_cur_room.x, g_cur_room.y, g_cur_room.w, g_cur_room.h)
 
@@ -217,34 +229,25 @@ function map_and_act_draw()
    acts_loop("drawable", "d")
 
    draw_particles()
+
+   if g_debug then acts_loop("dim", "debug_rect") end
+
+   clip()
+   acts_loop("inventory_item", "draw_both")
 end
 
 function game_draw()
+
+   fade(g_card_fade)
+
    local x = g_transition_x+8+g_card_shake_x
    local y = g_transition_y+8-6/8+g_card_shake_y
 
-   fade(g_card_fade)
-   local rw = min(12, g_cur_room.w)
-   local rh = min(12, g_cur_room.h)
-   local rx = x - rw/2
-   local ry = y - rh/2
+   map_and_act_draw(x, y, {5,1})
 
-   g_view.off_x = -(16-rw)/2+rx
-   g_view.off_y = -(16-rh)/2+ry
-
-   for k,v in pairs({5, 1, 1}) do
-      rect(rx*8+k,ry*8+k, (rx+rw)*8-k-1, (ry+rh)*8-k-1, v)
-   end
-
-   clip(rx*8+4, ry*8+4, rw*8-8, rh*8-8)
-   map_and_act_draw()
-   clip()
    draw_status()
-   acts_loop("inventory_item", "draw_both")
    ttbox_draw(20,107)
    fade(0)
-
-   if g_debug then acts_loop("dim", "debug_rect") end
 end
 
 function draw_glitch_effect()

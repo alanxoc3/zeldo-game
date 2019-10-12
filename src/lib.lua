@@ -25,10 +25,12 @@ end
 function rnd_one() return flr(rnd(3))-1 end
 
 -- copies table attributes from the src to dest tables.
-function copy_atts(dest, src)
+function tabcpy(dest, src)
+   dest = dest or {}
    for k,v in pairs(src or {}) do
       dest[k] = v
    end
+   return dest
 end
 
 -- call a function if the table and the table key are not nil
@@ -127,7 +129,7 @@ function tl_update(tl, ...)
       tl.tl_max_tim = tl.mas[tl.cur] and tl.mas[tl.cur].tl_tim or 0
 		tl.tim = tl.tl_max_tim != 0 and 0 or nil
 
-      copy_atts(tl, tl.mas[tl.cur])
+      tabcpy(tl, tl.mas[tl.cur])
 		call_not_nil("i", tl, ...)
 	end
 
@@ -152,7 +154,7 @@ end
 
 -- params: timeline control, timeline plan
 function tl_attach(tl, mas)
-   copy_atts(tl, gun_vals([[
+   tabcpy(tl, gun_vals([[
       tl_max_tim=0,
       tl_enabled=true,
       mas=@1,

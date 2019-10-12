@@ -1,26 +1,25 @@
-
 -- a box with a character inside.
 function draw_ma(x, y, a)
    local old_g_view = g_view
-   g_view = gun_vals([[
-      off_x=@1, off_y=@2,
-      x=@3, y=@4,
-      s1=6, s2=6,
-      v1=2, v2=2,
-      h1=2, h2=2
-   ]], -a.x, -a.y, -9/8, -11/8)
+   g_view = g_ma_view
+      --off_x=@1, off_y=@2,
+      --x=@3, y=@4,
+      --s1=6, s2=6,
+      --v1=2, v2=2,
+      --h1=2, h2=2
+   --]], -a.x, -a.y, -9/8, -11/8)
 
-   camera(-x, -y)
+   -- camera(-x, -y)
 
-   batch_call(rectfill, [[
-      {0, 0, 17, 17, 5},
-      {1, 1, 16, 16, 6},
-      {2, 2, 15, 15, 0}
-   ]], patternize(0x43,4))
+   -- batch_call(rectfill, [[
+      -- {0, 0, 17, 17, 5},
+      -- {1, 1, 16, 16, 6},
+      -- {2, 2, 15, 15, 0}
+   -- ]], patternize(0x43,4))
 
-   clip(x+2, y+2, 14, 14)
-   map_and_act_draw()
-   clip() camera()
+   -- clip(x+2, y+2, 14, 14)
+   map_and_act_draw(x/8, y/8, {5,1})
+   -- clip() camera()
    g_view = old_g_view
 end
 

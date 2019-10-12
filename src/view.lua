@@ -1,3 +1,7 @@
+g_views = gun_vals[[
+
+]]
+
 g_view = {}
 function center_view(x, y)
    g_view.x, g_view.y = x - 8, y - 8

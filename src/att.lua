@@ -23,7 +23,7 @@ function attach_actor(opt, a)
    foreach(opt.par, function(par_id) a = g_att[par_id](a) end)
 
    tl_attach(a, opt.tl)
-   copy_atts(a,opt.att)
+   tabcpy(a,opt.att)
 
    -- step 2: add to list of objects
    local id = opt.id
