@@ -82,8 +82,18 @@ function align_text(str, x, right)
 end
 
 function zprint(str, x, y, shadow_below)
-   print(str, x, y + (shadow_below and 1 or -1), 1)
-   print(str, x, y, 7)
+   batch_call(print, [[
+      {@1, @2, @4, 1},
+      {@1, @2, @3, 7}
+   ]], str, x, y, y + (shadow_below and 1 or 0xffff))
+end
+
+function zclip(x1, y1, x2, y2)
+   clip(x1, y1, x2+1-flr(x1), y2+1-flr(y1))
+end
+
+function zcls(col)
+   batch_call(rectfill, [[{0x8000, 0x8000, 0x7fff, 0x7fff, @1}]], col or 0)
 end
 
 -- fading

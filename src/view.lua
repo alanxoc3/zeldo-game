@@ -2,31 +2,49 @@ g_views = gun_vals[[
 
 ]]
 
-g_view = {}
-function center_view(x, y)
-   g_view.x, g_view.y = x - 8, y - 8
-   update_view(x, y)
+function create_view_on_cur_room(dim, follow_dim, follow_act)
+   return gun_vals([[
+      w=@1, h=@2, follow_dim=@3, follow_act=@4, room_crop=2
+   ]], min(dim, g_cur_room.w), min(dim, g_cur_room.h), follow_dim, follow_act
+   )
 end
 
-function update_view_helper(pc, gc, rc, rd)
-   -- order matters here.
-   -- this helper shaved over 30 tokens.
-   if pc < gc + g_view.s1 then gc = pc - g_view.s1 end
-   if pc > gc + g_view.s2 then gc = pc - g_view.s2 end
-   if gc < rc        then gc = rc end
-   if gc+16 > rc+rd  then gc = rc+rd-16 end
-   if rd < 16        then gc = rd/2 - 8 + rc end
-   return gc
+g_view = {}
+function center_view(view)
+   view.x, view.y = view.follow_act.x, view.follow_act.y
+   update_view(view)
+end
+
+function update_view_helper(view, xy, wh)
+   local follow_coord = view.follow_act[xy]
+   local view_coord = view[xy]
+   local view_dim = view[wh]
+   local room_dim = g_cur_room[wh]/2-view_dim/2
+   local room_coord = g_cur_room[xy]+g_cur_room[wh]/2
+   local follow_dim = view.follow_dim
+
+   -- If 
+   if follow_coord < view_coord-follow_dim then view_coord = follow_coord+follow_dim end
+   if follow_coord > view_coord+follow_dim then view_coord = follow_coord-follow_dim end
+
+   -- Next, check the room bounds.
+   if view_coord < room_coord-room_dim then view_coord = room_coord-room_dim end
+   if view_coord > room_coord+room_dim then view_coord = room_coord+room_dim end
+
+   -- Finally, center the view if the room is too small.
+   if g_cur_room[wh] <= view[wh] then view_coord = room_coord end
+
+   view[xy] = view_coord
 end
 
 -- example usage: update_view
-function update_view(p_x, p_y)
-   g_view.x, g_view.y = update_view_helper(p_x, g_view.x, g_cur_room.x-g_view.h1, g_cur_room.w+g_view.h1+g_view.h2), update_view_helper(p_y, g_view.y, g_cur_room.y-g_view.v1, g_cur_room.h+g_view.v1+g_view.v2)
+function update_view(view)
+   batch_call(update_view_helper, [[{@1,"x","w"},{@1,"y","h"}]],view)
 end
 
 -- some utility functions
-function scr_x(x) return (x+g_view.off_x)*8-flr(g_view.x*8) end
-function scr_y(y) return (y+g_view.off_y)*8-flr(g_view.y*8) end
+function scr_x(x) return (x+g_view.off_x+8)*8-flr(g_view.x*8) end
+function scr_y(y) return (y+g_view.off_y+8)*8-flr(g_view.y*8) end
 
 function scr_rect(x1, y1, x2, y2, col)
    rect(scr_x(x1),scr_y(y1),scr_x(x2)-1,scr_y(y2)-1,col)
@@ -42,10 +60,6 @@ end
 
 function scr_map(cel_x, cel_y, sx, sy, ...)
    map(cel_x, cel_y, scr_x(sx), scr_y(sy), ...)
-end
-
-function scr_clip(x1, y1, x2, y2)
-   clip(scr_x(x1), scr_y(y1), (x2-x1)*8, (x2-x1)*8)
 end
 
 function scr_circfill(x, y, r, col)

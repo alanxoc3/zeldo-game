@@ -1,5 +1,5 @@
--- token: 7560 7575
--- compr: 2561 2569
+-- token: 7560 7575 7564
+-- compr: 2561 2569 2575
 
 -- older stats:
 -- token: 6991 6928 6926 6907 7086 7707 7723 7768 7707 7741 7732 7718 7560
@@ -144,6 +144,8 @@ function _draw()
 end
 
 function game_update()
+   -- g_view.w = 7 + sin(t()/3)*3
+   -- g_view.h = 7 + cos(t()/2)*3
    patterns_update()
    inventory_update()
    room_update()
@@ -179,7 +181,7 @@ function game_update()
       update_timers()
    -- end
 
-   update_view(g_pl.x, g_pl.y)
+   update_view(g_view)
 
 	-- spawn_particles(1, 0, 0, 10, 10)
    -- spawn_particles(2, 0, 0, 10, 10)
@@ -220,9 +222,8 @@ function map_and_act_draw(x, y, border_colors)
       rectfill(rx*8+k,ry*8+k, (rx+g_view.w)*8-k-1, (ry+g_view.h)*8-k-1, v)
    end
 
-   clip(rx*8+4, ry*8+4, g_view.w*8-8, g_view.h*8-8)
-
-   rectfill(0,0,127,127,g_cur_room.c)
+   zclip(rx*8+4, ry*8+4, (rx+g_view.w)*8-5, (ry+g_view.h)*8-5)
+   zcls(g_cur_room.c)
    scr_map(g_cur_room.x, g_cur_room.y, g_cur_room.x, g_cur_room.y, g_cur_room.w, g_cur_room.h)
 
    isorty(g_act_arrs.drawable)
