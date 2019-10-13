@@ -107,6 +107,7 @@
 
 
 g_debug = false
+g_debug_message = ""
 
 function _init()
    poke(0x5f34, 1) -- for pattern colors.
@@ -140,7 +141,10 @@ end
 function _draw()
    cls()
    call_not_nil("d", g_tl)
-   if g_debug then zprint(stat(1), 104, 102) end
+   if g_debug then
+      zprint(g_debug_message, 50, 102)
+      zprint(stat(1), 104, 102)
+   end
 end
 
 function game_update()
@@ -166,7 +170,8 @@ function game_update()
             {"bounded","check_bounds"},
             {"act", "clean"},
             {"anim","anim_update"},
-            {"timed","tick"}
+            {"timed","tick"},
+            {"view","update_view"}
          ]],
          g_act_arrs["col"],
          function(x, y)
@@ -181,7 +186,7 @@ function game_update()
       update_timers()
    -- end
 
-   update_view(g_view)
+   -- update_view(g_view)
 
 	-- spawn_particles(1, 0, 0, 10, 10)
    -- spawn_particles(2, 0, 0, 10, 10)
@@ -228,13 +233,12 @@ function map_and_act_draw(x, y, border_colors)
 
    isorty(g_act_arrs.drawable)
    acts_loop("drawable", "d")
-
    draw_particles()
+   acts_loop("inventory_item", "draw_both")
 
    if g_debug then acts_loop("dim", "debug_rect") end
 
    clip()
-   acts_loop("inventory_item", "draw_both")
 end
 
 function game_draw()

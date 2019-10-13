@@ -1,19 +1,24 @@
-g_views = gun_vals[[
-
-]]
-
-function create_view_on_cur_room(dim, follow_dim, follow_act)
-   return gun_vals([[
-      w=@1, h=@2, follow_dim=@3, follow_act=@4, room_crop=2
-   ]], min(dim, g_cur_room.w), min(dim, g_cur_room.h), follow_dim, follow_act
+function create_view_on_cur_room(w, h, follow_dim, follow_act)
+   return create_actor([[
+      id="view_instance",
+      att={
+         w=@1, h=@2,
+         follow_dim=@3, follow_act=@4,
+         update_view=@5,
+         center_view=@6
+      },
+      par={"view"}
+   ]], min(w, g_cur_room.w), min(h, g_cur_room.h), follow_dim, follow_act,
+   function(a)
+      batch_call(update_view_helper, [[{@1,"x","w"},{@1,"y","h"}]],a)
+   end, function(a)
+      a.x, a.y = a.follow_act.x, a.follow_act.y
+      a.update_view(a)
+   end
    )
 end
 
 g_view = {}
-function center_view(view)
-   view.x, view.y = view.follow_act.x, view.follow_act.y
-   update_view(view)
-end
 
 function update_view_helper(view, xy, wh)
    local follow_coord = view.follow_act[xy]
@@ -35,11 +40,6 @@ function update_view_helper(view, xy, wh)
    if g_cur_room[wh] <= view[wh] then view_coord = room_coord end
 
    view[xy] = view_coord
-end
-
--- example usage: update_view
-function update_view(view)
-   batch_call(update_view_helper, [[{@1,"x","w"},{@1,"y","h"}]],view)
 end
 
 -- some utility functions

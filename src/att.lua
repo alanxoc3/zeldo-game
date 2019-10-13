@@ -400,3 +400,15 @@ create_parent(
    a.x, a.dx = coll_tile_help(a.x, a.y, a.dx, a.rx, a.ry, 0, a, a.tile_hit, solid_func)
    a.y, a.dy = coll_tile_help(a.y, a.x, a.dy, a.ry, a.rx, 2, a, a.tile_hit, function(y, x) return solid_func(x, y) end)
 end)
+
+create_parent(
+[[ id="view",
+   att={
+      x=0, y=0,
+      w=1, h=1,
+      follow_dim=1,
+      room_crop=2,
+      follow_act=nil
+   },
+   par={"act", "confined"}
+]])
