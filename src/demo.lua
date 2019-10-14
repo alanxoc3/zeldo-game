@@ -149,8 +149,11 @@ function _draw()
 end
 
 function game_update()
-   -- g_view.w = 7 + sin(t()/3)*3
-   -- g_view.h = 7 + cos(t()/2)*3
+   if g_debug then
+      g_view.w = 7 + sin(t()/3.23)*3
+      g_view.h = 7 + cos(t()/2.19)*3
+      g_view.follow_dim = min(g_view.w, g_view.h) / 8
+   end
    patterns_update()
    inventory_update()
    room_update()
