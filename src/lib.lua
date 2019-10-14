@@ -17,10 +17,7 @@ function ybtn() return btn_helper(btn, 2, 3) end
 function xbtnp() return btn_helper(btnp, 0, 1) end
 function ybtnp() return btn_helper(btnp, 2, 3) end
 
-function zsgn(num)
-   return num == 0 and 0 or sgn(num)
-end
-
+function zsgn(num) return num == 0 and 0 or sgn(num) end
 function round(num) return flr(num + .5) end
 
 -- -1, 0, or 1

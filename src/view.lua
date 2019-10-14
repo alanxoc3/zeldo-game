@@ -10,7 +10,7 @@ function create_view_on_cur_room(w, h, follow_dim, follow_act)
       par={"view"}
    ]], min(w, g_cur_room.w), min(h, g_cur_room.h), follow_dim, follow_act,
    function(a)
-      batch_call(update_view_helper, [[{@1,"x","w"},{@1,"y","h"}]],a)
+      batch_call(update_view_helper, [[{@1,"x","w","ixx"},{@1,"y","h","iyy"}]],a)
    end, function(a)
       a.x, a.y = a.follow_act.x, a.follow_act.y
       a.update_view(a)
@@ -20,15 +20,15 @@ end
 
 g_view = {}
 
-function update_view_helper(view, xy, wh)
-   local follow_coord = view.follow_act[xy]
+function update_view_helper(view, xy, wh, ii)
+   local follow_coord = view.follow_act[xy]+view.follow_act[ii]/8
    local view_coord = view[xy]
    local view_dim = view[wh]
    local room_dim = g_cur_room[wh]/2-view_dim/2
    local room_coord = g_cur_room[xy]+g_cur_room[wh]/2
    local follow_dim = view.follow_dim
 
-   -- If 
+   -- Checking the actor we follow.
    if follow_coord < view_coord-follow_dim then view_coord = follow_coord+follow_dim end
    if follow_coord > view_coord+follow_dim then view_coord = follow_coord-follow_dim end
 
