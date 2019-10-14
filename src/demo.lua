@@ -136,13 +136,14 @@ function _update60()
    if btnp"5" and btn"4" then g_debug = not g_debug end
    tl_update(g_tl)
    tbox_interact()
+   g_debug_message = g_pl.x
 end
 
 function _draw()
    cls()
    call_not_nil("d", g_tl)
    if g_debug then
-      zprint(g_debug_message, 50, 102)
+      zprint(g_debug_message, 1, 102)
       zprint(stat(1), 104, 102)
    end
 end

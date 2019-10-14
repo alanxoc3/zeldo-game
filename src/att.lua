@@ -352,14 +352,14 @@ create_parent(
                touched = true
             end
 
-            hit_list[b][axis]=spd>0 and 1 or 0 + spd<0 and 0xffff or 0
+            hit_list[b][axis]=zsgn(spd)
          end
       end
 
       foreach(acts, function(b)
          if a != b and (not a.static or not b.static) then
             local x,y = abs(a.x+dx-b.x), abs(a.y+dy-b.y)
-            if x < (a.rx+b.rx) and y < (a.ry+b.ry) then 
+            if x < a.rx+b.rx and y < a.ry+b.ry then
                if not hit_list[b] then hit_list[b] = {x=0, y=0} end
 
                batch_call(col_help, [[

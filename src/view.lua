@@ -43,8 +43,8 @@ function update_view_helper(view, xy, wh)
 end
 
 -- some utility functions
-function scr_x(x) return (x+g_view.off_x+8)*8-flr(g_view.x*8) end
-function scr_y(y) return (y+g_view.off_y+8)*8-flr(g_view.y*8) end
+function scr_x(x) return round((x+g_view.off_x+8)*8-g_view.x*8) end
+function scr_y(y) return round((y+g_view.off_y+8)*8-g_view.y*8) end
 
 function scr_rect(x1, y1, x2, y2, col)
    rect(scr_x(x1),scr_y(y1),scr_x(x2)-1,scr_y(y2)-1,col)
