@@ -136,7 +136,6 @@ function _update60()
    if btnp"5" and btn"4" then g_debug = not g_debug end
    tl_update(g_tl)
    tbox_interact()
-   g_debug_message = g_pl.x
 end
 
 function _draw()
@@ -150,8 +149,8 @@ end
 
 function game_update()
    if g_debug then
-      g_view.w = 7 + sin(t()/3.23)*3
-      g_view.h = 7 + cos(t()/2.19)*3
+      g_view.w = flr((7 + sin(t()/3.23)*3)*4)/4
+      g_view.h = flr((7 + cos(t()/2.19)*3)*4)/4
       g_view.follow_dim = min(g_view.w, g_view.h) / 8
    end
    patterns_update()

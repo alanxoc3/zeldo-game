@@ -2,7 +2,7 @@
 function draw_ma(x, y, a)
    local old_view = g_view
    g_view = g_ma_view
-   map_and_act_draw(x/8,y/8, {0,5,6})
+   -- map_and_act_draw(x/8,y/8, {0,5,6})
    g_view = old_view
 end
 

@@ -26,7 +26,7 @@ function update_view_helper(view, xy, wh, ii)
    local view_dim = view[wh]
    local room_dim = g_cur_room[wh]/2-view_dim/2
    local room_coord = g_cur_room[xy]+g_cur_room[wh]/2
-   local follow_dim = view.follow_dim
+   local follow_dim = round(view.follow_dim*8)/8
 
    -- Checking the actor we follow.
    if follow_coord < view_coord-follow_dim then view_coord = follow_coord+follow_dim end
@@ -43,8 +43,11 @@ function update_view_helper(view, xy, wh, ii)
 end
 
 -- some utility functions
-function scr_x(x) return round((x+g_view.off_x+8)*8-g_view.x*8) end
-function scr_y(y) return round((y+g_view.off_y+8)*8-g_view.y*8) end
+function scr_x(x)
+   g_debug_message = " "..(g_view.follow_dim)
+   return round((x+g_view.off_x+8-g_view.x)*8)
+end
+function scr_y(y) return round((y+g_view.off_y+8)*8)-round(g_view.y*8) end
 
 function scr_rect(x1, y1, x2, y2, col)
    rect(scr_x(x1),scr_y(y1),scr_x(x2)-1,scr_y(y2)-1,col)
