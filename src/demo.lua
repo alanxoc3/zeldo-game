@@ -1,5 +1,5 @@
--- token: 7560 7575 7564 7580
--- compr: 2561 2569 2575 2682
+-- token: 7560 7575 7564 7580 7721
+-- compr: 2561 2569 2575 2682 2896
 
 -- older stats:
 -- token: 6991 6928 6926 6907 7086 7707 7723 7768 7707 7741 7732 7718 7560
@@ -7,50 +7,81 @@
 
 -- idea: for compression, reuse words from text boxes. It might just be a good idea.
 
--- TODO: fix inventory item spacing.
+-- inventory sprint:
+-- TODO: Inventory spacing left and right correct.
+-- TODO: Fix inventory pixel off problem.
+
+-- ma sprint:
 -- TODO: Make ma work correctly for interactable things.
+-- TODO: Make ma work for items.
 
--- TODO: cell shading only for sub items.
--- TODO: add state name to tl
--- TODO: tbox only interact if in interact state.
--- TODO: more efficient trigger (only interact with player, at least think about this more).
--- TODO: bomb throwing (make it 2 items).
--- TODO: just make bombs better in general.
--- TODO: fix tbox screen pause
+-- pause sprint:
+-- TODO: Pause game on tbox.
+-- TODO: Pause game on room transition.
+-- TODO: Disable inventory on room transition.
+-- TODO: Pause game on banjo play.
+-- TODO: Banjo play song.
 
--- TODO: connect tbox with menu actors.
--- TODO: separate tbox speaker.
--- TODO: tbox pop up and down.
+-- throwing sprint:
+-- TODO: Bomb throwing. Bomb should be similar to pickupable items.
+-- TODO: Plant throwing.
+-- TODO: Chicken throwing.
+-- TODO: Held item persists through rooms.
 
--- TODO: think about text interaction more.
--- TODO: ma don't move if pl not moving (look at dx/dy)
+-- shovel sprint:
+-- TODO: Continue shovel mechanics.
+-- TODO: work on shovel animation.
 
--- TODO: create tbox movement/transition.
--- TODO: Shovel and the modular view.
--- TODO: Interaction with Top enemy and write plans for other enemies.
--- TODO: Make the bat enemy do something
--- TODO: Make the chicken enemy go crazy.
--- TODO: Work on arrow interaction.
--- TODO: Work on sword & shield walking.
--- TODO: Boomerang and timeout problem.
--- TODO: Bomb mechanics.
+-- item sprint:
+-- TODO: Fix the boomerang timeout problem.
 -- TODO: Continue bomb mechanics.
--- TODO: Continue bomb and shovel mechanics.
--- TODO: Finish the engine.
------------------------------------------
--- TODO: create own rectfill, that always cleans up fillp()?
+-- TODO: Arrow bump bomb or arrow grab bomb.
+-- TODO: Boomerang bump bomb or boomerang return bomb.
+-- TODO: Sword, shield, and bow persist through rooms.
 
--- TODO: fix ma player 2 parts (for enemies). this may require smarter parenting. 
--- TODO: player stretch arm sprite (be able to do while walking).
--- TODO: go through sprite file optimizations.
+-- engine sprint:
+-- TODO: Think about state name with tl. Add if needed.
+-- TODO: Just make bombs better in general.
+-- TODO: Fix tbox screen pause
+
+-- tbox sprint:
+-- TODO: Think about text interaction more.
+-- TODO: Separate tbox speaker.
+-- TODO: Connect tbox with menu actors.
+-- TODO: Tbox pop up and down, or think about transition.
+
+-- enemy sprint:
+-- TODO: Make the bat enemy do something
+-- TODO: Refine the top enemy more.
+-- TODO: Make the chicken enemy go crazy.
+-- TODO: Interaction with Top enemy and write plans for other enemies.
+
+-- title sprint:
 -- TODO: create title screen.
 
--- things that are done:
+-- player sprint:
+-- TODO: Think about player arm movement (above head? ...).
+
+-- story sprint
+-- Finish the basic map transitions.
+-- Work on house transitions again.
+-- Finish house transitions.
+
+----------------------- things that are done: --------------------
 -- done: design menu actor area/transitions. this is done by fading now.
+-- done: Create a more modular view.
 -- done: fix tbox double press bugs.
+-- done: More efficient trigger, only interact with player.
+-- done: create zcls, that uses rectfill to fill the screen (within cropped area).
+-- done: cell shading only for sub items.
+-- done: Fix ma player 2 parts (for enemies). Fixed with modular view.
 -- done: no screen shake when enemy hits enemy/house.
+-- done: go through sprite file optimizations.
 -- done: give player money
+-- done: Work on sword & shield walking.
+-- done: ma don't move if pl not moving (look at dx/dy)
 -- done: create power square item.
+-- done: tbox only interact if in interact state.
 -- done: create a chicken object.
 -- done: make bombs work
 -- done: make and tweak an after stun timer.
@@ -99,9 +130,7 @@
 -- done: fix tbox arrow sprite offset.
 -- done: create actor/parent more simple? no. it is good.
 -- done: create actor adds actor to g_attach.
--- done: rethink items again. chicken is duck. duck is like enemy, but not
---       respawnable. you can pick it up too. other items are more like
---       interactable.
+-- done: rethink items again. 
 -- done: create power square variable.
 -- done: make enemy health bar.
 -- done: make the top "tired" bar work.
