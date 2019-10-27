@@ -70,7 +70,6 @@ function gen_pl(x, y)
          end
 
          if item then
-            g_ma_view.follow_act = a.item
             if not item.alive then
                a.item = nil
             end
@@ -79,9 +78,8 @@ function gen_pl(x, y)
                item.holding = false
             end
 
-            a.ax, a.ay = 0, 0
-         else
-            g_ma_view.follow_act = a
+            a.ax *= .5
+            a.ay *= .5
          end
 
          a.anim_sind = nil

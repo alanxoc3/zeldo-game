@@ -19,7 +19,7 @@ g_att.item_selector = function()
       },
       par={"rel","drawable"}
       ]],function(a)
-         scr_rect(a.x-.75,a.y-.75,a.x+.75,a.y+.75,8)
+         -- scr_circ(a.x-.125, a.y, .5, 8)
       end, function(a)
          -- from index to coordinate
          local x, y = (g_selected-1)%3, flr((g_selected-1)/3)
@@ -34,31 +34,40 @@ g_att.item_selector = function()
          local next_selected = y*3+x+1
 
          if g_selected != next_selected then
-            -- tbox_clear()
+            g_items_drawn[g_selected].selected = false
+            g_items_drawn[next_selected].selected = true
 
-            if get_selected_item(next_selected) then
-               -- tbox(get_selected_item(next_selected).desc)
-            else
-               -- tbox("|^nothing:no item selected")
-            end
+            -- tbox_clear()
          end
 
          g_selected = next_selected
-         a.rel_x = (x - 1) * 1.5
-         a.rel_y = (y - 1.25) * 1.5
       end
    )
 end
 
 g_att.inventory_item = function(x, y, item)
+   g_debug_message = "hi "..x
+   local selected_x = x*1.25
+   local selected_y = y*1.25
    return create_actor([[
       id="inventory_item",
       att={
-         rel_x=@1, rel_y=@2, sind=@3, visible=@3, xf=@4
+         d=@5, rel_x=@1, rel_y=@2, sind=@3, visible=@3, xf=@4
       },
-      par={"rel","spr_obj"},
+      par={"rel","spr_obj","drawable"},
       tl={}
-      ]],x,y,item.sind,g_pl.xf
+      ]],x,y,item.sind,g_pl.xf, function(a)
+         if a.selected then
+            local c1 = a.selected and 9 or 5
+            local c2 = a.selected and 10 or 5
+            local size = a.selected and .25 or 0
+            scr_circfill(a.x+sin(t())/2, a.y+cos(t())/2, size+.125, 1)
+            scr_circfill(a.x+sin(t()-.5)/2, a.y+cos(t()-.5)/2, size+.125, 1)
+            scr_circfill(a.x+sin(t())/2, a.y+cos(t())/2, size, c1)
+            scr_circfill(a.x+sin(t()-.5)/2, a.y+cos(t()-.5)/2, size, c2)
+            -- scr_circfill(a.x+sin(t()-.5)/4, a.y+cos(t()-.5)/4, size, c2)
+         end
+      end
    )
 end
 
@@ -67,14 +76,18 @@ function create_inventory_items()
       sfx"3"
       g_item_selector = g_att.item_selector()
       g_items_drawn = {}
-      for ind=1,9 do 
-         local item = g_items[ind]
-         local item_x, item_y = (ind-1)%3-1, flr((ind-1)/3)-1.25
+      local item_order = {3,2,1,4,7,8,9,6,5}
+      local item_spread_radius = 2
+      for k, v in pairs(item_order) do
+         local item = g_items[v]
+         local item_x, item_y = cos(k/8)*item_spread_radius, sin(k/8)*item_spread_radius
+         if v == 5 then item_x, item_y = 0, 0 end
 
          if item.enabled then
-            g_items_drawn[ind] = g_att.inventory_item(item_x*1.5, item_y*1.5, item)
+            g_items_drawn[v] = g_att.inventory_item(item_x, item_y, item)
          end
       end
+      g_items_drawn[5].selected = true
    end
 end
 
@@ -115,7 +128,7 @@ function inventory_update()
    local item = get_selected_item()
 
    if not g_tbox_active and not g_menu_open and btn"5" then
-      g_selected = G_INTERACT 
+      g_selected = G_INTERACT
    end
    g_menu_open = not g_tbox_active and btn"5"
 
@@ -132,15 +145,6 @@ function inventory_update()
    else
       destroy_inventory_items()
    end
-end
-
-function draw_inv_box(x, y, sind, inactive)
-   x = x + g_pl.x
-   y = y + g_pl.y
-   spr_out(sind, scr_x(x), scr_y(y), 1, 1, false, false, 1)
-   spr(sind, scr_x(x), scr_y(y))
-
-   -- pal()
 end
 
 function create_bomb(pl)
