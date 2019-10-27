@@ -69,3 +69,7 @@ end
 function scr_circ(x, y, r, col)
    circ(scr_x(x),scr_y(y), r*8, col)
 end
+
+function scr_line(x1, y1, x2, y2, col)
+   line(scr_x(x1),scr_y(y1),scr_x(x2),scr_y(y2), col)
+end

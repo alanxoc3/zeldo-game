@@ -309,6 +309,7 @@ create_parent(
 [[ id="trig",
    att={
       trigger=nf,
+      untrigger=nf,
       is_in_trig=@1
    },
    par={"vec","dim"}
@@ -316,6 +317,8 @@ create_parent(
    if pl.x-pl.rx > a.x-a.rx and pl.x+pl.rx < a.x+a.rx
       and pl.y-pl.ry > a.y-a.ry and pl.y+pl.ry < a.y+a.ry then
       a.trigger(a, pl)
+   else
+      a.untrigger(a, pl)
    end
 end)
 

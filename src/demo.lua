@@ -251,7 +251,11 @@ function game_draw()
    local y = g_transition_y+8-6/8+g_card_shake_y
 
    map_and_act_draw(x, y, {5,1})
-   g_pl.d(g_pl)
+   if g_menu_open then
+      if g_selected == 5 then g_pl.outline_color = 2 end
+      g_pl.d(g_pl)
+      g_pl.outline_color = 1
+   end
    acts_loop("inventory_item", "draw_both")
 
    draw_status()

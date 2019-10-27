@@ -43,11 +43,6 @@ g_att.item_selector = function()
          end
 
          g_selected = next_selected
-         if g_selected == 5 then
-            g_pl.outline_color = 2
-         else
-            g_pl.outline_color = 1
-         end
          a.rel_x = (x - 1) * 1.5
          a.rel_y = (y - 1.25) * 1.5
       end
@@ -58,9 +53,9 @@ g_att.inventory_item = function(x, y, item)
    return create_actor([[
       id="inventory_item",
       att={
-         u=@5, rel_x=@1, rel_y=@2, sind=@3, visible=@3, xf=@4
+         d=@6, u=@5, rel_x=@1, rel_y=@2, sind=@3, visible=@3, xf=@4
       },
-      par={"rel","spr_obj"},
+      par={"rel","spr_obj", "drawable"},
       tl={}
       ]],x,y,item.sind,g_pl.xf, function(a)
          a.outline_color = a.selected and 2 or 1
@@ -76,7 +71,7 @@ function create_inventory_items()
       local inventory_space = 1.125
       for ind=1,9 do
          local item = g_items[ind]
-         local item_x, item_y = (ind-1)%3-1, flr((ind-1)/3)-1.125
+         local item_x, item_y = (ind-1)%3-1, flr((ind-1)/3)-1.375
 
          if item.enabled then
             g_items_drawn[ind] = g_att.inventory_item(item_x*inventory_space, item_y*inventory_space, item)

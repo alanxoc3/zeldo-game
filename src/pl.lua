@@ -102,6 +102,7 @@ function gen_pl(x, y)
          if a.item then a.item.alive = false end
       -- draw
       end, function(a)
+         ltop.outline_color = a.outline_color
          scr_spr_out(ltop)
          scr_spr_out(a)
          if a.item and not a.item.spr then

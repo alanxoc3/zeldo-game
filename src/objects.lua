@@ -66,20 +66,20 @@ function gen_static_block(x, y, rx, ry)
    )
 end
 
-function gen_trigger_block(x, y, rx, ry, contains)
+function gen_trigger_block(x, y, rx, ry, contains, not_contains)
    return create_actor([[
       id="trigger_block",
       att={
-         x=@1, y=@2, rx=@3, ry=@4, trigger=@5
+         x=@1, y=@2, rx=@3, ry=@4, trigger=@5, untrigger=@6
       },
       par={"confined", "trig"}
-      ]],x,y,rx,ry,contains
+      ]],x,y,rx,ry,contains or nf, not_contains or nf
    )
 end
 
-function gen_trigger_block_dir(a, dir, contains)
+function gen_trigger_block_dir(a, dir, ...)
    local x, y = dir_to_coord(dir)
-   return gen_trigger_block(x*a.rx*2+a.x,y*a.ry*2+a.y,.5+abs(y)*3/8,.5+abs(x)*3/8, contains)
+   return gen_trigger_block(x*a.rx*2+a.x,y*a.ry*2+a.y,.5+abs(y)*3/8,.5+abs(x)*3/8, ...)
 end
 
 g_att.arrow = function(x, y, left)

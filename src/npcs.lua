@@ -31,10 +31,18 @@ g_att.sign = function(x, y, text, sind)
    )
 end
 
-function gen_text_trigger_block(a, dir, text)
-   return gen_trigger_block_dir(a, dir, function(a, other)
-      if not g_tbox_active and btnp"4" and g_selected == G_INTERACT then
-         tbox(text)
+function gen_text_trigger_block(sign, dir, text)
+   return gen_trigger_block_dir(sign, dir, function(a, other)
+      if not g_menu_open and g_selected == G_INTERACT then
+         sign.outline_color = 2
+         if not g_tbox_active and btnp"4" then
+            tbox(text)
+         end
+      else
+         sign.outline_color = 1
       end
-   end)
+   end, function(a, other)
+      sign.outline_color = 1
+   end
+   )
 end
