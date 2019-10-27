@@ -7,29 +7,43 @@
 
 -- idea: for compression, reuse words from text boxes. It might just be a good idea.
 
--- todo: cell shading only for sub items.
--- todo: add state name to tl
--- todo: tbox only interact if in interact state.
--- todo: more efficient trigger (only interact with player, at least think about this more).
--- todo: bomb throwing (make it 2 items).
--- todo: just make bombs better in general.
--- todo: fix tbox screen pause
+-- TODO: fix inventory item spacing.
+-- TODO: Make ma work correctly for interactable things.
 
--- todo: connect tbox with menu actors.
--- todo: separate tbox speaker.
--- todo: tbox pop up and down.
+-- TODO: cell shading only for sub items.
+-- TODO: add state name to tl
+-- TODO: tbox only interact if in interact state.
+-- TODO: more efficient trigger (only interact with player, at least think about this more).
+-- TODO: bomb throwing (make it 2 items).
+-- TODO: just make bombs better in general.
+-- TODO: fix tbox screen pause
 
--- todo: think about text interaction more.
--- todo: ma don't move if pl not moving (look at dx/dy)
+-- TODO: connect tbox with menu actors.
+-- TODO: separate tbox speaker.
+-- TODO: tbox pop up and down.
 
--- todo: create tbox movement/transition.
+-- TODO: think about text interaction more.
+-- TODO: ma don't move if pl not moving (look at dx/dy)
+
+-- TODO: create tbox movement/transition.
+-- TODO: Shovel and the modular view.
+-- TODO: Interaction with Top enemy and write plans for other enemies.
+-- TODO: Make the bat enemy do something
+-- TODO: Make the chicken enemy go crazy.
+-- TODO: Work on arrow interaction.
+-- TODO: Work on sword & shield walking.
+-- TODO: Boomerang and timeout problem.
+-- TODO: Bomb mechanics.
+-- TODO: Continue bomb mechanics.
+-- TODO: Continue bomb and shovel mechanics.
+-- TODO: Finish the engine.
 -----------------------------------------
--- todo: create own rectfill, that always cleans up fillp()?
+-- TODO: create own rectfill, that always cleans up fillp()?
 
--- todo: fix ma player 2 parts (for enemies). this may require smarter parenting. 
--- todo: player stretch arm sprite (be able to do while walking).
--- todo: go through sprite file optimizations.
--- todo: create title screen.
+-- TODO: fix ma player 2 parts (for enemies). this may require smarter parenting. 
+-- TODO: player stretch arm sprite (be able to do while walking).
+-- TODO: go through sprite file optimizations.
+-- TODO: create title screen.
 
 -- things that are done:
 -- done: design menu actor area/transitions. this is done by fading now.
