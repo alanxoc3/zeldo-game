@@ -9,6 +9,7 @@ function create_lank_top()
    ]], function(a)
       a.xf = g_pl.xf
       a.alive = g_pl.alive
+      a.outline_color = g_pl.outline_color
    end)
 end
 

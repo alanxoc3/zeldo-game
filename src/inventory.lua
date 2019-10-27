@@ -13,14 +13,10 @@ g_att.item_selector = function()
    return create_actor([[
       id="item_selector",
       att={
-         aaoeu=3,
-         d=@1,
-         u=@2
+         u=@1
       },
-      par={"rel","drawable"}
-      ]],function(a)
-         scr_rect(a.x-.75,a.y-.75,a.x+.75,a.y+.75,8)
-      end, function(a)
+      par={"rel"}
+      ]], function(a)
          -- from index to coordinate
          local x, y = (g_selected-1)%3, flr((g_selected-1)/3)
 
@@ -34,6 +30,9 @@ g_att.item_selector = function()
          local next_selected = y*3+x+1
 
          if g_selected != next_selected then
+            g_items_drawn[g_selected].selected = false
+            g_items_drawn[next_selected].selected = true
+
             -- tbox_clear()
 
             if get_selected_item(next_selected) then
@@ -44,6 +43,11 @@ g_att.item_selector = function()
          end
 
          g_selected = next_selected
+         if g_selected == 5 then
+            g_pl.outline_color = 2
+         else
+            g_pl.outline_color = 1
+         end
          a.rel_x = (x - 1) * 1.5
          a.rel_y = (y - 1.25) * 1.5
       end
@@ -54,11 +58,13 @@ g_att.inventory_item = function(x, y, item)
    return create_actor([[
       id="inventory_item",
       att={
-         rel_x=@1, rel_y=@2, sind=@3, visible=@3, xf=@4
+         u=@5, rel_x=@1, rel_y=@2, sind=@3, visible=@3, xf=@4
       },
       par={"rel","spr_obj"},
       tl={}
-      ]],x,y,item.sind,g_pl.xf
+      ]],x,y,item.sind,g_pl.xf, function(a)
+         a.outline_color = a.selected and 2 or 1
+      end
    )
 end
 
@@ -68,7 +74,7 @@ function create_inventory_items()
       g_item_selector = g_att.item_selector()
       g_items_drawn = {}
       local inventory_space = 1.125
-      for ind=1,9 do 
+      for ind=1,9 do
          local item = g_items[ind]
          local item_x, item_y = (ind-1)%3-1, flr((ind-1)/3)-1.125
 
@@ -87,20 +93,21 @@ function destroy_inventory_items()
    end
    g_item_selector = nil
    g_items_drawn = nil
+   g_pl.outline_color = 1
 end
 
 function inventory_init()
    -- global_items
    g_items = gun_vals([[
-      {name="banjo"   , enabled=true, func=@1, sind=1, desc="|^banjo:play a sick tune!"},
+      {name="bomb"    , enabled=true, func=@6, sind=5, desc="|^bomb:only 5 power squares to blows things up!"},
       {name="brang"   , enabled=true, func=@2, sind=4, desc="|^brang:stun baddies. get items."},
-      {name="shovel"  , enabled=true, func=@3, sind=3, desc="|^shovel:dig things up. kill the grass."},
+      {name="force"   , enabled=true, func=@8, sind=36, desc="|^sqr'force:don't let ivan take it from you!"},
       {name="shield"  , enabled=true, func=@4, sind=6, desc="|^shield:be safe from enemy attacks."},
       {name="interact", enabled=true, func=nf, sind=false, desc="|^interact:talk to people, pick up things, read signs."},
-      {name="sword"   , enabled=true, func=@5, sind=2, desc="|^sword:hurts bad guys."},
-      {name="bomb"    , enabled=true, func=@6, sind=5, desc="|^bomb:only 5 power squares to blows things up!"},
       {name="bow"     , enabled=true, func=@7, sind=7, desc="|^bow:shoots enemies. needs 2 power squares."},
-      {name="force"   , enabled=true, func=@8, sind=36, desc="|^sqr'force:don't let ivan take it from you!"}
+      {name="banjo"   , enabled=true, func=@1, sind=1, desc="|^banjo:play a sick tune!"},
+      {name="sword"   , enabled=true, func=@5, sind=2, desc="|^sword:hurts bad guys."},
+      {name="shovel"  , enabled=true, func=@3, sind=3, desc="|^shovel:dig things up. kill the grass."}
    ]], create_banjo, create_brang, create_shovel, create_shield, create_sword, create_bomb, create_bow, create_force)
 
    g_selected=G_INTERACT
