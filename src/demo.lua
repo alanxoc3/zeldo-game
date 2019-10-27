@@ -237,7 +237,6 @@ function map_and_act_draw(x, y, border_colors)
    isorty(g_act_arrs.drawable)
    acts_loop("drawable", "d")
    draw_particles()
-   acts_loop("inventory_item", "draw_both")
 
    if g_debug then acts_loop("dim", "debug_rect") end
 
@@ -252,6 +251,8 @@ function game_draw()
    local y = g_transition_y+8-6/8+g_card_shake_y
 
    map_and_act_draw(x, y, {5,1})
+   g_pl.d(g_pl)
+   acts_loop("inventory_item", "draw_both")
 
    draw_status()
    ttbox_draw(20,107)

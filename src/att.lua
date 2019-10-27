@@ -211,6 +211,7 @@ create_parent(
 [[ id="spr_obj",
    att={
       sind=0,
+      outline_color=1,
       sw=1,
       sh=1,
       xf=false,

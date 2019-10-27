@@ -2,7 +2,7 @@ function restore_pal()
    for i=1,15 do pal(i,g_pal[i]) end
 end
 
-function scr_spr(a, spr_func)
+function scr_spr(a, spr_func, ...)
    if a.visible then
       local dir = flr(a.sind/256)
       local sind = a.sind % 256
@@ -13,11 +13,11 @@ function scr_spr(a, spr_func)
          yf = dir == 1 or dir == 2
       end
 
-      (spr_func or spr)(sind, scr_x(a.x-a.sw*.5)+a.ixx+a.xx, scr_y(a.y-a.sh*.5)+a.iyy+a.yy, a.sw, a.sh, xf, yf, 1)
+      (spr_func or spr)(sind, scr_x(a.x-a.sw*.5)+a.ixx+a.xx, scr_y(a.y-a.sh*.5)+a.iyy+a.yy, a.sw, a.sh, xf, yf, ...)
    end
 end
 
-function scr_spr_out(a) scr_spr(a, spr_out) end
+function scr_spr_out(a) scr_spr(a, spr_out, a.outline_color) end
 
 function scr_spr_and_out(...)
    scr_spr_out(...)

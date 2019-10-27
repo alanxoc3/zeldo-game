@@ -24,7 +24,7 @@ function load_room(new_room_name, rx, ry)
    g_pl.x = rx + g_cur_room.x
    g_pl.y = ry + g_cur_room.y
 
-   g_view = create_view_on_cur_room(16, 12, 2, g_pl)
+   g_view = create_view_on_cur_room(14, 12, 2, g_pl)
    g_ma_view = create_view_on_cur_room(2.75, 3, 0, g_pl)
 
    acts_loop("view", "center_view")
