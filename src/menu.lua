@@ -1,7 +1,7 @@
 -- a box with a character inside.
-function draw_ma(x, y, a)
+function draw_ma(view, x, y, a)
    local old_view = g_view
-   g_view = g_ma_view
+   g_view = view
    map_and_act_draw(x/8,y/8, {0,5,6})
    g_view = old_view
 end
@@ -43,9 +43,9 @@ function draw_health_bar(x, y, max_health, health, flip)
    camera()
 end
 
-function draw_stat(x, y, a, flip)
+function draw_stat(view, x, y, flip)
+   local a = view.follow_act
    if a and a.alive then
-      local health_str = flr(a.health).."/"..a.max_health
       local operator = x+20
       local operator2 = operator
 
@@ -53,11 +53,15 @@ function draw_stat(x, y, a, flip)
          operator, operator2 = x-17, x-59
       end
 
-      draw_ma(flip and (x-17) or x+9,y+9,a)
-      draw_health_bar(operator2,y+7,a.max_health,a.health, flip)
+      draw_ma(view, flip and (x-8) or x+9,y+9,a)
+
+      if a.hurtable then
+         local health_str = flr(a.health).."/"..a.max_health
+         draw_health_bar(operator2,y+7,a.max_health,a.health, flip)
+         zprint(health_str,align_text(health_str, operator, flip),y+13,true)
+      end
 
       zprint(a.name,align_text(a.name, operator, flip),y)
-      zprint(health_str,align_text(health_str, operator, flip),y+13,true)
    end
 end
 
@@ -73,7 +77,7 @@ function draw_status()
 
    -- status panels
    batch_call(draw_stat, [[
-      {1, 108, @1},
-      {126, 108, @2, true}
-   ]], g_pl, g_cur_enemy)
+      {@1, 1, 108},
+      {@2, 126, 108, true}
+   ]], g_left_ma_view, g_right_ma_view)
 end

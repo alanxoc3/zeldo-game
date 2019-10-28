@@ -6,7 +6,7 @@ function map_init()
          w =24,  h =10,
          l={"lank_front_yard",11.5,5},
          r={"field",.5,9},
-         {"sign",5.5,14.5,"|sign:testing sign"},
+         {"sign",5.5,14.5,"|sign:testing sign",43},
          {"lark",8.5,14.5}
       },
       "lank_front_yard"={ c=3, qx=0, qy=0,

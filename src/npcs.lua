@@ -2,6 +2,7 @@ g_att.lark = function(x, y)
    return create_actor([[
       id="lark",
       att={
+         name="|lark",
          sind=99,rx=.5,ry=.5,iyy=-2,
          x=@1, y=@2, i=@3, u=@4
       }, par={"confined","spr","wall"}
@@ -21,10 +22,11 @@ g_att.sign = function(x, y, text, sind)
    return create_actor([[
       id="sign",
       att={
+         name="|sign",
          sind=@3,rx=.5,ry=.5,
          x=@1, y=@2, i=@4
       }, par={"confined","spr","wall"}
-      ]],x,y,sind or 43,
+      ]],x,y,sind,
       function(a)
          a.trig = gen_text_trigger_block(a, 3, text)
       end
@@ -34,6 +36,7 @@ end
 function gen_text_trigger_block(sign, dir, text)
    return gen_trigger_block_dir(sign, dir, function(a, other)
       if not g_menu_open and g_selected == G_INTERACT then
+         g_right_ma_view.follow_act = sign
          sign.outline_color = 2
          if not g_tbox_active and btnp"4" then
             tbox(text)
