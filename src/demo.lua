@@ -1,5 +1,5 @@
--- token: 7560 7575 7564 7580 7721
--- compr: 2561 2569 2575 2682 2896
+-- token: 7560 7575 7564 7580 7721 7731 7636
+-- compr: 2561 2569 2575 2682 2896 2906 2754
 
 -- older stats:
 -- token: 6991 6928 6926 6907 7086 7707 7723 7768 7707 7741 7732 7718 7560
@@ -46,6 +46,15 @@
 
 -- tbox sprint:
 -- TODO: Think about text interaction more.
+--       How will multi-actor conversations go? Tbox could just have a notion
+--       of left and right. Wait, tbox doesn't even need that notion. Really,
+--       the menu area needs to know if tbox is on. No, jk. Tbox does need the
+--       notion. Well, the menu area really only needs to know who triggered
+--       the tbox. Or what if there was an array that tied the speakers to the
+--       actors? I think I'm making this too complicated. If you just pass the
+--       left and the right to tbox, then no. Everyone is assumed to be on the
+--       right no matter what, except Lank. Yes. So a list that maps speakers
+--       to actors and directions is what I would want.
 -- TODO: Separate tbox speaker.
 -- TODO: Connect tbox with menu actors.
 -- TODO: Tbox pop up and down, or think about transition.
@@ -97,7 +106,7 @@
 -- done: player banjo walk
 -- done: player no run
 -- done: player item in front.
--- done: try the "just around player" status thing (caden idea.)
+-- done: try the 'just around player' status thing (caden idea.)
 -- done: think about sub table gun_vals cache. don't want. problem was state.
 -- done: fix enemy share state bug
 -- done: tl update don't use t(), or fix pausing.
@@ -133,7 +142,7 @@
 -- done: rethink items again. 
 -- done: create power square variable.
 -- done: make enemy health bar.
--- done: make the top "tired" bar work.
+-- done: make the top 'tired' bar work.
 -- done: connect the map.
 -- done: make the code size smaller in menu.
 -- done: token cleanup on status bars
@@ -150,12 +159,12 @@
 
 
 g_debug = false
-g_debug_message = ""
+g_debug_message = ''
 
 function _init()
    poke(0x5f34, 1) -- for pattern colors.
-   g_pal_gray = gun_vals("5,5,13,13,5,6,6,6,6,6,6,6,13,6,6")
-   g_pal_norm = gun_vals("1,2,3,4,5,6,7,8,9,10,11,12,13,14,15")
+   g_pal_gray = gun_vals('5,5,13,13,5,6,6,6,6,6,6,6,13,6,6')
+   g_pal_norm = gun_vals('1,2,3,4,5,6,7,8,9,10,11,12,13,14,15')
    g_pal = g_pal_norm
 
 	init_particles({ g_snow, g_rain })
@@ -176,14 +185,14 @@ function _init()
 end
 
 function _update60()
-   if btnp"5" and btn"4" then g_debug = not g_debug end
+   if btnp'5' and btn'4' then g_debug = not g_debug end
    tl_update(g_tl)
    tbox_interact()
 end
 
 function _draw()
    cls()
-   call_not_nil("d", g_tl)
+   call_not_nil('d', g_tl)
    if g_debug then
       zprint(g_debug_message, 1, 102)
       zprint(stat(1), 104, 102)
@@ -203,30 +212,30 @@ function game_update()
    -- if not g_tbox_active and not g_transitioning then
       batch_call(
          acts_loop, [[
-            {"drawable","reset_off"},
-            {"stunnable", "stun_update"},
-            {"act","update"},
-            {"mov","move"},
-            {"col","move_check",@1},
-            {"col","move_check",@4},
-            {"trig","is_in_trig",@3},
-            {"tcol","coll_tile",@2},
-            {"rel","rel_update",@3},
-            {"vec","vec_update"},
-            {"bounded","check_bounds"},
-            {"act", "clean"},
-            {"anim","anim_update"},
-            {"timed","tick"},
-            {"view","update_view"}
+            {'drawable','reset_off'},
+            {'stunnable', 'stun_update'},
+            {'act','update'},
+            {'mov','move'},
+            {'col','move_check',@1},
+            {'col','move_check',@4},
+            {'trig','is_in_trig',@3},
+            {'tcol','coll_tile',@2},
+            {'rel','rel_update',@3},
+            {'vec','vec_update'},
+            {'bounded','check_bounds'},
+            {'act', 'clean'},
+            {'anim','anim_update'},
+            {'timed','tick'},
+            {'view','update_view'}
          ]],
-         g_act_arrs["col"],
+         g_act_arrs['col'],
          function(x, y)
             return x >= g_cur_room.x and x < g_cur_room.x+g_cur_room.w and
                    y >= g_cur_room.y and y < g_cur_room.y+g_cur_room.h and
                    fget(mget(x, y), 1)
          end,
          g_pl,
-         g_act_arrs["wall"]
+         g_act_arrs['wall']
       )
       energy_update(.25)
       update_timers()
@@ -278,10 +287,10 @@ function map_and_act_draw(x, y, border_colors)
    scr_map(g_cur_room.x, g_cur_room.y, g_cur_room.x, g_cur_room.y, g_cur_room.w, g_cur_room.h)
 
    isorty(g_act_arrs.drawable)
-   acts_loop("drawable", "d")
+   acts_loop('drawable', 'd')
    draw_particles()
 
-   if g_debug then acts_loop("dim", "debug_rect") end
+   if g_debug then acts_loop('dim', 'debug_rect') end
 
    clip()
 end
@@ -299,10 +308,14 @@ function game_draw()
       g_pl.d(g_pl)
       g_pl.outline_color = 1
    end
-   acts_loop("inventory_item", "draw_both")
+   acts_loop('inventory_item', 'draw_both')
 
    draw_status()
-   ttbox_draw(20,107)
+   local tbox_x = 1
+   if g_tbox_active and g_tbox_active.speaker == 'lank' then
+      tbox_x = 20
+   end
+   ttbox_draw(tbox_x,107)
    fade(0)
 end
 
@@ -316,7 +329,12 @@ end
 function game_init()
    map_init()
    g_pl = gen_pl(0, 0)
-   load_room("village", 12, 7)
-    
-   tbox("|lank:12341234561 1901234567890 234123456 8901234567890hh ")
+   load_room('village', 12, 7)
+
+   tbox([[
+      speaker="Lank",
+      "Hey player, how are you? He's back and blackr than ever!",
+      "Are you ready to play the Story of Zeldo?",
+      "But first I will tell you a story about how a young man became a true man a long time ago."
+   ]])
 end

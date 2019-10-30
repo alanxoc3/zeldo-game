@@ -18,7 +18,7 @@ function load_room(new_room_name, rx, ry)
    g_cur_room = g_rooms[new_room_name]
 
    -- take care of actors.
-   acts_loop("confined", "kill")
+   acts_loop('confined', 'kill')
    if g_cur_room.i then g_cur_room.i() end
 
    g_pl.x = rx + g_cur_room.x
@@ -28,7 +28,7 @@ function load_room(new_room_name, rx, ry)
    g_left_ma_view = create_view_on_cur_room(2.75, 3, 0, g_pl)
    g_right_ma_view = create_view_on_cur_room(2.75, 3, 0, nil)
 
-   acts_loop("view", "center_view")
+   acts_loop('view', 'center_view')
 end
 
 g_transition_x = 0

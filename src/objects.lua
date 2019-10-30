@@ -1,7 +1,7 @@
 -- todo: trim code here.
 g_att.house = function(x, y, room, rx, ry, sind)
    return create_actor([[
-      id="house",
+      id='house',
       att={
          x=@1, y=@2,
          room=@3, room_x=@4, room_y=@5,
@@ -9,7 +9,7 @@ g_att.house = function(x, y, room, rx, ry, sind)
          destroyed=@8, sind=@9,
          iyy=-4,
          sw=2, sh=2
-      }, par={"confined","spr"}
+      }, par={'confined','spr'}
       ]],x,y,room,rx,ry,
       -- trigger
       function(a, other)
@@ -29,14 +29,14 @@ end
 
 g_att.money = function(x, y, dx, dy)
    return create_actor([[
-      id="money",
+      id='money',
       att={
          sind=39,rx=.375,ry=.375,
          x=@1, y=@2,
          dx=@3, dy=@4,
          touchable=false,
          hit=@5,
-      }, par={"bounded","confined","tcol","spr","col","mov"},
+      }, par={'bounded','confined','tcol','spr','col','mov'},
       tl={
          {tl_tim=5},
          {i=@6}
@@ -55,24 +55,24 @@ end
 
 function gen_static_block(x, y, rx, ry)
    return create_actor([[
-      id="rect_block",
+      id='rect_block',
       att={
          x=@1, y=@2, rx=@3, ry=@4,
          static=true,
          touchable=true
       },
-      par={"confined", "wall"}
+      par={'confined', 'wall'}
       ]],x,y,rx,ry
    )
 end
 
 function gen_trigger_block(x, y, rx, ry, contains, not_contains)
    return create_actor([[
-      id="trigger_block",
+      id='trigger_block',
       att={
          x=@1, y=@2, rx=@3, ry=@4, trigger=@5, untrigger=@6
       },
-      par={"confined", "trig"}
+      par={'confined', 'trig'}
       ]],x,y,rx,ry,contains or nf, not_contains or nf
    )
 end
@@ -84,7 +84,7 @@ end
 
 g_att.arrow = function(x, y, left)
    return create_actor([[
-      id="arrow",
+      id='arrow',
       att={
          x=@1, y=@2,
          rx=.375,ry=.375,
@@ -92,7 +92,7 @@ g_att.arrow = function(x, y, left)
          touchable=false,
          ax=@4
       },
-      par={"confined","mov","col","spr"},
+      par={'confined','mov','col','spr'},
       tl={
          {hit=@5, tl_tim=3},
          {i=@6}
@@ -101,11 +101,11 @@ g_att.arrow = function(x, y, left)
       -- hit
       function(a, other)
          if other.evil then
-            change_cur_enemy(other)
+            change_cur_ma(other)
 
-            call_not_nil("knockback", other, (a.cur == 1) and .3 or .1, a.xf and -1 or 1, 0)
-            call_not_nil("stun", other, 30)
-            call_not_nil("hurt", other, 1, 30)
+            call_not_nil('knockback', other, (a.cur == 1) and .3 or .1, a.xf and -1 or 1, 0)
+            call_not_nil('stun', other, 30)
+            call_not_nil('hurt', other, 1, 30)
 
             a.alive = false
          end
@@ -119,12 +119,12 @@ end
 
 g_att.pot = function(x, y)
    return create_actor([[
-      id="pot",
+      id='pot',
       att={
          sind=49,rx=.375,ry=.375,
          x=@1, y=@2,
          touchable=true,
-      }, par={"bounded","confined","tcol","spr","col","mov"},
+      }, par={'bounded','confined','tcol','spr','col','mov'},
       ]],x,y
    )
 end

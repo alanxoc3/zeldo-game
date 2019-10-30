@@ -7,7 +7,7 @@ function draw_ma(view, x, y, a)
 end
 
 function draw_energy_bar(x, y)
-   local width = 103
+   local width = 104
    local cur_energy = flr(max(min(g_energy/g_max_energy*width,width-1),1))
 
    camera(-x,-y)
@@ -56,7 +56,7 @@ function draw_stat(view, x, y, flip)
       draw_ma(view, flip and (x-8) or x+9,y+9,a)
 
       if a.hurtable then
-         local health_str = flr(a.health).."/"..a.max_health
+         local health_str = flr(a.health)..'/'..a.max_health
          draw_health_bar(operator2,y+7,a.max_health,a.health, flip)
          zprint(health_str,align_text(health_str, operator, flip),y+13,true)
       end

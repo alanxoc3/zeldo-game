@@ -1,5 +1,5 @@
 -- power squares
-g_cur_enemy, g_cur_enemy_timer = nil, 0
+g_cur_enemy_timer = nil, 0
 g_money = 300
 
 function add_money(amount)
@@ -14,7 +14,7 @@ function remove_money(amount)
 end
 
 function get_money_str()
-   local new_str = "00"..g_money
+   local new_str = '00'..g_money
    return sub(new_str, #new_str-2, #new_str)
 end
 
@@ -46,9 +46,9 @@ function use_energy(amount)
    g_energy_amount += amount
 end
 
-function change_cur_enemy(enemy)
-   g_cur_enemy = enemy
-   create_timer("cur_enemy", 60*3, function()
-      g_cur_enemy = nil
+function change_cur_ma(a)
+   g_right_ma_view.follow_act = a
+   create_timer('cur_ma', 60*3, function()
+      g_right_ma_view.follow_act = nil
    end)
 end

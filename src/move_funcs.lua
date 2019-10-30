@@ -9,12 +9,12 @@ end
 
 -- if a is inside b.
 function dim_collide(a, b)
-   return axis_collide("x", a, b) and axis_collide("y", a, b)
+   return axis_collide('x', a, b) and axis_collide('y', a, b)
 end
 
 -- if actor a and b collide at the axis.
 function axis_collide(axis, a, b)
-   local ap, bp, ar, br = a[axis], b[axis], a["r"..axis], b["r"..axis]
+   local ap, bp, ar, br = a[axis], b[axis], a['r'..axis], b['r'..axis]
    return ap > bp - br - ar and ap < bp + br + ar
 end
 

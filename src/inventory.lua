@@ -11,11 +11,11 @@ end
 
 g_att.item_selector = function()
    return create_actor([[
-      id="item_selector",
+      id='item_selector',
       att={
          u=@1
       },
-      par={"rel"}
+      par={'rel'}
       ]], function(a)
          -- from index to coordinate
          local x, y = (g_selected-1)%3, flr((g_selected-1)/3)
@@ -35,11 +35,9 @@ g_att.item_selector = function()
 
             -- tbox_clear()
 
-            if get_selected_item(next_selected) then
-               -- tbox(get_selected_item(next_selected).desc)
-            else
-               -- tbox("|^nothing:no item selected")
-            end
+            -- if get_selected_item(next_selected) then
+            -- else
+            -- end
          end
 
          g_selected = next_selected
@@ -51,11 +49,11 @@ end
 
 g_att.inventory_item = function(x, y, item)
    return create_actor([[
-      id="inventory_item",
+      id='inventory_item',
       att={
          d=@6, u=@5, rel_x=@1, rel_y=@2, sind=@3, visible=@3, xf=@4
       },
-      par={"rel","spr_obj", "drawable"},
+      par={'rel','spr_obj', 'drawable'},
       tl={}
       ]],x,y,item.sind,g_pl.xf, function(a)
          a.outline_color = a.selected and 2 or 1
@@ -65,7 +63,7 @@ end
 
 function create_inventory_items()
    if not g_items_drawn then
-      sfx"3"
+      sfx'3'
       g_item_selector = g_att.item_selector()
       g_items_drawn = {}
       local inventory_space = 1.125
@@ -83,7 +81,7 @@ end
 function destroy_inventory_items()
    foreach(g_items_drawn, function(a) a.alive = false end)
    if g_item_selector then
-      sfx"4"
+      sfx'4'
       g_item_selector.alive = false
    end
    g_item_selector = nil
@@ -94,15 +92,15 @@ end
 function inventory_init()
    -- global_items
    g_items = gun_vals([[
-      {name="bomb"    , enabled=true, func=@6, sind=5, desc="|^bomb:only 5 power squares to blows things up!"},
-      {name="brang"   , enabled=true, func=@2, sind=4, desc="|^brang:stun baddies. get items."},
-      {name="force"   , enabled=true, func=@8, sind=36, desc="|^sqr'force:don't let ivan take it from you!"},
-      {name="shield"  , enabled=true, func=@4, sind=6, desc="|^shield:be safe from enemy attacks."},
-      {name="interact", enabled=true, func=nf, sind=false, desc="|^interact:talk to people, pick up things, read signs."},
-      {name="bow"     , enabled=true, func=@7, sind=7, desc="|^bow:shoots enemies. needs 2 power squares."},
-      {name="banjo"   , enabled=true, func=@1, sind=1, desc="|^banjo:play a sick tune!"},
-      {name="sword"   , enabled=true, func=@5, sind=2, desc="|^sword:hurts bad guys."},
-      {name="shovel"  , enabled=true, func=@3, sind=3, desc="|^shovel:dig things up. kill the grass."}
+      {name='bomb'    , enabled=true, func=@6, sind=5, desc="bomb:only 5 power squares to blows things up!"},
+      {name='brang'   , enabled=true, func=@2, sind=4, desc="brang:stun baddies. get items."},
+      {name='force'   , enabled=true, func=@8, sind=36, desc="sqr'force:don't let ivan take it from you!"},
+      {name='shield'  , enabled=true, func=@4, sind=6, desc="shield:be safe from enemy attacks."},
+      {name='interact', enabled=true, func=nf, sind=false, desc="interact:talk to people, pick up things, read signs."},
+      {name='bow'     , enabled=true, func=@7, sind=7, desc="bow:shoots enemies. needs 2 power squares."},
+      {name='banjo'   , enabled=true, func=@1, sind=1, desc="banjo:play a sick tune!"},
+      {name='sword'   , enabled=true, func=@5, sind=2, desc="sword:hurts bad guys."},
+      {name='shovel'  , enabled=true, func=@3, sind=3, desc="shovel:dig things up. kill the grass."}
    ]], create_banjo, create_brang, create_shovel, create_shield, create_sword, create_bomb, create_bow, create_force)
 
    g_selected=G_INTERACT
@@ -117,12 +115,12 @@ function inventory_update()
    -- tbox logic
    local item = get_selected_item()
 
-   if not g_tbox_active and not g_menu_open and btn"5" then
+   if not g_tbox_active and not g_menu_open and btn'5' then
       g_selected = G_INTERACT 
    end
-   g_menu_open = not g_tbox_active and btn"5"
+   g_menu_open = not g_tbox_active and btn'5'
 
-   if g_menu_open and not btn"5" then
+   if g_menu_open and not btn'5' then
       if not get_selected_item() then
          g_selected = G_INTERACT
       end
@@ -148,7 +146,7 @@ end
 
 function create_bomb(pl)
    return create_actor([[
-      id="lank_bomb",
+      id='lank_bomb',
       att={
          rx=.375,
          ry=.375,
@@ -157,7 +155,7 @@ function create_bomb(pl)
          tl_loop=false,
          xf=@1
       },
-      par={"bounded","confined","item","col","mov","knockable","spr"},
+      par={'bounded','confined','item','col','mov','knockable','spr'},
       tl={
          {i=@2, u=@5, tl_tim=.25},
          {i=@3, tl_tim=1.25},
@@ -176,7 +174,7 @@ function create_bomb(pl)
       end,
       function(a)
          a.rx, a.ry = .75, .75
-         card_shake"8"
+         card_shake'8'
       end, pause_energy,
       function(a, other)
          if other.lank_bomb and other.cur < 3 then
@@ -184,15 +182,15 @@ function create_bomb(pl)
          end
 
          if other.evil then
-            change_cur_enemy(other)
+            change_cur_ma(other)
          end
-         
+
          if other.knockable then
             local ang = atan2(other.x-a.x, other.y-a.y)
             other.knockback(other, .5, cos(ang), sin(ang))
          end
 
-         call_not_nil("hurt", other, 15, 30)
+         call_not_nil('hurt', other, 15, 30)
       end, function(a)
          scr_circfill(a.x, a.y, sin(a.tim/.25), 8)
          scr_circfill(a.x+rnd(2)-1, a.y+rnd(2)-1, sin(a.tim/.25)*rnd(.25)+.25, 1)
@@ -205,7 +203,7 @@ end
 
 function create_brang(pl)
    return create_actor([[
-      id="lank_brang",
+      id='lank_brang',
       att={
          holding=true,
          rx=.375,
@@ -218,7 +216,7 @@ function create_brang(pl)
          iy=.8,
          touchable=false
       },
-      par={"item","anim","col","mov"},
+      par={'item','anim','col','mov'},
       tl={
          {hit=@2, i=@3, u=@4, tl_tim=.125},
          {hit=@2, i=nf, u=@6, tl_tim=.5},
@@ -229,7 +227,7 @@ function create_brang(pl)
       -- hit
       function(a, other)
          if other.evil then
-            change_cur_enemy(other)
+            change_cur_ma(other)
          end
          if other.pl then
             if a.cur != 1 then
@@ -277,7 +275,7 @@ end
 
 function create_banjo(pl)
    return create_actor([[
-      id="lank_banjo",
+      id='lank_banjo',
       att={
          holding=true,
          rx=.3,
@@ -287,7 +285,7 @@ function create_banjo(pl)
          touchable=false,
          i=@2, u=@3
       },
-      par={"item","rel","col"}
+      par={'item','rel','col'}
       ]],
       pl.xf,
       -- init 1
@@ -306,7 +304,7 @@ end
 
 function create_shovel(pl)
    return create_actor([[
-      id="lank_shovel",
+      id='lank_shovel',
       att={
          holding=true,
          rx=.3,
@@ -316,7 +314,7 @@ function create_shovel(pl)
          touchable=false,
          i=@2, u=@3
       },
-      par={"item","rel"}
+      par={'item','rel'}
       ]],
       not pl.xf,
       -- init 1
@@ -341,7 +339,7 @@ end
 -- teleports to different places
 function create_force(pl)
    return create_actor([[
-      id="lank_force",
+      id='lank_force',
       att={
          holding=true,
          rx=.3,
@@ -352,7 +350,7 @@ function create_force(pl)
          u=@3,
          touchable=false
       },
-      par={"item","rel"}
+      par={'item','rel'}
       ]], pl.xf, function(a)
          -- random room index
          local i = flr(rnd(5))+1
@@ -367,7 +365,7 @@ end
 
 function create_bow(pl)
    return create_actor([[
-      id="lank_bow",
+      id='lank_bow',
       att={
          holding=true,
          rx=.5,
@@ -379,7 +377,7 @@ function create_bow(pl)
          destroyed=@5,
          touchable=false
       },
-      par={"item","rel"},
+      par={'item','rel'},
       tl={
          {i=@2, u=@3, tl_tim=.4},
          {i=nf, u=@4}
@@ -414,7 +412,7 @@ function create_bow(pl)
          pause_energy()
       end, function(a)
          if remove_money(1) then
-            sfx"6"
+            sfx'6'
             g_att.arrow(a.x, a.y, a.xf)
          end
       end
@@ -428,10 +426,8 @@ function sword_shield_hit(a, o)
       if a.cur != 1 then
          use_energy(a.energy)
       end
-      change_cur_enemy(o)
-
-
-      call_not_nil("hurt", o, (a.cur == 1) and (a.o_hurt*2) or a.o_hurt, 30)
+      change_cur_ma(o)
+      call_not_nil('hurt', o, (a.cur == 1) and (a.o_hurt*2) or a.o_hurt, 30)
    end
 
    if o.knockable and not o.pl then
@@ -466,7 +462,7 @@ end
 
 function create_sword(pl)
    return create_actor([[
-      id="lank_sword",
+      id='lank_sword',
       att={
          max_stun_val=20,
          min_stun_val=10,
@@ -488,7 +484,7 @@ function create_sword(pl)
          xf=@1,
          touchable=false
       },
-      par={"item","rel","col"},
+      par={'item','rel','col'},
       tl={
          {hit=@2, i=@3, u=@4, tl_tim=.4},
          {hit=@2, i=nf, u=@5}
@@ -503,7 +499,7 @@ end
 
 function create_shield(pl)
    return create_actor([[
-      id="lank_shield",
+      id='lank_shield',
       att={
          max_stun_val=60,
          min_stun_val=0,
@@ -526,7 +522,7 @@ function create_shield(pl)
          poke=20,
          touchable=false
       },
-      par={"item","rel","col"},
+      par={'item','rel','col'},
       tl={
          {hit=@2, i=@3, u=@4, tl_tim=.4},
          {hit=@2, i=nf, u=@5}

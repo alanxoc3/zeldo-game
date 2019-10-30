@@ -1,11 +1,11 @@
 function create_lank_top()
    return create_actor([[
-      id="lank_top",
+      id='lank_top',
       att={
          sind=147,
          iyy=-2,
          u=@1
-      }, par={"rel","spr_obj"}
+      }, par={'rel','spr_obj'}
    ]], function(a)
       a.xf = g_pl.xf
       a.alive = g_pl.alive
@@ -16,9 +16,9 @@ end
 function gen_pl(x, y)
    local ltop = create_lank_top()
    return create_actor(
-      [[ id="pl",
+      [[ id='pl',
          att={
-            name="|lank",
+            name="lank",
             x=@1,
             y=@2,
             sinds={144, 145, 146},
@@ -34,12 +34,12 @@ function gen_pl(x, y)
             health=50,
             u=@3, destroyed=@4, d=@5
          },
-         par={"anim","col","mov","tcol","hurtable","knockable","stunnable","spr"}
+         par={'anim','col','mov','tcol','hurtable','knockable','stunnable','spr'}
       ]], x, y, function(a)
          -- movement logic
          if a.stun_countdown == 0 then
-            if not btn"5" then
-               if not a.item and (xbtn() != 0) then a.xf = btn"0" end
+            if not btn'5' then
+               if not a.item and (xbtn() != 0) then a.xf = btn'0' end
                a.ax = xbtn()*a.spd
                a.ay = ybtn()*a.spd
             else
@@ -48,16 +48,16 @@ function gen_pl(x, y)
          end
 
          -- item logic
-         if not btn"5" and not a.item then
-            if btnp"4" and g_energy_tired then
+         if not btn'5' and not a.item then
+            if btnp'4' and g_energy_tired then
                if g_selected != G_INTERACT then
-                  sfx"7"
+                  sfx'7'
                end
-            elseif btn"4" and not g_energy_tired then
-               if get_selected_item().name != "bomb" or remove_money(5) then
+            elseif btn'4' and not g_energy_tired then
+               if get_selected_item().name != 'bomb' or remove_money(5) then
                   if g_selected != G_INTERACT then
                      a.item = gen_pl_item(a, g_selected)
-                     sfx"5"
+                     sfx'5'
                   end
                end
             end
@@ -75,7 +75,7 @@ function gen_pl(x, y)
                a.item = nil
             end
 
-            if (not btn"4" or btn"5") then
+            if (not btn'4' or btn'5') then
                item.holding = false
             end
 

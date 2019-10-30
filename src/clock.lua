@@ -11,7 +11,7 @@ end
 function update_timers()
    for k, v in pairs(g_timers) do
       if v.end_time - ti() <= 0 then
-         call_not_nil("func", v)
+         call_not_nil('func', v)
          del(g_timers, v)
       end
    end

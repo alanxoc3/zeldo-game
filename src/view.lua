@@ -1,16 +1,16 @@
 function create_view_on_cur_room(w, h, follow_dim, follow_act)
    return create_actor([[
-      id="view_instance",
+      id='view_instance',
       att={
          w=@1, h=@2,
          follow_dim=@3, follow_act=@4,
          update_view=@5,
          center_view=@6
       },
-      par={"view"}
+      par={'view'}
    ]], min(w, g_cur_room.w), min(h, g_cur_room.h), follow_dim, follow_act,
    function(a)
-      batch_call(update_view_helper, [[{@1,"x","w","ixx"},{@1,"y","h","iyy"}]],a)
+      batch_call(update_view_helper, [[{@1,'x','w','ixx'},{@1,'y','h','iyy'}]],a)
    end, function(a)
       if a.follow_act then
          a.x, a.y = a.follow_act.x, a.follow_act.y
