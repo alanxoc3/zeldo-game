@@ -25,7 +25,7 @@ function map_init()
          w =12,  h =10,
          l={'field',23.5,3},
 	   r={'graveyard',.5,17.5},
-         {'sign',105.5,4.5,{speaker="Sign","Here lies an old person (probably)."},45}
+         {'sign',105.5,4.5,{speaker="Grave","Here lies an old person (probably)."},45}
       },
       'graveyard'={
          c=13, qx=2, qy=1,

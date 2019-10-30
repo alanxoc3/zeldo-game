@@ -45,10 +45,3 @@ g_max_energy, g_energy, g_energy_tired, g_energy_amount, g_energy_stop = 100, 10
 function use_energy(amount)
    g_energy_amount += amount
 end
-
-function change_cur_ma(a)
-   g_right_ma_view.follow_act = a
-   create_timer('cur_ma', 60*3, function()
-      g_right_ma_view.follow_act = nil
-   end)
-end

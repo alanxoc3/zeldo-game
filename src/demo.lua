@@ -1,5 +1,5 @@
--- token: 7560 7575 7564 7580 7721 7731 7636
--- compr: 2561 2569 2575 2682 2896 2906 2754
+-- token: 7560 7575 7564 7580 7721 7731 7636 7637
+-- compr: 2561 2569 2575 2682 2896 2906 2754 2759
 
 -- older stats:
 -- token: 6991 6928 6926 6907 7086 7707 7723 7768 7707 7741 7732 7718 7560
@@ -45,18 +45,7 @@
 -- TODO: Fix tbox screen pause
 
 -- tbox sprint:
--- TODO: Think about text interaction more.
---       How will multi-actor conversations go? Tbox could just have a notion
---       of left and right. Wait, tbox doesn't even need that notion. Really,
---       the menu area needs to know if tbox is on. No, jk. Tbox does need the
---       notion. Well, the menu area really only needs to know who triggered
---       the tbox. Or what if there was an array that tied the speakers to the
---       actors? I think I'm making this too complicated. If you just pass the
---       left and the right to tbox, then no. Everyone is assumed to be on the
---       right no matter what, except Lank. Yes. So a list that maps speakers
---       to actors and directions is what I would want.
--- TODO: Separate tbox speaker.
--- TODO: Connect tbox with menu actors.
+-- TODO: Tbox triggers should work.
 -- TODO: Tbox pop up and down, or think about transition.
 
 -- enemy sprint:
@@ -85,7 +74,11 @@
 -- done: cell shading only for sub items.
 -- done: Fix ma player 2 parts (for enemies). Fixed with modular view.
 -- done: no screen shake when enemy hits enemy/house.
+-- done: Think about text interaction more. Only Lank is to the left.
+-- done: Separate tbox speaker.
+-- done: Connect tbox with menu actors.
 -- done: go through sprite file optimizations.
+-- done: Make tbox use gun_vals.
 -- done: give player money
 -- done: Work on sword & shield walking.
 -- done: ma don't move if pl not moving (look at dx/dy)
@@ -296,7 +289,6 @@ function map_and_act_draw(x, y, border_colors)
 end
 
 function game_draw()
-
    fade(g_card_fade)
 
    local x = g_transition_x+8+g_card_shake_x
@@ -312,7 +304,7 @@ function game_draw()
 
    draw_status()
    local tbox_x = 1
-   if g_tbox_active and g_tbox_active.speaker == 'lank' then
+   if g_tbox_active and g_tbox_active.speaker == "Lank" then
       tbox_x = 20
    end
    ttbox_draw(tbox_x,107)

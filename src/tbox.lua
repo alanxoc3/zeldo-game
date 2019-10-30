@@ -57,10 +57,10 @@ end
 
 -- Example tbox:
 -- tbox([[
---    'line 1 is cool',
---    'line 2 is better though',
---    'line 3 anyone?',
---    speaker='alan',
+--    "line 1 is cool",
+--    "line 2 is better though",
+--    "line 3 anyone?",
+--    speaker="alan",
 --    trigger=@1
 -- ]], function reboot() end)
 function tbox_with_obj(a)

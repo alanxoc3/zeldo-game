@@ -181,9 +181,7 @@ function create_bomb(pl)
             tl_next(other, 3)
          end
 
-         if other.evil then
-            change_cur_ma(other)
-         end
+         change_cur_ma(other)
 
          if other.knockable then
             local ang = atan2(other.x-a.x, other.y-a.y)
@@ -226,9 +224,7 @@ function create_brang(pl)
       pl.xf,
       -- hit
       function(a, other)
-         if other.evil then
-            change_cur_ma(other)
-         end
+         change_cur_ma(other)
          if other.pl then
             if a.cur != 1 then
                a.alive = false

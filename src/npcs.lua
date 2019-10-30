@@ -2,11 +2,11 @@ g_att.lark = function(x, y)
    return create_actor([[
       id='lark',
       att={
-         name="lark",
+         name="Lark",
          sind=99,rx=.5,ry=.5,iyy=-2,
          x=@1, y=@2, i=@3, u=@4,
          text={speaker="lark","Heya Lank bro, I'm yer biggest fan!"}
-      }, par={'confined','spr','wall'}
+      }, par={'hurtable','confined','spr','wall'}
       ]],x,y, function(a)
          local big_w = 6/8
          batch_call(gen_text_trigger_block, [[
@@ -23,10 +23,10 @@ g_att.sign = function(x, y, text_obj, sind)
    return create_actor([[
       id='sign',
       att={
-         name="sign",
+         name="Sign", health=10, max_health=10, evil=true,
          sind=@3,rx=.5,ry=.5,
          x=@1, y=@2, i=@4
-      }, par={'confined','spr','wall'}
+      }, par={'hurtable','confined','spr','wall'}
       ]],x,y,sind,
       function(a)
          a.trig = gen_text_trigger_block(a, 3, text_obj)

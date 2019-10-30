@@ -18,7 +18,7 @@ function gen_pl(x, y)
    return create_actor(
       [[ id='pl',
          att={
-            name="lank",
+            name="Lank",
             x=@1,
             y=@2,
             sinds={144, 145, 146},

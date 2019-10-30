@@ -1,10 +1,18 @@
 -- a box with a character inside.
+
+function change_cur_ma(a)
+   if not a.pl and a.hurtable then
+      g_right_ma_view.follow_act = a
+   end
+end
+
 function draw_ma(view, x, y, a)
    local old_view = g_view
    g_view = view
    map_and_act_draw(x/8,y/8, {0,5,6})
    g_view = old_view
 end
+
 
 function draw_energy_bar(x, y)
    local width = 104
@@ -56,7 +64,7 @@ function draw_stat(view, x, y, flip)
       draw_ma(view, flip and (x-8) or x+9,y+9,a)
 
       if a.hurtable then
-         local health_str = flr(a.health)..'/'..a.max_health
+         local health_str = a.max_health < 0 and '???/???' or flr(a.health)..'/'..a.max_health
          draw_health_bar(operator2,y+7,a.max_health,a.health, flip)
          zprint(health_str,align_text(health_str, operator, flip),y+13,true)
       end
