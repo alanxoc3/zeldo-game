@@ -6,7 +6,7 @@ function map_init()
          w =24,  h =10,
          l={'lank_front_yard',11.5,5},
          r={'field',.5,9},
-         {'sign',5.5,14.5,"sign:testing sign",43},
+         {'sign',5.5,14.5,{speaker="Sign","Testing sign"},43},
          {'lark',8.5,14.5}
       },
       'lank_front_yard'={ c=3, qx=0, qy=0,
@@ -25,7 +25,7 @@ function map_init()
          w =12,  h =10,
          l={'field',23.5,3},
 	   r={'graveyard',.5,17.5},
-         {'sign',105.5,4.5,"sign:here lies an old person (probably)",45}
+         {'sign',105.5,4.5,{speaker="Sign","Here lies an old person (probably)."},45}
       },
       'graveyard'={
          c=13, qx=2, qy=1,

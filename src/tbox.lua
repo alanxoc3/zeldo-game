@@ -63,9 +63,7 @@ end
 --    speaker='alan',
 --    trigger=@1
 -- ]], function reboot() end)
-function tbox(...)
-   local a = gun_vals(...)
-
+function tbox_with_obj(a)
    for p in all(a) do
       local speak = #a.speaker > 0 and a.speaker..': ' or ''
       local lines = str_to_word_lines(speak..p, g_tbox_max_len)
@@ -84,40 +82,9 @@ function tbox(...)
    g_tbox_active = g_tbox_messages[1]
 end
 
--- function tbox_deprecated(str)
---    local acc, id, speaker, mode, l_str = '', '', '', '|', str..'|'
---    local cont = true
--- 
---    for i=1, #l_str do
---       local x = sub(l_str, i, i)
--- 
---       if x == '^' then
---          cont = false
---       elseif x == ':' or x == '|' or x == '@' or x == '%' then
---          if mode == ':' then
---             local speak = #speaker > 0 and speaker..': ' or ''
---             local lines = str_to_word_lines(speak..acc, g_tbox_max_len)
--- 
---             for i=1,#lines do
---                local l = lines[i]
---                if i % 2 == 1 then
---                   add(g_tbox_messages, {speaker=speaker, id=id, continue=cont, l1=l, l2=''})
---                   id = ''
---                else
---                   g_tbox_messages[#g_tbox_messages].l2 = l
---                end
---             end
--- 
---          elseif mode == '|' then speaker, id = acc, ''
---          elseif mode == '@' then id = acc end
---          mode, acc = x, ''
---       else
---          acc=acc..x
---       end
---    end
--- 
---    g_tbox_active = g_tbox_messages[1]
--- end
+function tbox(...)
+   tbox_with_obj(gun_vals(...))
+end
 
 -- draw the text boxes (if any)
 -- foreground color, background color, border width
