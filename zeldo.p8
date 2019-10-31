@@ -3,7 +3,7 @@ version 18
 __lua__
 -- zeldo game
 -- amorg
---#include _compiled_debug.lua
+--#include _compiled_dev.lua
 #include _compiled_prod.lua
 __gfx__
 00000000000060000000000040000000000000000000000000000000000000001000111111110001015dcc6cccccd51000000000000000001111111111111111

@@ -1,16 +1,18 @@
-#!/usr/bin/perl
-
-use warnings;
+package Alanxoc3::Pico8FormatUtil;
 use strict;
+use warnings;
 use experimental 'smartmatch';
 
-# lua keywords
-my @lua_keywords = qw(
+use Exporter;
+our @ISA = 'Exporter';
+our @EXPORT = qw(tokenize_lines populate_vars single_quotes_to_double remove_comments pop_text_logics remove_texts remove_spaces @lua_keywords @pico8_api);
+
+our @lua_keywords = qw(
 break do else elseif end false for function goto if in local nil not or repeat
 return then true until while and n b0d0 P_TEXT_LOGIC
 );
 
-my @pico8_api = qw(
+our @pico8_api = qw(
 _init _update _update60 _draw setmetatable getmetatable cocreate coresume
 costatus yield load save folder ls run resume reboot stat info flip printh clip
 pget pset sget sset fget fset print cursor color ceil cls camera circ circfill
@@ -21,12 +23,12 @@ sgn stop menuitem type tostr tonum extcmd ls fillp time assert t
 _update_buttons count mapdraw self ? __index rotl
 );
 
-# Order of commonly used letters in the English language.
-# Saves *about* 30 compression tokens.
-my $char_inc = "etaoinsrhldcumfpgwybvkxjqz";
-
 my @cur_char_arr;
 sub get_next_var_name {
+   # Order of commonly used letters in the English language.
+   # Saves *about* 30 compression tokens.
+   my $char_inc = "etaoinsrhldcumfpgwybvkxjqz";
+
    my @new_char_arr;
    my $next_bump = 1;
    foreach (reverse(@cur_char_arr)) {
@@ -36,7 +38,7 @@ sub get_next_var_name {
    }
 
    if ($next_bump == 1) {
-      push(@new_char_arr, 'a');
+      push(@new_char_arr, 'e');
    }
 
    @cur_char_arr = reverse(@new_char_arr);
@@ -44,7 +46,7 @@ sub get_next_var_name {
    if ($ret ~~ @pico8_api or $ret ~~ @lua_keywords) {
       return get_next_var_name();
    } else {
-      return join("", @cur_char_arr);
+      return $ret;
    }
 }
 
@@ -85,6 +87,32 @@ sub remove_comments {
    return @new_lines;
 }
 
+sub populate_vars {
+   # tokenize based on most used tokens.
+   # this saves about 100 compression tokens.
+   my %vars;
+   for (@_) {
+      my $line = $_;
+      my @matches = ($line =~ /[\W]*\b([a-z_]\w*)/g);
+      foreach(@matches) {
+         if (not ($_ ~~ @pico8_api or $_ ~~ @lua_keywords)) {
+            if (not exists($vars{$_})) {
+               $vars{$_} = 0;
+            } else {
+               $vars{$_}++;
+            }
+         }
+      }
+   }
+
+   # assign most used tokens to correct variables.
+   foreach my $name (reverse sort { $vars{$a} <=> $vars{$b} } keys %vars) {
+       $vars{$name} = get_next_var_name();
+   }
+
+   return %vars;
+}
+
 my @texts;
 sub text_logic {
    my $non_quote = shift;
@@ -107,82 +135,10 @@ sub remove_texts {
    return @new_lines
 }
 
-# Consistent quotes in project. Gun_vals assumes double quotes too.
-sub single_quotes_to_double {
-   my @new_lines;
-
-   for (@_) {
-      my $line = $_;
-      $line =~ s/\'/\"/g;
-      push @new_lines, $line;
-   }
-
-   return @new_lines
-}
-
-sub populate_vars {
-   # tokenize based on most used tokens.
-   # this saves about 100 compression tokens.
-   my %vars;
-   for (@_) {
-      my $line = $_;
-      my @matches = ($line =~ /[\W]*\b([a-z_]\w*)/g);
-      foreach(@matches) {
-         if (not ($_ ~~ @pico8_api or $_ ~~ @lua_keywords)) {
-            if (not exists($vars{$_})) {
-               $vars{$_} = 0;
-            } else {
-               $vars{$_}++;
-            }
-         }
-      }
-   }
-
-   # assign most used tokens to correct variables.
-   foreach my $name (reverse sort { $vars{$a} <=> $vars{$b} } keys %vars) {
-      # print STDERR "$vars{$name}: $name\n";
-      $vars{$name} = get_next_var_name();
-   }
-
-   return %vars;
-}
-
-my @lines = <>;
-chomp(@lines);
-@lines = remove_comments(@lines);
-@lines = remove_texts(@lines);
-@lines = single_quotes_to_double(@lines);
-my %vars = populate_vars(@lines);
-
-sub test_eval {
-   my $punc = shift;
-   my $var = shift;
-
-   if (not ($var ~~ @pico8_api or $var ~~ @lua_keywords)) {
-      if (exists($vars{$var})) {
-         $var = $vars{$var};
-      }
-   }
-
-   return "$punc$var";
-}
-
 sub pop_text {
    my $thing = shift;
    my $item = shift @texts;
    return $item;
-}
-
-sub tokenize_lines {
-   my @new_lines;
-
-   for (@_) {
-      my $line = $_;
-      $line =~ s/([\W]*\b)([a-z_]\w*)/test_eval($1,$2)/ge;
-      push @new_lines, $line;
-   }
-
-   return @new_lines
 }
 
 sub pop_text_logics {
@@ -197,14 +153,48 @@ sub pop_text_logics {
    return @new_lines
 }
 
-@lines = remove_spaces(@lines);
-my $file_line = join(" ",@lines);
-@lines = ($file_line);
-@lines = remove_spaces(@lines);
-@lines = tokenize_lines(@lines);
+# Consistent quotes in project. Gun_vals assumes double quotes too.
+sub single_quotes_to_double {
+   my @new_lines;
 
-# Uncomment for each thing to go on its own line.
-# Note that this is slightly more compression space.
-# $lines[0] =~ s/([^\"]) ([^\"])/$1\n$2/g;
-@lines = pop_text_logics(@lines);
-print "$_" for @lines;
+   for (@_) {
+      my $line = $_;
+      $line =~ s/\'/\"/g;
+      push @new_lines, $line;
+   }
+
+   return @new_lines
+}
+
+sub test_eval {
+   my $punc = shift;
+   my $var = shift;
+   my $vars_ref = shift;
+
+   if (not ($var ~~ @pico8_api or $var ~~ @lua_keywords)) {
+      if (exists($vars_ref->{$var})) {
+         $var = $vars_ref->{$var};
+      }
+   }
+
+   return "$punc$var";
+}
+
+sub tokenize_lines {
+   my $lines_ref = shift;
+   my $vars_ref = shift;
+
+   my @lines = @{$lines_ref};
+
+   my @new_lines;
+
+   for (@lines) {
+      my $line = $_;
+      $line =~ s/([\W]*\b)([a-z_]\w*)/test_eval($1,$2,$vars_ref)/ge;
+      push @new_lines, $line;
+   }
+
+   return @new_lines
+}
+
+1;
