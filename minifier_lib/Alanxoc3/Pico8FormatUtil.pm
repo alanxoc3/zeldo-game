@@ -23,15 +23,15 @@ sgn stop menuitem type tostr tonum extcmd ls fillp time assert t
 _update_buttons count mapdraw self ? __index rotl
 );
 
-my @cur_char_arr;
 sub get_next_var_name {
+   my $cur_chars_ref = shift;
    # Order of commonly used letters in the English language.
    # Saves *about* 30 compression tokens.
    my $char_inc = "etaoinsrhldcumfpgwybvkxjqz";
 
    my @new_char_arr;
    my $next_bump = 1;
-   foreach (reverse(@cur_char_arr)) {
+   foreach (reverse(@{$cur_chars_ref})) {
       my $char_ind = (index($char_inc, $_)+$next_bump) % length($char_inc);
       push(@new_char_arr, substr($char_inc, $char_ind, 1));
       $next_bump = ($next_bump == 1 and $char_ind == 0) ? 1 : 0;
@@ -41,10 +41,10 @@ sub get_next_var_name {
       push(@new_char_arr, 'e');
    }
 
-   @cur_char_arr = reverse(@new_char_arr);
-   my $ret = join("", @cur_char_arr);
+   @{$cur_chars_ref} = reverse(@new_char_arr);
+   my $ret = join("", @{cur_chars_ref});
    if ($ret ~~ @pico8_api or $ret ~~ @lua_keywords) {
-      return get_next_var_name();
+      return get_next_var_name($cur_chars_ref);
    } else {
       return $ret;
    }
@@ -106,8 +106,9 @@ sub populate_vars {
    }
 
    # assign most used tokens to correct variables.
+   my @cur_chars;
    foreach my $name (reverse sort { $vars{$a} <=> $vars{$b} } keys %vars) {
-       $vars{$name} = get_next_var_name();
+       $vars{$name} = get_next_var_name(\@cur_chars);
    }
 
    return %vars;
