@@ -109,66 +109,47 @@ function gun_vals(val_str, ...)
    return lookup[1]
 end
 
--- tl - if update returns true, then 
--- tl in tl.. how to do it?
--- tl_update takes in a tl.
+function tl_node(master, tl, ...)
+   tl.cur = tl.cur or 1
+   tl = tl[tl.cur]
 
--- true is still executing
--- false means that we are done looping
-function tl_update(tl, ...)
-   -- printh(#tl.master)
-	-- switch the state
-   --if tl.master[tl.cur] master
-	if tl.tim and tl.tim >= tl.tl_max_tim then
-      if not tl.tl_loop and tl.cur > 0 and tl.tl_nxt == 1 then
+   -- parent node
+   if #tl > 0 then
+      local tl_val = tl_node(master, tl, ...)
+      if tl_val then
+         if tl_val == 0 then
+            tl.cur = nil
+            return true
+         end
+
+         tl.cur = (tl.cur % #tl) + 1
+
+         if tl.cur == 1 then
+            return not tl.loop
+         end
+
          return false
       end
 
-		tl.cur = tl.tl_nxt
-		tl.tl_nxt = (tl.cur % #tl.master) + 1
-      tl.tl_max_tim = tl.master[tl.cur] and tl.master[tl.cur].tl_tim or 0
-		tl.tim = tl.tl_max_tim != 0 and 0 or nil
+   -- leaf node
+   else
+      if master.tl_new_state then
+         tl.tim = 0
+         master.tl_new_state = call_not_nil('i', tl, ...)
+      end
 
-      -- local master = tl.master
-      -- local lvl = tl.tl_lvl
-      tabcpy(tl, tl.master[tl.cur])
-      -- tl.master = master
-      -- tl.lvl = lvl
-
-		call_not_nil('i', tl, ...)
-	end
-
-   -- update func
-	if call_not_nil('u', tl, ...) then
-      tl.tim = tl.tl_max_tim
+      -- Return the update return code, or true if we are out of time.
+      return call_not_nil('u', tl, ...) or tl.tl_max_tim and tl.tim >= tl.tl_max_tim
    end
-
-	-- inc timer if enabled
-	if tl.tim then
-		tl.tim = min(tl.tim + 1/60, tl.tl_max_tim)
-	end
-
-   return true
-end
-
--- optional number of which state should be loaded next.
-function tl_next(tl, num)
-   tl.tim=tl.tl_max_tim
-   if num then tl.tl_nxt=num end
 end
 
 -- params: timeline control, timeline plan
 function tl_attach(tl, master)
-   printh("hi me "..#master)
    tabcpy(tl, gun_vals([[
-      tl_max_tim=0,
-      tl_enabled=true,
-      master=@1,
-      tl_lvl=0,
-      cur=0,
-      tl_nxt=1,
+      tl_new_state=true,
       tl_loop=true,
-      tim=0
+      tl_cur=0,
+      tl_master=@1
    ]], master or {}))
 
    return tl
