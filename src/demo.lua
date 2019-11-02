@@ -161,14 +161,23 @@ function _init()
    g_pal = g_pal_norm
 
 	init_particles({ g_snow, g_rain })
-   g_tl = tl_init([[
-         { i=@1, u=@2, d=@3 }
-      ]],
-      -- init_logo, update_logo, draw_logo,
-      -- title_init, title_update, title_draw,
-      game_init, game_update, game_draw
+
+   g_game = tl_init([[
+      { i=@1, u=@2, d=@3 }
+   ]], game_init, game_update, game_draw
    )
-      
+
+   g_tl = tl_init([[
+      @1, @2, @3
+   ]], g_logo, g_title, g_game)
+
+   -- g_title --g_logo -- tl_init([[
+         --{ i=@1, u=@2, d=@3 }
+      --]],
+      --init_logo, update_logo, draw_logo,
+      -- title_init, title_update, title_draw,
+   --)
+
       --{ init_logo,  2.5, update_logo,  draw_logo },
       --{ title_init, 1,   title_update, title_draw },
       --{ game_init,  nil, game_update,  game_draw }

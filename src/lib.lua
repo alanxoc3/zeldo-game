@@ -116,18 +116,25 @@ end
 -- true is still executing
 -- false means that we are done looping
 function tl_update(tl, ...)
+   -- printh(#tl.master)
 	-- switch the state
+   --if tl.master[tl.cur] master
 	if tl.tim and tl.tim >= tl.tl_max_tim then
       if not tl.tl_loop and tl.cur > 0 and tl.tl_nxt == 1 then
          return false
       end
 
 		tl.cur = tl.tl_nxt
-		tl.tl_nxt = (tl.cur % #tl.mas) + 1
-      tl.tl_max_tim = tl.mas[tl.cur] and tl.mas[tl.cur].tl_tim or 0
+		tl.tl_nxt = (tl.cur % #tl.master) + 1
+      tl.tl_max_tim = tl.master[tl.cur] and tl.master[tl.cur].tl_tim or 0
 		tl.tim = tl.tl_max_tim != 0 and 0 or nil
 
-      tabcpy(tl, tl.mas[tl.cur])
+      -- local master = tl.master
+      -- local lvl = tl.tl_lvl
+      tabcpy(tl, tl.master[tl.cur])
+      -- tl.master = master
+      -- tl.lvl = lvl
+
 		call_not_nil('i', tl, ...)
 	end
 
@@ -151,17 +158,18 @@ function tl_next(tl, num)
 end
 
 -- params: timeline control, timeline plan
-function tl_attach(tl, mas)
+function tl_attach(tl, master)
+   printh("hi me "..#master)
    tabcpy(tl, gun_vals([[
       tl_max_tim=0,
       tl_enabled=true,
-      mas=@1,
+      master=@1,
       tl_lvl=0,
       cur=0,
       tl_nxt=1,
       tl_loop=true,
       tim=0
-   ]], mas or {}))
+   ]], master or {}))
 
    return tl
 end

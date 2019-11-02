@@ -3,7 +3,8 @@
 
 g_logo_tim = 0
 g_logo_shake = false
-function draw_logo(logo, x, y)
+function draw_logo(logo)
+   local x, y = 64, 64
    fade(8-g_logo_tim)
 
    if g_logo_shake then
@@ -11,7 +12,6 @@ function draw_logo(logo, x, y)
    end
 
    spr(192, x-16, y-8, 4, 2)
-   spr_out(56, x+15, y, 1, 1, false, false, 1)
 
    camera()
 end
@@ -21,7 +21,7 @@ g_logo = tl_init([[
       { d=@2, tl_tim=.5 },
       { u=@1, d=@2, tl_tim=.5 },
       { u=@4, d=@2, tl_tim=.5 },
-      { u=@3, d=@2}
+      { u=@3, d=@2 }
    ]],
    -- 1 update logo
    function() g_logo_shake = true g_logo_tim = min(8, g_logo_tim+8/30) end,
@@ -32,4 +32,5 @@ g_logo = tl_init([[
    -- 4
    function() g_logo_shake = false end
 )
+
 music(0,0,3)

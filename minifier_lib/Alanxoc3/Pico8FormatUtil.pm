@@ -42,7 +42,7 @@ sub get_next_var_name {
    }
 
    @{$cur_chars_ref} = reverse(@new_char_arr);
-   my $ret = join("", @{cur_chars_ref});
+   my $ret = join("", @{$cur_chars_ref});
    if ($ret ~~ @pico8_api or $ret ~~ @lua_keywords) {
       return get_next_var_name($cur_chars_ref);
    } else {

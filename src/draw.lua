@@ -24,6 +24,11 @@ function scr_spr_and_out(...)
    scr_spr(...)
 end
 
+function spr_and_out(...)
+   spr_out(...)
+   spr(...)
+end
+
 g_out_cache = {}
 function create_outline(sind, sw, sh)
    local sh_end = sh*8-1
@@ -81,11 +86,17 @@ function align_text(str, x, right)
    return x - (right and (#str*4+1) or 0)
 end
 
-function zprint(str, x, y, shadow_below)
+-- alignment: -1 (left), 0 (center), 1 (right)
+function zprint2(str, x, y, color, alignment, shadow_below)
+   local new_x = (alignment < 0) and 0 or (alignment == 0) and (#str*2) or (#str*4+1)
+   zprint(str, x - new_x, y, shadow_below, color)
+end
+
+function zprint(str, x, y, shadow_below, color)
    batch_call(print, [[
       {@1, @2, @4, 1},
-      {@1, @2, @3, 7}
-   ]], str, x, y, y + (shadow_below and 1 or 0xffff))
+      {@1, @2, @3, @5}
+   ]], str, x, y, y + (shadow_below and 1 or 0xffff), color or 7)
 end
 
 function zclip(x1, y1, x2, y2)
