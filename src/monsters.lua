@@ -36,7 +36,7 @@ g_att.top = function(x, y)
          end
 
          if not other.block then
-            tl_next(a, 1)
+            -- change my state.
          end
       end,
       -- init 1 @4

@@ -20,8 +20,10 @@ function draw_logo(logo)
 end
 
 -- the sound is assumed to be sfx 0!
-g_title = tl_init([[
-      { d=@1 }
-   ]], draw_logo
+g_title = gun_vals_new([[
+      { i=nf, u=@2, d=@1 }
+   ]], draw_logo, function()
+      return btnp(4)
+   end
 )
 music(0,0,3)

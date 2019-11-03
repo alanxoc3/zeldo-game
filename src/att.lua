@@ -22,7 +22,8 @@ function attach_actor(opt, a)
    -- step 1: atts from parent
    foreach(opt.par, function(par_id) a = g_att[par_id](a) end)
 
-   tl_attach(a, opt.tl)
+   a.tl_loop = true
+   tabcpy(a,opt.tl)
    tabcpy(a,opt.att)
 
    -- step 2: add to list of objects
@@ -69,7 +70,7 @@ create_parent(
    }
 ]], function(a)
    if a.alive and a.stun_countdown <= 0 then
-      if not tl_update(a) then
+      if tl_node(a,a) then
          a.alive = false
       end
    elseif a.stun_countdown > 0 then
@@ -110,7 +111,6 @@ create_parent(
 [[ id='timed',
    att={
       t=0,
-      tl_tim=0,
       tick=@1
    },
    par={'act'}

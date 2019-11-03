@@ -162,33 +162,19 @@ function _init()
 
 	init_particles({ g_snow, g_rain })
 
-   g_game = tl_init([[
+   g_game = gun_vals_new([[
       { i=@1, u=@2, d=@3 }
    ]], game_init, game_update, game_draw
    )
 
-   g_tl = tl_init([[
-      @1, @2, @3
-   ]], g_logo, g_title, g_game)
-
-   -- g_title --g_logo -- tl_init([[
-         --{ i=@1, u=@2, d=@3 }
-      --]],
-      --init_logo, update_logo, draw_logo,
-      -- title_init, title_update, title_draw,
-   --)
-
-      --{ init_logo,  2.5, update_logo,  draw_logo },
-      --{ title_init, 1,   title_update, title_draw },
-      --{ game_init,  nil, game_update,  game_draw }
-   --)
+   g_tl = { g_logo, g_title, g_game }
 
    inventory_init()
 end
 
 function _update60()
    if btnp'5' and btn'4' then g_debug = not g_debug end
-   tl_update(g_tl)
+   tl_node(g_tl,g_tl)
    tbox_interact()
 end
 

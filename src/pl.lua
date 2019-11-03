@@ -30,9 +30,10 @@ function gen_pl(x, y)
             spd=.02,
             anim_len=3,
             anim_spd=5,
-            max_health=50,
-            health=50,
-            u=@3, destroyed=@4, d=@5
+            max_health=500,
+            health=500,
+            destroyed=@4,
+            u=@3, d=@5
          },
          par={'anim','col','mov','tcol','hurtable','knockable','stunnable','spr'}
       ]], x, y, function(a)

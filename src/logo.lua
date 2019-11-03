@@ -13,15 +13,16 @@ function draw_logo(logo)
 
    spr(192, x-16, y-8, 4, 2)
 
+   fade(0)
    camera()
 end
 
 -- the sound is assumed to be sfx 0!
-g_logo = tl_init([[
+g_logo = gun_vals_new([[
       { d=@2, tl_tim=.5 },
       { u=@1, d=@2, tl_tim=.5 },
       { u=@4, d=@2, tl_tim=.5 },
-      { u=@3, d=@2 }
+      { u=@3, d=@2, tl_tim=1 }
    ]],
    -- 1 update logo
    function() g_logo_shake = true g_logo_tim = min(8, g_logo_tim+8/30) end,

@@ -23,7 +23,7 @@ function round(num) return flr(num + .5) end
 -- -1, 0, or 1
 function rnd_one() return flr(rnd(3))-1 end
 
--- copies table attributes from the src to dest tables.
+-- Recursively copies table attributes from src table to dest table.
 function tabcpy(dest, src)
    dest = dest or {}
    for k,v in pairs(src or {}) do
@@ -109,55 +109,49 @@ function gun_vals(val_str, ...)
    return lookup[1]
 end
 
-function tl_node(master, tl, ...)
-   tl.cur = tl.cur or 1
-   tl = tl[tl.cur]
+-- Recursively copies the gun_val data, so that data isn't shared.
+function gun_vals_new(...)
+   return tabcpy({}, gun_vals(...))
+end
+
+-- Assumes that each parent node has at least one item in it.
+-- Example: tl_node(actor, actor)
+function tl_node(root, node, ...)
+   if node == nil then return true end
 
    -- parent node
-   if #tl > 0 then
-      local tl_val = tl_node(master, tl, ...)
-      if tl_val then
-         if tl_val == 0 then
-            tl.cur = nil
-            return true
-         end
+   if #node > 0 then
+      node.tl_cur = node.tl_cur or 1
 
-         tl.cur = (tl.cur % #tl) + 1
+      -- Goes into the child node.
+      --
+      local return_value = tl_node(root, node[node.tl_cur], ...)
 
-         if tl.cur == 1 then
-            return not tl.loop
-         end
-
-         return false
+      if return_value == 0 then
+         node.tl_cur = nil
+         return true
+      elseif return_value then
+         root.tl_old_state = nil
+         node.tl_cur = (node.tl_cur % #node) + 1
+         return node.tl_cur == 1 and not node.tl_loop
       end
+      -- Else defaults to returning nil.
 
    -- leaf node
    else
-      if master.tl_new_state then
-         tl.tim = 0
-         master.tl_new_state = call_not_nil('i', tl, ...)
+      if not root.tl_old_state then
+         tabcpy(root, node)
+         root.tim = 0
+         root.tl_old_state = true
+         call_not_nil('i', root, ...)
       end
 
+      local update_val = call_not_nil('u', root, ...)
+		root.tim += 1/60
+
       -- Return the update return code, or true if we are out of time.
-      return call_not_nil('u', tl, ...) or tl.tl_max_tim and tl.tim >= tl.tl_max_tim
+      return update_val or node.tl_tim and root.tim >= node.tl_tim
    end
-end
-
--- params: timeline control, timeline plan
-function tl_attach(tl, master)
-   tabcpy(tl, gun_vals([[
-      tl_new_state=true,
-      tl_loop=true,
-      tl_cur=0,
-      tl_master=@1
-   ]], master or {}))
-
-   return tl
-end
-
--- params: str, gun_vals
-function tl_init(...)
-   return tl_attach({}, gun_vals(...))
 end
 
 -- debug something

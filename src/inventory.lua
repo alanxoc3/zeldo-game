@@ -157,6 +157,7 @@ function create_bomb(pl)
       },
       par={'bounded','confined','item','col','mov','knockable','spr'},
       tl={
+         tl_loop=nil,
          {i=@2, u=@5, tl_tim=.25},
          {i=@3, tl_tim=1.25},
          {d=@7, draw_spr=nf,draw_out=nf,i=@4, rx=1, ry=1, hit=@6, tl_tim=.25}
@@ -177,8 +178,9 @@ function create_bomb(pl)
          card_shake'8'
       end, pause_energy,
       function(a, other)
-         if other.lank_bomb and other.cur < 3 then
-            tl_next(other, 3)
+         if other.lank_bomb and other.tl_cur < 3 then
+            a.tl_cur = 3
+            -- change my state to 3.
          end
 
          change_cur_ma(other)
@@ -209,6 +211,7 @@ function create_brang(pl)
          sinds={4,260,516,772},
          anim_len=4,
          anim_spd=3,
+         tl_loop=false,
          xf=@1,
          ix=.8,
          iy=.8,
@@ -218,7 +221,7 @@ function create_brang(pl)
       tl={
          {hit=@2, i=@3, u=@4, tl_tim=.125},
          {hit=@2, i=nf, u=@6, tl_tim=.5},
-         {hit=@2, i=nf, u=@5}
+         {hit=@2, i=nf, u=@5, tl_tim=3}
       }
       ]],
       pl.xf,
@@ -226,7 +229,7 @@ function create_brang(pl)
       function(a, other)
          change_cur_ma(other)
          if other.pl then
-            if a.cur != 1 then
+            if a.tl_cur != 1 then
                a.alive = false
             end
          elseif other.touchable then
@@ -235,8 +238,9 @@ function create_brang(pl)
             end
 
             card_shake(9)
-            if a.cur < 3 then
-               tl_next(a)
+            if a.tl_cur < 3 then
+               -- go to next state.
+               a.tl_cur = 3
             end
          end
       end,
@@ -255,7 +259,7 @@ function create_brang(pl)
       function(a)
          pause_energy()
          amov_to_actor(a, pl, .1)
-      end, 
+      end,
       -- update 3
       function(a)
          pause_energy()
@@ -264,7 +268,6 @@ function create_brang(pl)
          if not a.holding then
             return true
          end
-         -- amov_to_actor(a, pl, .1)
       end
       )
 end
@@ -419,15 +422,15 @@ end
 function sword_shield_hit(a, o)
    if o.evil then
       a.poke = a.poke_val
-      if a.cur != 1 then
+      if a.tl_cur != 1 then
          use_energy(a.energy)
       end
       change_cur_ma(o)
-      call_not_nil('hurt', o, (a.cur == 1) and (a.o_hurt*2) or a.o_hurt, 30)
+      call_not_nil('hurt', o, (a.tl_cur == 1) and (a.o_hurt*2) or a.o_hurt, 30)
    end
 
    if o.knockable and not o.pl then
-      o.knockback(o, (a.cur == 1) and (a.o_knock*2) or a.o_knock, a.xf and -1 or 1, 0)
+      o.knockback(o, (a.tl_cur == 1) and (a.o_knock*2) or a.o_knock, a.xf and -1 or 1, 0)
       g_pl.knockback(g_pl, a.pl_knock, a.xf and 1 or -1, 0)
    end
 end
