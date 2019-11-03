@@ -1,5 +1,5 @@
--- token: 7560 7575 7564 7580 7721 7731 7636 7637
--- compr: 2561 2569 2575 2682 2896 2906 2754 2759
+-- token: 7560 7575 7564 7580 7721 7731 7636 7637 7725
+-- compr: 2561 2569 2575 2682 2896 2906 2754 2759 2776
 
 -- older stats:
 -- token: 6991 6928 6926 6907 7086 7707 7723 7768 7707 7741 7732 7718 7560
@@ -54,9 +54,6 @@
 -- TODO: Make the chicken enemy go crazy.
 -- TODO: Interaction with Top enemy and write plans for other enemies.
 
--- title sprint:
--- TODO: create title screen.
-
 -- player sprint:
 -- TODO: Think about player arm movement (above head? ...).
 
@@ -67,6 +64,7 @@
 
 ----------------------- things that are done: --------------------
 -- done: design menu actor area/transitions. this is done by fading now.
+-- done: create title screen.
 -- done: Create a more modular view.
 -- done: fix tbox double press bugs.
 -- done: More efficient trigger, only interact with player.
@@ -145,7 +143,7 @@
 -- done: change the top of the screen (new layout).
 -- done: menu enemy support must be better.
 -- done: make area information (if no enemy). opted no, i can have signs.
--- done: tl embedded tl. decided on no!
+-- done: tl embedded tl. decided on no! Then I later implemented it!
 -- done: tbox pause the game. should it? if so, do it. it is right now.
 -- done: make a sign
 -- done: create 2 parts of lank (feet and arms).
@@ -167,7 +165,7 @@ function _init()
    ]], game_init, game_update, game_draw
    )
 
-   g_tl = { g_logo, g_title, g_game }
+   g_tl = { g_game }
 
    inventory_init()
 end
@@ -319,9 +317,6 @@ function game_init()
    load_room('village', 12, 7)
 
    tbox([[
-      speaker="Lank",
-      "Hey player, how are you? He's back and blackr than ever!",
-      "Are you ready to play the Story of Zeldo?",
-      "But first I will tell you a story about how a young man became a true man a long time ago."
+      speaker="Lank", "Are you ready to play the Story of Zeldo?", "Ok, let's play!"
    ]])
 end

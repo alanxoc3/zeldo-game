@@ -24,7 +24,7 @@ function round(num) return flr(num + .5) end
 function rnd_one() return flr(rnd(3))-1 end
 
 -- Recursively copies table attributes from src table to dest table.
-function tabcpy(dest, src)
+function tabcpy(src, dest)
    dest = dest or {}
    for k,v in pairs(src or {}) do
       dest[k] = v
@@ -111,7 +111,7 @@ end
 
 -- Recursively copies the gun_val data, so that data isn't shared.
 function gun_vals_new(...)
-   return tabcpy({}, gun_vals(...))
+   return tabcpy(gun_vals(...))
 end
 
 -- Assumes that each parent node has at least one item in it.
@@ -140,7 +140,7 @@ function tl_node(root, node, ...)
    -- leaf node
    else
       if not root.tl_old_state then
-         tabcpy(root, node)
+         tabcpy(node, root)
          root.tim = 0
          root.tl_old_state = true
          call_not_nil('i', root, ...)
