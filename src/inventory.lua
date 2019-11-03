@@ -23,9 +23,9 @@ function create_bomb(pl)
       par={'bounded','confined','item','col','mov','knockable','spr'},
       tl={
          tl_loop=nil,
-         {i=@2, u=@5, tl_tim=.25},
-         {i=@3, tl_tim=1.25},
-         {d=@7, draw_spr=nf,draw_out=nf,i=@4, rx=1, ry=1, hit=@6, tl_tim=.25}
+         {i=@2, u=@5, tl_max_time=.25},
+         {i=@3, tl_max_time=1.25},
+         {d=@7, draw_spr=nf,draw_out=nf,i=@4, rx=1, ry=1, hit=@6, tl_max_time=.25}
       }
       ]],
       pl.xf,
@@ -57,11 +57,11 @@ function create_bomb(pl)
 
          call_not_nil('hurt', other, 15, 30)
       end, function(a)
-         scr_circfill(a.x, a.y, sin(a.tim/.25), 8)
-         scr_circfill(a.x+rnd(2)-1, a.y+rnd(2)-1, sin(a.tim/.25)*rnd(.25)+.25, 1)
-         scr_circfill(a.x+rnd(2)-1, a.y+rnd(2)-1, sin(a.tim/.25)*rnd(.25)+.25, 2)
-         scr_circfill(a.x+rnd(2)-1, a.y+rnd(2)-1, sin(a.tim/.25)*rnd(.25)+.25, 9)
-         scr_circfill(a.x+rnd(2)-1, a.y+rnd(2)-1, sin(a.tim/.25)*rnd(.25)+.25, 10)
+         scr_circfill(a.x, a.y, sin(a.tl_tim/.25), 8)
+         scr_circfill(a.x+rnd(2)-1, a.y+rnd(2)-1, sin(a.tl_tim/.25)*rnd(.25)+.25, 1)
+         scr_circfill(a.x+rnd(2)-1, a.y+rnd(2)-1, sin(a.tl_tim/.25)*rnd(.25)+.25, 2)
+         scr_circfill(a.x+rnd(2)-1, a.y+rnd(2)-1, sin(a.tl_tim/.25)*rnd(.25)+.25, 9)
+         scr_circfill(a.x+rnd(2)-1, a.y+rnd(2)-1, sin(a.tl_tim/.25)*rnd(.25)+.25, 10)
       end
    )
 end
@@ -84,9 +84,9 @@ function create_brang(pl)
       },
       par={'item','anim','col','mov'},
       tl={
-         {hit=@2, i=@3, u=@4, tl_tim=.125},
-         {hit=@2, i=nf, u=@6, tl_tim=.5},
-         {hit=@2, i=nf, u=@5, tl_tim=3}
+         {hit=@2, i=@3, u=@4, tl_max_time=.125},
+         {hit=@2, i=nf, u=@6, tl_max_time=.5},
+         {hit=@2, i=nf, u=@5, tl_max_time=3}
       }
       ]],
       pl.xf,
@@ -243,7 +243,7 @@ function create_bow(pl)
       },
       par={'item','rel'},
       tl={
-         {i=@2, u=@3, tl_tim=.4},
+         {i=@2, u=@3, tl_max_time=.4},
          {i=nf, u=@4}
       }
       ]],
@@ -350,7 +350,7 @@ function create_sword(pl)
       },
       par={'item','rel','col'},
       tl={
-         {hit=@2, i=@3, u=@4, tl_tim=.4},
+         {hit=@2, i=@3, u=@4, tl_max_time=.4},
          {hit=@2, i=nf, u=@5}
       }
       ]],
@@ -388,7 +388,7 @@ function create_shield(pl)
       },
       par={'item','rel','col'},
       tl={
-         {hit=@2, i=@3, u=@4, tl_tim=.4},
+         {hit=@2, i=@3, u=@4, tl_max_time=.4},
          {hit=@2, i=nf, u=@5}
       }
    ]],

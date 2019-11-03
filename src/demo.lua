@@ -146,9 +146,7 @@
 -- done: make a sign
 -- done: create 2 parts of lank (feet and arms).
 
-
-g_debug = false
-g_debug_message = ''
+g_debug, g_debug_message = false, ''
 
 function _init()
    poke(0x5f34, 1) -- for pattern colors.
@@ -163,7 +161,10 @@ function _init()
    ]], game_init, game_update, game_draw
    )
 
-   g_tl = { g_game }
+   g_tl = {
+      g_logo, g_title,
+      g_game
+   }
 
    inventory_init()
 end
@@ -184,16 +185,10 @@ function _draw()
 end
 
 function game_update()
-   if g_debug then
-      g_view.w = flr((7 + sin(t()/3.23)*3)*4)/4
-      g_view.h = flr((7 + cos(t()/2.19)*3)*4)/4
-      g_view.follow_dim = min(g_view.w, g_view.h) / 8
-   end
    patterns_update()
    inventory_update()
    room_update()
 
-   -- if not g_tbox_active and not g_transitioning then
       batch_call(
          acts_loop, [[
             {'drawable','reset_off'},
@@ -223,9 +218,6 @@ function game_update()
       )
       energy_update(.25)
       update_timers()
-   -- end
-
-   -- update_view(g_view)
 
 	-- spawn_particles(1, 0, 0, 10, 10)
    -- spawn_particles(2, 0, 0, 10, 10)

@@ -38,7 +38,7 @@ g_att.money = function(x, y, dx, dy)
          hit=@5,
       }, par={'bounded','confined','tcol','spr','col','mov'},
       tl={
-         {tl_tim=5},
+         {tl_max_time=5},
          {i=@6}
       }
       ]],x,y,dx,dy,
@@ -94,7 +94,7 @@ g_att.arrow = function(x, y, left)
       },
       par={'confined','mov','col','spr'},
       tl={
-         {hit=@5, tl_tim=3},
+         {hit=@5, tl_max_time=3},
          {i=@6}
       }
       ]], x, y, left, left and -.1 or .1,

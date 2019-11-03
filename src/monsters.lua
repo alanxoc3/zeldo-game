@@ -20,9 +20,9 @@ g_att.top = function(x, y)
       },
       par={'bounded','confined','stunnable','mov','col','tcol','hurtable','knockable','anim','spr'},
       tl={
-         {i=@4, hit=nf, u=nf, tl_tim=1.5},
-         {i=@7, hit=nf, u=@5, tl_tim=.5},
-         {i=@6, hit=@3, u=nf, tl_tim=1}
+         {i=@4, hit=nf, u=nf, tl_max_time=1.5},
+         {i=@7, hit=nf, u=@5, tl_max_time=.5},
+         {i=@6, hit=@3, u=nf, tl_max_time=1}
       }
       ]],x,y,
       -- hit @3
@@ -74,7 +74,7 @@ g_att.bat = function(x, y)
       },
       par={'bounded','confined','stunnable','mov','col','hurtable','knockable','anim','spr'},
       tl={
-         {i=@3, tl_tim=1.5}
+         {i=@3, tl_max_time=1.5}
       }
       ]],x,y,
       -- init
@@ -97,7 +97,7 @@ g_att.skelly = function(x, y)
       },
       par={'bounded','confined','stunnable','mov','col','tcol','hurtable','knockable','anim','spr'},
       tl={
-         {i=@3, tl_tim=1.5}
+         {i=@3, tl_max_time=1.5}
       }
       ]],x,y,
       -- init
@@ -122,7 +122,7 @@ g_att.ghost = function(x, y)
       },
       par={'bounded','confined','stunnable','mov','col','hurtable','knockable','anim','spr'},
       tl={
-         {i=@3, tl_tim=1.5}
+         {i=@3, tl_max_time=1.5}
       }
       ]],x,y,
       -- init
@@ -146,7 +146,7 @@ g_att.chicken = function(x, y)
       },
       par={'bounded','confined','stunnable','mov','col','tcol','hurtable','knockable','anim','spr'},
       tl={
-         {i=@3, tl_tim=1.5}
+         {i=@3, tl_max_time=1.5}
       }
       ]],x,y,
       -- init
