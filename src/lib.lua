@@ -23,7 +23,7 @@ function round(num) return flr(num + .5) end
 -- -1, 0, or 1
 function rnd_one() return flr(rnd(3))-1 end
 
--- Recursively copies table attributes from src table to dest table.
+-- Shallow copy of table attributes.
 function tabcpy(src, dest)
    dest = dest or {}
    for k,v in pairs(src or {}) do
