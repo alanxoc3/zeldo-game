@@ -1,15 +1,11 @@
--- token: 7560 7575 7564 7580 7721 7731 7636 7637 7725
--- compr: 2561 2569 2575 2682 2896 2906 2754 2759 2776
+-- token: 7560 7575 7564 7580 7721 7731 7636 7637 7725 7662
+-- compr: 2561 2569 2575 2682 2896 2906 2754 2759 2776 2774
 
 -- older stats:
 -- token: 6991 6928 6926 6907 7086 7707 7723 7768 7707 7741 7732 7718 7560
 -- compr: 2748 2816 2782 2776 2994 2317 2471 2471 2471 2571 2593 2628 2561
 
 -- idea: for compression, reuse words from text boxes. It might just be a good idea.
-
--- inventory sprint:
--- TODO: Inventory spacing left and right correct.
--- TODO: Fix inventory pixel off problem.
 
 -- ma sprint:
 -- TODO: Make ma work correctly for interactable things.
@@ -63,6 +59,8 @@
 -- Finish house transitions.
 
 ----------------------- things that are done: --------------------
+-- done: Inventory spacing left and right correct.
+-- done: Fix inventory pixel off problem.
 -- done: design menu actor area/transitions. this is done by fading now.
 -- done: create title screen.
 -- done: Create a more modular view.
