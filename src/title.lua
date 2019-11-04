@@ -15,7 +15,7 @@ function draw_logo(logo)
       )
    end
 
-   spr(224, -28, -8, 7, 2)
+   zspr(224, 0, 0, 7, 2)
    camera()
 end
 

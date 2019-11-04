@@ -1,5 +1,5 @@
--- token: 7560 7575 7564 7580 7721 7731 7636 7637 7725 7662 7615 7640 7662
--- compr: 2561 2569 2575 2682 2896 2906 2754 2759 2776 2774 2781 2802 2698
+-- token: 7560 7575 7564 7580 7721 7731 7636 7637 7725 7662 7615 7640 7662 7648
+-- compr: 2561 2569 2575 2682 2896 2906 2754 2759 2776 2774 2781 2802 2698 2712
 
 -- older stats:
 -- token: 6991 6928 6926 6907 7086 7707 7723 7768 7707 7741 7732 7718 7560
@@ -36,7 +36,6 @@
 -- TODO: Sword, shield, and bow persist through rooms.
 
 -- engine sprint:
--- TODO: Think about state name with tl. Add if needed.
 -- TODO: Just make bombs better in general.
 -- TODO: Fix tbox screen pause
 
@@ -61,6 +60,7 @@
 ----------------------- things that are done: --------------------
 -- done: Inventory spacing left and right correct.
 -- done: Fix inventory pixel off problem.
+-- done: Think about state name with tl. All nodes have optional names and time state.
 -- done: design menu actor area/transitions. this is done by fading now.
 -- done: create title screen.
 -- done: Create a more modular view.
