@@ -139,7 +139,7 @@ function tl_node(root, node, ...)
       end
 
       local update_val = call_not_nil('u', root, ...)
-		root.tl_tim += 1/60
+      root.tl_tim += 1/60
 
       -- Return the update return code, or true if we are out of time.
       return_value = update_val or node.tl_max_time and root.tl_tim >= node.tl_max_time

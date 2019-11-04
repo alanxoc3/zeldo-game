@@ -154,7 +154,7 @@ function _init()
    g_pal_norm = gun_vals('1,2,3,4,5,6,7,8,9,10,11,12,13,14,15')
    g_pal = g_pal_norm
 
-	init_particles({ g_snow, g_rain })
+   init_particles({ g_snow, g_rain })
 
    g_game = gun_vals_new([[
       { i=@1, u=@2, d=@3 }
@@ -219,9 +219,9 @@ function game_update()
       energy_update(.25)
       update_timers()
 
-	-- spawn_particles(1, 0, 0, 10, 10)
+   -- spawn_particles(1, 0, 0, 10, 10)
    -- spawn_particles(2, 0, 0, 10, 10)
-	update_particles()
+   update_particles()
 
    card_shake_update()
 end
