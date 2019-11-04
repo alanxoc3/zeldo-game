@@ -7,22 +7,31 @@
 
 -- idea: for compression, reuse words from text boxes. It might just be a good idea.
 
--- ma sprint:
--- TODO: Make ma work correctly for interactable things.
--- TODO: Make ma work for items.
+-- player sprint:
+-- TODO: Think about player arm movement (above head? ...).
 
 -- pause sprint:
 -- TODO: Pause game on tbox.
+-- TODO: Fix tbox screen pause
 -- TODO: Pause game on room transition.
 -- TODO: Disable inventory on room transition.
 -- TODO: Pause game on banjo play.
 -- TODO: Banjo play song.
+
+-- tbox sprint:
+-- TODO: Tbox triggers should work.
+-- TODO: Tbox pop up and down, or think about transition.
+-- TODO: Fix sign artifact bug (when sign is gone, trigger still exists).
 
 -- throwing sprint:
 -- TODO: Bomb throwing. Bomb should be similar to pickupable items.
 -- TODO: Plant throwing.
 -- TODO: Chicken throwing.
 -- TODO: Held item persists through rooms.
+
+-- ma sprint:
+-- TODO: Make ma work correctly for interactable things.
+-- TODO: Make ma work for items.
 
 -- shovel sprint:
 -- TODO: Continue shovel mechanics.
@@ -37,20 +46,12 @@
 
 -- engine sprint:
 -- TODO: Just make bombs better in general.
--- TODO: Fix tbox screen pause
-
--- tbox sprint:
--- TODO: Tbox triggers should work.
--- TODO: Tbox pop up and down, or think about transition.
 
 -- enemy sprint:
 -- TODO: Make the bat enemy do something
 -- TODO: Refine the top enemy more.
 -- TODO: Make the chicken enemy go crazy.
 -- TODO: Interaction with Top enemy and write plans for other enemies.
-
--- player sprint:
--- TODO: Think about player arm movement (above head? ...).
 
 -- story sprint
 -- Finish the basic map transitions.
