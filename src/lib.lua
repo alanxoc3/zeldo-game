@@ -117,6 +117,10 @@ function tl_node(root, node, ...)
 
    if not node.tl_tim then node.tl_tim = 0 end
 
+   if node.tl_name then
+      root[node.tl_name] = node
+   end
+
    -- parent node
    if #node > 0 then
       node.tl_cur = node.tl_cur or 1
@@ -149,7 +153,7 @@ function tl_node(root, node, ...)
       node.tl_tim += 1/60
 
       -- Return the update return code, or true if we are out of time.
-      return_value = return_value or not node.tl_loop and node.tl_max_time and node.tl_tim >= node.tl_max_time
+      return_value = return_value or node.tl_max_time and node.tl_tim >= node.tl_max_time
    end
 
    if return_value then

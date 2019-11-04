@@ -1,5 +1,7 @@
-function restore_pal()
-   for i=1,15 do pal(i,g_pal[i]) end
+function zspr(sind, x, y, sw, sh, ...)
+   if not sw then sw = 1 end
+   if not sh then sh = 1 end
+   spr(sind, x-sw*4, y-sh*4, sw, sh, ...)
 end
 
 function scr_spr(a, spr_func, ...)
@@ -13,7 +15,7 @@ function scr_spr(a, spr_func, ...)
          yf = dir == 1 or dir == 2
       end
 
-      (spr_func or spr)(sind, scr_x(a.x-a.sw*.5)+a.ixx+a.xx, scr_y(a.y-a.sh*.5)+a.iyy+a.yy, a.sw, a.sh, xf, yf, ...)
+      (spr_func or zspr)(sind, scr_x(a.x)+a.ixx+a.xx, scr_y(a.y)+a.iyy+a.yy, a.sw, a.sh, xf, yf, ...)
    end
 end
 
@@ -26,7 +28,7 @@ end
 
 function spr_and_out(...)
    spr_out(...)
-   spr(...)
+   zspr(...)
 end
 
 g_out_cache = {}
@@ -61,6 +63,8 @@ end
 function spr_out(sind, x, y, sw, sh, xf, yf, col)
    if not sw then sw = 1 end
    if not sh then sh = 1 end
+   x = x - sw*4
+   y = y - sh*4
 
    local ox, x_mult, oy, y_mult = x, 1, y, 1
    if xf then ox, x_mult = sw*8-1+x, 0xffff end
@@ -78,8 +82,6 @@ function spr_out(sind, x, y, sw, sh, xf, yf, col)
          oy+y_mult*r.y2,
       col)
    end)
-
-   -- spr(sind, x, y, sw, sh, xf, yf)
 end
 
 function align_text(str, x, right)

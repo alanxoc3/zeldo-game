@@ -1,37 +1,17 @@
--- amorg logo
--- 128 103 97 69 81 49 88 104 136 108 95 92 103
+-- token history: 128 103 97 69 81 49 88 104 136 108 95 92 103 73 66 64 56
 
-g_logo_tim = 0
-g_logo_shake = false
-function draw_logo(logo)
-   local x, y = 64, 64
-   fade(8-g_logo_tim)
+g_logo = gun_vals([[
+      { tl_name='logo', x=64, y=64, u=nf, d=@1, tl_max_time=2.5 }
+   ]], function(a)
+   local logo = a.logo
+   local logo_opacity = 8+cos(logo.tl_tim/logo.tl_max_time)*4-4
 
-   if g_logo_shake then
-      camera(rnd(2)-1, rnd(2)-1)
-   end
-
-   spr(192, x-16, y-8, 4, 2)
-
-   fade(0)
+   fade(logo_opacity)
+   camera(logo_opacity > 1 and rnd_one())
+   zspr(192, logo.x, logo.y, 4, 2)
+   fade'0'
    camera()
 end
-
--- the sound is assumed to be sfx 0!
-g_logo = gun_vals([[
-      { d=@2, tl_max_time=.5 },
-      { u=@1, d=@2, tl_max_time=.5 },
-      { u=@4, d=@2, tl_max_time=.5 },
-      { u=@3, d=@2, tl_max_time=1 }
-   ]],
-   -- 1 update logo
-   function() g_logo_shake = true g_logo_tim = min(8, g_logo_tim+8/30) end,
-   -- 2
-   draw_logo,
-   -- 3
-   function() g_logo_shake = true g_logo_tim = max(0, g_logo_tim-8/30) end,
-   -- 4
-   function() g_logo_shake = false end
 )
 
 music(0,0,3)

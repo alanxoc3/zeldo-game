@@ -75,9 +75,7 @@ end
 
 function draw_status()
    -- power orbs
-   spr_out(39, 107, 2, 1, 1, false, false, 1)
-   spr(39, 107, 2)
-
+   spr_and_out(39, 111, 6, 1, 1, false, false, 1)
    zprint(get_money_str(), 116, 4)
 
    -- energy bar
