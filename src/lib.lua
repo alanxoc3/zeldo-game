@@ -115,6 +115,8 @@ function tl_node(root, node, ...)
    if node == nil then return true end
    local return_value
 
+   if not node.tl_tim then node.tl_tim = 0 end
+
    -- parent node
    if #node > 0 then
       node.tl_cur = node.tl_cur or 1
@@ -135,16 +137,23 @@ function tl_node(root, node, ...)
    else
       if not root.tl_old_state then
          tabcpy(node, root)
-         root.tl_tim = 0
+         node.tl_tim = 0
          root.tl_old_state = true
          call_not_nil('i', root, ...)
       end
 
-      local update_val = call_not_nil('u', root, ...)
-      root.tl_tim += 1/60
+      return_value = call_not_nil('u', root, ...)
+   end
+
+   if node != root then
+      node.tl_tim += 1/60
 
       -- Return the update return code, or true if we are out of time.
-      return_value = update_val or node.tl_max_time and root.tl_tim >= node.tl_max_time
+      return_value = return_value or not node.tl_loop and node.tl_max_time and node.tl_tim >= node.tl_max_time
+   end
+
+   if return_value then
+      node.tl_tim = 0
    end
 
    return return_value

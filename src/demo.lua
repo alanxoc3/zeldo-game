@@ -306,7 +306,5 @@ function game_init()
    g_pl = gen_pl(0, 0)
    load_room('village', 12, 7)
 
-   tbox([[
-      speaker="Lank", "Are you ready to play the Story of Zeldo?", "Ok, let's play!"
-   ]])
+   -- tbox([[ speaker="Lank", "Are you ready to play the Story of Zeldo?", "Ok, let's play!" ]])
 end

@@ -22,7 +22,6 @@ function create_bomb(pl)
       },
       par={'bounded','confined','item','col','mov','knockable','spr'},
       tl={
-         tl_loop=nil,
          {i=@2, u=@5, tl_max_time=.25},
          {i=@3, tl_max_time=1.25},
          {d=@7, draw_spr=nf,draw_out=nf,i=@4, rx=1, ry=1, hit=@6, tl_max_time=.25}
