@@ -23,10 +23,14 @@ function round(num) return flr(num + .5) end
 -- -1, 0, or 1
 function rnd_one() return flr(rnd(3))-1 end
 
--- Shallow copy of table attributes.
+-- Recursively copies table attributes.
 function tabcpy(src, dest)
    dest = dest or {}
    for k,v in pairs(src or {}) do
+      if type(v) == 'table' and not v.is_tabcpy_disabled then
+         dest[k] = tabcpy(v)
+      end
+
       dest[k] = v
    end
    return dest
@@ -96,15 +100,13 @@ function gun_vals(val_str, ...)
    for k,v in pairs(lookup[3]) do
       foreach(lookup[3][k], function(x)
          x[1][x[2]] = params[k]
+         if type(params[k]) == 'table' then
+            params[k].is_tabcpy_disabled = true
+         end
       end)
    end
 
-   return lookup[1]
-end
-
--- Recursively copies the gun_val data, so that data isn't shared.
-function gun_vals_new(...)
-   return tabcpy(gun_vals(...))
+   return tabcpy(lookup[1])
 end
 
 -- Assumes that each parent node has at least one item in it.

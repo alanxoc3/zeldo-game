@@ -18,7 +18,7 @@ function draw_logo(logo)
 end
 
 -- the sound is assumed to be sfx 0!
-g_logo = gun_vals_new([[
+g_logo = gun_vals([[
       { d=@2, tl_max_time=.5 },
       { u=@1, d=@2, tl_max_time=.5 },
       { u=@4, d=@2, tl_max_time=.5 },
