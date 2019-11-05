@@ -69,7 +69,7 @@ function create_brang(pl)
    return create_actor([[
       id='lank_brang',
       att={
-         holding=true,
+         being_held=true,
          rx=.375,
          ry=.375,
          sinds={4,260,516,772},
@@ -129,7 +129,7 @@ function create_brang(pl)
          pause_energy()
          a.ax = xbtn()*.05
          a.ay = ybtn()*.05
-         if not a.holding then
+         if not a.being_held then
             return true
          end
       end
@@ -140,7 +140,7 @@ function create_banjo(pl)
    return create_actor([[
       id='lank_banjo',
       att={
-         holding=true,
+         being_held=true,
          rx=.3,
          ry=.3,
          sind=1,
@@ -158,7 +158,7 @@ function create_banjo(pl)
       end,
       -- update 1
       function(a)
-         if not a.holding then
+         if not a.being_held then
             a.alive, pl.item = false
          end
       end
@@ -169,7 +169,7 @@ function create_shovel(pl)
    return create_actor([[
       id='lank_shovel',
       att={
-         holding=true,
+         being_held=true,
          rx=.3,
          ry=.3,
          sind=3,
@@ -192,7 +192,7 @@ function create_shovel(pl)
             mset(a.x, a.y, 73)
          end
 
-         if not a.holding then
+         if not a.being_held then
             a.alive, pl.item = false
          end
       end
@@ -204,7 +204,7 @@ function create_force(pl)
    return create_actor([[
       id='lank_force',
       att={
-         holding=true,
+         being_held=true,
          rx=.3,
          ry=.3,
          sind=36,
@@ -219,7 +219,7 @@ function create_force(pl)
          local i = flr(rnd(5))+1
          transition_room(g_save_spots[i].room, g_save_spots[i].x, g_save_spots[i].y)
       end, function(a)
-         if not a.holding then
+         if not a.being_held then
             a.alive = false
          end
       end
@@ -230,7 +230,7 @@ function create_bow(pl)
    return create_actor([[
       id='lank_bow',
       att={
-         holding=true,
+         being_held=true,
          rx=.5,
          ry=.375,
          rel_y=0,
@@ -269,7 +269,7 @@ function create_bow(pl)
       -- update 2
       function(a)
          act_poke(a, -1, 0)
-         if not a.holding then
+         if not a.being_held then
             a.alive, pl.item = false
          end
          pause_energy()
@@ -317,7 +317,7 @@ end
 
 function sword_shield_u2(a)
    act_poke(a, a.poke_beg, a.poke_end)
-   if not a.holding then
+   if not a.being_held then
       a.alive, g_pl.item = false
    end
    pause_energy()
@@ -337,7 +337,7 @@ function create_sword(pl)
          poke_beg=-1,
          poke_end=0,
          dist=1,
-         holding=true,
+         being_held=true,
          rx=.5,
          ry=.375,
          rel_y=0,
@@ -375,7 +375,7 @@ function create_shield(pl)
          poke_end=1,
          dist=.625,
          block=true,
-         holding=true,
+         being_held=true,
          rx=.25,
          ry=.5,
          iyy=-1,

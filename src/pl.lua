@@ -10,6 +10,34 @@ function create_lank_top()
       a.xf = g_pl.xf
       a.alive = g_pl.alive
       a.outline_color = g_pl.outline_color
+
+      if g_pl.item and g_pl.item.throwable then
+         a.sind=148
+      else
+         a.sind=147
+      end
+   end)
+end
+
+function create_grabbed_item(sind, yoff)
+   return create_actor([[
+      id='grabbed_item',
+      att={
+         throwable=true,
+         sind=@1,
+         iyy=@2,
+         being_held=true,
+         tl_loop=false,
+         { i=@4, tl_max_time=.25 }, { u=@3 }
+      }, par={'rel','spr_obj'}
+   ]], sind, yoff, function(a)
+      if not btn(4) or not a.being_held then
+         create_bomb(g_pl)
+         return true
+      end
+   end, function(a)
+      a.xf = g_pl.xf
+      g_debug_message = a.tl_tim
    end)
 end
 
@@ -54,12 +82,17 @@ function gen_pl(x, y)
                if g_selected != G_INTERACT then
                   sfx'7'
                end
-            elseif btn'4' and not g_energy_tired then
-               if get_selected_item().name != 'bomb' or remove_money(5) then
-                  if g_selected != G_INTERACT then
-                     a.item = gen_pl_item(a, g_selected)
+            elseif btnp'4' and not g_energy_tired then
+               if get_selected_item().name == 'bomb' then
+                  if remove_money(5) then
+                     a.item = create_grabbed_item(5, -6)
                      sfx'5'
+                  else
+                     sfx'7'
                   end
+               elseif g_selected != G_INTERACT then
+                  a.item = gen_pl_item(a, g_selected)
+                  sfx'5'
                end
             end
          end
@@ -77,7 +110,7 @@ function gen_pl(x, y)
             end
 
             if (not btn'4' or btn'5') then
-               item.holding = false
+               item.being_held = false
             end
 
             a.ax *= .5
@@ -106,12 +139,16 @@ function gen_pl(x, y)
          ltop.outline_color = a.outline_color
          scr_spr_out(ltop)
          scr_spr_out(a)
+         -- if a.item and a.item.throwable then scr_spr_out(a.item) end
+
          if a.item and not a.item.spr then
             scr_spr_out(a.item)
          end
 
          scr_spr(ltop)
          scr_spr(a)
+         -- if a.item and a.item.throwable then scr_spr(a.item) end
+
          if a.item and not a.item.spr then
             scr_spr(a.item)
          end

@@ -24,10 +24,8 @@
 -- TODO: Fix sign artifact bug (when sign is gone, trigger still exists).
 
 -- throwing sprint:
--- TODO: Bomb throwing. Bomb should be similar to pickupable items.
 -- TODO: Plant throwing.
 -- TODO: Chicken throwing.
--- TODO: Held item persists through rooms.
 
 -- ma sprint:
 -- TODO: Make ma work correctly for interactable things.
@@ -44,6 +42,9 @@
 -- TODO: Boomerang bump bomb or boomerang return bomb.
 -- TODO: Sword, shield, and bow persist through rooms.
 
+-- item sprint 2:
+-- TODO: Make a flippable attribute on all items.
+
 -- engine sprint:
 -- TODO: Just make bombs better in general.
 
@@ -59,6 +60,8 @@
 -- Finish house transitions.
 
 ----------------------- things that are done: --------------------
+-- done: Held item persists through rooms.
+-- done: Bomb throwing. Bomb should be similar to pickupable items.
 -- done: Inventory spacing left and right correct.
 -- done: Fix inventory pixel off problem.
 -- done: Think about state name with tl. All nodes have optional names and time state.
@@ -163,7 +166,7 @@ function _init()
    )
 
    g_tl = {
-      g_logo, g_title,
+      -- g_logo, g_title,
       g_game
    }
 

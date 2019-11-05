@@ -101,6 +101,7 @@ function inventory_update()
    if not g_tbox_active and not g_menu_open and btn'5' then
       g_selected = G_INTERACT
    end
+
    g_menu_open = not g_tbox_active and btn'5'
 
    if g_menu_open and not btn'5' then
@@ -112,7 +113,7 @@ function inventory_update()
 
    if g_menu_open then
       create_inventory_items()
-      if g_pl.item then g_pl.item.holding = false end
+      if g_pl.item then g_pl.item.being_held = false end
    else
       destroy_inventory_items()
    end
