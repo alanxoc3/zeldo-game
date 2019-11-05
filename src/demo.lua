@@ -24,8 +24,8 @@
 -- TODO: Fix sign artifact bug (when sign is gone, trigger still exists).
 
 -- throwing sprint:
--- TODO: Plant throwing.
--- TODO: Chicken throwing.
+-- done: Plant throwing. (basic version)
+-- done: Chicken throwing. (basic version)
 
 -- ma sprint:
 -- TODO: Make ma work correctly for interactable things.

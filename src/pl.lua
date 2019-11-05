@@ -19,7 +19,7 @@ function create_lank_top()
    end)
 end
 
-function create_grabbed_item(sind, yoff)
+function create_grabbed_item(sind, yoff, create_func)
    return create_actor([[
       id='grabbed_item',
       att={
@@ -32,7 +32,7 @@ function create_grabbed_item(sind, yoff)
       }, par={'rel','spr_obj'}
    ]], sind, yoff, function(a)
       if not btn(4) or not a.being_held then
-         create_bomb(g_pl)
+         create_func(g_pl)
          return true
       end
    end, function(a)
@@ -85,7 +85,9 @@ function gen_pl(x, y)
             elseif btnp'4' and not g_energy_tired then
                if get_selected_item().name == 'bomb' then
                   if remove_money(5) then
-                     a.item = create_grabbed_item(5, -6)
+                     -- a.item = create_grabbed_item(5, -6, create_bomb)
+                     a.item = create_grabbed_item(32, -7, function(a) g_att.chicken(a.x, a.y) end)
+                     -- a.item = create_grabbed_item(49, -9, function(a) g_att.pot(a.x, a.y) end)
                      sfx'5'
                   else
                      sfx'7'
