@@ -11,7 +11,7 @@ end
 
 function create_banjo(pl)
    return create_actor([[
-      id='lank_banjo', par={'item','rel','col'},
+      id='lank_banjo', par={'item','rel'},
       att={
          being_held=true,
          rx=.3,
@@ -19,20 +19,20 @@ function create_banjo(pl)
          sind=1,
          xf=@1,
          touchable=false,
-         i=@2, u=@3
+         destroyed=@3,
+
+         {i=@2, tl_max_time=4}
       }
       ]],
       pl.xf,
       -- init 1
       function(a)
-         -- a.rel_x=a.xf and 2/8 or -2/8
          a.rel_y=0
-      end,
-      -- update 1
-      function(a)
-         if not a.being_held then
-            a.alive, pl.item = false
-         end
+         music(-1)
+         sfx(11)
+      end, function(a)
+         sfx(-1)
+         music(1)
       end
    )
 end

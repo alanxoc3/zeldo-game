@@ -75,6 +75,10 @@ function gen_pl(x, y)
             end
          end
 
+         if a.item and a.item.lank_banjo then
+            a.ax = 0 a.ay = 0
+         end
+
          -- item logic
          if not btn'5' and not a.item then
             if btnp'4' and g_energy_tired then

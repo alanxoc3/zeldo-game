@@ -7,25 +7,10 @@
 
 -- idea: for compression, reuse words from text boxes. It might just be a good idea.
 
--- player sprint:
--- TODO: Think about player arm movement (above head? ...).
-
--- pause sprint:
--- TODO: Pause game on tbox.
--- TODO: Fix tbox screen pause
--- TODO: Pause game on room transition.
--- TODO: Disable inventory on room transition.
--- TODO: Pause game on banjo play.
--- TODO: Banjo play song.
-
 -- tbox sprint:
 -- TODO: Tbox triggers should work.
 -- TODO: Tbox pop up and down, or think about transition.
 -- TODO: Fix sign artifact bug (when sign is gone, trigger still exists).
-
--- throwing sprint:
--- done: Plant throwing. (basic version)
--- done: Chicken throwing. (basic version)
 
 -- ma sprint:
 -- TODO: Make ma work correctly for interactable things.
@@ -60,6 +45,15 @@
 -- Finish house transitions.
 
 ----------------------- things that are done: --------------------
+-- done: Pause game on tbox.
+-- done: Fix tbox screen pause
+-- done: Pause game on room transition.
+-- done: Disable inventory on room transition.
+-- done: Pause game on banjo play.
+-- done: Think about player arm movement (above head? ...).
+-- done: Banjo play song.
+-- done: Plant throwing. (basic version)
+-- done: Chicken throwing. (basic version)
 -- done: Held item persists through rooms.
 -- done: Bomb throwing. Bomb should be similar to pickupable items.
 -- done: Inventory spacing left and right correct.
@@ -166,7 +160,7 @@ function _init()
    )
 
    g_tl = {
-      g_logo, g_title,
+      -- g_logo, g_title,
       g_game
    }
 
@@ -190,9 +184,10 @@ end
 
 function game_update()
    patterns_update()
-   inventory_update()
    room_update()
 
+   if not g_transitioning and not g_tbox_active and not (g_pl.item and g_pl.item.lank_banjo and g_pl.item.alive) then
+      inventory_update()
       batch_call(
          acts_loop, [[
             {'drawable','reset_off'},
@@ -222,6 +217,10 @@ function game_update()
       )
       energy_update(.25)
       update_timers()
+   elseif g_pl.item and g_pl.item.lank_banjo and g_pl.item.alive then
+      g_pl.item.update(g_pl.item)
+      g_pl.item.clean(g_pl.item)
+   end
 
    -- spawn_particles(1, 0, 0, 10, 10)
    -- spawn_particles(2, 0, 0, 10, 10)

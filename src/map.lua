@@ -36,6 +36,7 @@ g_transition_y = 0
 g_transitioning = false
 function transition_room(new_room_name, rx, ry, dir)
    if not g_transitioning then
+      music(-1, 400)
       g_transitioning = true
       g_transition_routine = cocreate(function()
          for i=0,20 do
@@ -68,6 +69,7 @@ function transition_room(new_room_name, rx, ry, dir)
             yield()
          end
          g_transitioning = false
+         music(0)
       end)
    end
 end

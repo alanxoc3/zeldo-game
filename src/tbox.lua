@@ -32,6 +32,7 @@ end
 -- finishes its display.
 function tbox_interact()
    if g_tbox_active then
+      music'-1'
       g_tbox_anim += .5
 
       if g_tbox_anim > #g_tbox_active.l1+#g_tbox_active.l2 then
@@ -47,6 +48,7 @@ function tbox_interact()
             sfx'1'
             del(g_tbox_messages, g_tbox_active)
             g_tbox_active, g_tbox_anim = g_tbox_messages[1], 0
+            music'0'
          else
             sfx'2'
             g_tbox_anim = #g_tbox_active.l1+#g_tbox_active.l2
@@ -96,18 +98,6 @@ function ttbox_draw(x, y)
          {1, 1, 105, 18, 6},
          {2, 2, 104, 17, 0}
       ]])
-
-      -- draw speaker
-      -- if #g_tbox_active.speaker>0 then
-         -- local x2 = #g_tbox_active.speaker*4+6
-         -- batch_call(rectfill, [[
-            -- {@1, -7, 106, 0, 5},
-            -- {@2, -6, 105, 0, 6},
-            -- {@3, -5, 104, 1, 0}
-         -- ]], 106-x2, 107-x2, 108-x2)
-         --
-         -- zprint(g_tbox_active.speaker, 106-x2+4, -3)
-      -- end
 
       -- print the message
       batch_call(zprint, [[

@@ -101,6 +101,10 @@ function inventory_update()
 
    g_menu_open = not g_tbox_active and btn'5'
 
+   if g_pl.item and g_pl.item.lank_banjo then
+      g_menu_open = false
+   end
+
    if g_menu_open and not btn'5' then
       if not get_selected_item() then
          g_selected = G_INTERACT
