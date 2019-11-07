@@ -9,136 +9,9 @@ function act_poke(a, ix1, ix2)
    end
 end
 
-function create_bomb(pl)
-   return create_actor([[
-      id='lank_bomb',
-      att={
-         rx=.375,
-         ry=.375,
-         sind=5,
-         touchable=true,
-         tl_loop=false,
-         xf=@1
-      },
-      par={'bounded','confined','item','col','mov','knockable','spr'},
-      tl={
-         {i=@2, u=@5, tl_max_time=.25},
-         {i=@3, tl_max_time=1.25},
-         {d=@7, draw_spr=nf,draw_out=nf,i=@4, rx=1, ry=1, hit=@6, tl_max_time=.25}
-      }
-      ]],
-      pl.xf,
-      function(a)
-         a.x, a.y = pl.x+(pl.xf and -1 or 1), pl.y
-         use_energy(5)
-      end,
-      function(a)
-         if a == g_pl.item then
-            g_pl.item = nil
-         end
-      end,
-      function(a)
-         a.rx, a.ry = .75, .75
-         card_shake'8'
-      end, pause_energy,
-      function(a, other)
-         if other.lank_bomb and other.tl_cur < 3 then
-            a.tl_cur = 3
-            -- change my state to 3.
-         end
-
-         change_cur_ma(other)
-
-         if other.knockable then
-            local ang = atan2(other.x-a.x, other.y-a.y)
-            other.knockback(other, .5, cos(ang), sin(ang))
-         end
-
-         call_not_nil('hurt', other, 15, 30)
-      end, function(a)
-         scr_circfill(a.x, a.y, sin(a.tl_tim/.25), 8)
-         scr_circfill(a.x+rnd(2)-1, a.y+rnd(2)-1, sin(a.tl_tim/.25)*rnd(.25)+.25, 1)
-         scr_circfill(a.x+rnd(2)-1, a.y+rnd(2)-1, sin(a.tl_tim/.25)*rnd(.25)+.25, 2)
-         scr_circfill(a.x+rnd(2)-1, a.y+rnd(2)-1, sin(a.tl_tim/.25)*rnd(.25)+.25, 9)
-         scr_circfill(a.x+rnd(2)-1, a.y+rnd(2)-1, sin(a.tl_tim/.25)*rnd(.25)+.25, 10)
-      end
-   )
-end
-
-function create_brang(pl)
-   return create_actor([[
-      id='lank_brang',
-      att={
-         being_held=true,
-         rx=.375,
-         ry=.375,
-         sinds={4,260,516,772},
-         anim_len=4,
-         anim_spd=3,
-         tl_loop=false,
-         xf=@1,
-         ix=.8,
-         iy=.8,
-         touchable=false
-      },
-      par={'item','anim','col','mov'},
-      tl={
-         {hit=@2, i=@3, u=@4, tl_max_time=.125},
-         {hit=@2, i=nf, u=@6, tl_max_time=.5},
-         {hit=@2, i=nf, u=@5, tl_max_time=3}
-      }
-      ]],
-      pl.xf,
-      -- hit
-      function(a, other)
-         change_cur_ma(other)
-         if other.pl then
-            if a.tl_cur != 1 then
-               a.alive = false
-            end
-         elseif other.touchable then
-            if other.knockable then
-               other.knockback(other, .05, a.xf and -1 or 1, 0)
-            end
-
-            card_shake(9)
-            if a.tl_cur < 3 then
-               -- go to next state.
-               a.tl_cur = 3
-            end
-         end
-      end,
-      -- init 1
-      function(a)
-         a.x, a.y = pl.x, pl.y
-         a.ax = a.xf and -.1 or .1
-         use_energy(10)
-      end,
-      -- update 1
-      function(a)
-         a.ay = ybtn()*.05
-         pause_energy()
-      end,
-      -- update 2
-      function(a)
-         pause_energy()
-         amov_to_actor(a, pl, .1)
-      end,
-      -- update 3
-      function(a)
-         pause_energy()
-         a.ax = xbtn()*.05
-         a.ay = ybtn()*.05
-         if not a.being_held then
-            return true
-         end
-      end
-      )
-end
-
 function create_banjo(pl)
    return create_actor([[
-      id='lank_banjo',
+      id='lank_banjo', par={'item','rel','col'},
       att={
          being_held=true,
          rx=.3,
@@ -147,8 +20,7 @@ function create_banjo(pl)
          xf=@1,
          touchable=false,
          i=@2, u=@3
-      },
-      par={'item','rel','col'}
+      }
       ]],
       pl.xf,
       -- init 1
@@ -167,7 +39,7 @@ end
 
 function create_shovel(pl)
    return create_actor([[
-      id='lank_shovel',
+      id='lank_shovel', par={'item','rel'},
       att={
          being_held=true,
          rx=.3,
@@ -176,12 +48,11 @@ function create_shovel(pl)
          xf=@1,
          touchable=false,
          i=@2, u=@3
-      },
-      par={'item','rel'}
+      }
       ]],
       not pl.xf,
       -- init 1
-      function(a) 
+      function(a)
          a.rel_x=a.xf and 5/8 or -5/8
          a.rel_y=0
       end,
@@ -202,7 +73,7 @@ end
 -- teleports to different places
 function create_force(pl)
    return create_actor([[
-      id='lank_force',
+      id='lank_force', par={'item','rel'},
       att={
          being_held=true,
          rx=.3,
@@ -212,8 +83,7 @@ function create_force(pl)
          destroyed=@2,
          u=@3,
          touchable=false
-      },
-      par={'item','rel'}
+      }
       ]], pl.xf, function(a)
          -- random room index
          local i = flr(rnd(5))+1
@@ -228,7 +98,7 @@ end
 
 function create_bow(pl)
    return create_actor([[
-      id='lank_bow',
+      id='lank_bow', par={'item','rel'},
       att={
          being_held=true,
          rx=.5,
@@ -238,10 +108,8 @@ function create_bow(pl)
          sind=7,
          xf=@1,
          destroyed=@5,
-         touchable=false
-      },
-      par={'item','rel'},
-      tl={
+         touchable=false,
+
          {i=@2, u=@3, tl_max_time=.4},
          {i=nf, u=@4}
       }
@@ -325,7 +193,7 @@ end
 
 function create_sword(pl)
    return create_actor([[
-      id='lank_sword',
+      id='lank_sword', par={'item','rel','col'},
       att={
          max_stun_val=20,
          min_stun_val=10,
@@ -345,10 +213,8 @@ function create_sword(pl)
          sind=2,
          poke=20,
          xf=@1,
-         touchable=false
-      },
-      par={'item','rel','col'},
-      tl={
+         touchable=false,
+
          {hit=@2, i=@3, u=@4, tl_max_time=.4},
          {hit=@2, i=nf, u=@5}
       }
@@ -362,7 +228,7 @@ end
 
 function create_shield(pl)
    return create_actor([[
-      id='lank_shield',
+      id='lank_shield', par={'item','rel','col'},
       att={
          max_stun_val=60,
          min_stun_val=0,
@@ -383,10 +249,8 @@ function create_shield(pl)
          sind=6,
          xf=@1,
          poke=20,
-         touchable=false
-      },
-      par={'item','rel','col'},
-      tl={
+         touchable=false,
+
          {hit=@2, i=@3, u=@4, tl_max_time=.4},
          {hit=@2, i=nf, u=@5}
       }

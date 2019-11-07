@@ -149,7 +149,7 @@ function tl_node(root, node, ...)
       return_value = call_not_nil('u', root, ...)
    end
 
-   if node != root then
+   if node != root or #node == 0 then
       node.tl_tim += 1/60
 
       -- Return the update return code, or true if we are out of time.

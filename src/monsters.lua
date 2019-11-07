@@ -4,7 +4,7 @@ end
 
 g_att.top = function(x, y)
    return create_actor([[
-      id='top',
+      id='top', par={'bounded','confined','stunnable','mov','col','tcol','hurtable','knockable','anim','spr'},
       att={
          name="topper",
          evil=true,
@@ -16,10 +16,8 @@ g_att.top = function(x, y)
          sinds={112,113},
          anim_len=1,
          touchable=true,
-         destroyed=@8
-      },
-      par={'bounded','confined','stunnable','mov','col','tcol','hurtable','knockable','anim','spr'},
-      tl={
+         destroyed=@8,
+
          {i=@4, hit=nf, u=nf, tl_max_time=1.5},
          {i=@7, hit=nf, u=@5, tl_max_time=.5},
          {i=@6, hit=@3, u=nf, tl_max_time=1}
@@ -61,7 +59,7 @@ end
 
 g_att.bat = function(x, y)
    return create_actor([[
-      id='bat',
+      id='bat', par={'bounded','confined','stunnable','mov','col','hurtable','knockable','anim','spr'},
       att={
          evil=true,
          x=@1, y=@2,
@@ -70,10 +68,8 @@ g_att.bat = function(x, y)
          anim_len=2,
          anim_spd=10,
          destroyed=@4,
-         touchable=false
-      },
-      par={'bounded','confined','stunnable','mov','col','hurtable','knockable','anim','spr'},
-      tl={
+         touchable=false,
+
          {i=@3, tl_max_time=1.5}
       }
       ]],x,y,
@@ -86,17 +82,15 @@ end
 
 g_att.skelly = function(x, y)
    return create_actor([[
-      id='skelly',
+      id='skelly', par={'bounded','confined','stunnable','mov','col','tcol','hurtable','knockable','anim','spr'},
       att={
          evil=true,
          x=@1, y=@2,
          rx=.375, ry=.375,
          sinds={66},
          destroyed=@4,
-         anim_len=1
-      },
-      par={'bounded','confined','stunnable','mov','col','tcol','hurtable','knockable','anim','spr'},
-      tl={
+         anim_len=1,
+
          {i=@3, tl_max_time=1.5}
       }
       ]],x,y,
@@ -110,7 +104,7 @@ end
 
 g_att.ghost = function(x, y)
    return create_actor([[
-      id='ghost',
+      id='ghost', par={'bounded','confined','stunnable','mov','col','hurtable','knockable','anim','spr'},
       att={
          evil=true,
          x=@1, y=@2,
@@ -118,10 +112,8 @@ g_att.ghost = function(x, y)
          sinds={84},
          anim_len=1,
          destroyed=@4,
-         touchable=false
-      },
-      par={'bounded','confined','stunnable','mov','col','hurtable','knockable','anim','spr'},
-      tl={
+         touchable=false,
+
          {i=@3, tl_max_time=1.5}
       }
       ]],x,y,
@@ -135,17 +127,15 @@ end
 
 g_att.chicken = function(x, y)
    return create_actor([[
-      id='chicken',
+      id='chicken', par={'loopable','bounded','confined','stunnable','mov','col','tcol','hurtable','knockable','anim','spr'},
       att={
          evil=true,
          x=@1, y=@2,
          rx=.375, ry=.375,
          sinds={32},
          destroyed=@4,
-         anim_len=1
-      },
-      par={'bounded','confined','stunnable','mov','col','tcol','hurtable','knockable','anim','spr'},
-      tl={
+         anim_len=1,
+
          {i=@3, tl_max_time=1.5}
       }
       ]],x,y,

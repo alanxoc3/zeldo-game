@@ -1,10 +1,9 @@
 g_att.item_selector = function()
    return create_actor([[
-      id='item_selector',
+      id='item_selector', par={'rel'},
       att={
          u=@1
-      },
-      par={'rel'}
+      }
       ]], function(a)
          -- from index to coordinate
          local x, y = (g_selected-1)%3, flr((g_selected-1)/3)
@@ -32,12 +31,10 @@ end
 
 g_att.inventory_item = function(x, y, item)
    return create_actor([[
-      id='inventory_item',
+      id='inventory_item', par={'rel','spr_obj', 'drawable'},
       att={
          u=@5, rel_x=@1, rel_y=@2, sind=@3, visible=@3, xf=@4
-      },
-      par={'rel','spr_obj', 'drawable'},
-      tl={}
+      }
       ]],x,y,item.sind,g_pl.xf and item.flippable, function(a)
          a.outline_color = a.selected and 2 or 1
       end

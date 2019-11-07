@@ -1,11 +1,11 @@
 function create_lank_top()
    return create_actor([[
-      id='lank_top',
+      id='lank_top', par={'rel','spr_obj'},
       att={
          sind=147,
          iyy=-2,
          u=@1
-      }, par={'rel','spr_obj'}
+      }
    ]], function(a)
       a.xf = g_pl.xf
       a.alive = g_pl.alive
@@ -21,7 +21,7 @@ end
 
 function create_grabbed_item(sind, yoff, create_func)
    return create_actor([[
-      id='grabbed_item',
+      id='grabbed_item', par={'rel','spr_obj'},
       att={
          throwable=true,
          sind=@1,
@@ -29,7 +29,7 @@ function create_grabbed_item(sind, yoff, create_func)
          being_held=true,
          tl_loop=false,
          { i=@4, tl_max_time=.25 }, { u=@3 }
-      }, par={'rel','spr_obj'}
+      }
    ]], sind, yoff, function(a)
       if not btn(4) or not a.being_held then
          create_func(g_pl)
@@ -44,7 +44,7 @@ end
 function gen_pl(x, y)
    local ltop = create_lank_top()
    return create_actor(
-      [[ id='pl',
+      [[ id='pl', par={'anim','col','mov','tcol','hurtable','knockable','stunnable','spr'},
          att={
             name="Lank",
             x=@1,
@@ -62,8 +62,7 @@ function gen_pl(x, y)
             health=500,
             destroyed=@4,
             u=@3, d=@5
-         },
-         par={'anim','col','mov','tcol','hurtable','knockable','stunnable','spr'}
+         }
       ]], x, y, function(a)
          -- movement logic
          if a.stun_countdown == 0 then

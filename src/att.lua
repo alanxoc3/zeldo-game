@@ -17,13 +17,11 @@ function create_actor(...)
    return attach_actor(gun_vals(...))
 end
 
--- opt: {id, att, par, tl}
+-- opt: {id, att, par}
 function attach_actor(opt, a)
    -- step 1: atts from parent
    foreach(opt.par, function(par_id) a = g_att[par_id](a) end)
 
-   a.tl_loop = true
-   tabcpy(opt.tl, a)
    tabcpy(opt.att, a)
 
    -- step 2: add to list of objects
@@ -83,9 +81,20 @@ end, function(a)
    end
 end, function(a) a.alive = nil end)
 
-create_parent([[id='confined',att={},par={'act'}]])
+create_parent[[
+   id='confined', par={'act'},
+   att={}
+]]
 
-create_parent([[id='bounded',att={check_bounds=@1},par={'act'}]], function(a)
+create_parent[[
+   id='loopable', par={'act'},
+   att={tl_loop=true}
+]]
+
+create_parent([[
+   id='bounded', par={'act'},
+   att={check_bounds=@1}
+]], function(a)
    if a.x+a.dx < g_cur_room.x+.5 then
       a.x = g_cur_room.x+.5
       a.dx = 0
@@ -108,49 +117,45 @@ create_parent([[id='bounded',att={check_bounds=@1},par={'act'}]], function(a)
 end)
 
 create_parent(
-[[ id='timed',
+[[ id='timed', par={'act'},
    att={
       t=0,
       tick=@1
-   },
-   par={'act'}
+   }
 ]], function(a)
    a.t += 1
 end)
 
 create_parent(
-[[ id='pos',
+[[ id='pos', par={'act'},
    att={
       x=0,
       y=0
-   },
-   par={'act'}
+   }
 ]]
 )
 
 create_parent(
-[[ id='vec',
+[[ id='vec', par={'pos'},
    att={
       dx=0,
       dy=0,
       vec_update=@1
-   },
-   par={'pos'}
+   }
 ]], function(a)
    a.x += a.dx
    a.y += a.dy
 end)
 
 create_parent(
-[[ id='mov',
+[[ id='mov', par={'vec'},
    att={
       ix=.85,
       iy=.85,
       ax=0,
       ay=0,
       move=@1
-   },
-   par={'vec'}
+   }
 ]], function(a)
    a.dx += a.ax a.dy += a.ay
    a.dx *= a.ix a.dy *= a.iy
@@ -159,35 +164,33 @@ create_parent(
 end)
 
 create_parent(
-[[ id='dim',
+[[ id='dim', par={'pos'},
    att={
       rx=.375,
       ry=.375,
       debug_rect=@1
-   },
-   par={'pos'}
+   }
 ]], function(a)
    scr_rect(a.x-a.rx,a.y-a.ry,a.x+a.rx,a.y+a.ry, 8)
 end)
 
 -- used with player items/weapons.
 create_parent(
-[[ id='rel',
+[[ id='rel', par={'act'},
    att={
       rel_x=0,
       rel_y=0,
       rel_dx=0,
       rel_dy=0,
       rel_update=@1
-   },
-   par={'act'}
+   }
 ]], function(a, a2)
    a.x, a.y, a.dx, a.dy = a2.x+a.rel_x, a2.y+a.rel_y, a2.dx+a.rel_dx, a2.dy+a.rel_dy
    a.xx, a.yy = a2.xx, a2.yy
 end)
 
 create_parent(
-[[ id='drawable_obj',
+[[ id='drawable_obj', par={'act'},
    att={
       ixx=0,
       iyy=0,
@@ -195,20 +198,18 @@ create_parent(
       yy=0,
       visible=true,
       reset_off=@1
-   },
-   par={'act'}
+   }
 ]], function(a)
    a.xx, a.yy = 0, 0
 end)
 
 create_parent(
-[[ id='drawable',
-   att={d=nf},
-   par={'act', 'drawable_obj'}
+[[ id='drawable', par={'act', 'drawable_obj'},
+   att={d=nf}
 ]])
 
 create_parent(
-[[ id='spr_obj',
+[[ id='spr_obj', par={'vec', 'drawable_obj'},
    att={
       sind=0,
       outline_color=1,
@@ -219,36 +220,32 @@ create_parent(
       draw_spr=@1,
       draw_out=@2,
       draw_both=@3
-   },
-   par={'vec', 'drawable_obj'}
+   }
 ]], scr_spr, scr_out, scr_spr_and_out
 )
 
 create_parent(
-[[ id='spr',
+[[ id='spr', par={'vec','spr_obj','drawable'},
    att={
       d=@1
-   },
-   par={'vec','spr_obj','drawable'}
+   }
 ]], scr_spr_and_out)
 
 create_parent(
-[[ id='knockable',
+[[ id='knockable', par={'mov'},
    att={
       knockback=@1
-   },
-   par={'mov'}
+   }
 ]], function(a, speed, xdir, ydir)
    a.dx = xdir * speed
    a.dy = ydir * speed
 end)
 
 create_parent(
-[[ id='stunnable',
+[[ id='stunnable', par={'mov','drawable_obj'},
    att={
       stun_update=@1
-   },
-   par={'mov','drawable_obj'}
+   }
 ]], function(a)
    if a.stun_countdown > 0 then
       a.ay, a.ax = 0, 0
@@ -257,13 +254,12 @@ create_parent(
 end)
 
 create_parent(
-[[ id='hurtable',
+[[ id='hurtable', par={'act'},
    att={
       health=-1,
       max_health=-1,
       hurt=@1
-   },
-   par={'act'}
+   }
 ]], function(a, damage, stun_val)
    if a.max_health >= 0 and a.stun_countdown <= 0 then
       a.stun_countdown = stun_val
@@ -273,7 +269,7 @@ create_parent(
 end)
 
 create_parent(
-[[ id='anim',
+[[ id='anim', par={'spr','timed'},
    att={
       sinds={},
       anim_loc=1,
@@ -282,8 +278,7 @@ create_parent(
       anim_spd=0,
       anim_sind=nil,
       anim_update=@1
-   },
-   par={'spr','timed'}
+   }
 ]], function(a)
    if a.anim_sind then
       a.sind = a.anim_sind
@@ -298,21 +293,19 @@ create_parent(
 end)
 
 create_parent(
-[[ id='wall',
+[[ id='wall', par={'vec','dim'},
    att={
       block=true,static=true,touchable=true,hit=nf
-   },
-   par={'vec','dim'}
+   }
 ]])
 
 create_parent(
-[[ id='trig',
+[[ id='trig', par={'vec','dim'},
    att={
       trigger=nf,
       untrigger=nf,
       is_in_trig=@1
-   },
-   par={'vec','dim'}
+   }
 ]], function(a, pl)
    if pl.x-pl.rx > a.x-a.rx and pl.x+pl.rx < a.x+a.rx
       and pl.y-pl.ry > a.y-a.ry and pl.y+pl.ry < a.y+a.ry then
@@ -323,15 +316,14 @@ create_parent(
 end)
 
 create_parent(
-[[ id='item',
-   att={destroyed=@1},
-   par={'confined','spr_obj'}
+[[ id='item', par={'confined','spr_obj'},
+   att={destroyed=@1}
 ]], function(a)
    g_pl.item = nil
 end)
 
 create_parent(
-[[ id='col',
+[[ id='col', par={'vec','dim'},
    att={
       static=false,
       touchable=true,
@@ -339,8 +331,7 @@ create_parent(
       yb=0,
       hit=nf,
       move_check=@1
-   },
-   par={'vec','dim'}
+   }
 ]], function(a, acts)
    local hit_list = {}
    local move_check = function(dx, dy)
@@ -394,25 +385,23 @@ create_parent(
 end)
 
 create_parent(
-[[ id='tcol',
+[[ id='tcol', par={'vec','dim'},
    att={
       'tile_hit'=nf,
       'coll_tile'=@1
-   },
-   par={'vec','dim'}
+   }
 ]], function(a, solid_func)
    a.x, a.dx = coll_tile_help(a.x, a.y, a.dx, a.rx, a.ry, 0, a, a.tile_hit, solid_func)
    a.y, a.dy = coll_tile_help(a.y, a.x, a.dy, a.ry, a.rx, 2, a, a.tile_hit, function(y, x) return solid_func(x, y) end)
 end)
 
 create_parent(
-[[ id='view',
+[[ id='view', par={'act', 'confined'},
    att={
       x=0, y=0,
       w=1, h=1,
       follow_dim=1,
       room_crop=2,
       follow_act=nil
-   },
-   par={'act', 'confined'}
+   }
 ]])
