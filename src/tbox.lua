@@ -32,7 +32,6 @@ end
 -- finishes its display.
 function tbox_interact()
    if g_tbox_active then
-      music'-1'
       g_tbox_anim += .5
 
       if g_tbox_anim > #g_tbox_active.l1+#g_tbox_active.l2 then
@@ -48,7 +47,6 @@ function tbox_interact()
             sfx'1'
             del(g_tbox_messages, g_tbox_active)
             g_tbox_active, g_tbox_anim = g_tbox_messages[1], 0
-            music'0'
          else
             sfx'2'
             g_tbox_anim = #g_tbox_active.l1+#g_tbox_active.l2

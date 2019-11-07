@@ -168,7 +168,10 @@ function _init()
 end
 
 function _update60()
-   if btnp'5' and btn'4' then g_debug = not g_debug end
+   if btnp'5' and btn'4' then
+      -- poke(0x5f42,1) -- glitch sound
+      g_debug = not g_debug
+   end
    tl_node(g_tl,g_tl)
    tbox_interact()
 end
@@ -187,6 +190,7 @@ function game_update()
    room_update()
 
    if not g_transitioning and not g_tbox_active and not (g_pl.item and g_pl.item.lank_banjo and g_pl.item.alive) then
+      poke(0x5f43,0) -- softer sound
       inventory_update()
       batch_call(
          acts_loop, [[
@@ -217,9 +221,12 @@ function game_update()
       )
       energy_update(.25)
       update_timers()
-   elseif g_pl.item and g_pl.item.lank_banjo and g_pl.item.alive then
-      g_pl.item.update(g_pl.item)
-      g_pl.item.clean(g_pl.item)
+   else
+      poke(0x5f43,1+2+4) -- softer sound
+      if g_pl.item and g_pl.item.lank_banjo and g_pl.item.alive then
+         g_pl.item.update(g_pl.item)
+         g_pl.item.clean(g_pl.item)
+      end
    end
 
    -- spawn_particles(1, 0, 0, 10, 10)

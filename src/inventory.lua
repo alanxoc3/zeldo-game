@@ -28,11 +28,9 @@ function create_banjo(pl)
       -- init 1
       function(a)
          a.rel_y=0
-         music(-1)
          sfx(11)
       end, function(a)
          sfx(-1)
-         music(1)
       end
    )
 end
