@@ -24,28 +24,33 @@ end)
 
 create_parent(
 [[ id='pokeable', par={'rel','drawable_obj','item'},
-   att={i=@1, poke_init=@1, poke=20, poke_energy=0}
-]], function(a)
+   att={
+      i=@1,
+      u=@2,
+      e=@3,
+      poke_init=@1,
+      poke_update=@2,
+      poke_end=@3,
+      poke=20,
+      poke_dist=20,
+      poke_energy=0
+   }
+]], function(a) -- i
    a.xf = a.rel_actor.xf
+   a.ixx = a.xf and a.poke_ixx or -a.poke_ixx
    use_energy(a.poke_energy)
-end)
+end, function(a) -- u
+   local spd = a.poke_dist/a.tl_max_time/FPS
+   a.rel_dx = a.xf and -spd or spd
+   pause_energy()
+end, function(a) -- e
+   a.rel_dx = 0
+   a.rel_x = a.xf and -a.poke_dist or a.poke_dist
+end
+)
 
 function item_check_being_held(a)
    if not a.being_held then a.alive = false end
-   pause_energy()
-end
-
-function act_poke(a, dist)
-   if a.poke > 0 then a.poke -= 1 end
-   a.ixx = a.xf and a.poke_ixx or -a.poke_ixx
-
-   local spd = dist/a.tl_max_time/FPS
-   if spd + abs(a.rel_x) < dist then
-      a.rel_dx = a.xf and -spd or spd
-   else
-      a.rel_dx = 0
-      a.rel_x = a.xf and -dist or dist
-   end
    pause_energy()
 end
 
@@ -76,7 +81,7 @@ end
 
 function create_shovel(pl)
    return create_actor([[
-      id='lank_shovel', par={'item','pokeable'},
+      id='lank_shovel', par={'item'},
       att={
          rx=.3, ry=.3,
          sind=3,
@@ -94,30 +99,6 @@ function create_shovel(pl)
    )
 end
 
--- -- teleports to different places
--- function create_force(pl)
---    return create_actor([[
---       id='lank_force', par={'item'},
---       att={
---          rx=.3,
---          ry=.3,
---          sind=36,
---          xf=@2,
---          destroyed=@3,
---          u=@4,
---          rel_actor=@1,
---          touchable=false
---       }
---       ]], g_pl, pl.xf, function(a)
---          -- random room index
---          local i = flr(rnd(5))+1
---          transition_room(g_save_spots[i].room, g_save_spots[i].x, g_save_spots[i].y)
---       end, function(a)
---          item_check_being_held(a)
---       end
---    )
--- end
-
 function create_bow(pl)
    return create_actor([[
       id='lank_bow', par={'item','pokeable'},
@@ -127,18 +108,17 @@ function create_bow(pl)
          rel_y=0,
          iyy=-1,
          sind=7,
-         destroyed=@4,
+         destroyed=@3,
          touchable=false,
          rel_actor=@1,
          poke_energy=5,
          poke_ixx=1,
+         poke_dist=.5,
 
-         {u=@2, tl_max_time=.1},
-         {i=nf, u=@3}
+         {tl_max_time=.1},
+         {e=nf, i=nf, u=@2}
       }
-      ]], g_pl, function(a) -- update 1
-         act_poke(a, .5)
-      end, function(a) -- update 2
+      ]], g_pl, function(a) -- update 2
          item_check_being_held(a)
       end, function(a) -- destroyed
          if remove_money(1) then
@@ -161,10 +141,6 @@ function sword_hit(a, o)
    a:bash(o)
 end
 
-function sword_shield_u1(a)
-   act_poke(a, a.dist)
-end
-
 function sword_shield_u2(a)
    item_check_being_held(a)
 end
@@ -178,7 +154,7 @@ function create_sword(pl)
          min_stun_val=10,
          energy=10,
          poke_val=10,
-         dist=1,
+         poke_dist=1,
          rx=.5,
          ry=.375,
          rel_y=0,
@@ -189,10 +165,10 @@ function create_sword(pl)
          poke_energy=15,
          poke_ixx=2,
 
-         {hurt_amount=5, bash_dx=.3, hit=@2, u=@3, tl_max_time=.1},
-         {hurt_amount=2,  bash_dx=.1, hit=@2, i=nf, u=@4}
+         {hurt_amount=5, bash_dx=.3, hit=@2, tl_max_time=.1},
+         {i=nf, u=@3, e=nf, hurt_amount=2,  bash_dx=.1, hit=@2}
       }
-      ]], g_pl, sword_hit, sword_shield_u1, sword_shield_u2
+      ]], g_pl, sword_hit, sword_shield_u2
    )
 end
 
@@ -206,7 +182,7 @@ function create_shield(pl)
          energy=2,
          poke_val=10,
          o_hurt=0,
-         dist=.625,
+         poke_dist=.625,
          block=true,
          rx=.25,
          ry=.5,
@@ -217,9 +193,33 @@ function create_shield(pl)
          poke_energy=10,
          poke_ixx=0,
 
-         {bash_dx=.4, u=@2, tl_max_time=.1},
-         {bash_dx=.2, i=nf, u=@3}
+         {bash_dx=.4, tl_max_time=.1},
+         {i=nf, u=@2, e=nf, bash_dx=.2}
       }
-   ]], pl, sword_shield_u1, sword_shield_u2
+   ]], pl, sword_shield_u2
    )
 end
+
+-- TODO: Force is outdated. Update me please.
+-- function create_force(pl)
+--    return create_actor([[
+--       id='lank_force', par={'item'},
+--       att={
+--          rx=.3,
+--          ry=.3,
+--          sind=36,
+--          xf=@2,
+--          destroyed=@3,
+--          u=@4,
+--          rel_actor=@1,
+--          touchable=false
+--       }
+--       ]], g_pl, pl.xf, function(a)
+--          -- random room index
+--          local i = flr(rnd(5))+1
+--          transition_room(g_save_spots[i].room, g_save_spots[i].x, g_save_spots[i].y)
+--       end, function(a)
+--          item_check_being_held(a)
+--       end
+--    )
+-- end

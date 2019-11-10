@@ -150,7 +150,7 @@ function tl_node(root, node, ...)
          tabcpy(node, root)
          node.tl_tim = 0
          root.tl_old_state = true
-         call_not_nil('i', root, ...)
+         call_not_nil('i', root, ...) -- init function
       end
 
       return_value = call_not_nil('u', root, ...)
@@ -165,6 +165,9 @@ function tl_node(root, node, ...)
 
    if return_value then
       node.tl_tim = 0
+      if #node == 0 then
+         call_not_nil('e', root, ...) -- end function
+      end
    end
 
    return return_value
