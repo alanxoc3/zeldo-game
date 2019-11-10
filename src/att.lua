@@ -324,13 +324,6 @@ create_parent(
 end)
 
 create_parent(
-[[ id='item', par={'confined','spr_obj'},
-   att={destroyed=@1}
-]], function(a)
-   if a == a.rel_actor.item then a.rel.item = nil end
-end)
-
-create_parent(
 [[ id='col', par={'vec','dim'},
    att={
       static=false,

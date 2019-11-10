@@ -11,6 +11,8 @@ function btn_helper(f, a, b)
    return f(a) and f(b) and 0 or f(a) and 0xffff or f(b) and 1 or 0
 end
 
+function bool_to_num(condition) return condition and 1 or 0xffff end
+
 function xbtn() return btn_helper(btn, 0, 1) end
 function ybtn() return btn_helper(btn, 2, 3) end
 

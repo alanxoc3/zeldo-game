@@ -1,3 +1,5 @@
+G_INTERACT = 5
+
 g_att.item_selector = function()
    return create_actor([[
       id='item_selector', par={'rel'},
@@ -78,9 +80,9 @@ function inventory_init()
       {name='interact', xoff=0, yoff=-3, enabled=true, func=nf, sind=false},
       {name='bow'     , xoff=8, yoff=-3, enabled=true, func=@7, sind=7},
 
-      {name='banjo'   , xoff=-7, yoff=4, enabled=true, func=@1, sind=1},
+      {name='shovel'  , xoff=-7, yoff=4, enabled=true, func=@3, sind=3},
       {name='sword'   , xoff=0, yoff=6, enabled=true, func=@5, sind=2, flippable=true},
-      {name='shovel'  , xoff=7, yoff=4, enabled=true, func=@3, sind=3}
+      {name='banjo'   , xoff=7, yoff=4, enabled=true, func=@1, sind=1}
    ]], create_banjo, create_brang, create_shovel, create_shield, create_sword, create_bomb, create_bow, create_force)
 
    g_selected=G_INTERACT

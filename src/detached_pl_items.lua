@@ -1,6 +1,6 @@
 function create_bomb(pl)
    return create_actor([[
-      id='lank_bomb', par={'bounded','confined','item','col','mov','knockable','spr'},
+      id='lank_bomb', par={'bounded','confined','col','mov','knockable','spr'},
       att={
          rx=.375,
          ry=.375,
@@ -54,7 +54,7 @@ end
 
 function create_brang(pl)
    return create_actor([[
-      id='lank_brang', par={'item','anim','col','mov'},
+      id='lank_brang', par={'confined','anim','col','mov'},
       att={
          being_held=true,
          rx=.375,

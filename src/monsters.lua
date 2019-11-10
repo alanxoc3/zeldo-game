@@ -129,6 +129,7 @@ g_att.chicken = function(x, y)
    return create_actor([[
       id='chicken', par={'loopable','bounded','confined','stunnable','mov','col','tcol','hurtable','knockable','anim','spr'},
       att={
+         name="Chicken",
          evil=true,
          x=@1, y=@2,
          rx=.375, ry=.375,
