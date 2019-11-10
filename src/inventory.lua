@@ -35,7 +35,8 @@ function item_check_being_held(a)
    if not a.being_held then a.alive = false end
 end
 
-function act_poke(a, ix1, ix2)
+function act_poke(a, ix1)
+   local ix2=ix1+1
    if a.poke > 0 then
       a.poke -= 1
       a.ixx = a.xf and ix1 or -ix1
@@ -133,7 +134,7 @@ function create_bow(pl)
          {i=nf, u=@3}
       }
       ]], g_pl, function(a) -- update 1
-         act_poke(a, -1, 0)
+         act_poke(a, -1)
          local dist = 3/8
          if abs(a.rel_dx + a.rel_x) < dist then
             a.rel_x += a.rel_dx
@@ -143,7 +144,7 @@ function create_bow(pl)
          end
          pause_energy()
       end, function(a) -- update 2
-         act_poke(a, -1, 0)
+         act_poke(a, -1)
          item_check_being_held(a)
          pause_energy()
       end, function(a) -- destroyed
@@ -168,7 +169,7 @@ function sword_hit(a, o)
 end
 
 function sword_shield_u1(a)
-   act_poke(a, a.poke_beg, a.poke_end)
+   act_poke(a, a.poke_beg)
    if abs(a.rel_dx + a.rel_x) < a.dist then
       a.rel_x += a.rel_dx
    else
@@ -178,7 +179,7 @@ function sword_shield_u1(a)
 end
 
 function sword_shield_u2(a)
-   act_poke(a, a.poke_beg, a.poke_end)
+   act_poke(a, a.poke_beg)
    item_check_being_held(a)
    pause_energy()
 end
@@ -203,7 +204,6 @@ function create_sword(pl)
          poke_spd=.125,
          poke_energy=20,
          poke_beg=1,
-         poke_end=2,
 
          {hurt_amount=5, bash_dx=.3, hit=@2, u=@3, tl_max_time=.4},
          {hurt_amount=2,  bash_dx=.1, hit=@2, i=nf, u=@4}
@@ -233,7 +233,6 @@ function create_shield(pl)
          poke_spd=.0625,
          poke_energy=10,
          poke_beg=-1,
-         poke_end=0,
 
          {bash_dx=.4, u=@2, tl_max_time=.4},
          {bash_dx=.2, i=nf, u=@3}
