@@ -122,7 +122,7 @@ function create_brang(pl)
 end
 
 g_att.arrow = function(x, y, left)
-   return create_actor([[
+   local ace = create_actor([[
       id='arrow', par={'confined','mov','col','spr'},
       att={
          x=@1, y=@2,
@@ -131,8 +131,7 @@ g_att.arrow = function(x, y, left)
          touchable=false,
          ax=@4,
 
-         {hit=@5, tl_max_time=3},
-         {i=@6}
+         {hit=@5, tl_max_time=1}
       }
       ]], x, y, left, left and -.1 or .1,
       -- hit
@@ -146,10 +145,8 @@ g_att.arrow = function(x, y, left)
 
             a.alive = false
          end
-      end,
-      -- init
-      function(a)
-         a.alive = false
       end
    )
+
+   return ace
 end

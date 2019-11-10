@@ -24,25 +24,29 @@ end)
 
 create_parent(
 [[ id='pokeable', par={'rel','drawable_obj','item'},
-   att={i=@1, poke_init=@1, poke=20, poke_spd=.125, poke_energy=0}
+   att={i=@1, poke_init=@1, poke=20, poke_energy=0}
 ]], function(a)
    a.xf = a.rel_actor.xf
-   a.rel_dx = a.xf and -a.poke_spd or a.poke_spd
    use_energy(a.poke_energy)
 end)
 
 function item_check_being_held(a)
    if not a.being_held then a.alive = false end
+   pause_energy()
 end
 
-function act_poke(a, ix1)
-   local ix2=ix1+1
-   if a.poke > 0 then
-      a.poke -= 1
-      a.ixx = a.xf and ix1 or -ix1
+function act_poke(a, dist)
+   if a.poke > 0 then a.poke -= 1 end
+   a.ixx = a.xf and a.poke_ixx or -a.poke_ixx
+
+   local spd = dist/a.tl_max_time/FPS
+   if spd + abs(a.rel_x) < dist then
+      a.rel_dx = a.xf and -spd or spd
    else
-      a.ixx = a.xf and ix2 or -ix2
+      a.rel_dx = 0
+      a.rel_x = a.xf and -dist or dist
    end
+   pause_energy()
 end
 
 function create_banjo(pl)
@@ -78,8 +82,7 @@ function create_shovel(pl)
          sind=3,
          touchable=false,
          u=@2,
-         rel_actor=@1,
-         poke_spd=.625
+         rel_actor=@1
       }
       ]], pl, function(a)
          if fget(mget(a.x,a.y), 7) then
@@ -127,26 +130,16 @@ function create_bow(pl)
          destroyed=@4,
          touchable=false,
          rel_actor=@1,
-         poke_spd=.125,
          poke_energy=5,
+         poke_ixx=1,
 
-         {u=@2, tl_max_time=.4},
+         {u=@2, tl_max_time=.1},
          {i=nf, u=@3}
       }
       ]], g_pl, function(a) -- update 1
-         act_poke(a, -1)
-         local dist = 3/8
-         if abs(a.rel_dx + a.rel_x) < dist then
-            a.rel_x += a.rel_dx
-         else
-            local neg_one = -dist
-            a.rel_dx, a.rel_x = 0, a.xf and neg_one or dist
-         end
-         pause_energy()
+         act_poke(a, .5)
       end, function(a) -- update 2
-         act_poke(a, -1)
          item_check_being_held(a)
-         pause_energy()
       end, function(a) -- destroyed
          if remove_money(1) then
             sfx'6'
@@ -169,19 +162,11 @@ function sword_hit(a, o)
 end
 
 function sword_shield_u1(a)
-   act_poke(a, a.poke_beg)
-   if abs(a.rel_dx + a.rel_x) < a.dist then
-      a.rel_x += a.rel_dx
-   else
-      a.rel_dx, a.rel_x = 0, a.xf and -a.dist or a.dist
-   end
-   pause_energy()
+   act_poke(a, a.dist)
 end
 
 function sword_shield_u2(a)
-   act_poke(a, a.poke_beg)
    item_check_being_held(a)
-   pause_energy()
 end
 
 function create_sword(pl)
@@ -201,11 +186,10 @@ function create_sword(pl)
          sind=2,
          touchable=false,
          rel_actor=@1,
-         poke_spd=.125,
-         poke_energy=20,
-         poke_beg=1,
+         poke_energy=15,
+         poke_ixx=2,
 
-         {hurt_amount=5, bash_dx=.3, hit=@2, u=@3, tl_max_time=.4},
+         {hurt_amount=5, bash_dx=.3, hit=@2, u=@3, tl_max_time=.1},
          {hurt_amount=2,  bash_dx=.1, hit=@2, i=nf, u=@4}
       }
       ]], g_pl, sword_hit, sword_shield_u1, sword_shield_u2
@@ -230,11 +214,10 @@ function create_shield(pl)
          sind=6,
          touchable=false,
          rel_actor=@1,
-         poke_spd=.0625,
          poke_energy=10,
-         poke_beg=-1,
+         poke_ixx=0,
 
-         {bash_dx=.4, u=@2, tl_max_time=.4},
+         {bash_dx=.4, u=@2, tl_max_time=.1},
          {bash_dx=.2, i=nf, u=@3}
       }
    ]], pl, sword_shield_u1, sword_shield_u2

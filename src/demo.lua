@@ -1,5 +1,5 @@
--- token: 7832 7789 7707 7641
--- compr: 3102 3017 2974 2941
+-- token: 7832 7789 7707 7641 7568 7545
+-- compr: 3102 3017 2974 2941 2861 2858
 
 -- older stats:
 -- token: 6991 6928 6926 6907 7086 7707 7723 7768 7707 7741 7732 7718 7560 7560
@@ -223,7 +223,7 @@ function game_update()
       )
       energy_update(.25)
    else
-      poke(0x5f43,1+2+4) -- softer sound
+      poke(0x5f43,1+2+4) -- normal sound
       if g_pl.item and g_pl.item.lank_banjo and g_pl.item.alive then
          g_pl.item.update(g_pl.item)
          g_pl.item.clean(g_pl.item)

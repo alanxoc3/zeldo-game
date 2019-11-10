@@ -21,7 +21,6 @@ end
 function attach_actor(opt, a)
    -- step 1: atts from parent
    foreach(opt.par, function(par_id) a = g_att[par_id](a) end)
-
    tabcpy(opt.att, a)
 
    -- step 2: add to list of objects
@@ -189,7 +188,10 @@ create_parent(
    local a2 = a.rel_actor
    if a2 then
       if a2.alive then
-         a.x, a.y, a.dx, a.dy = a2.x+a.rel_x, a2.y+a.rel_y, a2.dx+a.rel_dx, a2.dy+a.rel_dy
+         a.x, a.y   = a2.x  + a.rel_x , a2.y  + a.rel_y
+         a.dx, a.dy = a2.dx + a.rel_dx, a2.dy + a.rel_dy
+         a.rel_x += a.rel_dx
+         a.rel_y += a.rel_dy
          a.xx, a.yy = a2.xx, a2.yy
       else
          a.alive = false
