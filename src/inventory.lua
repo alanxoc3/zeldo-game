@@ -17,14 +17,14 @@ function create_banjo(pl)
          rx=.3,
          ry=.3,
          sind=1,
-         xf=@1,
+         rel_actor=@1,
+         xf=@2,
          touchable=false,
-         destroyed=@3,
+         destroyed=@4,
 
-         {i=@2, tl_max_time=4}
+         {i=@3, tl_max_time=4}
       }
-      ]],
-      pl.xf,
+      ]], pl, pl.xf,
       -- init 1
       function(a)
          a.rel_y=0
@@ -43,11 +43,12 @@ function create_shovel(pl)
          rx=.3,
          ry=.3,
          sind=3,
-         xf=@1,
+         xf=@2,
          touchable=false,
-         i=@2, u=@3
+         i=@3, u=@4,
+         rel_actor=@1
       }
-      ]],
+      ]], g_pl,
       not pl.xf,
       -- init 1
       function(a)
@@ -77,12 +78,13 @@ function create_force(pl)
          rx=.3,
          ry=.3,
          sind=36,
-         xf=@1,
-         destroyed=@2,
-         u=@3,
+         xf=@2,
+         destroyed=@3,
+         u=@4,
+         rel_actor=@1,
          touchable=false
       }
-      ]], pl.xf, function(a)
+      ]], g_pl, pl.xf, function(a)
          -- random room index
          local i = flr(rnd(5))+1
          transition_room(g_save_spots[i].room, g_save_spots[i].x, g_save_spots[i].y)
@@ -104,15 +106,15 @@ function create_bow(pl)
          rel_y=0,
          iyy=-1,
          sind=7,
-         xf=@1,
-         destroyed=@5,
+         xf=@2,
+         destroyed=@6,
          touchable=false,
+         rel_actor=@1,
 
-         {i=@2, u=@3, tl_max_time=.4},
-         {i=nf, u=@4}
+         {i=@3, u=@4, tl_max_time=.4},
+         {i=nf, u=@5}
       }
-      ]],
-      pl.xf,
+      ]], g_pl, pl.xf,
       -- init 1
       function(a)
          a.rel_dx = a.xf and -.125 or .125
@@ -210,13 +212,14 @@ function create_sword(pl)
          iyy=-2,
          sind=2,
          poke=20,
-         xf=@1,
+         xf=@2,
          touchable=false,
+         rel_actor=@1,
 
-         {hit=@2, i=@3, u=@4, tl_max_time=.4},
-         {hit=@2, i=nf, u=@5}
+         {hit=@3, i=@4, u=@5, tl_max_time=.4},
+         {hit=@3, i=nf, u=@6}
       }
-      ]],
+      ]], g_pl,
       pl.xf, sword_shield_hit,
       function(a)
          sword_shield_i1(a, 20, 1, .125)
@@ -245,14 +248,15 @@ function create_shield(pl)
          iyy=-1,
          poke=20,
          sind=6,
-         xf=@1,
+         xf=@2,
          poke=20,
          touchable=false,
+         rel_actor=@1,
 
-         {hit=@2, i=@3, u=@4, tl_max_time=.4},
-         {hit=@2, i=nf, u=@5}
+         {hit=@3, i=@4, u=@5, tl_max_time=.4},
+         {hit=@3, i=nf, u=@6}
       }
-   ]],
+   ]], g_pl,
       pl.xf, sword_shield_hit,
       function(a)
          sword_shield_i1(a, 10, 3, .625/10)

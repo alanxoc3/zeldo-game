@@ -20,7 +20,7 @@ g_att.house = function(x, y, room, rx, ry, sind)
          a.b1 = gen_static_block(a.x-.75,a.y, .25, .5)
          a.b2 = gen_static_block(a.x+.75,a.y, .25, .5)
          a.b3 = gen_static_block(a.x,a.y-5/8, 1,.25)
-         a.trig = gen_trigger_block(a.x,a.y+1/8,.5,5/8,a.contains)
+         a.trig = gen_trigger_block(a, 0, 1/8, .5, 5/8, a.contains)
       end, function(a)
          a.b1.alive, a.b2.alive, a.b3.alive, a.trig.alive = false
       end, sind or 46
@@ -64,19 +64,19 @@ function gen_static_block(x, y, rx, ry)
    )
 end
 
-function gen_trigger_block(x, y, rx, ry, contains, not_contains)
+function gen_trigger_block(a, off_x, off_y, rx, ry, contains, not_contains)
    return create_actor([[
-      id='trigger_block', par={'confined', 'trig'},
+      id='trigger_block', par={'rel', 'confined', 'trig'},
       att={
-         x=@1, y=@2, rx=@3, ry=@4, trigger=@5, untrigger=@6
+         rel_actor=@1, rel_x=@2, rel_y=@3, rx=@4, ry=@5, trigger=@6, untrigger=@7
       }
-      ]],x,y,rx,ry,contains or nf, not_contains or nf
+      ]], a, off_x, off_y, rx, ry, contains or nf, not_contains or nf
    )
 end
 
 function gen_trigger_block_dir(a, dir, ...)
    local x, y = dir_to_coord(dir)
-   return gen_trigger_block(x*a.rx*2+a.x,y*a.ry*2+a.y,.5+abs(y)*3/8,.5+abs(x)*3/8, ...)
+   return gen_trigger_block(a, x*a.rx*2,y*a.ry*2,.5+abs(y)*3/8,.5+abs(x)*3/8, ...)
 end
 
 g_att.pot = function(x, y)

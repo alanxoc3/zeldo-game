@@ -178,15 +178,23 @@ end)
 create_parent(
 [[ id='rel', par={'act'},
    att={
+      rel_actor=nil,
       rel_x=0,
       rel_y=0,
       rel_dx=0,
       rel_dy=0,
       rel_update=@1
    }
-]], function(a, a2)
-   a.x, a.y, a.dx, a.dy = a2.x+a.rel_x, a2.y+a.rel_y, a2.dx+a.rel_dx, a2.dy+a.rel_dy
-   a.xx, a.yy = a2.xx, a2.yy
+]], function(a)
+   local a2 = a.rel_actor
+   if a2 then
+      if a2.alive then
+         a.x, a.y, a.dx, a.dy = a2.x+a.rel_x, a2.y+a.rel_y, a2.dx+a.rel_dx, a2.dy+a.rel_dy
+         a.xx, a.yy = a2.xx, a2.yy
+      else
+         a.alive = false
+      end
+   end
 end)
 
 create_parent(
@@ -319,7 +327,7 @@ create_parent(
 [[ id='item', par={'confined','spr_obj'},
    att={destroyed=@1}
 ]], function(a)
-   g_pl.item = nil
+   if a == a.rel_actor.item then a.rel.item = nil end
 end)
 
 create_parent(

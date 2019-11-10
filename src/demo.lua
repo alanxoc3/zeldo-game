@@ -1,16 +1,11 @@
--- token: 7560 7575 7564 7580 7721 7731 7636 7637 7725 7662 7615 7640 7662 7648 7729
--- compr: 2561 2569 2575 2682 2896 2906 2754 2759 2776 2774 2781 2802 2698 2712 2838
+-- token: 7560 7575 7564 7580 7721 7731 7636 7637 7725 7662 7615 7640 7662 7648 7729 7832
+-- compr: 2561 2569 2575 2682 2896 2906 2754 2759 2776 2774 2781 2802 2698 2712 2838 3102
 
 -- older stats:
 -- token: 6991 6928 6926 6907 7086 7707 7723 7768 7707 7741 7732 7718 7560
 -- compr: 2748 2816 2782 2776 2994 2317 2471 2471 2471 2571 2593 2628 2561
 
 -- idea: for compression, reuse words from text boxes. It might just be a good idea.
-
--- tbox sprint:
--- TODO: Tbox triggers should work.
--- TODO: Tbox pop up and down, or think about transition.
--- TODO: Fix sign artifact bug (when sign is gone, trigger still exists).
 
 -- ma sprint:
 -- TODO: Make ma work correctly for interactable things.
@@ -45,11 +40,14 @@
 -- Finish house transitions.
 
 ----------------------- things that are done: --------------------
+-- done: Tbox pop up and down, or think about transition.
+-- done: Fix sign artifact bug (when sign is gone, trigger still exists).
 -- done: Pause game on tbox.
 -- done: Fix tbox screen pause
 -- done: Pause game on room transition.
 -- done: Disable inventory on room transition.
 -- done: Pause game on banjo play.
+-- done: Tbox triggers should work.
 -- done: Think about player arm movement (above head? ...).
 -- done: Banjo play song.
 -- done: Plant throwing. (basic version)
@@ -160,7 +158,7 @@ function _init()
    )
 
    g_tl = {
-      -- g_logo, g_title,
+      g_logo, g_title,
       g_game
    }
 
@@ -202,7 +200,7 @@ function game_update()
             {'col','move_check',@4},
             {'trig','is_in_trig',@3},
             {'tcol','coll_tile',@2},
-            {'rel','rel_update',@3},
+            {'rel','rel_update'},
             {'vec','vec_update'},
             {'bounded','check_bounds'},
             {'act', 'clean'},

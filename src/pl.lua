@@ -2,11 +2,12 @@ function create_lank_top()
    return create_actor([[
       id='lank_top', par={'rel','spr_obj'},
       att={
+         rel_actor=@1,
          sind=147,
          iyy=-2,
-         u=@1
+         u=@2
       }
-   ]], function(a)
+   ]], g_pl, function(a)
       a.xf = g_pl.xf
       a.alive = g_pl.alive
       a.outline_color = g_pl.outline_color
@@ -23,14 +24,15 @@ function create_grabbed_item(sind, yoff, create_func)
    return create_actor([[
       id='grabbed_item', par={'rel','spr_obj'},
       att={
+         rel_actor=@1,
          throwable=true,
-         sind=@1,
-         iyy=@2,
+         sind=@2,
+         iyy=@3,
          being_held=true,
          tl_loop=false,
-         { i=@4, tl_max_time=.25 }, { u=@3 }
+         { i=@5, tl_max_time=.25 }, { u=@4 }
       }
-   ]], sind, yoff, function(a)
+   ]], g_pl, sind, yoff, function(a)
       if not btn(4) or not a.being_held then
          create_func(g_pl)
          return true
@@ -42,7 +44,6 @@ function create_grabbed_item(sind, yoff, create_func)
 end
 
 function gen_pl(x, y)
-   local ltop = create_lank_top()
    return create_actor(
       [[ id='pl', par={'anim','col','mov','tcol','hurtable','knockable','stunnable','spr'},
          att={
@@ -60,10 +61,11 @@ function gen_pl(x, y)
             anim_spd=5,
             max_health=500,
             health=500,
-            destroyed=@4,
-            u=@3, d=@5
+            i=@3, u=@4, destroyed=@5, d=@6
          }
       ]], x, y, function(a)
+         a.ltop = create_lank_top()
+      end, function(a)
          -- movement logic
          if a.stun_countdown == 0 then
             if not btn'5' then
@@ -141,8 +143,8 @@ function gen_pl(x, y)
          if a.item then a.item.alive = false end
       -- draw
       end, function(a)
-         ltop.outline_color = a.outline_color
-         scr_spr_out(ltop)
+         a.ltop.outline_color = a.outline_color
+         scr_spr_out(a.ltop)
          scr_spr_out(a)
          -- if a.item and a.item.throwable then scr_spr_out(a.item) end
 
@@ -150,7 +152,7 @@ function gen_pl(x, y)
             scr_spr_out(a.item)
          end
 
-         scr_spr(ltop)
+         scr_spr(a.ltop)
          scr_spr(a)
          -- if a.item and a.item.throwable then scr_spr(a.item) end
 
