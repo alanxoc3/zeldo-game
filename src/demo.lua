@@ -1,11 +1,15 @@
--- token: 7560 7575 7564 7580 7721 7731 7636 7637 7725 7662 7615 7640 7662 7648 7729 7832
--- compr: 2561 2569 2575 2682 2896 2906 2754 2759 2776 2774 2781 2802 2698 2712 2838 3102
+-- token: 7832 7789
+-- compr: 3102 3017
 
 -- older stats:
--- token: 6991 6928 6926 6907 7086 7707 7723 7768 7707 7741 7732 7718 7560
--- compr: 2748 2816 2782 2776 2994 2317 2471 2471 2471 2571 2593 2628 2561
+-- token: 6991 6928 6926 6907 7086 7707 7723 7768 7707 7741 7732 7718 7560 7560
+--        7575 7564 7580 7721 7731 7636 7637 7725 7662 7615 7640 7662 7648 7729
+-- compr: 2748 2816 2782 2776 2994 2317 2471 2471 2471 2571 2593 2628 2561 2561
+--        2569 2575 2682 2896 2906 2754 2759 2776 2774 2781 2802 2698 2712 2838
 
 -- idea: for compression, reuse words from text boxes. It might just be a good idea.
+
+-- TODO: Token saving sprint, (items and enemies). Get down to 7500!
 
 -- ma sprint:
 -- TODO: Make ma work correctly for interactable things.
@@ -218,7 +222,6 @@ function game_update()
          g_act_arrs['wall']
       )
       energy_update(.25)
-      update_timers()
    else
       poke(0x5f43,1+2+4) -- softer sound
       if g_pl.item and g_pl.item.lank_banjo and g_pl.item.alive then

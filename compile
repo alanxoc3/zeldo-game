@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-files_in_order="src/lib.lua src/draw.lua src/att.lua src/clock.lua src/save.lua src/story.lua src/detached_pl_items.lua src/map.lua src/pattern.lua src/menu.lua src/logo.lua src/tbox.lua src/tcol.lua src/view.lua src/monsters.lua src/objects.lua src/npcs.lua src/inventory_selection.lua src/inventory.lua src/title.lua src/move_funcs.lua src/pl.lua src/squares.lua src/particle_engine.lua src/particles.lua src/demo.lua"
+files_in_order="src/lib.lua src/draw.lua src/att.lua src/save.lua src/story.lua src/detached_pl_items.lua src/map.lua src/pattern.lua src/menu.lua src/logo.lua src/tbox.lua src/tcol.lua src/view.lua src/monsters.lua src/objects.lua src/npcs.lua src/inventory_selection.lua src/inventory.lua src/title.lua src/move_funcs.lua src/pl.lua src/squares.lua src/particle_engine.lua src/particles.lua src/demo.lua"
 
 ./pico_minifier -d $files_in_order > _compiled_dev.lua
 ./pico_minifier $files_in_order > _compiled_prod.lua

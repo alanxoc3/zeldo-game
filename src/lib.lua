@@ -23,6 +23,11 @@ function round(num) return flr(num + .5) end
 -- -1, 0, or 1
 function rnd_one() return flr(rnd(3))-1 end
 
+FPS=60
+function ti(mod_val)
+   return flr(t()*FPS) % (mod_val or 0)
+end
+
 -- Recursively copies table attributes.
 function tabcpy(src, dest)
    dest = dest or {}
