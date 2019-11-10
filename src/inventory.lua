@@ -23,18 +23,13 @@ create_parent(
 end)
 
 create_parent(
-[[ id='hittable_item', par={'item'},
-   att={destroyed=@1}
+[[ id='pokeable', par={'rel','drawable_obj','item'},
+   att={i=@1, poke_init=@1, poke=20, poke_spd=.125, poke_energy=0}
 ]], function(a)
-   if a == a.rel_actor.item then a.rel.item = nil end
-end)
-
-function act_poke_init(a, dx, ixx, poke)
    a.xf = a.rel_actor.xf
-   a.rel_dx = a.xf and -dx or dx
-   a.ixx = a.xf and -ixx or ixx
-   a.poke = poke
-end
+   a.rel_dx = a.xf and -a.poke_spd or a.poke_spd
+   use_energy(a.poke_energy)
+end)
 
 function item_check_being_held(a)
    if not a.being_held then a.alive = false end
@@ -76,22 +71,16 @@ end
 
 function create_shovel(pl)
    return create_actor([[
-      id='lank_shovel', par={'item'},
+      id='lank_shovel', par={'item','pokeable'},
       att={
-         rx=.3,
-         ry=.3,
+         rx=.3, ry=.3,
          sind=3,
          touchable=false,
-         i=@2, u=@3,
-         rel_actor=@1
+         u=@2,
+         rel_actor=@1,
+         poke_spd=.625
       }
-      ]], pl,
-      -- init 1
-      function(a)
-         act_poke_init(a, .625, 0, 20)
-      end,
-      -- update 1
-      function(a)
+      ]], pl, function(a)
          if fget(mget(a.x,a.y), 7) then
             mset(a.x, a.y, 73)
          end
@@ -127,28 +116,23 @@ end
 
 function create_bow(pl)
    return create_actor([[
-      id='lank_bow', par={'item'},
+      id='lank_bow', par={'item','pokeable'},
       att={
          rx=.5,
          ry=.375,
          rel_y=0,
          iyy=-1,
          sind=7,
-         destroyed=@5,
+         destroyed=@4,
          touchable=false,
          rel_actor=@1,
+         poke_spd=.125,
+         poke_energy=5,
 
-         {i=@2, u=@3, tl_max_time=.4},
-         {i=nf, u=@4}
+         {u=@2, tl_max_time=.4},
+         {i=nf, u=@3}
       }
-      ]], g_pl,
-      -- init 1
-      function(a)
-         act_poke_init(a, .125, 1, 20)
-         use_energy(5)
-      end,
-      -- update 1
-      function(a)
+      ]], g_pl, function(a) -- update 1
          act_poke(a, -1, 0)
          local dist = 3/8
          if abs(a.rel_dx + a.rel_x) < dist then
@@ -158,13 +142,11 @@ function create_bow(pl)
             a.rel_dx, a.rel_x = 0, a.xf and neg_one or dist
          end
          pause_energy()
-      end,
-      -- update 2
-      function(a)
+      end, function(a) -- update 2
          act_poke(a, -1, 0)
          item_check_being_held(a)
          pause_energy()
-      end, function(a)
+      end, function(a) -- destroyed
          if remove_money(1) then
             sfx'6'
             g_att.arrow(a.x, a.y, a.xf)
@@ -182,7 +164,7 @@ function sword_hit(a, o)
       call_not_nil('hurt', o, a.hurt_amount, 30)
    end
 
-   a.bash(a, o)
+   a:bash(o)
 end
 
 function sword_shield_u1(a)
@@ -195,11 +177,6 @@ function sword_shield_u1(a)
    pause_energy()
 end
 
-function sword_shield_i1(a, energy, number, xfspeed)
-   act_poke_init(a, xfspeed, number, 20)
-   use_energy(energy)
-end
-
 function sword_shield_u2(a)
    act_poke(a, a.poke_beg, a.poke_end)
    item_check_being_held(a)
@@ -208,39 +185,36 @@ end
 
 function create_sword(pl)
    return create_actor([[
-      id='lank_sword', par={'item','col','bashable'},
+      id='lank_sword', par={'item','col','bashable','pokeable'},
       att={
          rel_bash_dx=.4,
          max_stun_val=20,
          min_stun_val=10,
          energy=10,
          poke_val=10,
-         poke_beg=-1,
-         poke_end=0,
          dist=1,
          rx=.5,
          ry=.375,
          rel_y=0,
          iyy=-2,
          sind=2,
-         xf=@2,
          touchable=false,
          rel_actor=@1,
+         poke_spd=.125,
+         poke_energy=20,
+         poke_beg=1,
+         poke_end=2,
 
-         {hurt_amount=5, bash_dx=.3, hit=@3, i=@4, u=@5, tl_max_time=.4},
-         {hurt_amount=2,  bash_dx=.1, hit=@3, i=nf, u=@6}
+         {hurt_amount=5, bash_dx=.3, hit=@2, u=@3, tl_max_time=.4},
+         {hurt_amount=2,  bash_dx=.1, hit=@2, i=nf, u=@4}
       }
-      ]], g_pl,
-      pl.xf, sword_hit,
-      function(a)
-         sword_shield_i1(a, 20, 1, .125)
-      end, sword_shield_u1, sword_shield_u2
+      ]], g_pl, sword_hit, sword_shield_u1, sword_shield_u2
    )
 end
 
 function create_shield(pl)
    return create_actor([[
-      id='lank_shield', par={'item','bashable'},
+      id='lank_shield', par={'item','bashable','pokeable'},
       att={
          rel_bash_dx=.1,
          max_stun_val=60,
@@ -248,8 +222,6 @@ function create_shield(pl)
          energy=2,
          poke_val=10,
          o_hurt=0,
-         poke_beg=0,
-         poke_end=1,
          dist=.625,
          block=true,
          rx=.25,
@@ -258,12 +230,14 @@ function create_shield(pl)
          sind=6,
          touchable=false,
          rel_actor=@1,
+         poke_spd=.0625,
+         poke_energy=10,
+         poke_beg=-1,
+         poke_end=0,
 
-         {bash_dx=.4, i=@2, u=@3, tl_max_time=.4},
-         {bash_dx=.2, i=nf, u=@4}
+         {bash_dx=.4, u=@2, tl_max_time=.4},
+         {bash_dx=.2, i=nf, u=@3}
       }
-   ]], pl, function(a)
-         sword_shield_i1(a, 10, 3, .625/10)
-      end, sword_shield_u1, sword_shield_u2
+   ]], pl, sword_shield_u1, sword_shield_u2
    )
 end

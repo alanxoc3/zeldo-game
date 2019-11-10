@@ -317,9 +317,9 @@ create_parent(
 ]], function(a, pl)
    if pl.x-pl.rx > a.x-a.rx and pl.x+pl.rx < a.x+a.rx
       and pl.y-pl.ry > a.y-a.ry and pl.y+pl.ry < a.y+a.ry then
-      a.trigger(a, pl)
+      a:trigger(pl)
    else
-      a.untrigger(a, pl)
+      a:untrigger(pl)
    end
 end)
 

@@ -14,7 +14,7 @@ function create_view_on_cur_room(w, h, follow_dim, follow_act)
       if a.follow_act then
          a.x, a.y = a.follow_act.x, a.follow_act.y
       end
-      a.update_view(a)
+      a:update_view()
    end
    )
 end
