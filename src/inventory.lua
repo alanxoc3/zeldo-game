@@ -63,10 +63,11 @@ function create_banjo(pl)
          sind=1,
          rel_actor=@1,
          xf=@2,
+         initial_xf=@2,
          touchable=false,
          destroyed=@4,
 
-         {i=@3, tl_max_time=4}
+         {tl_name='loop', i=@3, u=@5, tl_max_time=4}
       }
       ]], pl, pl.xf,
       -- init 1
@@ -75,6 +76,21 @@ function create_banjo(pl)
          sfx'11'
       end, function(a)
          sfx'-1'
+      end, function(a)
+         g_pl.sind=144
+         if sin(a.loop.tl_tim*2) > 0 then
+            g_pl.ltop.sind = 149
+         else
+            g_pl.ltop.sind = 147
+         end
+
+         if a.initial_xf then
+            g_pl.xf = cos(a.loop.tl_tim) > 0
+         else
+            g_pl.xf = -cos(a.loop.tl_tim) > 0
+         end
+         g_pl.ltop.xf = g_pl.xf
+         a.xf = not g_pl.xf
       end
    )
 end
