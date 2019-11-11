@@ -1,5 +1,5 @@
--- token: 7832 7789 7707 7641 7568 7545 7530
--- compr: 3102 3017 2974 2941 2861 2858 2830
+-- token: 7832 7789 7707 7641 7568 7545 7530 7570
+-- compr: 3102 3017 2974 2941 2861 2858 2830 2911
 
 -- older stats:
 -- token: 6991 6928 6926 6907 7086 7707 7723 7768 7707 7741 7732 7718 7560 7560
@@ -162,7 +162,7 @@ function _init()
    )
 
    g_tl = {
-      -- g_logo, g_title,
+      g_logo, g_title,
       g_game
    }
 
@@ -247,7 +247,7 @@ function card_shake_update()
       g_card_shake_time -= 1
    else
       g_card_shake_x, g_card_shake_y = 0, 0
-      sfx(9,-2)
+      --sfx(9,-2)
    end
 end
 

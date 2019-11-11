@@ -14,6 +14,8 @@ function create_lank_top()
 
       if g_pl.item and g_pl.item.throwable then
          a.sind=148
+      elseif g_pl.item and g_pl.item.lank_shovel then
+         --a.sind=149
       else
          a.sind=147
       end

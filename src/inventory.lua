@@ -81,20 +81,41 @@ end
 
 function create_shovel(pl)
    return create_actor([[
-      id='lank_shovel', par={'item'},
+      id='lank_shovel', par={'item','bashable','pokeable'},
       att={
          rx=.3, ry=.3,
          sind=3,
          touchable=false,
-         u=@2,
-         rel_actor=@1
+         rel_actor=@1,
+         poke_energy=5,
+         poke_ixx=1,
+         poke_dist=.75,
+         rel_bash_dx=.185,
+         bash_dx=.1,
+         did_hit=false,
+         hit=@4,
+
+         {tl_max_time=.1},
+         {i=nf, u=@2, e=nf, tl_max_time=.25},
+         {i=@3, u=@2, e=nf, tl_max_time=.25}
       }
       ]], pl, function(a)
-         if fget(mget(a.x,a.y), 7) then
-            mset(a.x, a.y, 73)
-         end
+         pause_energy()
+      end, function(a)
+         --a.xf = not a.xf
+         a.yf = true
+         --a.rel_x += sgn(-a.rel_x)*.125
+         a.rel_y = -.25
+         a:bash()
 
-         item_check_being_held(a)
+         if not a.did_hit and fget(mget(a.x,a.y), 7) then
+            mset(a.x, a.y, 73)
+            sfx'6'
+         else
+            sfx'9'
+         end
+      end, function(a, o)
+         a.did_hit = o.touchable and o != a.rel_actor
       end
    )
 end
