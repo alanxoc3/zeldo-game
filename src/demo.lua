@@ -1,5 +1,5 @@
--- token: 7832 7789 7707 7641 7568 7545 7530 7570 7626
--- compr: 3102 3017 2974 2941 2861 2858 2830 2911 2985
+-- token: 7832 7789 7707 7641 7568 7545 7530 7570 7626 7626 7626
+-- compr: 3102 3017 2974 2941 2861 2858 2830 2911 2985 3177 3249
 
 -- older stats:
 -- token: 6991 6928 6926 6907 7086 7707 7723 7768 7707 7741 7732 7718 7560 7560
@@ -14,10 +14,6 @@
 -- ma sprint:
 -- TODO: Make ma work correctly for interactable things.
 -- TODO: Make ma work for items.
-
--- shovel sprint:
--- TODO: Continue shovel mechanics.
--- TODO: work on shovel animation.
 
 -- item sprint:
 -- TODO: Fix the boomerang timeout problem.
@@ -49,6 +45,8 @@
 -- done: Pause game on tbox.
 -- done: Fix tbox screen pause
 -- done: Pause game on room transition.
+-- done: Continue shovel mechanics.
+-- done: work on shovel animation.
 -- done: Disable inventory on room transition.
 -- done: Pause game on banjo play.
 -- done: Tbox triggers should work.
@@ -315,7 +313,5 @@ end
 function game_init()
    map_init()
    g_pl = gen_pl(0, 0)
-   load_room('village', 12, 7)
-
-   -- tbox([[ speaker="Lank", "Are you ready to play the Story of Zeldo?", "Ok, let's play!" ]])
+   load_room('graveyard_end', 6, 5)
 end

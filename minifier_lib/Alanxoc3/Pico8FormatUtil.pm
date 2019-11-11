@@ -27,7 +27,7 @@ sub get_next_var_name {
    my $cur_chars_ref = shift;
    # Order of commonly used letters in the English language.
    # Saves *about* 30 compression tokens.
-   my $char_inc = "etaoinsrhldcumfpgwybvkxjqz";
+   my $char_inc = "etaoinsrhldcumfpgwybvkxjqz_";
 
    my @new_char_arr;
    my $next_bump = 1;
