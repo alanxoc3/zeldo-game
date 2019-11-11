@@ -5,7 +5,7 @@ g_att.lark = function(x, y)
          name="Lark",
          sind=99,rx=.5,ry=.5,iyy=-2,
          x=@1, y=@2, i=@3, u=@4,
-         text={speaker="lark","Heya Lank bro, I'm yer biggest fan!"}
+         text={speaker="Lark","Heya Lank bro, I'm yer biggest fan!"}
       }
       ]],x,y, function(a)
          local big_w = 6/8
