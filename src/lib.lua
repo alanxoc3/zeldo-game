@@ -34,7 +34,7 @@ end
 function tabcpy(src, dest)
    dest = dest or {}
    for k,v in pairs(src or {}) do
-      if type(v) == 'table' and not v.is_tabcpy_disabled then
+      if type(v) == "TABLE" and not v.is_tabcpy_disabled then
          dest[k] = tabcpy(v)
       else
          dest[k] = v
@@ -107,7 +107,7 @@ function gun_vals(val_str, ...)
    for k,v in pairs(lookup[3]) do
       foreach(lookup[3][k], function(x)
          x[1][x[2]] = params[k]
-         if type(params[k]) == 'table' then
+         if type(params[k]) == "TABLE" then
             params[k].is_tabcpy_disabled = true
          end
       end)
