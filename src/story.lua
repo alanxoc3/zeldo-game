@@ -37,12 +37,24 @@ function map_init()
          x = 12,  y = 0,
          w = 12,  h = 10,
          l={'graveyard',11.5,17},
-         r={'canyon',.5,7}
+         r={'canyon_start',.5,7}
       },
-      'canyon'={ c=4, qx=2, qy=0,
+      'canyon_start'={ c=4, qx=2, qy=0,
          x = 0,   y = 0,
          w = 24,  h = 10,
-         l={'graveyard_end',11.5,7}
+         l={'graveyard_end',11.5,7},
+         u={'canyon_path',4,15.5}
+      },
+      'canyon_path'={ c=4, qx=1, qy=1,
+         x = 24,   y = 8,
+         w = 8,    h = 16,
+         d={'canyon_start',18,.5},
+         u={'canyon_end',6,9.5}
+      },
+      'canyon_end'={ c=6, qx=1, qy=1,
+         x = 12,   y = 0,
+         w = 12,   h = 10,
+         d={'canyon_path',4,.5}
       },
       'forest_entrance'={ c=3, qx=0, qy=0,
          x = 0,   y = 0,
