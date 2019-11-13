@@ -6,6 +6,9 @@ function map_init()
          l={'lank_front_yard',11.5,5},
          r={'field',.5,9},
          {'sign',5.5,14.5,{speaker="Sign","Testing sign"},43},
+         {'house',4,14.5,'forest_1',4,4},
+         {'house',8,13.5,'forest_1',4,4},
+         {'house',12,12.5,'forest_1',4,4},
          {'lark',8.5,14.5}
       },
       'lank_front_yard'={ c=3, qx=0, qy=0,
