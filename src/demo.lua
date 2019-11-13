@@ -313,5 +313,5 @@ end
 function game_init()
    map_init()
    g_pl = gen_pl(0, 0)
-   load_room('canyon_end', 6, 5)
+   load_room('village', 6, 5)
 end
