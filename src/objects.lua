@@ -19,7 +19,7 @@ g_att.house = function(x, y, room, rx, ry, sind)
       end, function(a)
          a.b1 = gen_static_block(a.x-.75,a.y, .25, .5)
          a.b2 = gen_static_block(a.x+.75,a.y, .25, .5)
-         a.b3 = gen_static_block(a.x,a.y-5/8, 1,.25)
+         a.b3 = gen_static_block(a.x,a.y-4/8, 1,.25)
          a.trig = gen_trigger_block(a, 0, 1/8, .5, 5/8, a.contains)
       end, function(a)
          a.b1.alive, a.b2.alive, a.b3.alive, a.trig.alive = false

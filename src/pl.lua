@@ -53,8 +53,6 @@ function gen_pl(x, y)
             sinds={144, 145, 146},
             rx=.375,
             ry=.375,
-            xb=.25,
-            yb=.25,
             iyy=-2,
             spd=.02,
             anim_len=3,

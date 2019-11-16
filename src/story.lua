@@ -1,21 +1,57 @@
 function map_init()
    g_rooms = gun_vals([[
+      'teach_studio'={ c=4, qx=0, qy=0,
+         x = 24,  y = 0,
+         w = 8,   h = 8,
+         d={'village',8,4}
+      },
+      'shop'={ c=4, qx=0, qy=0,
+         x = 24,  y = 8,
+         w = 8,   h = 8,
+         d={'village',20,5}
+      },
+      'janebob'={ c=4, qx=0, qy=0,
+         x = 24,  y = 16,
+         w = 8,   h = 8,
+         d={'village',16,4}
+      },
+      'lank_house'={ c=4, qx=1, qy=1,
+         x = 24,  y = 16,
+         w = 8,   h = 8,
+         d={'lank_front_yard',8,3}
+      },
+      'school'={ c=4, qx=0, qy=0,
+         x = 24,  y = 24,
+         w = 8,   h = 8,
+         d={'village',4,5},
+         {'sign',26.5,25.25,{speaker="Sign","Press 🅾️ to use yer item."},52},
+         {'sign',29.5,25.25,{speaker="Sign","Hold down ❎ to select yer item."},52}
+      },
       'village'={ c=3, qx=0, qy=0,
          x = 0,   y = 10,
          w = 24,  h = 10,
          l={'lank_front_yard',11.5,5},
          r={'field',.5,9},
-         {'sign',5.5,14.5,{speaker="Sign","Testing sign"},43},
-         {'house',4,14.5,'forest_1',4,4},
-         {'house',8,13.5,'forest_1',4,4},
-         {'house',12,12.5,'forest_1',4,4},
-         {'lark',8.5,14.5}
+         {'sign',5.5,14.5,{speaker="Sign","Hiroll School"},43},
+         {'sign',13.5,12.5,{speaker="Sign","Mayor Lark's House"},43},
+         {'sign',9.5,13.5,{speaker="Sign","Teach's Studio"},43},
+         {'sign',17.5,13.5,{speaker="Sign","Bob And Jane's House"},43},
+         {'sign',21.5,14.5,{speaker="Sign","Hiroll Shop"},43},
+         {'house',4,14.5,'school',4,7.5},
+         {'house',8,13.5,'teach_studio',4,7.5},
+         {'house',12,12.5,'forest_1',4,7.5},
+         {'house',16,13.5,'janebob',4,7.5},
+         {'house',20,14.5,'shop',4,7.5}
       },
       'lank_front_yard'={ c=3, qx=0, qy=0,
          x = 12,  y = 0,
          w = 12,  h = 10,
          l={'forest_entrance',11.5,5},
-         r={'village',.5,7}
+         r={'village',.5,7},
+         {'sign',13.5,2.5,{speaker="Sign","Navy's House"},43},
+         {'sign',21.5,2.5,{speaker="Sign","Lank's House"},43},
+         {'house',15,2.5,'forest_1',4,4},
+         {'house',20,2.5,'lank_house',4,7.5}
       },
       'field'={ c=3, qx=1, qy=1,
          x = 0,   y = 20,
