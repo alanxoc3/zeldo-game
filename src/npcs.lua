@@ -1,13 +1,13 @@
-g_att.lark = function(x, y)
+g_att.npc = function(x, y,name,text,sind)
    return create_actor([[
-      id='lark', par={'hurtable','confined','spr','wall'},
+      id='npc', par={'confined','spr','wall'},
       att={
-         name="Lark",
-         sind=99,rx=.5,ry=.5,iyy=-2,
-         x=@1, y=@2, i=@3, u=@4,
-         text={speaker="Lark","Heya Lank bro, I'm yer biggest fan!"}
+         x=@1, y=@2, name=@3,
+         i=@6, u=@7,
+         sind=@5,rx=.5,ry=.5,iyy=-2,
+         text={speaker=@3,@4}
       }
-      ]],x,y, function(a)
+      ]],x,y,name,text,sind,function(a)
          local big_w = 6/8
          batch_call(gen_text_trigger_block, [[
             {@1,0,@2}, {@1,1,@2},
@@ -17,6 +17,10 @@ g_att.lark = function(x, y)
          a.xf = a.x-g_pl.x > 0
       end
    )
+end
+
+g_att.lark = function(x, y)
+   return g_att.npc(x,y,"Lark","I'm your biggest fan!",99)
 end
 
 g_att.sign = function(x, y, text_obj, sind)
