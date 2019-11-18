@@ -12,12 +12,19 @@ function map_init()
       'mayor_house'={ c=4, qx=2, qy=0,
          x = 0,  y = 0,
          w = 12,   h = 10,
-         d={'village',12,3}
+         d={'village',12,3},
+         {'pot',65.5,5.5},
+         {'pot',65.5,6.5},
+         {'pot',65.5,7.5}, {'pot',66.5,7.5}, {'pot',67.5,7.5},
+         {'pot',65.5,8.5},
+         {'npc',70,2,"Mayor Lark","Hey there Lank, I'm your biggest fan!",99}
       },
       'teach_studio'={ c=4, qx=0, qy=0,
          x = 24,  y = 0,
          w = 8,   h = 8,
          d={'village',8,4},
+         {'pot',25.5,6.5},
+         {'pot',30.5,6.5},
          {'sign',25.5,1.5,{speaker="Sign","Press 🅾️ to use yer item."},52},
          {'sign',30.5,1.5,{speaker="Sign","Hold down ❎ to select yer item."},52}
       },
