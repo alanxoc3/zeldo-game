@@ -5,7 +5,7 @@ g_att.npc = function(x, y,name,text,sind)
          x=@1, y=@2, name=@3,
          i=@6, u=@7,
          sind=@5,rx=.5,ry=.5,iyy=-2,
-         text={speaker=@3,@4}
+         text=@4
       }
       ]],x,y,name,text,sind,function(a)
          local big_w = 6/8

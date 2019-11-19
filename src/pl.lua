@@ -70,6 +70,13 @@ function gen_pl(x, y)
                if not a.item and (xbtn() != 0) then a.xf = btn'0' end
                a.ax = xbtn()*a.spd
                a.ay = ybtn()*a.spd
+               if g_debug then
+                  a.ax *= 3
+                  a.ay *= 3
+                  a.touchable=false
+               else
+                  a.touchable=true
+               end
             else
                a.ax = 0 a.ay = 0
             end

@@ -4,30 +4,6 @@
 g_tbox_messages, g_tbox_anim, g_tbox_max_len = {}, 0, 25
 -- listen to 'g_tbox_active', to listen if tbox is active.
 
-function str_to_word_lines(str, line_len)
-   -- word, line, loop_string, lines
-   local l, w, l_str, lines = '', '', str..' ', {}
-   for i=1, #l_str do
-      local c = sub(l_str, i, i)
-
-      if #w > 0 and c == ' ' then
-         -- str_words_to_lines
-         if #(l..w) > line_len then
-            add(lines, l)
-            l = ''
-         end
-
-         l, w = l..w..' ', ''
-         -- end str_words_to_lines
-      else
-         w = w..c
-      end
-   end
-   add(lines, l)
-
-   return lines
-end
-
 -- if you press the button while text is still being displayed, then the text
 -- finishes its display.
 function tbox_interact()
@@ -60,22 +36,14 @@ end
 --    "line 1 is cool",
 --    "line 2 is better though",
 --    "line 3 anyone?",
---    speaker="alan",
 --    trigger=@1
 -- ]], function reboot() end)
 function tbox_with_obj(a)
-   for p in all(a) do
-      local speak = #a.speaker > 0 and a.speaker..': ' or ''
-      local lines = str_to_word_lines(speak..p, g_tbox_max_len)
-
-      for i=1,#lines do
-         local l = lines[i]
-         if i % 2 == 1 then
-            a.l1 = l
-            add(g_tbox_messages, {speaker=a.speaker, trigger=a.trigger, l1=l, l2=''})
-         else
-            g_tbox_messages[#g_tbox_messages].l2 = l
-         end
+   for i=1,#a do
+      if i % 2 == 1 then
+         add(g_tbox_messages, {trigger=a.trigger, l1=a[i], l2=''})
+      else
+         g_tbox_messages[#g_tbox_messages].l2=a[i]
       end
    end
 

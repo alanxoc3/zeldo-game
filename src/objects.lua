@@ -79,14 +79,15 @@ function gen_trigger_block_dir(a, dir, ...)
    return gen_trigger_block(a, x*a.rx*2,y*a.ry*2,.5+abs(y)*3/8,.5+abs(x)*3/8, ...)
 end
 
-g_att.pot = function(x, y)
+-- x, y, sind
+g_att.pot = function(...)
    return create_actor([[
       id='pot', par={'bounded','confined','tcol','spr','col','mov'},
       att={
-         sind=49,rx=.375,ry=.375,
+         sind=@3,rx=.375,ry=.375,
          x=@1, y=@2,
          touchable=true,
       }
-      ]],x,y
+      ]],...
    )
 end

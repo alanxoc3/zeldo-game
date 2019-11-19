@@ -313,5 +313,5 @@ end
 function game_init()
    map_init()
    g_pl = gen_pl(0, 0)
-   load_room('lank_house', 4, 4)
+   load_room('lank_front_yard', 4, 4)
 end
