@@ -85,6 +85,7 @@ g_att.pot = function(...)
       id='pot', par={'bounded','confined','tcol','spr','col','mov'},
       att={
          sind=@3,rx=.375,ry=.375,
+         iyy=-2,
          x=@1, y=@2,
          touchable=true,
       }
