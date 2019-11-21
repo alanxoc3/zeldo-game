@@ -89,7 +89,7 @@ function gen_pl(x, y)
          -- item logic
          if not btn'5' and not a.item then
             if btnp'4' and g_energy_tired then
-               if g_selected != G_INTERACT then
+               if not get_selected_item().interact then
                   sfx'7'
                end
             elseif btnp'4' and not g_energy_tired then
@@ -102,7 +102,7 @@ function gen_pl(x, y)
                   else
                      sfx'7'
                   end
-               elseif g_selected != G_INTERACT then
+               elseif not get_selected_item().interact then
                   a.item = gen_pl_item(a, g_selected)
                   sfx'5'
                end

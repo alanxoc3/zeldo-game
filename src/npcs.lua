@@ -52,7 +52,7 @@ g_att.chest = function(x, y, direction)
       ]],x,y,direction,
       function(a)
          a.trig = gen_trigger_block_dir(a, a.xf and 1 or 0, function(b, other)
-               if not a.chest_opened and not g_menu_open and g_selected == G_INTERACT and not g_tbox_active and btnp'4' then
+               if not a.chest_opened and not g_menu_open and get_selected_item.interact and not g_tbox_active and btnp'4' then
                   a.sind = 51
                   a.chest_openened = true
                end
@@ -64,7 +64,7 @@ end
 
 function gen_text_trigger_block(sign, dir, text_obj)
    return gen_trigger_block_dir(sign, dir, function(a, other)
-      if not g_menu_open and g_selected == G_INTERACT and not g_tbox_active and btnp'4' then
+      if not g_menu_open and get_selected_item().interact and not g_tbox_active and btnp'4' then
          change_cur_ma(sign)
          tbox_with_obj(text_obj)
       end

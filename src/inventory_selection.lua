@@ -32,14 +32,18 @@ g_att.item_selector = function()
 end
 
 g_att.inventory_item = function(x, y, item)
+   local df = function(a)
+      scr_rectfill(a.x-.125, a.y-.125, a.x, a.y, a.outline_color)
+   end
+   if item.enabled then df = scr_spr_and_out end
    return create_actor([[
       id='inventory_item', par={'rel','spr_obj', 'drawable'},
       att={
-         rel_actor=@1, u=@6, rel_x=@2, rel_y=@3, sind=@4, visible=@4, xf=@5
+         rel_actor=@1, u=@6, rel_x=@2, rel_y=@3, sind=@4, visible=@4, xf=@5, draw_both=@7
       }
       ]],g_pl,x,y,item.sind,g_pl.xf and item.flippable, function(a)
          a.outline_color = a.selected and 2 or 1
-      end
+      end, df
    )
 end
 
@@ -51,9 +55,7 @@ function create_inventory_items()
       for ind=1,9 do
          local item = g_items[ind]
 
-         if item.enabled then
-            g_items_drawn[ind] = g_att.inventory_item(item.xoff/8, item.yoff/8, item)
-         end
+         g_items_drawn[ind] = g_att.inventory_item(item.xoff/8, item.yoff/8, item)
       end
    end
 end
@@ -72,17 +74,17 @@ end
 function inventory_init()
    -- global_items
    g_items = gun_vals([[
-      {name='force'   , xoff=-7, yoff=-9, enabled=true, func=@8, sind=36, flippable=true},
-      {name='brang'   , xoff=0, yoff=-10, enabled=true, func=@2, sind=4},
-      {name='bomb'    , xoff=7, yoff=-9, enabled=true, func=@6, sind=5},
+      {name='force'   , xoff=-7, yoff=-9, func=@8, sind=36, flippable=true},
+      {name='brang'   , xoff=0, yoff=-10, func=@2, sind=4},
+      {name='bomb'    , xoff=7, yoff=-9, func=@6, sind=5},
 
-      {name='shield'  , xoff=-8, yoff=-3, enabled=true, func=@4, sind=6, flippable=true},
-      {name='interact', xoff=0, yoff=-3, enabled=true, func=nf, sind=false},
-      {name='bow'     , xoff=8, yoff=-3, enabled=true, func=@7, sind=7},
+      {name='shield'  , xoff=-8, yoff=-3, func=@4, sind=6, flippable=true},
+      {name='interact', interact=true, xoff=0, yoff=-3, enabled=true, func=nf, sind=false},
+      {name='bow'     , xoff=8, yoff=-3, func=@7, sind=7},
 
-      {name='shovel'  , xoff=-7, yoff=4, enabled=true, func=@3, sind=3},
-      {name='sword'   , xoff=0, yoff=6, enabled=true, func=@5, sind=2, flippable=true},
-      {name='banjo'   , xoff=7, yoff=4, enabled=true, func=@1, sind=1}
+      {name='shovel'  , xoff=-7, yoff=4, func=@3, sind=3},
+      {name='sword'   , xoff=0, yoff=6, func=@5, sind=2, flippable=true},
+      {name='banjo'   , xoff=7, yoff=4, func=@1, sind=1}
    ]], create_banjo, create_brang, create_shovel, create_shield, create_sword, create_bomb, create_bow, create_force)
 
    g_selected=G_INTERACT
@@ -90,7 +92,7 @@ end
 
 function get_selected_item(ind)
    local item = g_items[ind or g_selected]
-   return item.enabled and item or nil
+   return item.enabled and item or g_items[5]
 end
 
 function inventory_update()
