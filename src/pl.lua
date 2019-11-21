@@ -33,7 +33,7 @@ function create_grabbed_item(sind, yoff, create_func)
          { i=@5, tl_max_time=.25 }, { u=@4 }
       }
    ]], g_pl, sind, yoff, function(a)
-      if not btn(4) or not a.being_held then
+      if btnp(4) or btn(5) then
          create_func(g_pl)
          return true
       end

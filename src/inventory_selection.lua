@@ -74,17 +74,17 @@ end
 function inventory_init()
    -- global_items
    g_items = gun_vals([[
-      {name='force'   , xoff=-7, yoff=-9, func=@8, sind=36, flippable=true},
-      {name='brang'   , xoff=0, yoff=-10, func=@2, sind=4},
-      {name='bomb'    , xoff=7, yoff=-9, func=@6, sind=5},
+      {enabled=true, name='force'   , xoff=-7, yoff=-9, func=@8, sind=36, flippable=true},
+      {enabled=true, name='brang'   , xoff=0, yoff=-10, func=@2, sind=4},
+      {enabled=true, name='bomb'    , xoff=7, yoff=-9, func=@6, sind=5},
 
-      {name='shield'  , xoff=-8, yoff=-3, func=@4, sind=6, flippable=true},
-      {name='interact', interact=true, xoff=0, yoff=-3, enabled=true, func=nf, sind=false},
-      {name='bow'     , xoff=8, yoff=-3, func=@7, sind=7},
+      {enabled=true, name='shield'  , xoff=-8, yoff=-3, func=@4, sind=6, flippable=true},
+      {enabled=true, name='interact', interact=true, xoff=0, yoff=-3, func=nf, sind=false},
+      {enabled=true, name='bow'     , xoff=8, yoff=-3, func=@7, sind=7},
 
-      {name='shovel'  , xoff=-7, yoff=4, func=@3, sind=3},
-      {name='sword'   , xoff=0, yoff=6, func=@5, sind=2, flippable=true},
-      {name='banjo'   , xoff=7, yoff=4, func=@1, sind=1}
+      {enabled=true, name='shovel'  , xoff=-7, yoff=4, func=@3, sind=3},
+      {enabled=true, name='sword'   , xoff=0, yoff=6, func=@5, sind=2, flippable=true},
+      {enabled=true, name='banjo'   , xoff=7, yoff=4, func=@1, sind=1}
    ]], create_banjo, create_brang, create_shovel, create_shield, create_sword, create_bomb, create_bow, create_force)
 
    g_selected=G_INTERACT

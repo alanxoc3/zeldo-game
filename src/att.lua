@@ -62,8 +62,9 @@ create_parent(
       i=nf, u=nf,
       update=@1,
       clean=@2,
-      destroyed=nf,
-      kill=@3
+      kill=@3,
+      pause_update=nf,
+      destroyed=nf
    }
 ]], function(a)
    if a.alive and a.stun_countdown <= 0 then
@@ -407,4 +408,9 @@ create_parent(
       room_crop=2,
       follow_act=nil
    }
+]])
+
+create_parent(
+[[ id='unpausable', par={'act'},
+   att={}
 ]])

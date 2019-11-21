@@ -189,8 +189,8 @@ function game_update()
    patterns_update()
    room_update()
 
-   if not g_transitioning and not g_tbox_active and not (g_pl.item and g_pl.item.lank_banjo and g_pl.item.alive) then
-      poke(0x5f43,0) -- softer sound
+   if not is_game_paused() then
+      poke(0x5f43,0) -- normal sound
       inventory_update()
       batch_call(
          acts_loop, [[
@@ -221,12 +221,11 @@ function game_update()
       )
       energy_update(.25)
    else
-      poke(0x5f43,1+2+4) -- normal sound
-      if g_pl.item and g_pl.item.lank_banjo and g_pl.item.alive then
-         g_pl.item.update(g_pl.item)
-         g_pl.item.clean(g_pl.item)
-      end
+      poke(0x5f43,1+2+4) -- softer sound
+      batch_call(acts_loop, [[{'unpausable', 'update'}, {'act', 'pause_update'}]])
    end
+
+   batch_call(acts_loop, [[{'act', 'clean'}]])
 
    -- spawn_particles(1, 0, 0, 10, 10)
    -- spawn_particles(2, 0, 0, 10, 10)
@@ -315,3 +314,10 @@ function game_init()
    g_pl = gen_pl(0, 0)
    load_room('lank_front_yard', 4, 4)
 end
+
+function is_game_paused()
+   return g_game_paused or g_transitioning or g_tbox_active
+end
+
+function pause() g_game_paused=true end
+function unpause() g_game_paused=false end

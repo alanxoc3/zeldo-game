@@ -41,24 +41,32 @@ end
 -- Opened is an optional parameter.
 g_att.chest = function(x, y, direction)
    return create_actor([[
-      id='chest', par={'confined','spr','wall'},
+      id='chest', par={'unpausable','confined','spr','wall'},
       att={
          name="Chest",
          sind=50,rx=.375,ry=.375,
          chest_opened=false,
          xf=@3,
-         x=@1, y=@2, i=@4
+         x=@1, y=@2,
+         {i=@4},
+         {i=@5, tl_max_time=2, e=@6},
+         {i=nf, u=nf, e=nf}
       }
       ]],x,y,direction,
       function(a)
          a.trig = gen_trigger_block_dir(a, a.xf and 1 or 0, function(b, other)
-               if not a.chest_opened and not g_menu_open and get_selected_item.interact and not g_tbox_active and btnp'4' then
+               if not a.chest_opened and not g_menu_open and get_selected_item().interact and not g_tbox_active and btnp'4' then
                   a.sind = 51
+                  a.tl_next = true
                   a.chest_openened = true
                end
             end
          )
-      end
+      end, function(a)
+         pause()
+         sfx(2)
+         a.trig.alive = false
+      end, unpause
    )
 end
 

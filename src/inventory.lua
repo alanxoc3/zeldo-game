@@ -56,7 +56,7 @@ end
 
 function create_banjo(pl)
    return create_actor([[
-      id='lank_banjo', par={'item'},
+      id='lank_banjo', par={'item','unpausable'},
       att={
          rx=.3,
          ry=.3,
@@ -74,8 +74,10 @@ function create_banjo(pl)
       function(a)
          a.rel_y=0
          sfx'11'
+         pause()
       end, function(a)
          sfx'-1'
+         unpause()
       end, function(a)
          g_pl.sind=144
          if sin(a.loop.tl_tim*2) > 0 then

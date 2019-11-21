@@ -154,6 +154,9 @@ function tl_node(root, node, ...)
       end
 
       return_value = call_not_nil('u', root, ...)
+      if root.tl_next then
+         return_value, root.tl_next = true
+      end
    end
 
    if node != root or #node == 0 then
