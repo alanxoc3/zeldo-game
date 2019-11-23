@@ -84,6 +84,7 @@ g_att.pot = function(...)
    return create_actor([[
       id='pot', par={'bounded','confined','tcol','spr','col','mov'},
       att={
+         static=true,
          sind=@3,rx=.375,ry=.375,
          x=@1, y=@2,
          touchable=true,

@@ -1,6 +1,6 @@
 g_att.npc = function(x, y,name,text,sind)
    return create_actor([[
-      id='npc', par={'confined','spr','wall'},
+      id='npc', par={'confined','spr','wall','danceable'},
       att={
          x=@1, y=@2, name=@3,
          i=@6, u=@7,
@@ -50,7 +50,7 @@ g_att.chest = function(x, y, direction)
          x=@1, y=@2,
          {i=@4},
          {i=@5, tl_max_time=2, e=@6},
-         {i=nf, u=nf, e=nf}
+         {i=nf, e=nf}
       }
       ]],x,y,direction,
       function(a)

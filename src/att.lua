@@ -64,6 +64,7 @@ create_parent(
       clean=@2,
       kill=@3,
       pause_update=nf,
+      pause_init=nf,
       destroyed=nf
    }
 ]], function(a)
@@ -414,3 +415,19 @@ create_parent(
 [[ id='unpausable', par={'act'},
    att={}
 ]])
+
+create_parent(
+[[ id='danceable', par={'act'},
+   att={dance_update=@1, pause_update=@1, dance_init=@2, pause_init=@2}
+]], function(a)
+   if g_dancing then
+      if a.initial_xf then
+         a.xf = cos(t()-a.initial_time) > 0
+      else
+         a.xf = -cos(t()-a.initial_time) > 0
+      end
+   end
+end, function(a)
+   a.initial_xf = a.xf
+   a.initial_time = t()
+end)

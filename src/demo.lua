@@ -220,8 +220,15 @@ function game_update()
          g_act_arrs['wall']
       )
       energy_update(.25)
+      if is_game_paused() then
+         g_pause_init = true
+      end
    else
-      poke(0x5f43,1+2+4) -- softer sound
+      if g_pause_init then
+         g_pause_init = false
+         batch_call(acts_loop, [[{'act', 'pause_init'}]])
+         poke(0x5f43,1+2+4) -- softer sound
+      end
       batch_call(acts_loop, [[{'unpausable', 'update'}, {'act', 'pause_update'}]])
    end
 
