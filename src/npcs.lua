@@ -63,7 +63,7 @@ g_att.chest = function(x, y, direction)
             end
          )
       end, function(a)
-         pause()
+         pause('chest')
          sfx(2)
          a.trig.alive = false
       end, unpause
