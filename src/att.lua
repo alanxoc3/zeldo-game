@@ -420,7 +420,7 @@ create_parent(
 [[ id='danceable', par={'act'},
    att={dance_update=@1, pause_update=@1, dance_init=@2, pause_init=@2}
 ]], function(a)
-   if g_dancing then
+   if is_game_paused'dancing' then
       if a.initial_xf then
          a.xf = cos(t()-a.initial_time) > 0
       else

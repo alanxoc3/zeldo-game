@@ -75,7 +75,6 @@ function create_banjo(pl)
          a.rel_y=0
          sfx'11'
          pause('dancing')
-         g_dancing = true
       end, function(a)
          sfx'-1'
          unpause()
