@@ -1,6 +1,6 @@
 function create_lank_top()
    return create_actor([[
-      id='lank_top', par={'rel','spr_obj'},
+      id='lank_top', par={'rel','spr_obj','danceable'},
       att={
          rel_actor=@1,
          sind=147,
@@ -45,7 +45,7 @@ end
 
 function gen_pl(x, y)
    return create_actor(
-      [[ id='pl', par={'anim','col','mov','tcol','hurtable','knockable','stunnable','spr'},
+      [[ id='pl', par={'anim','col','mov','tcol','hurtable','knockable','stunnable','spr','danceable'},
          att={
             name="Lank",
             x=@1,
@@ -112,7 +112,7 @@ function gen_pl(x, y)
          local item = a.item
 
          -- todo: make this better. this is so ugly.
-         if g_transitioning then
+         if is_game_paused() then
             a.ax = 0 a.ay = 0
          end
 

@@ -28,6 +28,11 @@ function tbox_interact()
             g_tbox_anim = #g_tbox_active.l1+#g_tbox_active.l2
          end
       end
+      if g_tbox_active then
+         pause'tbox'
+      else
+         unpause()
+      end
    end
 end
 
@@ -57,7 +62,7 @@ end
 -- draw the text boxes (if any)
 -- foreground color, background color, border width
 function ttbox_draw(x, y)
-   if g_tbox_active then -- only draw if there are messages
+   if is_game_paused'tbox' then -- only draw if there are messages
       camera(-x,-y)
       batch_call(rectfill, [[
          {0, 0, 106, 19, 5},

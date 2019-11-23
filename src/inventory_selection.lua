@@ -99,11 +99,11 @@ function inventory_update()
    -- tbox logic
    local item = get_selected_item()
 
-   if not g_tbox_active and not g_menu_open and btn'5' then
+   if not is_game_paused'tbox' and not g_menu_open and btn'5' then
       g_selected = G_INTERACT
    end
 
-   g_menu_open = not g_tbox_active and btn'5'
+   g_menu_open = not is_game_paused'tbox' and btn'5'
 
    if g_pl.item and g_pl.item.lank_banjo then
       g_menu_open = false

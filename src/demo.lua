@@ -302,7 +302,7 @@ function game_draw()
 
    draw_status()
    local tbox_x = 1
-   if g_tbox_active and g_tbox_active.speaker == "Lank" then
+   if is_game_paused'tbox' and g_tbox_active.speaker == "Lank" then
       tbox_x = 20
    end
    ttbox_draw(tbox_x,107)
@@ -322,9 +322,9 @@ function game_init()
    load_room('lank_front_yard', 4, 4)
 end
 
-function is_game_paused()
-   return g_game_paused or g_transitioning or g_tbox_active
-end
+function pause(reason) g_pause_reason=reason g_game_paused=true end
+function unpause() g_pause_reason = nil g_game_paused=false end
 
-function pause() g_game_paused=true end
-function unpause() g_game_paused=false end
+function is_game_paused(reason)
+   return g_game_paused and (reason == g_pause_reason or not reason)
+end

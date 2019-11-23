@@ -33,11 +33,10 @@ end
 
 g_transition_x = 0
 g_transition_y = 0
-g_transitioning = false
 function transition_room(new_room_name, rx, ry, dir)
-   if not g_transitioning then
+   if not is_game_paused('transitioning') then
       -- end music here with 400 ms fade.
-      g_transitioning = true
+      pause('transitioning')
       g_transition_routine = cocreate(function()
          for i=0,20 do
             g_card_fade = i/20*10
@@ -68,7 +67,7 @@ function transition_room(new_room_name, rx, ry, dir)
             end
             yield()
          end
-         g_transitioning = false
+         unpause()
          -- check music here.
       end)
    end
@@ -76,7 +75,7 @@ end
 
 function room_update()
    -- plus .5 and minus .375 is because there is a screen border.
-   if g_transitioning then
+   if is_game_paused('transitioning') then
       coresume(g_transition_routine)
    elseif g_cur_room then
       local dir = nil
