@@ -5,7 +5,7 @@ function create_lank_top()
          rel_actor=@1,
          sind=147,
          iyy=-2,
-         u=@2
+         u=@2, pause_update=@3
       }
    ]], g_pl, function(a)
       a.xf = g_pl.xf
@@ -17,7 +17,15 @@ function create_lank_top()
       else
          a.sind=147
       end
-   end)
+   end, function(a)
+      if is_game_paused'dancing' then
+         a.dance_update(a)
+         a.sind = abs(a.dance_time) > .5 and 149 or 147
+      elseif is_game_paused'chest' then
+         a.sind=148
+      end
+   end
+   )
 end
 
 function create_grabbed_item(sind, yoff, create_func)
@@ -110,11 +118,6 @@ function gen_pl(x, y)
          end
 
          local item = a.item
-
-         -- todo: make this better. this is so ugly.
-         if is_game_paused() then
-            a.ax = 0 a.ay = 0
-         end
 
          if item then
             if not item.alive then

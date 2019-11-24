@@ -160,9 +160,6 @@ function tl_node(root, node, ...)
    end
 
    if node != root or #node == 0 then
-      if root.id == 'npc' then
-         printh("help "..node.tl_tim)
-      end
       node.tl_tim += 1/60
 
       -- Return the update return code, or true if we are out of time.

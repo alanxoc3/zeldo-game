@@ -1,5 +1,5 @@
--- token: 7832 7789 7707 7641 7568 7545 7530 7570 7626 7626 7626
--- compr: 3102 3017 2974 2941 2861 2858 2830 2911 2985 3177 3249 3514 3860
+-- token: 7832 7789 7707 7641 7568 7545 7530 7570 7626 7626 7626 7734
+-- compr: 3102 3017 2974 2941 2861 2858 2830 2911 2985 3177 3249 4804
 
 -- older stats:
 -- token: 6991 6928 6926 6907 7086 7707 7723 7768 7707 7741 7732 7718 7560 7560
@@ -8,8 +8,6 @@
 --        2569 2575 2682 2896 2906 2754 2759 2776 2774 2781 2802 2698 2712 2838
 
 -- idea: for compression, reuse words from text boxes. It might just be a good idea.
-
--- TODO: Token saving sprint, (items and enemies). Get down to 7500!
 
 -- ma sprint:
 -- TODO: Make ma work correctly for interactable things.
@@ -45,6 +43,7 @@
 -- done: Pause game on tbox.
 -- done: Fix tbox screen pause
 -- done: Pause game on room transition.
+-- done: Token saving sprint, (items and enemies). Get down to 7500!
 -- done: Continue shovel mechanics.
 -- done: work on shovel animation.
 -- done: Disable inventory on room transition.
@@ -190,7 +189,6 @@ function game_update()
    room_update()
 
    if not is_game_paused() then
-      poke(0x5f43,0) -- normal sound
       inventory_update()
       batch_call(
          acts_loop, [[
@@ -223,16 +221,21 @@ function game_update()
       if is_game_paused() then
          g_pause_init = true
       end
+      batch_call(acts_loop, [[{'act', 'clean'}]])
    else
       if g_pause_init then
          g_pause_init = false
          batch_call(acts_loop, [[{'act', 'pause_init'}]])
-         poke(0x5f43,1+2+4) -- softer sound
+         -- poke(0x5f43,1+2+4) -- softer sound
       end
       batch_call(acts_loop, [[{'unpausable', 'update'}, {'act', 'pause_update'}]])
-   end
 
-   batch_call(acts_loop, [[{'act', 'clean'}]])
+      batch_call(acts_loop, [[{'act', 'clean'}]])
+
+      if not is_game_paused() then
+         batch_call(acts_loop, [[{'act', 'pause_end'}]])
+      end
+   end
 
    -- spawn_particles(1, 0, 0, 10, 10)
    -- spawn_particles(2, 0, 0, 10, 10)
@@ -279,6 +282,7 @@ function map_and_act_draw(x, y, border_colors)
 
    isorty(g_act_arrs.drawable)
    acts_loop('drawable', 'd')
+   acts_loop('item_show', 'd')
    draw_particles()
 
    if g_debug then acts_loop('dim', 'debug_rect') end
@@ -317,14 +321,28 @@ function draw_glitch_effect()
 end
 
 function game_init()
+   resume_music(0)
    map_init()
    g_pl = gen_pl(0, 0)
-   load_room('lank_front_yard', 4, 4)
+   load_room('mayor_house', 4, 4)
 end
 
-function pause(reason) g_pause_reason=reason g_game_paused=true end
-function unpause() g_pause_reason = nil g_game_paused=false end
+function pause(reason) stop_music() g_pause_reason=reason g_game_paused=true end
+function unpause() resume_music() g_game_paused=false end
 
 function is_game_paused(reason)
    return g_game_paused and (reason == g_pause_reason or not reason)
+end
+
+function stop_music(sound)
+   music(0xffff, 250)
+   if sound then
+      sfx(sound)
+   end
+end
+
+function resume_music(song)
+   song = song or g_music_current
+   g_music_current = song
+   music(g_music_current, 250)
 end

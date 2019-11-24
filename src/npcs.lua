@@ -5,7 +5,7 @@ g_att.npc = function(x, y,name,text,sind)
          x=@1, y=@2, name=@3,
          i=@6, u=@7,
          sind=@5,rx=.5,ry=.5,iyy=-2,
-         text=@4
+         text=@4,pause_end=@8
       }
       ]],x,y,name,text,sind,function(a)
          local big_w = 6/8
@@ -15,6 +15,10 @@ g_att.npc = function(x, y,name,text,sind)
          ]], a, a.text)
       end, function(a)
          a.xf = a.x-g_pl.x > 0
+      end, function(a)
+         if g_pause_reason == 'dancing' then
+            tbox[["nice playing lank!"]]
+         end
       end
    )
 end
@@ -38,6 +42,17 @@ g_att.sign = function(x, y, text_obj, sind)
    )
 end
 
+g_att.item_show = function(a, sind)
+   return create_actor([[
+      id='item_show', par={'spr','rel'},
+      att={
+         rel_actor=@1,
+         rel_y=-1.125,
+         sind=@2
+      }
+   ]],a,sind)
+end
+
 -- Opened is an optional parameter.
 g_att.chest = function(x, y, direction)
    return create_actor([[
@@ -54,8 +69,8 @@ g_att.chest = function(x, y, direction)
       }
       ]],x,y,direction,
       function(a)
-         a.trig = gen_trigger_block_dir(a, a.xf and 1 or 0, function(b, other)
-               if not a.chest_opened and not g_menu_open and get_selected_item().interact and not is_game_paused() and btnp'4' then
+         a.trig = gen_trigger_block_dir(a, a.xf and 0 or 1, function(b, other)
+               if other.xf != a.xf and not a.chest_opened and not g_menu_open and get_selected_item().interact and not is_game_paused() and btnp'4' then
                   a.sind = 51
                   a.tl_next = true
                   a.chest_openened = true
@@ -63,10 +78,16 @@ g_att.chest = function(x, y, direction)
             end
          )
       end, function(a)
-         pause('chest')
-         sfx(2)
+         pause'chest'
+         stop_music'1'
          a.trig.alive = false
-      end, unpause
+         a.item_show = g_att.item_show(g_pl, 1)
+      end, function(a)
+         a.item_show:kill()
+         enable_item(9)
+         unpause()
+         resume_music()
+      end
    )
 end
 

@@ -19,12 +19,11 @@ function tbox_interact()
       end
 
       if btnp'4' and g_tbox_anim > .5 then
+         sfx'2'
          if g_tbox_anim >= #g_tbox_active.l1+#g_tbox_active.l2 then
-            sfx'1'
             del(g_tbox_messages, g_tbox_active)
             g_tbox_active, g_tbox_anim = g_tbox_messages[1], 0
          else
-            sfx'2'
             g_tbox_anim = #g_tbox_active.l1+#g_tbox_active.l2
          end
       end

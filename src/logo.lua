@@ -13,5 +13,3 @@ g_logo = gun_vals([[
    camera()
 end
 )
-
-music(0,0,3)

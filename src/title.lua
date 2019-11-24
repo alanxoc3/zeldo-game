@@ -26,4 +26,3 @@ g_title = gun_vals([[
       return btnp(4)
    end
 )
-music(0,0,3)

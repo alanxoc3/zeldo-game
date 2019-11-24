@@ -65,6 +65,7 @@ create_parent(
       kill=@3,
       pause_update=nf,
       pause_init=nf,
+      pause_end=nf,
       destroyed=nf
    }
 ]], function(a)
@@ -421,10 +422,11 @@ create_parent(
    att={dance_update=@1, pause_update=@1, dance_init=@2, pause_init=@2}
 ]], function(a)
    if is_game_paused'dancing' then
+      a.dance_time = cos(t()-a.initial_time)
       if a.initial_xf then
-         a.xf = cos(t()-a.initial_time) > 0
+         a.xf = a.dance_time > 0
       else
-         a.xf = -cos(t()-a.initial_time) > 0
+         a.xf = a.dance_time < 0
       end
    end
 end, function(a)
