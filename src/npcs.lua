@@ -17,7 +17,7 @@ g_att.npc = function(x, y,name,text,sind)
          a.xf = a.x-g_pl.x > 0
       end, function(a)
          if g_pause_reason == 'dancing' then
-            tbox[["nice playing lank!"]]
+            tbox([["nice playing lank!",trigger=@1]],function() add_money(10) end)
          end
       end
    )
@@ -37,6 +37,30 @@ g_att.sign = function(x, y, text_obj, sind)
       }
       ]],x,y,sind,
       function(a)
+         a.trig = gen_text_trigger_block(a, 3, text_obj)
+      end
+   )
+end
+
+g_att.shop_item = function(x, y, text_obj, sind)
+   return create_actor([[
+      id='shop_item', par={'hurtable','confined','spr','wall'},
+      att={
+         name="Sign", health=10, max_health=10, evil=true,
+         sind=@3,rx=.5,ry=.5,
+         x=@1, y=@2, i=@4
+      }
+      ]],x,y,sind,
+      function(a)
+         text_obj.trigger = function()
+            if remove_money(50) then
+               enable_item(1) enable_item(2) enable_item(3)
+               enable_item(4) enable_item(6) enable_item(7)
+               enable_item(8)
+            else
+               sfx'7'
+            end
+         end
          a.trig = gen_text_trigger_block(a, 3, text_obj)
       end
    )

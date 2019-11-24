@@ -31,6 +31,7 @@ function tbox_interact()
          pause'tbox'
       else
          unpause()
+         g_tbox_messages.trigger()
       end
    end
 end
@@ -43,9 +44,10 @@ end
 --    trigger=@1
 -- ]], function reboot() end)
 function tbox_with_obj(a)
+   g_tbox_messages.trigger = a.trigger or nf
    for i=1,#a do
       if i % 2 == 1 then
-         add(g_tbox_messages, {trigger=a.trigger, l1=a[i], l2=''})
+         add(g_tbox_messages, {l1=a[i], l2=''})
       else
          g_tbox_messages[#g_tbox_messages].l2=a[i]
       end

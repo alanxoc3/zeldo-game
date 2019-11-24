@@ -61,6 +61,7 @@ function map_init()
          d={'village',20,5},
          {'pot',25.5,14.5,49},
          {'pot',30.5,14.5,49},
+         {'shop_item',26.5,11.5,{"Here's a boomerang heh."},4},
          {'npc',28,10.5,"Keep",{
             "Buy something will ya?"
          },83}

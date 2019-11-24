@@ -7,6 +7,7 @@ function dir_to_coord(dir)
    return dir == 0 and 0xffff or dir == 1 and 1 or 0, dir == 2 and 0xffff or dir == 3 and 1 or 0
 end
 
+function nf() end
 function btn_helper(f, a, b)
    return f(a) and f(b) and 0 or f(a) and 0xffff or f(b) and 1 or 0
 end
@@ -75,7 +76,7 @@ function gun_vals_helper(val_str,i,new_params)
             assert(sec != nil)
             if not new_params[sec] then new_params[sec] = {} end
             add(new_params[sec], {val_list, val_key or val_ind})
-         elseif val == 'nf' then val = function() end
+         elseif val == 'nf' then val = nf
          elseif val == 'true' or val == 'false' then val=val=='true'
          elseif val == 'nil' or val == '' then val=nil
          elseif isnum then val=tonum(val)

@@ -3,8 +3,8 @@ version 18
 __lua__
 -- zeldo game
 -- amorg
---#include _compiled_dev.lua
-#include _compiled_prod.lua
+#include _compiled_dev.lua
+--#include _compiled_prod.lua
 
 -- glitch anyone?
 --__draw=_draw function _draw()__draw()poke(0x5f2d, 1)
@@ -373,7 +373,7 @@ __sfx__
 __music__
 01 0d0c4844
 02 0e0c4344
-02 0a084344
+03 0c484344
 00 45464344
 00 0d074344
 00 0e084344
