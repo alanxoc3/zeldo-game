@@ -55,22 +55,10 @@ function scr_rectfill(x1, y1, x2, y2, col)
    rectfill(scr_x(x1),scr_y(y1),scr_x(x2),scr_y(y2),col)
 end
 
-function scr_print(txt, x, y, col)
-   print(txt, scr_x(x),scr_y(y), col)
-end
-
 function scr_map(cel_x, cel_y, sx, sy, ...)
    map(cel_x, cel_y, scr_x(sx), scr_y(sy), ...)
 end
 
 function scr_circfill(x, y, r, col)
    circfill(scr_x(x),scr_y(y), r*8, col)
-end
-
-function scr_circ(x, y, r, col)
-   circ(scr_x(x),scr_y(y), r*8, col)
-end
-
-function scr_line(x1, y1, x2, y2, col)
-   line(scr_x(x1),scr_y(y1),scr_x(x2),scr_y(y2), col)
 end

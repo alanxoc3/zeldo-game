@@ -89,13 +89,3 @@ end
 function tbox_clear()
    g_tbox_messages, g_tbox_anim, g_tbox_active = {}, 0, false
 end
-
-function tbox_stash_push()
-   g_tbox_active_backup, g_tbox_messages_backup = g_tbox_active, g_tbox_messages
-   tbox_clear()
-end
-
-function tbox_stash_pop()
-   tbox_clear()
-   g_tbox_messages, g_tbox_active = g_tbox_messages_backup, g_tbox_active_backup
-end

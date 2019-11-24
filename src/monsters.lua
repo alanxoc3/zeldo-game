@@ -137,14 +137,13 @@ g_att.chicken = function(x, y)
          destroyed=@4,
          anim_len=1,
 
-         {i=@3, tl_max_time=1.5}
+         {i=@3, tl_max_time=.5}
       }
       ]],x,y,
       -- init
       function(a)
-         a.ay = sgn(rnd(1)-.5) * .01
-         a.ax = sgn(rnd(1)-.5) * .01
-         a.xf = sgn(a.ax) < 1
+         a.ax, a.ay = rnd_one(.01), rnd_one(.01)
+         a.xf = a.ax < 0
       end, destroy_func
    )
 end

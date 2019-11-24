@@ -1,7 +1,6 @@
 -- lib. make sure this is included first.
 
 -- util functions:
-
 -- 7661 -> 7650
 function dir_to_coord(dir)
    return dir == 0 and 0xffff or dir == 1 and 1 or 0, dir == 2 and 0xffff or dir == 3 and 1 or 0
@@ -24,7 +23,7 @@ function zsgn(num) return num == 0 and 0 or sgn(num) end
 function round(num) return flr(num + .5) end
 
 -- -1, 0, or 1
-function rnd_one() return flr(rnd(3))-1 end
+function rnd_one(val) return (flr(rnd(3))-1)*(val or 1) end
 
 FPS=60
 function ti(mod_val)

@@ -80,7 +80,7 @@ function inventory_init()
    g_items = gun_vals([[
       {enabled=false, name='force'   , xoff=-7, yoff=-9, func=@8, sind=36, flippable=true},
       {enabled=false, name='brang'   , xoff=0, yoff=-10, func=@2, sind=4},
-      {enabled=false, name='bomb'    , xoff=7, yoff=-9, func=@6, sind=5},
+      {enabled=true, name='bomb'    , xoff=7, yoff=-9, func=@6, sind=5},
 
       {enabled=false, name='shield'  , xoff=-8, yoff=-3, func=@4, sind=6, flippable=true},
       {enabled=true, name='interact', interact=true, xoff=0, yoff=-3, func=nf, sind=false},

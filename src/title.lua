@@ -10,8 +10,8 @@ function draw_logo(logo)
 
    if t() % 1 < .5 then
       batch_call(zprint2, [[
-         {@1, 0, 9, 7, 0, true}
-      ]], "PRESS Z TO START"
+         {@1, -1, 9, 7, 0, true}
+      ]], "PRESS 🅾️ TO START"
       )
    end
 
