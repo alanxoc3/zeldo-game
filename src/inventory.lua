@@ -72,7 +72,7 @@ function create_banjo(pl)
       -- init 1
       function(a)
          a.rel_y=0
-         sfx'11'
+         sfx'10'
          pause('dancing')
       end, function(a)
          sfx'-1'

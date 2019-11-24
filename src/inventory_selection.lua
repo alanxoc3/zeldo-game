@@ -91,6 +91,9 @@ function inventory_init()
       {enabled=false, name='banjo'   , xoff=7, yoff=4, func=@1, sind=1}
    ]], create_banjo, create_brang, create_shovel, create_shield, create_sword, create_bomb, create_bow, create_force)
 
+   -- enable banjo
+   if zdget(6) then enable_item(9) end
+
    g_selected=G_INTERACT
 end
 

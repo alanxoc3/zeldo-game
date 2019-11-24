@@ -143,9 +143,12 @@
 -- done: make a sign
 -- done: create 2 parts of lank (feet and arms).
 
+cartdata("ZELDOTEST5")
 g_debug, g_debug_message = false, ''
 
 function _init()
+   g_money = dget(3)
+
    poke(0x5f34, 1) -- for pattern colors.
    g_pal_gray = gun_vals('5,5,13,13,5,6,6,6,6,6,6,6,13,6,6')
    g_pal_norm = gun_vals('1,2,3,4,5,6,7,8,9,10,11,12,13,14,15')
@@ -324,7 +327,7 @@ function game_init()
    resume_music(0)
    map_init()
    g_pl = gen_pl(0, 0)
-   load_room('mayor_house', 4, 4)
+   load_room('lank_house', 4, 4)
 end
 
 function pause(reason) stop_music() g_pause_reason=reason g_game_paused=true end
@@ -332,6 +335,14 @@ function unpause() resume_music() g_game_paused=false end
 
 function is_game_paused(reason)
    return g_game_paused and (reason == g_pause_reason or not reason)
+end
+
+function zdget(ind)
+   return dget(ind) > 0
+end
+
+function zdset(ind, val)
+   return dset(ind, val or 1)
 end
 
 function stop_music(sound)
