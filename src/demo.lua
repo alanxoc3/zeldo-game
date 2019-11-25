@@ -125,7 +125,7 @@
 -- done: fix tbox arrow sprite offset.
 -- done: create actor/parent more simple? no. it is good.
 -- done: create actor adds actor to g_attach.
--- done: rethink items again. 
+-- done: rethink items again.
 -- done: create power square variable.
 -- done: make enemy health bar.
 -- done: make the top 'tired' bar work.
@@ -143,7 +143,7 @@
 -- done: make a sign
 -- done: create 2 parts of lank (feet and arms).
 
-cartdata("ZELDOTEST5")
+cartdata("ZELDOTEST9")
 g_debug, g_debug_message = false, ''
 
 function _init()
@@ -204,7 +204,6 @@ function game_update()
             {'rel','rel_update'},
             {'vec','vec_update'},
             {'bounded','check_bounds'},
-            {'act', 'clean'},
             {'anim','anim_update'},
             {'timed','tick'},
             {'view','update_view'}
