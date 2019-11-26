@@ -151,9 +151,6 @@ function tl_node(root, node, ...)
          node.tl_tim = 0
          root.tl_old_state = true
          call_not_nil('i', root, ...) -- init function
-         -- if root.id then
-            -- printh("INIT CALLED for "..root.id)
-         -- end
       end
 
       return_value = call_not_nil('u', root, ...)

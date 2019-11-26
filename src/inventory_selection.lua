@@ -54,7 +54,7 @@ function create_inventory_items()
       g_items_drawn = {}
       for ind=1,9 do
          local item = g_items[ind]
-
+         item.enabled = zdget(item.mem_loc)
          g_items_drawn[ind] = g_att.inventory_item(item.xoff/8, item.yoff/8, item)
       end
    end
@@ -78,22 +78,19 @@ end
 function inventory_init()
    -- global_items
    g_items = gun_vals([[
-      {enabled=false, name='force'   , xoff=-7, yoff=-9, func=@8, sind=36, flippable=true},
-      {enabled=false, name='brang'   , xoff=0, yoff=-10, func=@2, sind=4},
-      {enabled=true, name='bomb'    , xoff=7, yoff=-9, func=@6, sind=5},
+      {mem_loc=5, enabled=false, name='force'   , xoff=-7, yoff=-9, func=@8, sind=36, flippable=true},
+      {mem_loc=6, enabled=false, name='brang'   , xoff=0, yoff=-10, func=@2, sind=4},
+      {mem_loc=7, enabled=true, name='bomb'    , xoff=7, yoff=-9, func=@6, sind=5},
 
-      {enabled=false, name='shield'  , xoff=-8, yoff=-3, func=@4, sind=6, flippable=true},
-      {enabled=true, name='interact', interact=true, xoff=0, yoff=-3, func=nf, sind=false},
-      {enabled=false, name='bow'     , xoff=8, yoff=-3, func=@7, sind=7},
+      {mem_loc=8, enabled=false, name='shield'  , xoff=-8, yoff=-3, func=@4, sind=6, flippable=true},
+      {mem_loc=9, enabled=true, name='interact', interact=true, xoff=0, yoff=-3, func=nf, sind=false},
+      {mem_loc=10, enabled=false, name='bow'     , xoff=8, yoff=-3, func=@7, sind=7},
 
-      {enabled=false, name='shovel'  , xoff=-7, yoff=4, func=@3, sind=3},
-      {enabled=false, name='sword'   , xoff=0, yoff=6, func=@5, sind=2, flippable=true},
-      {enabled=false, name='banjo'   , xoff=7, yoff=4, func=@1, sind=1}
+      {mem_loc=11, enabled=false, name='shovel'  , xoff=-7, yoff=4, func=@3, sind=3},
+      {mem_loc=12, enabled=false, name='sword'   , xoff=0, yoff=6, func=@5, sind=2, flippable=true},
+      {mem_loc=13, enabled=false, name='banjo'   , xoff=7, yoff=4, func=@1, sind=1}
    ]], create_banjo, create_brang, create_shovel, create_shield, create_sword, create_bomb, create_bow, create_force)
-
-   -- enable banjo
-   if zdget(6) then enable_item(9) end
-
+   zdset(9) -- interact should be true
    g_selected=G_INTERACT
 end
 

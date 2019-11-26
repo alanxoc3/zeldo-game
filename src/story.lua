@@ -36,7 +36,7 @@ function map_init()
          {'pot',74.5,6.5,49},
          {'pot',74.5,7.5,49}, {'pot',73.5,7.5,49},
          {'pot',73.5,8.5,49}, {'pot',72.5,8.5,49},
-         {'chest',70.5,4.5,false,6},
+         {'chest',70.5,4.5,false,13},
          {'npc',70,2,"Mayor Lark",{
             "Hey there Lank, I'm your",
             "biggest fan!"

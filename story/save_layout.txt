@@ -2,14 +2,15 @@ hard mode
 save spot
 money
 health
-has boomerang
-has banjo
-has bow
-has bomb
-has sword
-has shield
 has force
+has boomerang
+has bomb
+has shield
+has interact (always true)
+has bow
 has shovel
+has sword
+has banjo
 Lark dance
 Navy dance
 Keep dance

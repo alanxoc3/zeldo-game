@@ -104,10 +104,8 @@ g_att.chest = function(x, y, direction, mem_loc)
          a.item_show = g_att.item_show(g_pl, 1)
       end, function(a)
          a.item_show:kill()
-         enable_item(9)
-         unpause()
-         resume_music()
          zdset(mem_loc)
+         unpause()resume_music()
       end
    )
 end

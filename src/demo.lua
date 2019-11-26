@@ -143,7 +143,7 @@
 -- done: make a sign
 -- done: create 2 parts of lank (feet and arms).
 
-cartdata("ZELDOTEST9")
+cartdata("ZELDOTEST12")
 g_debug, g_debug_message = false, ''
 
 function _init()
