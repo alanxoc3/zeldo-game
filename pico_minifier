@@ -47,6 +47,10 @@ $constants{'GRAVE_BOSS'}     = '30';
 $constants{'CANNON_BOSS'}    = '31';
 $constants{'IVAN_BOSS'}      = '32';
 
+$constants{'KEY'}            = '33';
+$constants{'LETTER'}         = '34';
+$constants{'BOB_OUT'}        = '35';
+
 # Rooms
 $constants{'VILLAGE_PATH'}            = '1';
 $constants{'LANK_HOUSE'}              = '2';
