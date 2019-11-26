@@ -11,14 +11,49 @@ GetOptions('dev' => \$dev_mode) or die "Usage: $0 [--dev]\n";
 # Constants specific to Zeldo.
 my %constants;
 $constants{'FPS'} = '60';
+$constants{'CART_NAME'} = '"ZELDO_TEST13"';
+
+# Save states
+$constants{'HARD_MODE'}      = '1';
+$constants{'SAVE_SPOT'}      = '2';
+$constants{'MONEY'}          = '3';
+$constants{'HEALTH'}         = '4';
+$constants{'HAS_FORCE'}      = '5';
+$constants{'HAS_BOOMERANG'}  = '6';
+$constants{'HAS_BOMB'}       = '7';
+$constants{'HAS_SHIELD'}     = '8';
+$constants{'ALWAYS_TRUE'}    = '9';  # used
+$constants{'HAS_BOW'}        = '10';
+$constants{'HAS_SHOVEL'}     = '11';
+$constants{'HAS_SWORD'}      = '12';
+$constants{'HAS_BANJO'}      = '13'; # used
+$constants{'LARK_DANCE'}     = '14';
+$constants{'NAVY_DANCE'}     = '15';
+$constants{'KEEP_DANCE'}     = '16';
+$constants{'JANE_DANCE'}     = '17';
+$constants{'BOB_DANCE'}      = '18';
+$constants{'CHICKEN_1'}      = '19';
+$constants{'CHICKEN_2'}      = '20';
+$constants{'CHICKEN_3'}      = '21';
+$constants{'CHICKEN_4'}      = '22';
+$constants{'CHICKEN_5'}      = '23';
+$constants{'SOUP_DELIVERED'} = '24';
+$constants{'GHOST_1'}        = '25';
+$constants{'GHOST_2'}        = '26';
+$constants{'GHOST_3'}        = '27';
+$constants{'GHOST_4'}        = '28';
+$constants{'FOREST_BOSS'}    = '29';
+$constants{'GRAVE_BOSS'}     = '30';
+$constants{'CANNON_BOSS'}    = '31';
+$constants{'IVAN_BOSS'}      = '32';
 
 # Go through the actual minifying.
 my @lines = <>;
 chomp(@lines);
 @lines = remove_comments(@lines);
+@lines = tokenize_lines(\@lines, \%constants);
 @lines = remove_texts(@lines);
 @lines = single_quotes_to_double(@lines);
-@lines = tokenize_lines(\@lines, \%constants);
 
 if ($dev_mode) {
    @lines = remove_spaces(@lines);
