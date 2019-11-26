@@ -47,6 +47,32 @@ $constants{'GRAVE_BOSS'}     = '30';
 $constants{'CANNON_BOSS'}    = '31';
 $constants{'IVAN_BOSS'}      = '32';
 
+# Rooms
+$constants{'VILLAGE_PATH'}            = '1';
+$constants{'LANK_HOUSE'}              = '2';
+$constants{'MAYOR_HOUSE'}             = '3';
+$constants{'TEACH_STUDIO'}            = '4';
+$constants{'SHOP'}                    = '5';
+$constants{'JANEBOB'}                 = '6';
+$constants{'LIMENAVY'}                = '7';
+$constants{'VILLAGE'}                 = '8';
+$constants{'LANK_FRONT_YARD'}         = '9';
+$constants{'FIELD'}                   = '10';
+$constants{'GRAVEYARD_ENTRANCE'}      = '11';
+$constants{'GRAVEYARD'}               = '12';
+$constants{'GRAVEYARD_END'}           = '13';
+$constants{'CANYON_START'}            = '14';
+$constants{'CANYON_PATH'}             = '15';
+$constants{'CANYON_END'}              = '16';
+$constants{'FOREST_ENTRANCE'}         = '17';
+$constants{'FOREST_LOST'}             = '18';
+$constants{'FOREST_1'}                = '19';
+$constants{'FOREST_2'}                = '20';
+$constants{'FOREST_3'}                = '21';
+$constants{'FOREST_4'}                = '22';
+$constants{'FOREST_BOSS'}             = '23';
+$constants{'FOREST_TREASURE'}         = '24';
+
 # Go through the actual minifying.
 my @lines = <>;
 chomp(@lines);

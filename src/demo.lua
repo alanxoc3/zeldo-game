@@ -319,7 +319,7 @@ function game_init()
    resume_music(0)
    map_init()
    g_pl = gen_pl(0, 0)
-   load_room('lank_house', 4, 4)
+   load_room(LANK_HOUSE, 4, 4)
 end
 
 function pause(reason) stop_music() g_pause_reason=reason g_game_paused=true end
