@@ -25,7 +25,6 @@ function round(num) return flr(num + .5) end
 -- -1, 0, or 1
 function rnd_one(val) return (flr(rnd(3))-1)*(val or 1) end
 
-FPS=60
 function ti(mod_val)
    return flr(t()*FPS) % (mod_val or 0)
 end

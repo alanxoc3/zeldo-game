@@ -191,7 +191,7 @@ sub tokenize_lines {
 
    for (@lines) {
       my $line = $_;
-      $line =~ s/([\W]*\b)([a-z_]\w*)/test_eval($1,$2,$vars_ref)/ge;
+      $line =~ s/([\W]*\b)([a-zA-Z_]\w*)/test_eval($1,$2,$vars_ref)/ge;
       push @new_lines, $line;
    }
 

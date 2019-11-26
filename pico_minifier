@@ -8,11 +8,17 @@ use Getopt::Long qw(GetOptions);
 my $dev_mode;
 GetOptions('dev' => \$dev_mode) or die "Usage: $0 [--dev]\n";
 
+# Constants specific to Zeldo.
+my %constants;
+$constants{'FPS'} = '60';
+
+# Go through the actual minifying.
 my @lines = <>;
 chomp(@lines);
 @lines = remove_comments(@lines);
 @lines = remove_texts(@lines);
 @lines = single_quotes_to_double(@lines);
+@lines = tokenize_lines(\@lines, \%constants);
 
 if ($dev_mode) {
    @lines = remove_spaces(@lines);

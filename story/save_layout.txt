@@ -6,7 +6,7 @@ has force
 has boomerang
 has bomb
 has shield
-has interact (always true)
+always true (interact, ...)
 has bow
 has shovel
 has sword
