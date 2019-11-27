@@ -9,7 +9,8 @@ our @EXPORT = qw(tokenize_lines populate_vars single_quotes_to_double remove_com
 
 our @lua_keywords = qw(
 break do else elseif end false for function goto if in local nil not or repeat
-return then true until while and n b0d0 P_TEXT_LOGIC
+return then true until while and n b0d0 P_TEXT_LOGIC table string boolean
+unknown number
 );
 
 our @pico8_api = qw(

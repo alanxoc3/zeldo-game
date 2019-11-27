@@ -33,7 +33,7 @@ end
 function tabcpy(src, dest)
    dest = dest or {}
    for k,v in pairs(src or {}) do
-      if type(v) == "TABLE" and not v.is_tabcpy_disabled then
+      if type(v) == 'table' and not v.is_tabcpy_disabled then
          dest[k] = tabcpy(v)
       else
          dest[k] = v
@@ -106,7 +106,7 @@ function gun_vals(val_str, ...)
    for k,v in pairs(lookup[3]) do
       foreach(lookup[3][k], function(x)
          x[1][x[2]] = params[k]
-         if type(params[k]) == "TABLE" then
+         if type(params[k]) == 'table' then
             params[k].is_tabcpy_disabled = true
          end
       end)
@@ -176,9 +176,9 @@ function tl_node(root, node, ...)
 end
 
 -- For debugging.
--- function tostring(any) if type(any)=="FUNCTION" then return "FUNCTION" end
--- if any==nil then return "NIL" end if type(any)=="STRING" then return any end
--- if type(any)=="BOOLEAN" then if any then return "TRUE" end return "FALSE"
--- end if type(any)=="TABLE" then local str = "{ " for k,v in pairs(any) do
+-- function tostring(any) if type(any)=='function' then return 'function' end
+-- if any==nil then return 'nil end if type(any)=='string' then return any end
+-- if type(any)=='boolean' then if any then return 'true' end return 'false'
+-- end if type(any)=='table' then local str = "{ " for k,v in pairs(any) do
 -- str=str..tostring(k).."->"..tostring(v).." " end return str.."}" end if
--- type(any)=="NUMBER" then return ""..any end return "UNKOWN" end
+-- type(any)=='number' then return ""..any end return 'unknown' end

@@ -11,7 +11,7 @@ GetOptions('dev' => \$dev_mode) or die "Usage: $0 [--dev]\n";
 # Constants specific to Zeldo.
 my %constants;
 $constants{'FPS'} = '60';
-$constants{'CART_NAME'} = '"ZELDO_TEST13"';
+$constants{'CART_NAME'} = '"ZELDO_TEST16"';
 
 # Save states
 $constants{'HARD_MODE'}      = '1';
