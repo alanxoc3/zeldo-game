@@ -347,5 +347,5 @@ end
 function resume_music(song)
    song = song or g_music_current
    g_music_current = song
-   music(g_music_current, 250)
+   music(g_music_current)
 end

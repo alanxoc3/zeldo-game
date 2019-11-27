@@ -41,7 +41,7 @@ g_att.transitioner = function(new_room_name, rx, ry)
       }
       ]], -- init
       function(a)
-         pause('transitioning')
+         pause'transitioning'
       end, function(a)
          g_card_fade = a.intro.tl_tim/a.intro.tl_max_time*10
       end, function(a)
