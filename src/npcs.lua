@@ -119,3 +119,47 @@ function gen_text_trigger_block(sign, dir, text_obj)
    end
    )
 end
+
+function gen_trigger_block(a, off_x, off_y, rx, ry, contains, not_contains)
+   return create_actor([[
+      id='trigger_block', par={'rel', 'confined', 'trig'},
+      att={
+         rel_actor=@1, rel_x=@2, rel_y=@3, rx=@4, ry=@5, trigger=@6, untrigger=@7
+      }
+      ]], a, off_x, off_y, rx, ry, contains or nf, not_contains or nf
+   )
+end
+
+function gen_trigger_block_dir(a, dir, ...)
+   local x, y = dir_to_coord(dir)
+   return gen_trigger_block(a, x*a.rx*2,y*a.ry*2,.5+abs(y)*3/8,.5+abs(x)*3/8, ...)
+end
+
+-- todo: trim code here.
+g_att.house = function(x, y, room, rx, ry, sind)
+   return create_actor([[
+      id='house', par={'confined','spr'},
+      att={
+         x=@1, y=@2,
+         room=@3, room_x=@4, room_y=@5,
+         contains=@6, i=@7,
+         destroyed=@8, sind=@9,
+         iyy=-4,
+         sw=2, sh=2
+      }
+      ]],x,y,room,rx,ry,
+      -- trigger
+      function(a, other)
+         if other.pl then
+            g_att.transitioner(room, rx, ry, 'u')
+         end
+      end, function(a)
+         a.b1 = gen_static_block(a.x-.75,a.y, .25, .5)
+         a.b2 = gen_static_block(a.x+.75,a.y, .25, .5)
+         a.b3 = gen_static_block(a.x,a.y-4/8, 1,.25)
+         a.trig = gen_trigger_block(a, 0, 1/8, .5, 5/8, a.contains)
+      end, function(a)
+         a.b1.alive, a.b2.alive, a.b3.alive, a.trig.alive = false
+      end, sind or 46
+   )
+end
