@@ -3,7 +3,7 @@
 -- util functions:
 -- 7661 -> 7650
 function dir_to_coord(dir)
-   return dir == 0 and 0xffff or dir == 1 and 1 or 0, dir == 2 and 0xffff or dir == 3 and 1 or 0
+   return dir == 'l' and 0xffff or dir == 'r' and 1 or 0, dir == 'u' and 0xffff or dir == 'd' and 1 or 0
 end
 
 function nf() end

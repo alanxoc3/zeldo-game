@@ -10,21 +10,22 @@ function tbox_interact()
    if g_tbox_active then
       g_tbox_anim += .5
 
-      if g_tbox_anim > #g_tbox_active.l1+#g_tbox_active.l2 then
+      g_tbox_writing = g_tbox_anim < #g_tbox_active.l1+#g_tbox_active.l2
+      if not g_tbox_writing then
          g_tbox_anim = #g_tbox_active.l1+#g_tbox_active.l2
       end
 
-      if g_tbox_anim < #g_tbox_active.l1+#g_tbox_active.l2 then
+      if g_tbox_writing then
          sfx'0'
       end
 
       if btnp'4' and g_tbox_anim > .5 then
          sfx'2'
-         if g_tbox_anim >= #g_tbox_active.l1+#g_tbox_active.l2 then
+         if g_tbox_writing then
+            g_tbox_anim = #g_tbox_active.l1+#g_tbox_active.l2
+         else
             del(g_tbox_messages, g_tbox_active)
             g_tbox_active, g_tbox_anim = g_tbox_messages[1], 0
-         else
-            g_tbox_anim = #g_tbox_active.l1+#g_tbox_active.l2
          end
       end
       if g_tbox_active then
@@ -81,7 +82,9 @@ function ttbox_draw(x, y)
       )
 
       -- draw the arrow
-      spr(38, 100, ti(40)<20 and 13 or 14)
+      if not g_tbox_writing then
+         spr(38, 100, ti(40)<20 and 13 or 14)
+      end
       camera()
    end
 end
