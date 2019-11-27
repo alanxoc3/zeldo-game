@@ -46,7 +46,7 @@ g_att.transitioner = function(new_room_name, rx, ry)
          g_card_fade = a.intro.tl_tim/a.intro.tl_max_time*10
       end, function(a)
          load_room(new_room_name, rx, ry)
-         -- todo: put this logic into the player
+         -- todo: put this logic into the player, like a reset function.
          g_pl.ax = 0
          g_pl.dx = 0
          g_pl.ay = 0
