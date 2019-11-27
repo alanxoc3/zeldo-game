@@ -228,7 +228,7 @@ function game_update()
          batch_call(acts_loop, [[{'act', 'pause_init'}]])
          -- poke(0x5f43,1+2+4) -- softer sound
       end
-      batch_call(acts_loop, [[{'unpausable', 'update'}, {'act', 'pause_update'}]])
+      batch_call(acts_loop, [[{'unpausable', 'update'}, {'act', 'pause_update'}, {'rel','rel_update'}]])
 
       batch_call(acts_loop, [[{'act', 'clean'}]])
 
@@ -288,8 +288,8 @@ end
 function game_draw()
    fade(g_card_fade)
 
-   local x = g_transition_x+8+g_card_shake_x
-   local y = g_transition_y+8-6/8+g_card_shake_y
+   local x = 8+g_card_shake_x
+   local y = 8-6/8+g_card_shake_y
 
    map_and_act_draw(x, y, {5,1})
    if g_menu_open then

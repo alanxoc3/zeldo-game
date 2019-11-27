@@ -14,7 +14,7 @@ g_att.house = function(x, y, room, rx, ry, sind)
       -- trigger
       function(a, other)
          if other.pl then
-            transition_room(room, rx, ry, 'u')
+            g_att.transitioner(room, rx, ry, 'u')
          end
       end, function(a)
          a.b1 = gen_static_block(a.x-.75,a.y, .25, .5)

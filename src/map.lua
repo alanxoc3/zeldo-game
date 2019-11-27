@@ -31,62 +31,48 @@ function load_room(new_room_name, rx, ry)
    acts_loop('view', 'center_view')
 end
 
-g_transition_x = 0
-g_transition_y = 0
-function transition_room(new_room_name, rx, ry, dir)
-   if not is_game_paused('transitioning') then
-      -- end music here with 400 ms fade.
-      pause('transitioning')
-      g_transition_routine = cocreate(function()
-         for i=0,20 do
-            g_card_fade = i/20*10
-            if dir == 'u' then
-               g_transition_y = sin(i/80+.5)*10
-            elseif dir == 'd' then
-               g_transition_y = sin(i/80)*10
-            elseif dir == 'l' then
-               g_transition_x = sin(i/80+.5)*10
-            elseif dir == 'r' then
-               g_transition_x = sin(i/80)*10
-            end
-            yield()
-         end
+-- 7327 to 7221 to 7197
+g_att.transitioner = function(new_room_name, rx, ry)
+   return create_actor([[
+      id='transitioner', par={'act','unpausable'},
+      att={
+         {tl_name='intro',  i=@1, u=@2, tl_max_time=.5},
+         {tl_name='ending', i=@3, u=@4, tl_max_time=.5, e=@5}
+      }
+      ]], -- init
+      function(a)
+         pause('transitioning')
+      end, function(a)
+         g_card_fade = a.intro.tl_tim/a.intro.tl_max_time*10
+      end, function(a)
          load_room(new_room_name, rx, ry)
+         -- todo: put this logic into the player
+         g_pl.ax = 0
+         g_pl.dx = 0
+         g_pl.ay = 0
+         g_pl.dy = 0
          tbox_clear()
-         yield()
-         for i=20,0,-1 do
-            g_card_fade = i/20*10
-            if dir == 'u' then
-               g_transition_y = sin(i/80)*10
-            elseif dir == 'd' then
-               g_transition_y = sin(i/80+.5)*10
-            elseif dir == 'l' then
-               g_transition_x = sin(i/80)*10
-            elseif dir == 'r' then
-               g_transition_x = sin(i/80+.5)*10
-            end
-            yield()
-         end
+      end, function(a)
+         g_card_fade = (a.ending.tl_max_time-a.ending.tl_tim)/a.ending.tl_max_time*10
+      end, function()
          unpause()
-         -- check music here.
-      end)
-   end
+         g_card_fade = 0
+      end
+   )
 end
 
 function room_update()
    -- plus .5 and minus .375 is because there is a screen border.
-   if is_game_paused('transitioning') then
-      coresume(g_transition_routine)
-   elseif g_cur_room then
+   if not is_game_paused() and g_cur_room then
       local dir = nil
-      if g_pl.y > g_cur_room.y+g_cur_room.h-.375     then dir = 'd'
-      elseif g_pl.y < g_cur_room.y + .5      then dir = 'u'
+      if     g_pl.y > g_cur_room.y+g_cur_room.h-.375 then dir = 'd'
+      elseif g_pl.y < g_cur_room.y + .5              then dir = 'u'
       elseif g_pl.x > g_cur_room.x+g_cur_room.w-.375 then dir = 'r'
-      elseif g_pl.x < g_cur_room.x +.5       then dir = 'l'
+      elseif g_pl.x < g_cur_room.x +.5               then dir = 'l'
       end
 
       if dir != nil and g_cur_room[dir] then
-         transition_room(g_cur_room[dir][1], g_cur_room[dir][2], g_cur_room[dir][3], dir)
+         g_att.transitioner(g_cur_room[dir][1], g_cur_room[dir][2], g_cur_room[dir][3])
       end
    end
 end
