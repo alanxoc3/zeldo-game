@@ -42,3 +42,11 @@
 Ooooooh, what about autosave? I would do this by making Lank appear at the
 start of the room when you reload. This would probably be implemented as I am
 completing the game, to ensure it works correctly.
+
+Ok. So sound... There are 3 things I think:
+
+1. Make the volume like sub-tones. Check!
+2. Pause the volume (for banjo). Check!
+3. Fade the volume out (for music transition). Check!
+
+4. Glitched volume (for hard mode). (This can be bitted down)

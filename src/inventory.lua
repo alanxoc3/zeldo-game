@@ -66,17 +66,23 @@ function create_banjo(pl)
          touchable=false,
          destroyed=@4,
 
-         {tl_name='loop', i=@3, tl_max_time=4}
+         {tl_name='loop', i=@3, tl_max_time=4.25}
       }
       ]], pl, not pl.xf,
       -- init 1
       function(a)
          a.rel_y=0
-         sfx'10'
+         -- echo effect :)
+         poke(0x5f41, 15)
+         if zdget(BANJO_TUNED) then
+            sfx'11'
+         else
+            sfx'10'
+         end
          pause('dancing')
       end, function(a)
-         sfx'-1'
          unpause()
+         poke(0x5f41, 0)
       end
    )
 end

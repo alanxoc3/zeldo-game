@@ -1,7 +1,7 @@
 function map_init()
    g_rooms = gun_vals([[
       -- VILLAGE_PATH
-      { c=3, qx=1, qy=0,
+      { m=0, c=3, qx=1, qy=0,
          x = 24,  y = 24,
          w = 8,   h = 8,
          l={VILLAGE,23.5,7},
@@ -19,7 +19,7 @@ function map_init()
          },80}
       },
       -- LANK_HOUSE
-      { c=4, qx=1, qy=1,
+      { m=0, c=4, qx=1, qy=1,
          x = 24,  y = 16,
          w = 8,   h = 8,
          d={LANK_FRONT_YARD,8,3},
@@ -29,7 +29,7 @@ function map_init()
          {'pot',62.5,54.5,49}
       },
       -- MAYOR_HOUSE
-      { c=4, qx=2, qy=0,
+      { m=0, c=4, qx=2, qy=0,
          x = 0,  y = 0,
          w = 12,   h = 10,
          d={VILLAGE,12,3},
@@ -46,7 +46,7 @@ function map_init()
          },99}
       },
       -- TEACH_STUDIO
-      { c=4, qx=0, qy=0,
+      { m=0, c=4, qx=0, qy=0,
          x = 24,  y = 0,
          w = 8,   h = 8,
          d={VILLAGE,8,4},
@@ -60,7 +60,7 @@ function map_init()
          },96}
       },
       -- SHOP
-      { c=4, qx=0, qy=0,
+      { m=0, c=4, qx=0, qy=0,
          x = 24,  y = 8,
          w = 8,   h = 8,
          d={VILLAGE,20,5},
@@ -72,7 +72,7 @@ function map_init()
          },83}
       },
       -- JANEBOB
-      { c=4, qx=0, qy=0,
+      { m=0, c=4, qx=0, qy=0,
          x = 24,  y = 16,
          w = 8,   h = 8,
          d={VILLAGE,16,4},
@@ -87,7 +87,7 @@ function map_init()
          {'pot',26.5,17.5,48}
       },
       -- LIMENAVY
-      { c=4, qx=0, qy=0,
+      { m=0, c=4, qx=0, qy=0,
          x = 24,  y = 24,
          w = 8,   h = 8,
          d={VILLAGE,4,5},
@@ -100,7 +100,7 @@ function map_init()
          {'pot',30.5,29.5,49}, {'pot',30.5,30.5,49}, {'pot',29.5,30.5,49}
       },
       -- VILLAGE
-      { c=3, qx=0, qy=0,
+      { m=0, c=3, qx=0, qy=0,
          x = 0,   y = 10,
          w = 24,  h = 10,
          l={LANK_FRONT_YARD,11.5,5},
@@ -117,7 +117,7 @@ function map_init()
          {'house',20,14.5,SHOP,4,7.5}
       },
       -- LANK_FRONT_YARD
-      { c=3, qx=0, qy=0,
+      { m=0, c=3, qx=0, qy=0,
          x = 12,  y = 0,
          w = 12,  h = 10,
          l={FOREST_ENTRANCE,11.5,5},
@@ -132,14 +132,14 @@ function map_init()
          {'house',20,2.5,LANK_HOUSE,4,7.5}
       },
       -- FIELD
-      { c=3, qx=2, qy=0,
+      { m=2, c=3, qx=2, qy=0,
          x = 0,   y = 20,
          w = 24,  h = 12,
          d={VILLAGE_PATH,5,.5},
          r={GRAVEYARD_ENTRANCE,.5,3}
       },
       -- GRAVEYARD_ENTRANCE
-      { c=13, qx=3, qy=0,
+      { m=2, c=13, qx=3, qy=0,
          x = 12,  y = 10,
          w = 12,  h = 10,
          l={FIELD,23.5,3},
@@ -147,41 +147,41 @@ function map_init()
          {'sign',105.5,4.5,{"Here lies an old person (probably)."},45}
       },
       -- GRAVEYARD
-      { c=13, qx=3, qy=0,
+      { m=2, c=13, qx=3, qy=0,
          x = 0,   y = 0,
          w = 12,  h = 20,
          l={GRAVEYARD_ENTRANCE,11.5,7},
          r={GRAVEYARD_END,.5,7}
       },
       -- GRAVEYARD_END
-      { c=13, qx=3, qy=0,
+      { m=2, c=13, qx=3, qy=0,
          x = 12,  y = 0,
          w = 12,  h = 10,
          l={GRAVEYARD,11.5,17},
          r={CANYON_START,.5,7}
       },
       -- CANYON_START
-      { c=4, qx=2, qy=0,
+      { m=2, c=4, qx=2, qy=0,
          x = 0,   y = 10,
          w = 24,  h = 10,
          l={GRAVEYARD_END,11.5,7},
          u={CANYON_PATH,4,15.5}
       },
       -- CANYON_PATH
-      { c=4, qx=2, qy=0,
+      { m=2, c=4, qx=2, qy=0,
          x = 24,   y = 0,
          w = 8,    h = 16,
          d={CANYON_START,18,.5},
          u={CANYON_END,6,9.5}
       },
       -- CANYON_END
-      { c=6, qx=2, qy=0,
+      { m=2, c=6, qx=2, qy=0,
          x = 12,   y = 0,
          w = 12,   h = 10,
          d={CANYON_PATH,4,.5}
       },
       -- FOREST_ENTRANCE
-      { c=3, qx=0, qy=0,
+      { m=2, c=3, qx=0, qy=0,
          x = 0,   y = 0,
          w = 12,  h = 10,
          l={FOREST_1,11.5,5},
@@ -189,14 +189,14 @@ function map_init()
          d={FOREST_LOST,6,.5}
       },
       -- FOREST_LOST
-      { c=3, qx=1, qy=0,
+      { m=2, c=3, qx=1, qy=0,
          x = 12,  y = 20,
          w = 12,  h = 12,
          u={FOREST_ENTRANCE,6,9.5},
          r={LANK_FRONT_YARD,.5,5}
       },
       -- FOREST_1
-      { c=3, qx=1, qy=0,
+      { m=2, c=3, qx=1, qy=0,
          x = 0,   y = 0,
          w = 12,  h = 10,
          r={FOREST_ENTRANCE,.5,5},
@@ -205,7 +205,7 @@ function map_init()
          d={FOREST_2,6,.5}
       },
       -- FOREST_2
-      { c=3, qx=1, qy=0,
+      { m=2, c=3, qx=1, qy=0,
          x = 12,  y = 0,
          w = 12,  h = 10,
          u={FOREST_1,6,9.5},
@@ -214,7 +214,7 @@ function map_init()
          l={FOREST_3,11.5,5}
       },
       -- FOREST_3
-      { c=3, qx=1, qy=0,
+      { m=2, c=3, qx=1, qy=0,
          x = 0,   y = 10,
          w = 12,  h = 10,
          r={FOREST_2,.5,5},
@@ -223,7 +223,7 @@ function map_init()
          u={FOREST_4,6,9.5}
       },
       -- FOREST_4
-      { c=3, qx=1, qy=0,
+      { m=2, c=3, qx=1, qy=0,
          x = 12,  y = 10,
          w = 12,  h = 10,
          d={FOREST_3,6,.5},
@@ -232,14 +232,14 @@ function map_init()
          r={FOREST_LOST,6,6}
       },
       -- FOREST_BOSS
-      { c=3, qx=1, qy=0,
+      { m=2, c=3, qx=1, qy=0,
          x = 0,   y = 20,
          w = 12,  h = 12,
          r={FOREST_TREASURE,.5,4},
          d={FOREST_4,6,.5}
       },
       -- FOREST_TREASURE
-      { c=3, qx=1, qy=0,
+      { m=2, c=3, qx=1, qy=0,
          x = 24,  y = 0,
          w = 8,  h = 8,
          l={FOREST_BOSS,11.5,6}

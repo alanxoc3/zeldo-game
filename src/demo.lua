@@ -169,8 +169,14 @@ function _init()
 end
 
 function _update60()
+   -- if btnp'0'
+      -- then poke(0x5f42,15) -- glitch sound
+   -- end
+   -- if btnp'1'
+      -- then poke(0x5f42,0) -- glitch sound
+   -- end
+
    if btnp'5' and btn'4' then
-      -- poke(0x5f42,1) -- glitch sound
       g_debug = not g_debug
    end
    tl_node(g_tl,g_tl)
@@ -317,13 +323,19 @@ function draw_glitch_effect()
 end
 
 function game_init()
-   resume_music(0)
    map_init()
    g_pl = gen_pl(0, 0)
    load_room(LANK_HOUSE, 4, 4)
 end
 
-function pause(reason) stop_music() g_pause_reason=reason g_game_paused=true end
+function pause(reason)
+   if reason == 'dancing' or reason == 'chest' then
+      mute_music()
+   end
+   stop_music()
+
+   g_pause_reason=reason g_game_paused=true
+end
 function unpause() resume_music() g_game_paused=false end
 
 function is_game_paused(reason)
@@ -338,15 +350,33 @@ function zdset(ind, val)
    return dset(ind, val or 1)
 end
 
+function mute_music()
+   sfx(63,0,0)
+   sfx(62,1,1)
+end
+
+music_val=0
 function stop_music(sound)
-   music(0xffff, 250)
+   poke(0x5f43,3)
+   -- mute_music()
    if sound then
       sfx(sound)
    end
 end
 
 function resume_music(song)
+   switch_song(song)
+   poke(0x5f43,0)
+   sfx(63,-1)
+   sfx(62,-1)
    song = song or g_music_current
    g_music_current = song
-   music(g_music_current)
+end
+
+-- switches the current song
+function switch_song(song)
+   if song and song != g_music_current then
+      g_music_current = song
+      music(song, 500, 3)
+   end
 end

@@ -17,6 +17,8 @@ function load_room(new_room_name, rx, ry)
    -- todo: here
    g_cur_room = g_rooms[new_room_name]
 
+   switch_song(g_cur_room.m)
+
    -- take care of actors.
    acts_loop('confined', 'kill')
    if g_cur_room.i then g_cur_room.i() end
