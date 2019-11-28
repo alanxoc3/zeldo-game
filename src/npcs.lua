@@ -85,7 +85,7 @@ end
 
 g_att.chest = function(x, y, direction, mem_loc)
    return create_actor([[
-      id='chest', par={'confined','spr','wall','unpausable','triggerable'},
+      id='chest', par={'confined','spr','wall','unpausable'},
       att={
          triggers_template={{rel_x, rel_y, rx, ry, func}},
 
@@ -127,13 +127,13 @@ function gen_text_trigger_block(a, dir, text_obj)
    )
 end
 
-g_att.gen_trigger_block = function(a, off_x, off_y, rx, ry, contains, not_contains)
+g_att.gen_trigger_block = function(a, off_x, off_y, rx, ry, contains, intersects)
    return create_actor([[
       id='trigger_block', par={'rel', 'confined', 'trig'},
       att={
-         rel_actor=@1, rel_x=@2, rel_y=@3, rx=@4, ry=@5, trigger=@6, untrigger=@7
+         rel_actor=@1, rel_x=@2, rel_y=@3, rx=@4, ry=@5, contains=@6, intersects=@7
       }
-      ]], a, off_x, off_y, rx, ry, contains or nf, not_contains or nf
+      ]], a, off_x, off_y, rx, ry, contains or nf, intersects or nf
    )
 end
 

@@ -36,15 +36,26 @@ function gen_static_block(x, y, rx, ry)
 end
 
 -- x, y, sind
-g_att.pot = function(...)
+g_att.pot = function(x, y, sind)
    return create_actor([[
       id='pot', par={'bounded','confined','tcol','spr','col','mov'},
       att={
-         static=true,
          sind=@3,rx=.375,ry=.375,
          x=@1, y=@2,
          touchable=true,
+         hit=@4,
+         i=@5
       }
-      ]],...
+      ]],x, y, sind, function(a, other)
+         if other.pl then
+            if btnp(4) then
+               printh("heckya")
+               other.item = create_grabbed_item(sind, -7, nf)
+               a:kill()
+            end
+         end
+      end, function(a)
+         g_att.gen_trigger_block(a, 0, 0, a.rx, 1, nf, nf)
+      end
    )
 end

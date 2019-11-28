@@ -315,16 +315,15 @@ create_parent(
 create_parent(
 [[ id='trig', par={'vec','dim'},
    att={
-      trigger=nf,
-      untrigger=nf,
-      is_in_trig=@1
+      contains=nf,
+      intersects=nf,
+      trigger_update=@1
    }
-]], function(a, pl)
-   if pl.x-pl.rx > a.x-a.rx and pl.x+pl.rx < a.x+a.rx
-      and pl.y-pl.ry > a.y-a.ry and pl.y+pl.ry < a.y+a.ry then
-      a:trigger(pl)
-   else
-      a:untrigger(pl)
+]], function(a, b)
+   if does_a_contain_b(a, b) then
+      a:contains(b)
+   elseif do_actors_intersect(a, b) then
+      a:intersects(b)
    end
 end)
 
@@ -333,60 +332,56 @@ create_parent(
    att={
       static=false,
       touchable=true,
-      xb=0,
-      yb=0,
       hit=nf,
       move_check=@1
    }
 ]], function(a, acts)
    local hit_list = {}
    local move_check = function(dx, dy)
-      local touched = false
+      local ret_val = dx+dy
 
       -- using nested closures :)
-      local col_help = function(axis, spd_axis, a, b, pos, spd)
-         if spd != 0 and pos < abs(a[axis]-b[axis]) then
+      local col_help = function(spd_axis, a, b, spd)
+         if spd != 0 then
             if a.touchable and b.touchable then
-               v=a[spd_axis] + b[spd_axis]
-               local s_f = function(c) if not c.static then c[spd_axis] = v/2 end end
+               local s_f = function(c)
+                  if not c.static then
+                     c[spd_axis] = (a[spd_axis] + b[spd_axis])/2
+                  end
+               end
                s_f(a) s_f(b)
-               touched = true
+               ret_val = 0
             end
 
-            hit_list[b][axis]=zsgn(spd)
+            hit_list[b][spd_axis]=zsgn(spd)
          end
       end
 
       foreach(acts, function(b)
          if a != b and (not a.static or not b.static) then
-            local x,y = abs(a.x+dx-b.x), abs(a.y+dy-b.y)
-            if x < a.rx+b.rx and y < a.ry+b.ry then
-               if not hit_list[b] then hit_list[b] = {x=0, y=0} end
+            a.x+=dx a.y+=dy
+            if do_actors_intersect(a, b) then
+               hit_list[b] = hit_list[b] or gun_vals'dx=0,dy=0'
 
                batch_call(col_help, [[
-                  {'x', 'dx', @1, @2, @3, @4},
-                  {'y', 'dy', @1, @2, @5, @6}
-               ]], a, b, x, dx, y, dy)
+                  {'dx', @1, @2, @3},
+                  {'dy', @1, @2, @4}
+               ]], a, b, dx, dy)
             end
+            a.x-=dx a.y-=dy
          end
       end)
 
-      if touched then
-         dx *= -a.xb
-         dy *= -a.yb
-      end
-
-      return dx + dy
+      return ret_val
    end
 
-   a.dx = move_check(a.dx, 0)
-   a.dy = move_check(0, a.dy)
+   a.dx, a.dy = move_check(a.dx, 0), move_check(0, a.dy)
 
    -- hitting all the acts in the list.
    -- actor b, dirs d
    for b, d in pairs(hit_list) do
-      a:hit(b,  d.x,  d.y)
-      b:hit(a, -d.x, -d.y)
+      a:hit(b,  d.dx,  d.dy)
+      b:hit(a, -d.dx, -d.dy)
    end
 end)
 
