@@ -3,8 +3,8 @@ version 18
 __lua__
 -- zeldo game
 -- amorg
---#include _compiled_dev.lua
-#include _compiled_prod.lua
+#include _compiled_dev.lua
+--#include _compiled_prod.lua
 
 -- glitch anyone?
 --__draw=_draw function _draw()__draw()poke(0x5f2d, 1)

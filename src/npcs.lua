@@ -8,11 +8,12 @@ g_att.npc = function(x, y,name,text,sind)
          text=@4,pause_end=@8
       }
       ]],x,y,name,text,sind,function(a)
-         local big_w = 6/8
-         batch_call(gen_text_trigger_block, [[
-            {@1,'l',@2}, {@1,'r',@2},
-            {@1,'u',@2}, {@1,'d',@2}
-         ]], a, a.text)
+         g_att.gen_trigger_block(a, 0, 0, .75, .75, nf, function(trig, other)
+            if a.xf != other.xf and not g_menu_open and get_selected_item().interact and not is_game_paused() and btnp'4' then
+               change_cur_ma(a)
+               tbox_with_obj(a.text)
+            end
+         end)
       end, function(a)
          a.xf = a.x-g_pl.x > 0
       end, function(a)
