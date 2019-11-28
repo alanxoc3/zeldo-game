@@ -341,8 +341,8 @@ create_parent(
       local ret_val = dx+dy
 
       -- using nested closures :)
-      local col_help = function(spd_axis, a, b, spd)
-         if spd != 0 then
+      local col_help = function(axis, spd_axis, a, b, pos, spd)
+         if spd != 0 and pos < abs(a[axis]-b[axis]) then
             if a.touchable and b.touchable then
                local s_f = function(c)
                   if not c.static then
@@ -359,16 +359,15 @@ create_parent(
 
       foreach(acts, function(b)
          if a != b and (not a.static or not b.static) then
-            a.x+=dx a.y+=dy
-            if do_actors_intersect(a, b) then
+            local x,y = abs(a.x+dx-b.x), abs(a.y+dy-b.y)
+            if x < a.rx+b.rx and y < a.ry+b.ry then
                hit_list[b] = hit_list[b] or gun_vals'dx=0,dy=0'
 
                batch_call(col_help, [[
-                  {'dx', @1, @2, @3},
-                  {'dy', @1, @2, @4}
-               ]], a, b, dx, dy)
+                  {'x', 'dx', @1, @2, @3, @4},
+                  {'y', 'dy', @1, @2, @5, @6}
+               ]], a, b, x, dx, y, dy)
             end
-            a.x-=dx a.y-=dy
          end
       end)
 
