@@ -160,6 +160,7 @@ function tl_node(root, node, ...)
 
    if node != root or #node == 0 then
       node.tl_tim += 1/60
+      root.tl_tim = node.tl_tim
 
       -- Return the update return code, or true if we are out of time.
       return_value = return_value or node.tl_max_time and node.tl_tim >= node.tl_max_time

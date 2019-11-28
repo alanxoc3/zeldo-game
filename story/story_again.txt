@@ -58,5 +58,7 @@ Ideas:
    - Banjo dude says, "come talk to me when you found what you have lost."
    - Fairy says he gave the square force to Ivan, but does have a key (lank
      gave to fairy a long time ago).
+   - Pots don't give you money. Only get money by playing music and with
+     enemies.
 
 Next Zeldo game is a year before.

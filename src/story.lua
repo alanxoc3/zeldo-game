@@ -23,6 +23,7 @@ function map_init()
          x = 24,  y = 16,
          w = 8,   h = 8,
          d={LANK_FRONT_YARD,8,3},
+         {'chest',61.5,52,true,HAS_BANJO},
          {'pot',57.5,49.5,49},
          {'pot',62.5,49.5,49},
          {'pot',57.5,54.5,49},
@@ -36,10 +37,12 @@ function map_init()
          {'pot',65.5,6.5,49},
          {'pot',65.5,7.5,49}, {'pot',66.5,7.5,49},
          {'pot',66.5,8.5,49}, {'pot',67.5,8.5,49},
+         {'pot',65.5,8.5,49},
+
          {'pot',74.5,6.5,49},
          {'pot',74.5,7.5,49}, {'pot',73.5,7.5,49},
          {'pot',73.5,8.5,49}, {'pot',72.5,8.5,49},
-         {'chest',74.5,8.5,true,HAS_BANJO},
+         {'pot',74.5,8.5,49},
          {'npc',70,2,"Mayor Lark",{
             "Hey there Lank, I'm your",
             "biggest fan!"
@@ -76,7 +79,7 @@ function map_init()
          x = 24,  y = 16,
          w = 8,   h = 8,
          d={VILLAGE,16,4},
-         {'npc',29.5,19,"Navy",{
+         {'npc',29.5,19,"Jane",{
             "My husband always works",
             "so hard.",
             "What should I make him",
@@ -91,11 +94,8 @@ function map_init()
          x = 24,  y = 24,
          w = 8,   h = 8,
          d={VILLAGE,4,5},
-         {'npc',29.5,26.5,"Navy",{
-            "Have you seen Lime?",
-            "",
-            "I last saw her in the","forest."
-         },97},
+         {'pot',25.5,25.5,49},
+         {'pot',30.5,25.5,49},
          {'pot',25.5,29.5,49}, {'pot',25.5,30.5,49}, {'pot',26.5,30.5,49},
          {'pot',30.5,29.5,49}, {'pot',30.5,30.5,49}, {'pot',29.5,30.5,49}
       },
@@ -123,12 +123,13 @@ function map_init()
          l={FOREST_ENTRANCE,11.5,5},
          r={VILLAGE,.5,7},
          {'sign',21.5,2.5,{"Lank's House"},43},
-         {'npc',13,5,"Teach",{
-            "It's dangerous to go",
-            "alone!",
+         {'npc',13,5,"Navy",{
+            "My sister has been in the",
+            "forest all day.",
             "Find something to protect",
-            "yourself with."
-         },96},
+            "yourself with, then bring",
+            "her home."
+         },97},
          {'house',20,2.5,LANK_HOUSE,4,7.5}
       },
       -- FIELD

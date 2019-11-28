@@ -37,17 +37,16 @@ function create_grabbed_item(sind, yoff, create_func)
          sind=@2,
          iyy=@3,
          being_held=true,
-         tl_loop=false,
-         { i=@5, tl_max_time=.25 }, { u=@4 }
+         { i=@5, tl_max_time=.25 }, { i=nf, u=@4 }, { visible=false, tl_max_time=.1 }
       }
    ]], g_pl, sind, yoff, function(a)
       if btnp(4) or btn(5) then
-         create_func(g_pl)
+         sfx'6'
+         create_func(a.x, a.y+a.iyy/8, a.xf)
          return true
       end
    end, function(a)
-      a.xf = g_pl.xf
-      g_debug_message = a.tl_tim
+      sfx'5'
    end)
 end
 
@@ -75,7 +74,7 @@ function gen_pl(x, y)
          -- movement logic
          if a.stun_countdown == 0 then
             if not btn'5' then
-               if not a.item and (xbtn() != 0) then a.xf = btn'0' end
+               if (xbtn() != 0) then a.xf = btn'0' end
                a.ax = xbtn()*a.spd
                a.ay = ybtn()*a.spd
                if g_debug then

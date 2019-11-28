@@ -196,6 +196,7 @@ create_parent(
          a.rel_x += a.rel_dx
          a.rel_y += a.rel_dy
          a.xx, a.yy = a2.xx, a2.yy
+         a.xf = a2.xf
       else
          a.alive = false
       end
