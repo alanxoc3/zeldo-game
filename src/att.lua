@@ -375,7 +375,8 @@ create_parent(
       return ret_val
    end
 
-   a.dx, a.dy = move_check(a.dx, 0), move_check(0, a.dy)
+   a.dx = move_check(a.dx, 0)
+   a.dy = move_check(0, a.dy)
 
    -- hitting all the acts in the list.
    -- actor b, dirs d

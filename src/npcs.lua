@@ -30,15 +30,18 @@ end
 
 g_att.sign = function(x, y, text_obj, sind)
    return create_actor([[
-      id='sign', par={'hurtable','confined','spr','wall'},
+      id='sign', par={'confined','spr','wall'},
       att={
-         name="Sign", health=10, max_health=10, evil=true,
-         sind=@3,rx=.5,ry=.5,
-         x=@1, y=@2, i=@4
+         sind=@3,rx=.5,ry=.5,x=@1, y=@2, i=@4
       }
       ]],x,y,sind,
       function(a)
-         a.trig = gen_text_trigger_block(a, 'd', text_obj)
+         g_att.gen_trigger_block(a, 0, .125, .5, .625, nf, function(trig, other)
+            if not g_menu_open and get_selected_item().interact and not is_game_paused() and btnp'4' then
+               change_cur_ma(a)
+               tbox_with_obj(text_obj)
+            end
+         end)
       end
    )
 end
@@ -84,12 +87,13 @@ end
 -- step inside triggers (houses are a good example).
 -- directional trigger (easier to put a trigger next to an object).
 
+-- Not sure if we need this...
+-- triggers_template={{rel_x, rel_y, rx, ry, func}},
+
 g_att.chest = function(x, y, direction, mem_loc)
    return create_actor([[
       id='chest', par={'confined','spr','wall','unpausable'},
       att={
-         triggers_template={{rel_x, rel_y, rx, ry, func}},
-
          sind=50,rx=.375,ry=.375,
          x=@1, y=@2, xf=@3,tl_cur=@4,
          {i=@6},

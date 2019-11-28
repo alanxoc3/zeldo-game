@@ -37,3 +37,8 @@
 110
 1110
 1111
+
+
+Ooooooh, what about autosave? I would do this by making Lank appear at the
+start of the room when you reload. This would probably be implemented as I am
+completing the game, to ensure it works correctly.
