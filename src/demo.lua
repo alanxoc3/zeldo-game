@@ -144,10 +144,15 @@
 -- done: make a sign
 -- done: create 2 parts of lank (feet and arms).
 
+-- We write save data to the general purpose buffer, until a save platform
+-- is triggered.
 cartdata(CART_NAME)
+memcpy(TEMP_SAVE_LOCATION, REAL_SAVE_LOCATION, SAVE_LENGTH)
+
 g_debug, g_debug_message = false, ''
 
 function _init()
+
    g_money = dget(3)
 
    poke(0x5f34, 1) -- for pattern colors.
@@ -325,7 +330,7 @@ end
 function game_init()
    map_init()
    g_pl = gen_pl(0, 0)
-   load_room(LANK_HOUSE, 4, 4)
+   load_room(LANK_HOUSE, 3, 4)
 end
 
 function pause(reason)
@@ -343,11 +348,11 @@ function is_game_paused(reason)
 end
 
 function zdget(ind)
-   return dget(ind) > 0
+   return peek(TEMP_SAVE_LOCATION+ind) > 0
 end
 
 function zdset(ind, val)
-   return dset(ind, val or 1)
+   return poke(TEMP_SAVE_LOCATION+ind, val or 1)
 end
 
 function mute_music()

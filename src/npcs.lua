@@ -142,6 +142,21 @@ g_att.lark = function(x, y)
    return g_att.npc(x,y,"Lark","I'm your biggest fan!",99)
 end
 
+g_att.save_platform = function(x, y, platform_id)
+   return create_actor([[
+      id='sign', par={'confined','trig'},
+      att={
+         rx=.625, ry=.625, x=@1, y=@2, intersects=@3, contains=@3, pause_end=@4,
+         trigger_update=nf
+      }
+   ]], x, y, function(a)
+      if g_pause_reason == 'dancing' and zdget'BANJO_TUNED' then
+         memcpy(REAL_SAVE_LOCATION, TEMP_SAVE_LOCATION, SAVE_LENGTH)
+         tbox[["The game has been saved!"]]
+      end
+   end, function(a) a:contains_or_intersects(g_pl) end)
+end
+
 g_att.sign = function(x, y, text_obj, sind)
    return create_actor([[
       id='sign', par={'confined','spr','wall'},

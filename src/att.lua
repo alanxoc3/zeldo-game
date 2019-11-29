@@ -318,6 +318,7 @@ create_parent(
    att={
       contains=nf,
       intersects=nf,
+      contains_or_intersects=@1,
       trigger_update=@1
    }
 ]], function(a, b)
