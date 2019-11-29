@@ -57,10 +57,7 @@ function map_init()
          {'pot',30.5,6.5,49},
          {'sign',25.5,1.5,{"Press 🅾️ to use yer item."},52},
          {'sign',30.5,1.5,{"Hold down ❎ to select","yer item."},52},
-         {'npc',26.5,4,"Teach",{
-            "Hi Lank, have you been",
-            "practicing the banjo?"
-         },96}
+         {'teach',26.5,4}
       },
       -- SHOP
       { m=0, c=4, qx=0, qy=0,
