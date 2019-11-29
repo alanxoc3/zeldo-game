@@ -123,13 +123,7 @@ function map_init()
          l={FOREST_ENTRANCE,11.5,5},
          r={VILLAGE,.5,7},
          {'sign',21.5,2.5,{"Lank's House"},43},
-         {'npc',13,5,"Navy",{
-            "My sister has been in the",
-            "forest all day.",
-            "Find something to protect",
-            "yourself with, then bring",
-            "her home."
-         },97},
+         {'navy_blocking',13,5},
          {'house',20,2.5,LANK_HOUSE,4,7.5}
       },
       -- FIELD
@@ -249,7 +243,9 @@ function map_init()
 
    for k, v in pairs(g_rooms) do
       v.i=function()
-         batch_call_table(function(att_name, ...) g_att[att_name](...) end, v)
+         batch_call_table(function(att_name, ...)
+               g_att[att_name](...)
+         end, v)
       end
       v.x,v.y = v.x+v.qx*32, v.y+v.qy*32
    end

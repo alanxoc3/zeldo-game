@@ -10,12 +10,13 @@ function isorty(t)
     end
 end
 
-function load_room(new_room_name, rx, ry)
+function load_room(new_room_index, rx, ry)
    -- reload the map (remove shovel things).
    reload(0x1000, 0x1000, 0x2000)
 
    -- todo: here
-   g_cur_room = g_rooms[new_room_name]
+   g_cur_room_index = new_room_index
+   g_cur_room = g_rooms[new_room_index]
 
    switch_song(g_cur_room.m)
 
@@ -34,7 +35,7 @@ function load_room(new_room_name, rx, ry)
 end
 
 -- 7327 to 7221 to 7197
-g_att.transitioner = function(new_room_name, rx, ry)
+g_att.transitioner = function(new_room_index, rx, ry)
    return create_actor([[
       id='transitioner', par={'act','unpausable'},
       att={
@@ -47,7 +48,7 @@ g_att.transitioner = function(new_room_name, rx, ry)
       end, function(a)
          g_card_fade = a.intro.tl_tim/a.intro.tl_max_time*10
       end, function(a)
-         load_room(new_room_name, rx, ry)
+         load_room(new_room_index, rx, ry)
          -- todo: put this logic into the player, like a reset function.
          g_pl.ax = 0
          g_pl.dx = 0
