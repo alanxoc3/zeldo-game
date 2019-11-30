@@ -14,6 +14,7 @@ g_att.navy_blocking = function(x, y)
       ]],x,y,function(a)
          g_att.gen_trigger_block(a, 0, 0, .75, .75, nf, function(trig, other)
             if a.xf != other.xf and not g_menu_open and get_selected_item().interact and not is_game_paused() and btnp'4' then
+               change_cur_ma(a)
                if zdget'HAS_BOOMERANG' then
                   tbox([[
                      trigger=@1,

@@ -1,9 +1,7 @@
 -- a box with a character inside.
 
 function change_cur_ma(a)
-   if not a.pl and a.hurtable then
-      g_right_ma_view.follow_act = a
-   end
+   g_right_ma_view.follow_act = a
 end
 
 function draw_ma(view, x, y, a)
@@ -69,7 +67,9 @@ function draw_stat(view, x, y, flip)
          zprint(health_str,align_text(health_str, operator, flip),y+13,true)
       end
 
-      zprint(a.name,align_text(a.name, operator, flip),y)
+      if a.name then
+         zprint(a.name,align_text(a.name, operator, flip),y)
+      end
    end
 end
 

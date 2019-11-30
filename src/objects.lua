@@ -47,7 +47,6 @@ g_att.pot_projectile = function(x, y, flip)
       }
    ]], x, y, flip, flip and -.04 or .04, function(a)
    end, function(a)
-      printh(a.tl_tim)
       a.ay=-sin(a.tl_tim/a.tl_max_time/2-.1)*.03
    end, function(a)
       sfx'9'
