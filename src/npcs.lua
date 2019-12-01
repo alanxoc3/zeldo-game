@@ -9,7 +9,7 @@ g_att.npc = function(x, y,name,text,sind)
       }
       ]],x,y,name,text,sind,function(a)
          g_att.gen_trigger_block(a, 0, 0, .75, .75, nf, function(trig, other)
-            if a.xf != other.xf and not g_menu_open and get_selected_item().interact and not is_game_paused() and btnp'4' then
+            if npc_able_to_interact(a, other) then
                change_cur_ma(a)
                tbox_with_obj(a.text)
             end
@@ -48,7 +48,7 @@ g_att.sign = function(x, y, text_obj, sind)
       ]],x,y,sind,
       function(a)
          g_att.gen_trigger_block(a, 0, .125, .5, .625, nf, function(trig, other)
-            if not g_menu_open and get_selected_item().interact and not is_game_paused() and btnp'4' then
+            if able_to_interact(a, other) then
                change_cur_ma(a)
                tbox_with_obj(text_obj)
             end
@@ -68,7 +68,7 @@ g_att.shop_item = function(x, y, mem_loc)
       ]],x,y,
       function(a)
          a.trig = gen_trigger_block_dir(a, 'l', function(b, other)
-               if other.xf != a.xf and not g_menu_open and get_selected_item().interact and not is_game_paused() and btnp'4' then
+               if able_to_interact(a, other) then
                   a:kill()
                   g_att.item_show(g_pl, 4)
                   pause'chest'

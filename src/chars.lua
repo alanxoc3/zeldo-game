@@ -1,3 +1,15 @@
+function npc_able_to_interact(a, other)
+   return a.xf != other.xf
+      and able_to_interact(a, other)
+end
+
+function able_to_interact(a, other)
+   return not g_menu_open
+      and get_selected_item().interact
+      and not is_game_paused()
+      and btnp'4'
+end
+
 g_att.navy_blocking = function(x, y)
    local navy_trigger_func = function()
       zdset'NAVY_OUT'
@@ -13,7 +25,7 @@ g_att.navy_blocking = function(x, y)
       }
       ]],x,y,function(a)
          g_att.gen_trigger_block(a, 0, 0, .75, .75, nf, function(trig, other)
-            if a.xf != other.xf and not g_menu_open and get_selected_item().interact and not is_game_paused() and btnp'4' then
+            if npc_able_to_interact(a, other) then
                change_cur_ma(a)
                if zdget'HAS_BOOMERANG' then
                   tbox([[
@@ -76,7 +88,7 @@ g_att.teach = function(x, y)
       }
       ]],x,y,function(a)
          g_att.gen_trigger_block(a, 0, 0, .75, .75, nf, function(trig, other)
-            if a.xf != other.xf and not g_menu_open and get_selected_item().interact and not is_game_paused() and btnp'4' then
+            if npc_able_to_interact(a, other) then
                if zdget'BANJO_TUNED' then
                   tbox([[
                      "To save you progress, try",
