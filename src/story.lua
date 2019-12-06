@@ -6,11 +6,11 @@ function map_init()
          w = 8,   h = 8,
          l={VILLAGE,23.5,7},
          u={FIELD,3,11.5},
-         {'sign',58.5, 26.5,{
+         {'sign',58, 26.5,{
             "⬆️ Hiroll Field",
             "⬅️ Hiroll Village"
          },52},
-         {'npc',61,25.5,"Bob",{
+         {'npc',61,26.25,"Bob",{
             "Hey Lank, I'm hungry.",
             "",
             "I mean...",
@@ -121,7 +121,7 @@ function map_init()
          l={FOREST_ENTRANCE,11.5,5},
          r={VILLAGE,.5,7},
          {'sign',21.5,2.5,{"Lank's House"},43},
-         {'navy_blocking',13,5},
+         {'navy_blocking',13.5,5},
          {'house',20,2.5,LANK_HOUSE,4,7.5}
       },
       -- FIELD
