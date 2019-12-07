@@ -32,7 +32,6 @@ function tbox_interact()
          pause'tbox'
       else
          unpause()
-         change_cur_ma()
          g_tbox_messages.trigger()
       end
    end

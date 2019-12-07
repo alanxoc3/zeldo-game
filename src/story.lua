@@ -6,11 +6,11 @@ function map_init()
          w = 8,   h = 8,
          l={VILLAGE,23.5,7},
          u={FIELD,3,11.5},
-         {'sign',58, 26.5,{
+         {'sign',58, 26,{
             "⬆️ Hiroll Field",
             "⬅️ Hiroll Village"
          },52},
-         {'npc',61,26.25,"Bob",{
+         {'npc',61,26,"Bob",{
             "Hey Lank, I'm hungry.",
             "",
             "I mean...",

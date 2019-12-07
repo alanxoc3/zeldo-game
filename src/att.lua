@@ -318,6 +318,7 @@ create_parent(
    att={
       contains=nf,
       intersects=nf,
+      not_contains_or_intersects=nf,
       contains_or_intersects=@1,
       trigger_update=@1
    }
@@ -326,6 +327,8 @@ create_parent(
       a:contains(b)
    elseif do_actors_intersect(a, b) then
       a:intersects(b)
+   else
+      a:not_contains_or_intersects(b)
    end
 end)
 

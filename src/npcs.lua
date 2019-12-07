@@ -38,7 +38,7 @@ g_att.sign = function(x, y, text_obj, sind)
       att={
          rx=.5,      ry=.5,
          trig_x=0,   trig_y=.125,
-         trig_rx=.5, trig_ry=.625,
+         trig_rx=.75, trig_ry=.625,
          x=@1, y=@2, sind=@3, interactable_trigger=@4
       }
       ]],x,y,sind, function(a)
@@ -110,7 +110,6 @@ g_att.chest = function(x, y, direction, mem_loc)
       function(a)
          a.sind = 51
          a.tl_next = true
-         change_cur_ma(nil)
       end, function(a)
          pause'chest'
          stop_music'1'
@@ -124,29 +123,25 @@ g_att.chest = function(x, y, direction, mem_loc)
    )
 end
 
-function gen_text_trigger_block(a, dir, text_obj)
-   return gen_trigger_block_dir(a, dir, function(trig, other)
-      if not g_menu_open and get_selected_item().interact and not is_game_paused() and btnp'4' then
-         change_cur_ma(a)
-         tbox_with_obj(text_obj)
-      end
-   end
-   )
-end
-
 g_att.gen_trigger_block = function(a, off_x, off_y, rx, ry, contains, intersects)
    return create_actor([[
       id='trigger_block', par={'rel', 'confined', 'trig'},
       att={
-         rel_actor=@1, rel_x=@2, rel_y=@3, rx=@4, ry=@5, contains=@6, intersects=@7
+         rel_actor=@1,
+         rel_x=@2,
+         rel_y=@3,
+         rx=@4,
+         ry=@5,
+         contains=@6,
+         intersects=@7,
+         not_contains_or_intersects=@8
       }
-      ]], a, off_x, off_y, rx, ry, contains or nf, intersects or nf
+      ]], a, off_x, off_y, rx, ry, contains or nf, intersects or nf, function()
+         if get_cur_ma() == a then
+            change_cur_ma()
+         end
+      end
    )
-end
-
-function gen_trigger_block_dir(a, dir, ...)
-   local x, y = dir_to_coord(dir)
-   return g_att.gen_trigger_block(a, x*a.rx*2,y*a.ry*2,.5+abs(y)*3/8,.5+abs(x)*3/8, ...)
 end
 
 -- todo: trim code here.

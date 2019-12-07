@@ -4,6 +4,10 @@ function change_cur_ma(a)
    g_right_ma_view.follow_act = a
 end
 
+function get_cur_ma()
+   return g_right_ma_view.follow_act
+end
+
 function draw_ma(view, x, y, a)
    local old_view = g_view
    g_view = view

@@ -15,6 +15,7 @@ create_parent(
    }
 ]], function(a)
    a.trig = g_att.gen_trigger_block(a, a.trig_x, a.trig_y, a.trig_rx, a.trig_ry, nf, function(trig, other)
+      change_cur_ma(a)
       if npc_able_to_interact(a, other) then
          change_cur_ma(a)
          a:interactable_trigger()
