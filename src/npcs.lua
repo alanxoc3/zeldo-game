@@ -2,6 +2,7 @@ g_att.npc = function(x, y,name,text,sind)
    return create_actor([[
       id='npc', par={'nnpc'},
       att={
+         name="Npc",
          x=@1, y=@2, name=@3,
          interactable_trigger=@5,
          sind=@4,rx=.5,ry=.5,iyy=-2,
@@ -36,6 +37,7 @@ g_att.sign = function(x, y, text_obj, sind)
    return create_actor([[
       id='sign', par={'interactable'},
       att={
+         name="Sign",
          rx=.5,      ry=.5,
          trig_x=0,   trig_y=.125,
          trig_rx=.75, trig_ry=.625,
@@ -97,6 +99,7 @@ g_att.chest = function(x, y, direction, mem_loc)
    return create_actor([[
       id='chest', par={'unpausable','interactable'},
       att={
+         name="Chest",
          sind=50,rx=.375,ry=.375,
          x=@1, y=@2, xf=@3,tl_cur=@4,
          interactable_trigger=@6,
@@ -113,7 +116,8 @@ g_att.chest = function(x, y, direction, mem_loc)
       end, function(a)
          pause'chest'
          stop_music'1'
-         a.trig.alive = false
+         -- this disables the trigger's logic.
+         a.trig.interactable_trigger = nf
          a.item_show = g_att.item_show(g_pl, 1)
       end, function(a)
          a.item_show:kill()

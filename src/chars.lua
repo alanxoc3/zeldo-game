@@ -17,7 +17,6 @@ create_parent(
    a.trig = g_att.gen_trigger_block(a, a.trig_x, a.trig_y, a.trig_rx, a.trig_ry, nf, function(trig, other)
       change_cur_ma(a)
       if npc_able_to_interact(a, other) then
-         change_cur_ma(a)
          a:interactable_trigger()
       end
    end)
@@ -48,6 +47,7 @@ g_att.navy_blocking = function(x, y)
    return not zdget(NAVY_OUT) and create_actor([[
       id='navy_blocking', par={'nnpc'},
       att={
+         name="Navy",
          sind=97,
          x=@1, y=@2,
          rx=.5,ry=.5,iyy=-2,interactable_trigger=@3,
@@ -106,6 +106,7 @@ g_att.teach = function(x, y)
    return create_actor([[
       id='teach', par={'nnpc'},
       att={
+         name="Teach",
          sind=96,
          x=@1, y=@2, interactable_trigger=@3,
          rx=.5,ry=.5,iyy=-2,
