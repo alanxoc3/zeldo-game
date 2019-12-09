@@ -61,17 +61,19 @@ g_att.shop_item = function(x, y, mem_loc)
          trig_rx=.5, trig_ry=.625
       }
       ]], x, y, function(a)
-         a:kill()
-         g_att.item_show(g_pl, 4)
-         pause'chest' -- not a chest, but is the same functionality.
-         stop_music'1'
-         zdset(mem_loc)
+         if remove_money(FIRST_ITEM_COST) then
+            a:kill()
+            g_att.item_show(g_pl, 4)
+            pause'chest' -- not a chest, but is the same functionality.
+            stop_music'1'
+            zdset(mem_loc)
+         end
       end
    )
 end
 
 -- for the chest.
-g_att.item_show = function(a, sind)
+g_att.item_show = function(a, sind, mem_loc)
    return create_actor([[
       id='item_show', par={'spr','rel','unpausable'},
       att={
@@ -83,6 +85,7 @@ g_att.item_show = function(a, sind)
    ]],a,sind, function(a)
       unpause()
       resume_music()
+      zdset(mem_loc)
    end)
 end
 
@@ -101,29 +104,19 @@ g_att.chest = function(x, y, direction, mem_loc)
       att={
          name="Chest",
          sind=50,rx=.375,ry=.375,
-         x=@1, y=@2, xf=@3,tl_cur=@4,
-         interactable_trigger=@6,
-         trig_x=@5,   trig_y=0,
+         x=@1, y=@2, xf=@3,
+         trig_x=@4,   trig_y=0,
          trig_rx=.5,  trig_ry=.375,
-         {},
-         {interactable_trigger=nf, i=@7, tl_max_time=2, e=@8},
-         {i=nf, e=nf}
+         interactable_trigger=@5,
+         tl_cur=@6,
+         {}, {interactable_trigger=nf, sind=51}
       }
-      ]],x,y,direction,zdget(mem_loc) and 3 or 1, direction and -.125 or .125,
-      function(a)
-         a.sind = 51
+      ]],x,y,direction,direction and -.125 or .125, function(a)
          a.tl_next = true
-      end, function(a)
          pause'chest'
          stop_music'1'
-         -- this disables the trigger's logic.
-         a.trig.interactable_trigger = nf
-         a.item_show = g_att.item_show(g_pl, 1)
-      end, function(a)
-         a.item_show:kill()
-         zdset(mem_loc)
-         unpause()resume_music()
-      end
+         a.item_show = g_att.item_show(g_pl, 1, mem_loc)
+      end, zdget(mem_loc) and 2 or 1
    )
 end
 
