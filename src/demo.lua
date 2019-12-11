@@ -152,13 +152,8 @@ memcpy(TEMP_SAVE_LOCATION, REAL_SAVE_LOCATION, SAVE_LENGTH)
 g_debug, g_debug_message = false, ''
 
 function _init()
-
-   g_money = dget(3)
-
+   g_money = zdget_value(MONEY)
    poke(0x5f34, 1) -- for pattern colors.
-   g_pal_gray = gun_vals('5,5,13,13,5,6,6,6,6,6,6,6,13,6,6')
-   g_pal_norm = gun_vals('1,2,3,4,5,6,7,8,9,10,11,12,13,14,15')
-   g_pal = g_pal_norm
 
    g_game = gun_vals([[
       { i=@1, u=@2, d=@3 }
@@ -347,8 +342,12 @@ function is_game_paused(reason)
    return g_game_paused and (reason == g_pause_reason or not reason)
 end
 
+function zdget_value(ind)
+   return peek(TEMP_SAVE_LOCATION+ind)
+end
+
 function zdget(ind)
-   return peek(TEMP_SAVE_LOCATION+ind) > 0
+   return zdget_value(ind) > 0
 end
 
 function zdset(ind, val)
