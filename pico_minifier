@@ -11,7 +11,7 @@ GetOptions('dev' => \$dev_mode) or die "Usage: $0 [--dev]\n";
 # Constants specific to Zeldo.
 my %constants;
 $constants{'FPS'} = '60';
-$constants{'CART_NAME'} = '"ZELDO_TEST29"';
+$constants{'CART_NAME'} = '"ZELDO_TEST30"';
 $constants{'TEMP_SAVE_LOCATION'} = '0x5d00';
 $constants{'REAL_SAVE_LOCATION'} = '0x5e00';
 $constants{'SAVE_LENGTH'}        = '64';
@@ -23,7 +23,7 @@ $constants{'SAVE_SPOT'}      = '2';
 $constants{'MONEY'}          = '3';
 $constants{'HEALTH'}         = '4';
 $constants{'HAS_FORCE'}      = '5';
-$constants{'HAS_BOOMERANG'}  = '6';
+$constants{'HAS_BOOMERANG'}  = '6';  # used
 $constants{'HAS_BOMB'}       = '7';
 $constants{'HAS_SHIELD'}     = '8';
 $constants{'ALWAYS_TRUE'}    = '9';  # used

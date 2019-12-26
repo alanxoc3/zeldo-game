@@ -67,7 +67,8 @@ function map_init()
          d={VILLAGE,20,5},
          {'pot',25.5,14.5,49},
          {'pot',30.5,14.5,49},
-         {'shop_item',26.5,11.5,HAS_BOOMERANG},
+         {'shop_item',26.5,11.5,4, 0,HAS_BOOMERANG},
+         {'shop_item',29.5,11.5,6,20,HAS_SHIELD},
          {'npc',28,10.5,"Keep",{
             "Buy something will ya?"
          },83}

@@ -49,24 +49,24 @@ g_att.sign = function(x, y, text_obj, sind)
    )
 end
 
-g_att.shop_item = function(x, y, mem_loc)
+g_att.shop_item = function(x, y, sind, cost, mem_loc)
+   assert(mem_loc != nil)
    return not zdget(mem_loc) and create_actor([[
       id='shop_item', par={'unpausable', 'interactable'},
       att={
          x=@1, y=@2,
-         interactable_trigger=@3,
+         interactable_trigger=@4,
 
-         sind=4, rx=.5, ry=.5,
+         sind=@3, rx=.5, ry=.5,
          trig_x=0,   trig_y=.125,
          trig_rx=.5, trig_ry=.625
       }
-      ]], x, y, function(a)
-         if remove_money(FIRST_ITEM_COST) then
+      ]], x, y, sind, function(a)
+         if remove_money(cost) then
             a:kill()
-            g_att.item_show(g_pl, 4)
+            g_att.item_show(g_pl, 4, mem_loc)
             pause'chest' -- not a chest, but is the same functionality.
             stop_music'1'
-            zdset(mem_loc)
          end
       end
    )
