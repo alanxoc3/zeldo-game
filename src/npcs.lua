@@ -49,19 +49,20 @@ g_att.sign = function(x, y, text_obj, sind)
    )
 end
 
-g_att.shop_item = function(x, y, sind, cost, mem_loc)
+g_att.shop_item = function(name, x, y, sind, cost, mem_loc)
    assert(mem_loc != nil)
    return not zdget(mem_loc) and create_actor([[
       id='shop_item', par={'unpausable', 'interactable'},
       att={
-         x=@1, y=@2,
-         interactable_trigger=@4,
+         name=@1,
+         x=@2, y=@3,
+         interactable_trigger=@5,
 
-         sind=@3, rx=.5, ry=.5,
+         sind=@4, rx=.5, ry=.5,
          trig_x=0,   trig_y=.125,
          trig_rx=.5, trig_ry=.625
       }
-      ]], x, y, sind, function(a)
+      ]], name, x, y, sind, function(a)
          if remove_money(cost) then
             a:kill()
             g_att.item_show(g_pl, 4, mem_loc)
