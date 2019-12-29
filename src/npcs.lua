@@ -85,52 +85,31 @@ end, function(a)
 end
 )
 
-g_att.gen_trigger_block = function(a, off_x, off_y, rx, ry, contains, intersects)
-   return create_actor([[
-      id='trigger_block', par={'rel', 'confined', 'trig'},
-      att={
-         rel_actor=@1,
-         rel_x=@2,
-         rel_y=@3,
-         rx=@4,
-         ry=@5,
-         contains=@6,
-         intersects=@7,
-         not_contains_or_intersects=@8
-      }
-      ]], a, off_x, off_y, rx, ry, contains or nf, intersects or nf, function()
-         if get_cur_ma() == a then
-            change_cur_ma()
-         end
-      end
-   )
+create_actor2([['gen_trigger_block', 7, {'rel', 'confined', 'trig'}]], [[
+   rel_actor=@1, rel_x=@2, rel_y=@3, rx=@4, ry=@5, contains=@6, intersects=@7,
+   not_contains_or_intersects=@8
+]], function(a)
+   if get_cur_ma() == a then
+      change_cur_ma()
+   end
 end
+)
 
 -- todo: trim code here.
-g_att.house = function(x, y, room, rx, ry, sind)
-   return create_actor([[
-      id='house', par={'confined','spr'},
-      att={
-         x=@1, y=@2,
-         room=@3, room_x=@4, room_y=@5,
-         contains=@6, i=@7,
-         destroyed=@8, sind=@9,
-         iyy=-4,
-         sw=2, sh=2
-      }
-      ]],x,y,room,rx,ry,
-      -- trigger
-      function(a, other)
-         if other.pl then
-            g_att.transitioner(room, rx, ry, 'u')
-         end
-      end, function(a)
-         a.b1 = gen_static_block(a.x-.75,a.y, .25, .5)
-         a.b2 = gen_static_block(a.x+.75,a.y, .25, .5)
-         a.b3 = gen_static_block(a.x,a.y-4/8, 1,.25)
-         a.trig = g_att.gen_trigger_block(a, 0, 1/8, .5, 5/8, a.contains)
-      end, function(a)
-         a.b1.alive, a.b2.alive, a.b3.alive, a.trig.alive = false
-      end, sind or 46
-   )
+create_actor2([['house', 6, {'confined','spr'}]], [[
+   x=@1, y=@2, room=@3, room_x=@4, room_y=@5, sind=@6,
+   i=@7, destroyed=@8,
+   iyy=-4, sw=2, sh=2
+]], function(a)
+   a.b1 = gen_static_block(a.x-.75,a.y, .25, .5)
+   a.b2 = gen_static_block(a.x+.75,a.y, .25, .5)
+   a.b3 = gen_static_block(a.x,a.y-4/8, 1,.25)
+   a.trig = g_att.gen_trigger_block(a, 0, 1/8, .5, 5/8, function(trig, other)
+      if other.pl then
+         g_att.transitioner(a.room, a.room_x, a.room_y, 'u')
+      end
+   end, nf)
+end, function(a)
+   a.b1.alive, a.b2.alive, a.b3.alive, a.trig.alive = false
 end
+)

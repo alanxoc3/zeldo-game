@@ -49,7 +49,7 @@ function call_not_nil(key, table, ...)
    end
 end
 
-function munpack(t) return t[1], t[2], t[3], t[4], t[5], t[6], t[7], t[8] end
+function munpack(t) return t[1], t[2], t[3], t[4], t[5], t[6], t[7], t[8], t[9] end
 
 function batch_call_table(func,table)
    -- Table is unpacked in this way, for both efficiency and tokens. The

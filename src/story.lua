@@ -93,11 +93,11 @@ function map_init()
          {'sign',17.5,13.5,{"Teach's Studio"},43},
          {'sign',9.5,13.5,{"Bob And Jane's House"},43},
          {'sign',21.5,14.5,{"Hiroll Shop"},43},
-         {'house',4,14.5,LIMENAVY,4,7.5},
-         {'house',16,13.5,TEACH_STUDIO,4,7.5},
-         {'house',12,12.5,MAYOR_HOUSE,6,9.5},
-         {'house',8,13.5,JANEBOB,4,7.5},
-         {'house',20,14.5,SHOP,4,7.5}
+         {'house',4,14.5,LIMENAVY,4,7.5,46},
+         {'house',16,13.5,TEACH_STUDIO,4,7.5,46},
+         {'house',12,12.5,MAYOR_HOUSE,6,9.5,46},
+         {'house',8,13.5,JANEBOB,4,7.5,46},
+         {'house',20,14.5,SHOP,4,7.5,46}
       },
       -- LANK_FRONT_YARD
       { m=0, c=3, qx=0, qy=0,
@@ -107,7 +107,7 @@ function map_init()
          r={VILLAGE,.5,7},
          {'sign',21.5,2.5,{"Lank's House"},43},
          {'navy_blocking',13.5,5},
-         {'house',20,2.5,LANK_HOUSE,4,7.5}
+         {'house',20,2.5,LANK_HOUSE,4,7.5,46}
       },
       -- FIELD
       { m=2, c=3, qx=2, qy=0,
