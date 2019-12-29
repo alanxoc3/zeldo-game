@@ -324,7 +324,7 @@ end
 
 function game_init()
    map_init()
-   g_pl = gen_pl(0, 0)
+   g_pl = g_att.pl(0, 0)
    load_room(LANK_HOUSE, 3, 4)
 end
 

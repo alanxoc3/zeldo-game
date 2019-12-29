@@ -27,9 +27,9 @@ function load_room(new_room_index, rx, ry)
    g_pl.x = rx + g_cur_room.x
    g_pl.y = ry + g_cur_room.y
 
-   g_view = create_view_on_cur_room(14, 12, 2, g_pl)
-   g_left_ma_view = create_view_on_cur_room(2.75, 3, 0, g_pl)
-   g_right_ma_view = create_view_on_cur_room(2.75, 3, 0, nil)
+   g_view = g_att.view_instance(min(14, g_cur_room.w), min(12, g_cur_room.h), 2, g_pl)
+   g_left_ma_view = g_att.view_instance(2.75, 3, 0, g_pl)
+   g_right_ma_view = g_att.view_instance(2.75, 3, 0, nil)
 
    acts_loop('view', 'center_view')
 end
