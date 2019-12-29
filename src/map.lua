@@ -34,35 +34,27 @@ function load_room(new_room_index, rx, ry)
    acts_loop('view', 'center_view')
 end
 
--- 7327 to 7221 to 7197
-g_att.transitioner = function(new_room_index, rx, ry)
-   return create_actor([[
-      id='transitioner', par={'act','unpausable'},
-      att={
-         {tl_name='intro',  i=@1, u=@2, tl_max_time=.5},
-         {tl_name='ending', i=@3, u=@4, tl_max_time=.5, e=@5}
-      }
-      ]], -- init
-      function(a)
-         pause'transitioning'
-      end, function(a)
-         g_card_fade = a.intro.tl_tim/a.intro.tl_max_time*10
-      end, function(a)
-         load_room(new_room_index, rx, ry)
-         -- todo: put this logic into the player, like a reset function.
-         g_pl.ax = 0
-         g_pl.dx = 0
-         g_pl.ay = 0
-         g_pl.dy = 0
-         tbox_clear()
-      end, function(a)
-         g_card_fade = (a.ending.tl_max_time-a.ending.tl_tim)/a.ending.tl_max_time*10
-      end, function()
-         unpause()
-         g_card_fade = 0
-      end
-   )
+create_actor2([['transitioner', 3, {'act','unpausable'}]], [[
+   new_room_index=@1, rx=@2, ry=@3,
+   {tl_name='intro',  i=@4, u=@5, tl_max_time=.5},
+   {tl_name='ending', i=@6, u=@7, tl_max_time=.5, e=@8}
+]], -- init
+function(a)
+   pause'transitioning'
+end, function(a)
+   g_card_fade = a.intro.tl_tim/a.intro.tl_max_time*10
+end, function(a)
+   load_room(a.new_room_index, a.rx, a.ry)
+   -- todo: put this logic into the player, like a reset function.
+   g_pl.ax, g_pl.dx, g_pl.ay, g_pl.dy = 0, 0, 0, 0
+   tbox_clear()
+end, function(a)
+   g_card_fade = (a.ending.tl_max_time-a.ending.tl_tim)/a.ending.tl_max_time*10
+end, function()
+   unpause()
+   g_card_fade = 0
 end
+)
 
 function room_update()
    -- plus .5 and minus .375 is because there is a screen border.
