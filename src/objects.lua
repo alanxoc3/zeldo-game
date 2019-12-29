@@ -47,7 +47,7 @@ create_actor([['pot', 3, {'bounded','confined','tcol','spr','col','mov'}]], [[
 ]], function(a)
    g_att.gen_trigger_block(a, 0, 0, .5, .5, nf, function(trig, other)
       if btnp(4) and not other.item then
-         other.item = create_grabbed_item(a.sind, -7, function(...)
+         other.item = g_att.grabbed_item(g_pl, a.sind, -7, function(...)
             g_att.pot_projectile(...)
          end)
          a:kill()

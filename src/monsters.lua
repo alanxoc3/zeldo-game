@@ -68,14 +68,13 @@ end, destroy_func
 create_actor([['skelly', 2, {'bounded','confined','stunnable','mov','col','tcol','hurtable','knockable','anim','spr'}]], [[
    evil=true,
    x=@1, y=@2,
+   ax=.005, ay=.01,
    rx=.375, ry=.375,
    sinds={66},
    destroyed=@4,
    anim_len=1,
    {i=@3, tl_max_time=1.5}
 ]], function(a)
-      a.ay = .01
-      a.ax = .005
    end, destroy_func
 )
 

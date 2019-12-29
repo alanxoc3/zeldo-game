@@ -88,8 +88,8 @@ end, function(a)
          if get_selected_item().name == 'bomb' then
             if remove_money(5) then
                a.item = g_att.grabbed_item(a, 5, -6, g_att.bomb)
-               -- a.item = create_grabbed_item(32, -7, function(a) g_att.chicken(a.x, a.y) end)
-               -- a.item = create_grabbed_item(49, -9, function(a) g_att.pot(a.x, a.y) end)
+               -- a.item = g_att.grabbed_item(32, -7, function(a) g_att.chicken(a.x, a.y) end)
+               -- a.item = g_att.grabbed_item(49, -9, function(a) g_att.pot(a.x, a.y) end)
                sfx'5'
             else
                sfx'7'
