@@ -25,7 +25,7 @@ function create_actor2(meta, template_str, ...)
    local template_params = {...}
 
    g_att[id] = function(...)
-      if mem_loc and not zdget(mem_loc) then
+      if not mem_loc or not zdget(mem_loc) then
          local func_params = {...}
          local params = {}
          for i=1,provided do

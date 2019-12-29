@@ -1,7 +1,7 @@
 create_actor2([['save_platform', 2, {'confined','trig'}]], [[
       rx=.625, ry=.625, x=@1, y=@2, intersects=@3, contains=@3, pause_end=@4,
       trigger_update=nf
-]], x, y, function(a)
+]], function(a)
    if g_pause_reason == 'dancing' and zdget'BANJO_TUNED' then
       memcpy(REAL_SAVE_LOCATION, TEMP_SAVE_LOCATION, SAVE_LENGTH)
       tbox[["The game has been saved!"]]
@@ -10,21 +10,16 @@ end, function(a)
    a:contains_or_intersects(g_pl)
 end)
 
-g_att.sign = function(x, y, text_obj, sind)
-   return create_actor([[
-      id='sign', par={'interactable'},
-      att={
-         name="Sign",
-         rx=.5,      ry=.5,
-         trig_x=0,   trig_y=.125,
-         trig_rx=.75, trig_ry=.625,
-         x=@1, y=@2, sind=@3, interactable_trigger=@4
-      }
-      ]],x,y,sind, function(a)
-         tbox_with_obj(text_obj)
-      end
-   )
+create_actor2([['sign', 4, {'interactable'}]], [[
+   name="Sign",
+   rx=.5,      ry=.5,
+   trig_x=0,   trig_y=.125,
+   trig_rx=.75, trig_ry=.625,
+   x=@1, y=@2, text_obj=@3, sind=@4, interactable_trigger=@5
+]], function(a)
+   tbox_with_obj(a.text_obj)
 end
+)
 
 g_att.shop_item = function(name, x, y, sind, cost, mem_loc)
    assert(mem_loc != nil)
@@ -51,22 +46,16 @@ g_att.shop_item = function(name, x, y, sind, cost, mem_loc)
 end
 
 -- for the chest.
-g_att.item_show = function(a, sind, mem_loc)
-   return create_actor([[
-      id='item_show', par={'spr','rel','unpausable'},
-      att={
-         rel_actor=@1,
-         rel_y=-1.125,
-         sind=@2,
-         {tl_max_time=2, e=@3}
-      }
-   ]],a,sind, function(a)
-      unpause()
-      resume_music()
-      zdset(mem_loc)
-   end)
+create_actor2([['item_show', 3, {'spr','rel','unpausable'}]], [[
+   rel_actor=@1, sind=@2, mem_loc=@3,
+   rel_y=-1.125,
+   {tl_max_time=2, e=@4}
+]], function(a)
+   unpause()
+   resume_music()
+   zdset(a.mem_loc)
 end
-
+)
 
 -- a few types of triggers...
 -- interactable triggers (press z to make it do something).
