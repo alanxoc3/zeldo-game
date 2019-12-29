@@ -89,7 +89,7 @@ function gen_pl(x, y)
             end
          end
 
-         if a.item and a.item.lank_banjo then
+         if a.item and a.item.banjo then
             a.ax = 0 a.ay = 0
          end
 
@@ -102,15 +102,15 @@ function gen_pl(x, y)
             elseif btnp'4' and not g_energy_tired then
                if get_selected_item().name == 'bomb' then
                   if remove_money(5) then
-                     -- a.item = create_grabbed_item(5, -6, create_bomb)
-                     a.item = create_grabbed_item(32, -7, function(a) g_att.chicken(a.x, a.y) end)
+                     a.item = create_grabbed_item(5, -6, g_att.bomb)
+                     -- a.item = create_grabbed_item(32, -7, function(a) g_att.chicken(a.x, a.y) end)
                      -- a.item = create_grabbed_item(49, -9, function(a) g_att.pot(a.x, a.y) end)
                      sfx'5'
                   else
                      sfx'7'
                   end
                elseif not get_selected_item().interact then
-                  a.item = gen_pl_item(a, g_selected)
+                  a.item = gen_pl_item(a)
                   sfx'5'
                end
             end
@@ -170,6 +170,6 @@ function gen_pl(x, y)
    )
 end
 
-function gen_pl_item(pl, item_type)
-   return get_selected_item() and get_selected_item().func(pl)
+function gen_pl_item(pl)
+   return get_selected_item() and call_not_nil(g_att, get_selected_item().name, pl)
 end

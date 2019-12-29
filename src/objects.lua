@@ -1,27 +1,20 @@
-g_att.money = function(x, y, dx, dy)
-   return create_actor([[
-      id='money', par={'bounded','confined','tcol','spr','col','mov'},
-      att={
-         sind=39,rx=.375,ry=.375,
-         x=@1, y=@2,
-         dx=@3, dy=@4,
-         touchable=false,
-         hit=@5,
-
-         {tl_max_time=5},
-         {i=@6}
-      }
-      ]],x,y,dx,dy,
-      function(a, other)
-         if other.pl then
-            add_money'1'
-            a.alive = false
-         end
-      end, function(a)
-         a.alive = false
-      end
-   )
+create_actor2([['money', 4, {'bounded','confined','tcol','spr','col','mov'}]], [[
+   sind=39,rx=.375,ry=.375,
+   x=@1, y=@2, dx=@3, dy=@4,
+   touchable=false,
+   hit=@5,
+   {tl_max_time=5},
+   {i=@6}
+]],
+function(a, other)
+   if other.pl then
+      add_money'1'
+      a.alive = false
+   end
+end, function(a)
+   a.alive = false
 end
+)
 
 create_actor2([['static_block', 4, {'confined', 'wall'}]], [[
    x=@1, y=@2, rx=@3, ry=@4,

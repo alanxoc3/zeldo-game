@@ -185,7 +185,7 @@ end
 
 function _draw()
    cls()
-   call_not_nil('d', g_tl)
+   call_not_nil(g_tl, 'd', g_tl)
    if g_debug then
       zprint(g_debug_message, 1, 102)
       zprint(stat(1), 104, 102)
