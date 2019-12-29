@@ -2,148 +2,111 @@ function destroy_func(a)
    g_att.money(a.x, a.y, a.dx, a.dy)
 end
 
-g_att.top = function(x, y)
-   return create_actor([[
-      id='top', par={'bounded','confined','stunnable','mov','col','tcol','hurtable','knockable','anim','spr'},
-      att={
-         name="topper",
-         evil=true,
-         x=@1,
-         y=@2,
-         rx=.375,
-         ry=.375,
-         iyy=-2,
-         sinds={112,113},
-         anim_len=1,
-         touchable=true,
-         destroyed=@8,
+create_actor2([['top', 2, {'bounded','confined','stunnable','mov','col','tcol','hurtable','knockable','anim','spr'}]], [[
+   name="topper",
+   evil=true,
+   x=@1,
+   y=@2,
+   rx=.375,
+   ry=.375,
+   iyy=-2,
+   sinds={112,113},
+   anim_len=1,
+   touchable=true,
+   destroyed=@8,
 
-         {i=@4, hit=nf, u=nf, tl_max_time=1.5},
-         {i=@7, hit=nf, u=@5, tl_max_time=.5},
-         {i=@6, hit=@3, u=nf, tl_max_time=1}
-      }
-      ]],x,y,
-      -- hit @3
-      function(a, other, ...)
-         if other.pl then
-            other.hurt(other, 10, 30)
-         end
+   {i=@4, hit=nf, u=nf, tl_max_time=1.5},
+   {i=@7, hit=nf, u=@5, tl_max_time=.5},
+   {i=@6, hit=@3, u=nf, tl_max_time=1}
+]], function(a, other, ...)
+   if other.pl then
+      other.hurt(other, 10, 30)
+   end
 
-         if other.knockable then
-            other.knockback(other, .3, ...)
-         end
+   if other.knockable then
+      other.knockback(other, .3, ...)
+   end
 
-         if not other.block then
-            -- change my state.
-         end
-      end,
-      -- init 1 @4
-      function(a)
-         a.ax, a.ay = 0, 0
-         a.anim_off = 0
-      end,
-      -- update 1 @5
-      function(a)
-         a.xf = g_pl.x < a.x
-      end,
-      -- init 2 @6
-      function(a)
-         amov_to_actor(a, g_pl, .06)
-      end,
-      function(a)
-         a.anim_off = 1
-      end, destroy_func
-   )
-end
+   if not other.block then
+      -- change my state.
+   end
+end,
+-- init 1 @4
+function(a)
+   a.ax, a.ay = 0, 0
+   a.anim_off = 0
+end,
+-- update 1 @5
+function(a)
+   a.xf = g_pl.x < a.x
+end,
+-- init 2 @6
+function(a)
+   amov_to_actor(a, g_pl, .06)
+end,
+function(a)
+   a.anim_off = 1
+end, destroy_func
+)
 
+create_actor2([['bat', 2, {'bounded','confined','stunnable','mov','col','hurtable','knockable','anim','spr'}]], [[
+   evil=true,
+   x=@1, y=@2,
+   rx=.375, ry=.375,
+   sinds={114,115},
+   anim_len=2,
+   anim_spd=10,
+   destroyed=@4,
+   touchable=false,
 
-g_att.bat = function(x, y)
-   return create_actor([[
-      id='bat', par={'bounded','confined','stunnable','mov','col','hurtable','knockable','anim','spr'},
-      att={
-         evil=true,
-         x=@1, y=@2,
-         rx=.375, ry=.375,
-         sinds={114,115},
-         anim_len=2,
-         anim_spd=10,
-         destroyed=@4,
-         touchable=false,
+   {i=@3, tl_max_time=1.5}
+]], function(a)
+   a.ax = .01
+end, destroy_func
+)
 
-         {i=@3, tl_max_time=1.5}
-      }
-      ]],x,y,
-      -- init
-      function(a)
-         a.ax = .01
-      end, destroy_func
-   )
-end
+create_actor2([['skelly', 2, {'bounded','confined','stunnable','mov','col','tcol','hurtable','knockable','anim','spr'}]], [[
+   evil=true,
+   x=@1, y=@2,
+   rx=.375, ry=.375,
+   sinds={66},
+   destroyed=@4,
+   anim_len=1,
+   {i=@3, tl_max_time=1.5}
+]], function(a)
+      a.ay = .01
+      a.ax = .005
+   end, destroy_func
+)
 
-g_att.skelly = function(x, y)
-   return create_actor([[
-      id='skelly', par={'bounded','confined','stunnable','mov','col','tcol','hurtable','knockable','anim','spr'},
-      att={
-         evil=true,
-         x=@1, y=@2,
-         rx=.375, ry=.375,
-         sinds={66},
-         destroyed=@4,
-         anim_len=1,
+create_actor2([['ghost', 2, {'bounded','confined','stunnable','mov','col','hurtable','knockable','anim','spr'}]], [[
+   evil=true,
+   x=@1, y=@2,
+   rx=.375, ry=.375,
+   sinds={84},
+   anim_len=1,
+   destroyed=@4,
+   touchable=false,
 
-         {i=@3, tl_max_time=1.5}
-      }
-      ]],x,y,
-      -- init
-      function(a)
-         a.ay = .01
-         a.ax = .005
-      end, destroy_func
-   )
-end
+   {i=@3, tl_max_time=1.5}
+]], function(a)
+      a.ax = sin(t())/50
+      a.xf = sgn(a.ax) < 1
+   end, destroy_func
+)
 
-g_att.ghost = function(x, y)
-   return create_actor([[
-      id='ghost', par={'bounded','confined','stunnable','mov','col','hurtable','knockable','anim','spr'},
-      att={
-         evil=true,
-         x=@1, y=@2,
-         rx=.375, ry=.375,
-         sinds={84},
-         anim_len=1,
-         destroyed=@4,
-         touchable=false,
+create_actor2([['chicken', 2, {'loopable','bounded','confined','stunnable','mov','col','tcol','hurtable','knockable','anim','spr','danceable'}]], [[
+   name="Chicken",
+   evil=true,
+   x=@1, y=@2,
+   rx=.375, ry=.375,
+   sinds={32},
+   destroyed=@4,
+   anim_len=1,
 
-         {i=@3, tl_max_time=1.5}
-      }
-      ]],x,y,
-      -- init
-      function(a)
-         a.ax = sin(t())/50
-         a.xf = sgn(a.ax) < 1
-      end, destroy_func
-   )
-end
-
-g_att.chicken = function(x, y)
-   return create_actor([[
-      id='chicken', par={'loopable','bounded','confined','stunnable','mov','col','tcol','hurtable','knockable','anim','spr','danceable'},
-      att={
-         name="Chicken",
-         evil=true,
-         x=@1, y=@2,
-         rx=.375, ry=.375,
-         sinds={32},
-         destroyed=@4,
-         anim_len=1,
-
-         {i=@3, tl_max_time=.5}
-      }
-      ]],x,y,
-      -- init
-      function(a)
-         a.ax, a.ay = rnd_one(.01), rnd_one(.01)
-         a.xf = a.ax < 0
-      end, destroy_func
-   )
-end
+   {i=@3, tl_max_time=.5}
+]], function(a)
+   a.ax, a.ay = rnd_one(.01), rnd_one(.01)
+   a.xf = a.ax < 0
+end, destroy_func
+)

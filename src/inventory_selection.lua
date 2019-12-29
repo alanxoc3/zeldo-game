@@ -1,61 +1,55 @@
 G_INTERACT = 5
 
-g_att.item_selector = function()
-   return create_actor([[
-      id='item_selector', par={'rel'},
-      att={
-         rel_actor=@1, u=@2
-      }
-      ]], g_pl, function(a)
-         -- from index to coordinate
-         local x, y = (g_selected-1)%3, flr((g_selected-1)/3)
+create_actor2([['item_selector', 1, {'rel'}]], [[
+   rel_actor=@1, u=@2
+]], function(a)
+   -- from index to coordinate
+   local x, y = (g_selected-1)%3, flr((g_selected-1)/3)
 
-         x += xbtnp()
-         y += ybtnp()
+   x += xbtnp()
+   y += ybtnp()
 
-         -- only allow movement within bounds.
-         x, y = max(0,min(x,2)), max(0,min(y,2))
+   -- only allow movement within bounds.
+   x, y = max(0,min(x,2)), max(0,min(y,2))
 
-         -- from coordinate to index
-         local next_selected = y*3+x+1
+   -- from coordinate to index
+   local next_selected = y*3+x+1
 
-         if g_selected != next_selected then
-            g_items_drawn[g_selected].selected = false
-            g_items_drawn[next_selected].selected = true
-         end
+   if g_selected != next_selected then
+      g_items_drawn[g_selected].selected = false
+      g_items_drawn[next_selected].selected = true
+   end
 
-         g_selected = next_selected
-         a.rel_x = (x - 1) * 1.5
-         a.rel_y = (y - 1.25) * 1.5
-      end
-   )
+   g_selected = next_selected
+   a.rel_x = (x - 1) * 1.5
+   a.rel_y = (y - 1.25) * 1.5
 end
+)
 
-g_att.inventory_item = function(x, y, item)
-   local df = function(a)
+create_actor2([['inventory_item', 6, {'rel','spr_obj', 'drawable'}]], [[
+   rel_actor=@1, rel_x=@2, rel_y=@3, enabled=@4, flippable=@5, sind=@6, visible=@6,
+   i=@7, u=@8
+]], function(a)
+   a.xf = a.rel_actor.xf and a.flippable
+
+   a.draw_both = a.enabled and scr_spr_and_out or function(a)
       scr_rectfill(a.x-.125, a.y-.125, a.x, a.y, a.outline_color)
    end
-   if item.enabled then df = scr_spr_and_out end
-   return create_actor([[
-      id='inventory_item', par={'rel','spr_obj', 'drawable'},
-      att={
-         rel_actor=@1, u=@6, rel_x=@2, rel_y=@3, sind=@4, visible=@4, xf=@5, draw_both=@7
-      }
-      ]],g_pl,x,y,item.sind,g_pl.xf and item.flippable, function(a)
-         a.outline_color = a.selected and 2 or 1
-      end, df
-   )
+end, function(a)
+   a.outline_color = a.selected and 2 or 1
 end
+)
 
 function create_inventory_items()
    if not g_items_drawn then
       sfx'3'
-      g_item_selector = g_att.item_selector()
+      g_item_selector = g_att.item_selector(g_pl)
       g_items_drawn = {}
       for ind=1,9 do
          local item = g_items[ind]
          item.enabled = zdget(item.mem_loc)
-         g_items_drawn[ind] = g_att.inventory_item(item.xoff/8, item.yoff/8, item)
+         g_items_drawn[ind] = g_att.inventory_item(g_pl, item.xoff/8, item.yoff/8,
+         item.enabled, item.flippable, item.sind)
       end
    end
 end

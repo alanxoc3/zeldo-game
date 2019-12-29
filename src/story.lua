@@ -106,7 +106,7 @@ function map_init()
          l={FOREST_ENTRANCE,11.5,5},
          r={VILLAGE,.5,7},
          {'sign',21.5,2.5,{"Lank's House"},43},
-         {'money',21.5,4.5,0,0},
+         {'bat',21.5,4.5,0,0},
          {'navy_blocking',13.5,5},
          {'house',20,2.5,LANK_HOUSE,4,7.5,46}
       },

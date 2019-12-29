@@ -16,7 +16,7 @@ end
 )
 
 create_parent(
-[[ id='item', par={'rel', 'confined','spr_obj'},
+[[ id='item', par={'rel', 'confined', 'spr_obj'},
    att={being_held=true, destroyed=@1}
 ]], function(a)
    if a == a.rel_actor.item then a.rel_actor.item = nil end
@@ -54,38 +54,30 @@ function item_check_being_held(a)
    pause_energy()
 end
 
-g_att.banjo = function(pl)
-   return create_actor([[
-      id='banjo', par={'item','unpausable','danceable'},
-      att={
-         rx=.3,
-         ry=.3,
-         sind=1,
-         rel_actor=@1,
-         xf=@2,
-         touchable=false,
-         destroyed=@4,
-
-         {tl_name='loop', i=@3, tl_max_time=4.25}
-      }
-      ]], pl, not pl.xf,
-      -- init 1
-      function(a)
-         a.rel_y=0
-         -- echo effect :)
-         poke(0x5f41, 15)
-         if zdget(BANJO_TUNED) then
-            sfx'11'
-         else
-            sfx'10'
-         end
-         pause('dancing')
-      end, function(a)
-         unpause()
-         poke(0x5f41, 0)
-      end
-   )
+create_actor2([['banjo', 1, {'item','unpausable','danceable'}]], [[
+   rel_actor=@1,
+   rx=.3,
+   ry=.3,
+   sind=1,
+   touchable=false,
+   destroyed=@3,
+   {tl_name='loop', i=@2, tl_max_time=4.25}
+]], function(a)
+   a.rel_y = 0
+   a.xf = a.rel_actor.xf
+   -- echo effect :)
+   poke(0x5f41, 15)
+   if zdget(BANJO_TUNED) then
+      sfx'11'
+   else
+      sfx'10'
+   end
+   pause('dancing')
+end, function(a)
+   unpause()
+   poke(0x5f41, 0)
 end
+)
 
 create_actor2([['shovel', 1, {'item','bashable','pokeable'}]], [[
    rel_actor=@1,
