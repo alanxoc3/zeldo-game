@@ -13,7 +13,7 @@ function create_parent(...)
 end
 
 -- params: {id, provided, parents, mem_loc?}, str, ...
-function create_actor2(meta, template_str, ...)
+function create_actor(meta, template_str, ...)
    local template_params, id, provided, parents, mem_loc = {...}, munpack(gun_vals(meta))
 
    g_att[id] = function(...)

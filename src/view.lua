@@ -1,4 +1,4 @@
-create_actor2([['view_instance', 4, {'view'}]], [[
+create_actor([['view_instance', 4, {'view'}]], [[
    w=@1, h=@2, follow_dim=@3, follow_act=@4,
    update_view=@5,
    center_view=@6,

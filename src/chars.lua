@@ -47,7 +47,7 @@ function able_to_interact()
       and btnp'4'
 end
 
-create_actor2([['navy_blocking', 2, {'nnpc'}, NAVY_OUT]], [[
+create_actor([['navy_blocking', 2, {'nnpc'}, NAVY_OUT]], [[
       name="Navy",
       sind=97,
       x=@1, y=@2, interactable_trigger=@3, pause_end=@4
@@ -93,7 +93,7 @@ create_actor2([['navy_blocking', 2, {'nnpc'}, NAVY_OUT]], [[
    end
 )
 
-create_actor2([['teach', 2, {'nnpc'}]], [[
+create_actor([['teach', 2, {'nnpc'}]], [[
       name="Teach",
       sind=96,
       x=@1, y=@2, interactable_trigger=@3,
@@ -129,7 +129,7 @@ create_actor2([['teach', 2, {'nnpc'}]], [[
    end
 )
 
-create_actor2([['lark', 2, {'nnpc'}]], [[
+create_actor([['lark', 2, {'nnpc'}]], [[
    name="Lark",
    sind=99,
    x=@1, y=@2, interactable_trigger=@3,
@@ -147,7 +147,7 @@ end, function()
 end
 )
 
-create_actor2([['jane',2,{'nnpc'}]], [[
+create_actor([['jane',2,{'nnpc'}]], [[
    name="Jane", sind=81,
    x=@1, y=@2, interactable_trigger=@3,
    pause_end=@4
@@ -190,7 +190,7 @@ function get_npc_reload_room(mem_loc)
    end
 end
 
-create_actor2([['bob_build', 2, {'nnpc'}, BOB_OUT]], [[
+create_actor([['bob_build', 2, {'nnpc'}, BOB_OUT]], [[
       name="Bob",
       sind=80,
       x=@1, y=@2, interactable_trigger=@3,
@@ -225,7 +225,7 @@ create_actor2([['bob_build', 2, {'nnpc'}, BOB_OUT]], [[
    end
 )
 
-create_actor2([['keep', 2, {'nnpc'}]], [[
+create_actor([['keep', 2, {'nnpc'}]], [[
    name="Keep",
    sind=83,
    x=@1, y=@2, interactable_trigger=@3,

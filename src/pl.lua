@@ -1,4 +1,4 @@
-create_actor2([['lank_top', 1, {'rel','spr_obj','danceable'}]], [[
+create_actor([['lank_top', 1, {'rel','spr_obj','danceable'}]], [[
       rel_actor=@1,
       sind=147,
       iyy=-2,
@@ -23,7 +23,7 @@ end, function(a)
 end
 )
 
-create_actor2([['grabbed_item', 4, {'rel','spr_obj'}]], [[
+create_actor([['grabbed_item', 4, {'rel','spr_obj'}]], [[
    rel_actor=@1, sind=@2, iyy=@3, create_func=@4,
    throwable=true,
    being_held=true,
@@ -38,7 +38,7 @@ end, function(a)
    sfx'5'
 end)
 
-create_actor2(
+create_actor(
 [['pl', 2, {'anim','col','mov','tcol','hurtable','knockable','stunnable','spr','danceable'}]], [[
    name="Lank",
    x=@1,

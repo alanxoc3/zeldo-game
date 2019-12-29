@@ -1,4 +1,4 @@
-create_actor2([['save_platform', 2, {'confined','trig'}]], [[
+create_actor([['save_platform', 2, {'confined','trig'}]], [[
       rx=.625, ry=.625, x=@1, y=@2, intersects=@3, contains=@3, pause_end=@4,
       trigger_update=nf
 ]], function(a)
@@ -10,7 +10,7 @@ end, function(a)
    a:contains_or_intersects(g_pl)
 end)
 
-create_actor2([['sign', 4, {'interactable'}]], [[
+create_actor([['sign', 4, {'interactable'}]], [[
    name="Sign",
    rx=.5,      ry=.5,
    trig_x=0,   trig_y=.125,
@@ -40,18 +40,18 @@ create_parent(
 end
 )
 
-create_actor2([['shop_brang', 2, {'shop_item'}, HAS_BOOMERANG]], [[
+create_actor([['shop_brang', 2, {'shop_item'}, HAS_BOOMERANG]], [[
    name="Brang", sind=4,
    x=@1, y=@2, mem_loc=HAS_BOOMERANG
 ]])
 
-create_actor2([['shop_shield', 2, {'shop_item'}, HAS_SHIELD]], [[
+create_actor([['shop_shield', 2, {'shop_item'}, HAS_SHIELD]], [[
    name="Shield", sind=6,
    x=@1, y=@2, mem_loc=HAS_SHIELD
 ]])
 
 -- for the chest.
-create_actor2([['item_show', 3, {'spr','rel','unpausable'}]], [[
+create_actor([['item_show', 3, {'spr','rel','unpausable'}]], [[
    rel_actor=@1, sind=@2, mem_loc=@3,
    rel_y=-1.125,
    {tl_max_time=2, e=@4}
@@ -70,7 +70,7 @@ end
 -- Not sure if we need this...
 -- triggers_template={{rel_x, rel_y, rx, ry, func}},
 
-create_actor2([['chest', 4, {'unpausable','interactable'}]], [[
+create_actor([['chest', 4, {'unpausable','interactable'}]], [[
    name="Chest",
    sind=50,rx=.375,ry=.375,
    x=@1, y=@2, xf=@3, mem_loc=@4,
@@ -90,7 +90,7 @@ end, function(a)
 end
 )
 
-create_actor2([['gen_trigger_block', 7, {'rel', 'confined', 'trig'}]], [[
+create_actor([['gen_trigger_block', 7, {'rel', 'confined', 'trig'}]], [[
    rel_actor=@1, rel_x=@2, rel_y=@3, rx=@4, ry=@5, contains=@6, intersects=@7,
    not_contains_or_intersects=@8
 ]], function(a)
@@ -101,7 +101,7 @@ end
 )
 
 -- todo: trim code here.
-create_actor2([['house', 6, {'confined','spr'}]], [[
+create_actor([['house', 6, {'confined','spr'}]], [[
    x=@1, y=@2, room=@3, room_x=@4, room_y=@5, sind=@6,
    i=@7, destroyed=@8,
    iyy=-4, sw=2, sh=2

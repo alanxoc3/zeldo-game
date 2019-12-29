@@ -2,7 +2,7 @@ function destroy_func(a)
    g_att.money(a.x, a.y, a.dx, a.dy)
 end
 
-create_actor2([['top', 2, {'bounded','confined','stunnable','mov','col','tcol','hurtable','knockable','anim','spr'}]], [[
+create_actor([['top', 2, {'bounded','confined','stunnable','mov','col','tcol','hurtable','knockable','anim','spr'}]], [[
    name="topper",
    evil=true,
    x=@1,
@@ -49,7 +49,7 @@ function(a)
 end, destroy_func
 )
 
-create_actor2([['bat', 2, {'bounded','confined','stunnable','mov','col','hurtable','knockable','anim','spr'}]], [[
+create_actor([['bat', 2, {'bounded','confined','stunnable','mov','col','hurtable','knockable','anim','spr'}]], [[
    evil=true,
    x=@1, y=@2,
    rx=.375, ry=.375,
@@ -65,7 +65,7 @@ create_actor2([['bat', 2, {'bounded','confined','stunnable','mov','col','hurtabl
 end, destroy_func
 )
 
-create_actor2([['skelly', 2, {'bounded','confined','stunnable','mov','col','tcol','hurtable','knockable','anim','spr'}]], [[
+create_actor([['skelly', 2, {'bounded','confined','stunnable','mov','col','tcol','hurtable','knockable','anim','spr'}]], [[
    evil=true,
    x=@1, y=@2,
    rx=.375, ry=.375,
@@ -79,7 +79,7 @@ create_actor2([['skelly', 2, {'bounded','confined','stunnable','mov','col','tcol
    end, destroy_func
 )
 
-create_actor2([['ghost', 2, {'bounded','confined','stunnable','mov','col','hurtable','knockable','anim','spr'}]], [[
+create_actor([['ghost', 2, {'bounded','confined','stunnable','mov','col','hurtable','knockable','anim','spr'}]], [[
    evil=true,
    x=@1, y=@2,
    rx=.375, ry=.375,
@@ -95,7 +95,7 @@ create_actor2([['ghost', 2, {'bounded','confined','stunnable','mov','col','hurta
    end, destroy_func
 )
 
-create_actor2([['chicken', 2, {'loopable','bounded','confined','stunnable','mov','col','tcol','hurtable','knockable','anim','spr','danceable'}]], [[
+create_actor([['chicken', 2, {'loopable','bounded','confined','stunnable','mov','col','tcol','hurtable','knockable','anim','spr','danceable'}]], [[
    name="Chicken",
    evil=true,
    x=@1, y=@2,

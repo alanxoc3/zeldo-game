@@ -34,7 +34,7 @@ function load_room(new_room_index, rx, ry)
    acts_loop('view', 'center_view')
 end
 
-create_actor2([['transitioner', 3, {'act','unpausable'}]], [[
+create_actor([['transitioner', 3, {'act','unpausable'}]], [[
    new_room_index=@1, rx=@2, ry=@3,
    {tl_name='intro',  i=@4, u=@5, tl_max_time=.5},
    {tl_name='ending', i=@6, u=@7, tl_max_time=.5, e=@8}

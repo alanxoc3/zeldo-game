@@ -1,6 +1,6 @@
 G_INTERACT = 5
 
-create_actor2([['item_selector', 1, {'rel'}]], [[
+create_actor([['item_selector', 1, {'rel'}]], [[
    rel_actor=@1, u=@2
 ]], function(a)
    -- from index to coordinate
@@ -26,7 +26,7 @@ create_actor2([['item_selector', 1, {'rel'}]], [[
 end
 )
 
-create_actor2([['inventory_item', 6, {'rel','spr_obj', 'drawable'}]], [[
+create_actor([['inventory_item', 6, {'rel','spr_obj', 'drawable'}]], [[
    rel_actor=@1, rel_x=@2, rel_y=@3, enabled=@4, flippable=@5, sind=@6, visible=@6,
    i=@7, u=@8
 ]], function(a)

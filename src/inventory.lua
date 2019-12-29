@@ -54,7 +54,7 @@ function item_check_being_held(a)
    pause_energy()
 end
 
-create_actor2([['banjo', 1, {'item','unpausable','danceable'}]], [[
+create_actor([['banjo', 1, {'item','unpausable','danceable'}]], [[
    rel_actor=@1,
    rx=.3,
    ry=.3,
@@ -79,7 +79,7 @@ end, function(a)
 end
 )
 
-create_actor2([['shovel', 1, {'item','bashable','pokeable'}]], [[
+create_actor([['shovel', 1, {'item','bashable','pokeable'}]], [[
    rel_actor=@1,
    rx=.3, ry=.3,
    sind=3, touchable=false,
@@ -112,7 +112,7 @@ end, function(a, o)
 end
 )
 
-create_actor2([['bow', 1, {'item','pokeable'}]], [[
+create_actor([['bow', 1, {'item','pokeable'}]], [[
    rel_actor=@1,
    rx=.5,
    ry=.375,
@@ -153,7 +153,7 @@ function sword_shield_u2(a)
    item_check_being_held(a)
 end
 
-create_actor2([['sword', 1, {'item','col','bashable','pokeable'}]], [[
+create_actor([['sword', 1, {'item','col','bashable','pokeable'}]], [[
    rel_actor=@1,
    rel_bash_dx=.4,
    max_stun_val=20,
@@ -175,7 +175,7 @@ create_actor2([['sword', 1, {'item','col','bashable','pokeable'}]], [[
 ]], sword_hit, sword_shield_u2
 )
 
-create_actor2([['shield', 1, {'item','bashable','pokeable'}]], [[
+create_actor([['shield', 1, {'item','bashable','pokeable'}]], [[
    rel_actor=@1,
    rel_bash_dx=.1,
    max_stun_val=60,

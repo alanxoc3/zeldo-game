@@ -1,4 +1,4 @@
-create_actor2([['bomb', 3, {'bounded','confined','col','mov','knockable','spr'}]], [[
+create_actor([['bomb', 3, {'bounded','confined','col','mov','knockable','spr'}]], [[
    x=@1, y=@2, xf=@3,
    rx=.375,
    ry=.375,
@@ -44,7 +44,7 @@ end, function(a)
 end
 )
 
-create_actor2([['brang', 1, {'confined','anim','col','mov'}]], [[
+create_actor([['brang', 1, {'confined','anim','col','mov'}]], [[
    rel_actor=@1,
    being_held=true,
    rx=.375,
@@ -97,7 +97,7 @@ end, function(a)
 end
 )
 
-create_actor2([['arrow', 3, {'confined','mov','col','spr'}]], [[
+create_actor([['arrow', 3, {'confined','mov','col','spr'}]], [[
    x=@1, y=@2, xf=@3,
    rx=.375,ry=.375,
    sind=23,

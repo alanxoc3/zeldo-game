@@ -1,4 +1,4 @@
-create_actor2([['money', 4, {'bounded','confined','tcol','spr','col','mov'}]], [[
+create_actor([['money', 4, {'bounded','confined','tcol','spr','col','mov'}]], [[
    sind=39,rx=.375,ry=.375,
    x=@1, y=@2, dx=@3, dy=@4,
    touchable=false,
@@ -16,14 +16,14 @@ end, function(a)
 end
 )
 
-create_actor2([['static_block', 4, {'confined', 'wall'}]], [[
+create_actor([['static_block', 4, {'confined', 'wall'}]], [[
    x=@1, y=@2, rx=@3, ry=@4,
    static=true,
    touchable=true
 ]]
 )
 
-create_actor2([['pot_projectile', 3, {'confined', 'mov', 'spr', 'bounded'}]], [[
+create_actor([['pot_projectile', 3, {'confined', 'mov', 'spr', 'bounded'}]], [[
    sind=49,
    x=@1, y=@2, xf=@3,
    i=@4,
@@ -38,7 +38,7 @@ end, function(a)
 end)
 
 -- x, y, sind
-create_actor2([['pot', 3, {'bounded','confined','tcol','spr','col','mov'}]], [[
+create_actor([['pot', 3, {'bounded','confined','tcol','spr','col','mov'}]], [[
    static=true,
    rx=.375,ry=.375,
    x=@1, y=@2, sind=@3,
