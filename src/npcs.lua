@@ -65,27 +65,25 @@ end
 -- Not sure if we need this...
 -- triggers_template={{rel_x, rel_y, rx, ry, func}},
 
-g_att.chest = function(x, y, direction, mem_loc)
-   return create_actor([[
-      id='chest', par={'unpausable','interactable'},
-      att={
-         name="Chest",
-         sind=50,rx=.375,ry=.375,
-         x=@1, y=@2, xf=@3,
-         trig_x=@4,   trig_y=0,
-         trig_rx=.5,  trig_ry=.375,
-         interactable_trigger=@5,
-         tl_cur=@6,
-         {}, {interactable_trigger=nf, sind=51}
-      }
-      ]],x,y,direction,direction and -.125 or .125, function(a)
-         a.tl_next = true
-         pause'chest'
-         stop_music'1'
-         a.item_show = g_att.item_show(g_pl, 1, mem_loc)
-      end, zdget(mem_loc) and 2 or 1
-   )
+create_actor2([['chest', 4, {'unpausable','interactable'}]], [[
+   name="Chest",
+   sind=50,rx=.375,ry=.375,
+   x=@1, y=@2, xf=@3, mem_loc=@4,
+   trig_y=0,
+   trig_rx=.5,  trig_ry=.375,
+   interactable_trigger=@6,
+   {i=@5}, {i=nf, interactable_trigger=nf, sind=51}
+]], function(a)
+   a.tl_next = zdget(a.mem_loc)
+   a.trig_x = a.xf and -.125 or .125
+   a:interactable_init()
+end, function(a)
+   a.tl_next = true
+   pause'chest'
+   stop_music'1'
+   a.item_show = g_att.item_show(g_pl, 1, a.mem_loc)
 end
+)
 
 g_att.gen_trigger_block = function(a, off_x, off_y, rx, ry, contains, intersects)
    return create_actor([[

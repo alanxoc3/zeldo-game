@@ -11,7 +11,7 @@ create_parent(
       trig_rx=.75,
       trig_ry=.75,
       trig=nil,
-      i=@1
+      i=@1, interactable_init=@1
    }
 ]], function(a)
    a.trig = g_att.gen_trigger_block(a, a.trig_x, a.trig_y, a.trig_rx, a.trig_ry, nf, function(trig, other)
