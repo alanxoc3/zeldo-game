@@ -4,8 +4,8 @@ g_att.npc = function(x, y,name,text,sind)
       att={
          name="Npc",
          x=@1, y=@2, name=@3,
+         sind=@4,
          interactable_trigger=@5,
-         sind=@4,rx=.5,ry=.5,iyy=-2,
          pause_end=@6
       }
       ]],x,y,name,sind,function(a)

@@ -7,24 +7,47 @@ g_act_arrs, g_att = {}, {}
 function create_parent(...)
    local params = gun_vals(...)
    g_att[params.id] = function(a)
-      return attach_actor(params, a or {})
+      a = a or {}
+      return a[params.id] and a or attach_actor(params.id, params.par, params.att, a)
    end
-   g_act_arrs[params.id] = g_act_arrs[params.id] or {}
 end
 
--- params: str, opts
 function create_actor(...)
-   return attach_actor(gun_vals(...))
+   local tab = gun_vals(...)
+   return attach_actor(tab.id, tab.par, tab.att)
+end
+
+-- params: {id, provided, parents}, str, ...
+function create_actor2(meta, template_str, ...)
+   local meta = gun_vals(meta)
+   local id, provided, parents, mem_loc = meta[1], meta[2], meta[3], meta[4]
+
+   local template_params = {...}
+
+   g_att[id] = function(...)
+      if mem_loc and not zdget(mem_loc) then
+         local func_params = {...}
+         local params = {}
+         for i=1,provided do
+            add(params, func_params[i] or false)
+         end
+
+         foreach(template_params, function(x)
+            add(params, x)
+         end)
+
+         return attach_actor(id, parents, gun_vals(template_str, munpack(params)), {})
+      end
+   end
 end
 
 -- opt: {id, att, par}
-function attach_actor(opt, a)
+function attach_actor(id, parents, template, a)
    -- step 1: atts from parent
-   foreach(opt.par, function(par_id) a = g_att[par_id](a) end)
-   tabcpy(opt.att, a)
+   foreach(parents, function(par_id) a = g_att[par_id](a) end)
+   tabcpy(template, a)
 
    -- step 2: add to list of objects
-   local id = opt.id
    if not a[id] then
       g_act_arrs[id] = g_act_arrs[id] or {}
       add(g_act_arrs[id], a)

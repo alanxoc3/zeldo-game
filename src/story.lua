@@ -10,13 +10,7 @@ function map_init()
             "⬆️ Hiroll Field",
             "⬅️ Hiroll Village"
          },52},
-         {'npc',61,26,"Bob",{
-            "Hey Lank, I'm hungry.",
-            "",
-            "I mean...",
-            "",
-            "I'm fixing the road."
-         },80}
+         {'bob_build',61,26}
       },
       -- LANK_HOUSE
       { m=0, c=4, qx=1, qy=1,
@@ -44,10 +38,7 @@ function map_init()
          {'pot',74.5,7.5,49}, {'pot',73.5,7.5,49},
          {'pot',73.5,8.5,49}, {'pot',72.5,8.5,49},
          {'pot',74.5,8.5,49},
-         {'npc',70,2,"Mayor Lark",{
-            "Hey there Lank, I'm your",
-            "biggest fan!"
-         },99}
+         {'lark',70,2}
       },
       -- TEACH_STUDIO
       { m=0, c=4, qx=0, qy=0,
@@ -69,21 +60,14 @@ function map_init()
          {'pot',30.5,14.5,49},
          {'shop_item',"Boomerang",26.5,11.5,4, 0,HAS_BOOMERANG},
          {'shop_item',"Shield",29.5,11.5,6,20,HAS_SHIELD},
-         {'npc',28,10.5,"Keep",{
-            "Buy something will ya?"
-         },83}
+         {'keep',28,10.5}
       },
       -- JANEBOB
       { m=0, c=4, qx=0, qy=0,
          x = 24,  y = 16,
          w = 8,   h = 8,
          d={VILLAGE,8,4},
-         {'npc',29.5,19,"Jane",{
-            "My husband always works",
-            "so hard.",
-            "What should I make him",
-            "for dinner?"
-         },81},
+         {'jane',29.5,19},
          {'pot',25.5,22.5,49},
          {'pot',30.5,22.5,49},
          {'pot',26.5,17.5,48}
