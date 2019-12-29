@@ -148,3 +148,27 @@ g_rain = {
 -- function scr_print(txt, x, y, col)
    -- print(txt, scr_x(x),scr_y(y), col)
 -- end
+
+-- TODO: Force is outdated. Update me please.
+-- function create_force(pl)
+--    return create_actor([[
+--       id='lank_force', par={'item'},
+--       att={
+--          rx=.3,
+--          ry=.3,
+--          sind=36,
+--          xf=@2,
+--          destroyed=@3,
+--          u=@4,
+--          rel_actor=@1,
+--          touchable=false
+--       }
+--       ]], g_pl, pl.xf, function(a)
+--          -- random room index
+--          local i = flr(rnd(5))+1
+--          transition_room(g_save_spots[i].room, g_save_spots[i].x, g_save_spots[i].y)
+--       end, function(a)
+--          item_check_being_held(a)
+--       end
+--    )
+-- end
