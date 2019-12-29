@@ -101,9 +101,9 @@ create_actor2([['house', 6, {'confined','spr'}]], [[
    i=@7, destroyed=@8,
    iyy=-4, sw=2, sh=2
 ]], function(a)
-   a.b1 = gen_static_block(a.x-.75,a.y, .25, .5)
-   a.b2 = gen_static_block(a.x+.75,a.y, .25, .5)
-   a.b3 = gen_static_block(a.x,a.y-4/8, 1,.25)
+   a.b1 = g_att.static_block(a.x-.75,a.y, .25, .5)
+   a.b2 = g_att.static_block(a.x+.75,a.y, .25, .5)
+   a.b3 = g_att.static_block(a.x,a.y-4/8, 1,.25)
    a.trig = g_att.gen_trigger_block(a, 0, 1/8, .5, 5/8, function(trig, other)
       if other.pl then
          g_att.transitioner(a.room, a.room_x, a.room_y, 'u')
