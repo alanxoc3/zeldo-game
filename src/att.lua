@@ -5,10 +5,10 @@ g_act_arrs, g_att, g_par = {}, {}, {}
 
 -- params: str, opts
 function create_parent(...)
-   local params = gun_vals(...)
-   g_par[params.id] = function(a)
+   local id, par, att = munpack(gun_vals(...))
+   g_par[id] = function(a)
       a = a or {}
-      return a[params.id] and a or attach_actor(params.id, params.par, params.att, a)
+      return a[id] and a or attach_actor(id, par, att, a)
    end
 end
 
@@ -69,19 +69,18 @@ end
 
 -- to generate an actor.
 create_parent(
-[[ id='act',
-   att={
-      alive=true,
-      stun_countdown=0,
-      i=nf, u=nf,
-      update=@1,
-      clean=@2,
-      kill=@3,
-      pause_update=nf,
-      pause_init=nf,
-      pause_end=nf,
-      destroyed=nf
-   }
+[['act', {}, {
+   alive=true,
+   stun_countdown=0,
+   i=nf, u=nf,
+   update=@1,
+   clean=@2,
+   kill=@3,
+   pause_update=nf,
+   pause_init=nf,
+   pause_end=nf,
+   destroyed=nf
+}
 ]], function(a)
    if a.alive and a.stun_countdown <= 0 then
       if tl_node(a,a) then
@@ -98,18 +97,17 @@ end, function(a)
 end, function(a) a.alive = nil end)
 
 create_parent[[
-   id='confined', par={'act'},
-   att={}
+   'confined', {'act'}, {}
 ]]
 
 create_parent[[
-   id='loopable', par={'act'},
-   att={tl_loop=true}
+   'loopable', {'act'},
+   {tl_loop=true}
 ]]
 
 create_parent([[
-   id='bounded', par={'act'},
-   att={check_bounds=@1}
+   'bounded', {'act'},
+   {check_bounds=@1}
 ]], function(a)
    if a.x+a.dx < g_cur_room.x+.5 then
       a.x = g_cur_room.x+.5
@@ -133,8 +131,8 @@ create_parent([[
 end)
 
 create_parent(
-[[ id='timed', par={'act'},
-   att={
+[[ 'timed', {'act'},
+   {
       t=0,
       tick=@1
    }
@@ -143,8 +141,8 @@ create_parent(
 end)
 
 create_parent(
-[[ id='pos', par={'act'},
-   att={
+[[ 'pos', {'act'},
+   {
       x=0,
       y=0
    }
@@ -152,8 +150,8 @@ create_parent(
 )
 
 create_parent(
-[[ id='vec', par={'pos'},
-   att={
+[[ 'vec', {'pos'},
+   {
       dx=0,
       dy=0,
       vec_update=@1
@@ -164,8 +162,8 @@ create_parent(
 end)
 
 create_parent(
-[[ id='mov', par={'vec'},
-   att={
+[[ 'mov', {'vec'},
+   {
       ix=.85,
       iy=.85,
       ax=0,
@@ -180,8 +178,8 @@ create_parent(
 end)
 
 create_parent(
-[[ id='dim', par={'pos'},
-   att={
+[[ 'dim', {'pos'},
+   {
       rx=.375,
       ry=.375,
       debug_rect=@1
@@ -192,8 +190,8 @@ end)
 
 -- used with player items/weapons.
 create_parent(
-[[ id='rel', par={'act'},
-   att={
+[[ 'rel', {'act'},
+   {
       rel_actor=nil,
       rel_x=0,
       rel_y=0,
@@ -218,8 +216,8 @@ create_parent(
 end)
 
 create_parent(
-[[ id='drawable_obj', par={'act'},
-   att={
+[[ 'drawable_obj', {'act'},
+   {
       ixx=0,
       iyy=0,
       xx=0,
@@ -232,13 +230,13 @@ create_parent(
 end)
 
 create_parent(
-[[ id='drawable', par={'act', 'drawable_obj'},
-   att={d=nf}
+[[ 'drawable', {'act', 'drawable_obj'},
+   {d=nf}
 ]])
 
 create_parent(
-[[ id='spr_obj', par={'vec', 'drawable_obj'},
-   att={
+[[ 'spr_obj', {'vec', 'drawable_obj'},
+   {
       sind=0,
       outline_color=1,
       sw=1,
@@ -253,15 +251,15 @@ create_parent(
 )
 
 create_parent(
-[[ id='spr', par={'vec','spr_obj','drawable'},
-   att={
+[[ 'spr', {'vec','spr_obj','drawable'},
+   {
       d=@1
    }
 ]], scr_spr_and_out)
 
 create_parent(
-[[ id='knockable', par={'mov'},
-   att={
+[[ 'knockable', {'mov'},
+   {
       knockback=@1
    }
 ]], function(a, speed, xdir, ydir)
@@ -270,8 +268,8 @@ create_parent(
 end)
 
 create_parent(
-[[ id='stunnable', par={'mov','drawable_obj'},
-   att={
+[[ 'stunnable', {'mov','drawable_obj'},
+   {
       stun_update=@1
    }
 ]], function(a)
@@ -282,8 +280,8 @@ create_parent(
 end)
 
 create_parent(
-[[ id='hurtable', par={'act'},
-   att={
+[[ 'hurtable', {'act'},
+   {
       health=-1,
       max_health=-1,
       hurt=@1
@@ -297,8 +295,8 @@ create_parent(
 end)
 
 create_parent(
-[[ id='anim', par={'spr','timed'},
-   att={
+[[ 'anim', {'spr','timed'},
+   {
       sinds={},
       anim_loc=1,
       anim_off=0,
@@ -321,15 +319,15 @@ create_parent(
 end)
 
 create_parent(
-[[ id='wall', par={'vec','dim'},
-   att={
+[[ 'wall', {'vec','dim'},
+   {
       block=true,static=true,touchable=true,hit=nf
    }
 ]])
 
 create_parent(
-[[ id='trig', par={'vec','dim'},
-   att={
+[[ 'trig', {'vec','dim'},
+   {
       contains=nf,
       intersects=nf,
       not_contains_or_intersects=nf,
@@ -347,8 +345,8 @@ create_parent(
 end)
 
 create_parent(
-[[ id='col', par={'vec','dim'},
-   att={
+[[ 'col', {'vec','dim'},
+   {
       static=false,
       touchable=true,
       hit=nf,
@@ -405,8 +403,8 @@ create_parent(
 end)
 
 create_parent(
-[[ id='tcol', par={'vec','dim'},
-   att={
+[[ 'tcol', {'vec','dim'},
+   {
       'tile_hit'=nf,
       'coll_tile'=@1
    }
@@ -416,8 +414,8 @@ create_parent(
 end)
 
 create_parent(
-[[ id='view', par={'act', 'confined'},
-   att={
+[[ 'view', {'act', 'confined'},
+   {
       x=0, y=0,
       w=1, h=1,
       follow_dim=1,
@@ -427,13 +425,13 @@ create_parent(
 ]])
 
 create_parent(
-[[ id='unpausable', par={'act'},
-   att={}
+[[ 'unpausable', {'act'},
+   {}
 ]])
 
 create_parent(
-[[ id='danceable', par={'act'},
-   att={dance_update=@1, pause_update=@1, dance_init=@2, pause_init=@2}
+[[ 'danceable', {'act'},
+   {dance_update=@1, pause_update=@1, dance_init=@2, pause_init=@2}
 ]], function(a)
    if is_game_paused'dancing' then
       a.dance_time = cos(t()-a.initial_time)

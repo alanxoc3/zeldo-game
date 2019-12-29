@@ -22,8 +22,8 @@ end
 )
 
 create_parent(
-[[ id='shop_item', par={'unpausable', 'interactable'},
-   att={
+[[ 'shop_item', {'unpausable', 'interactable'},
+   {
       interactable_trigger=@1,
       rx=.5, ry=.5,
       trig_x=0,   trig_y=.125,

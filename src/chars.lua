@@ -3,8 +3,8 @@ function look_at_pl(a)
 end
 
 create_parent(
-[[ id='interactable', par={'spr','wall','confined'},
-   att={
+[[ 'interactable', {'spr','wall','confined'},
+   {
       interactable_trigger=nf,
       trig_x=0,
       trig_y=0,
@@ -29,8 +29,8 @@ create_parent(
 end)
 
 create_parent(
-[[ id='nnpc', par={'danceable', 'interactable'},
-   att={
+[[ 'nnpc', {'danceable', 'interactable'},
+   {
       rx=.5,ry=.5,iyy=-2,
       u=@1
    }

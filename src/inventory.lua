@@ -1,6 +1,6 @@
 create_parent(
-[[ id='bashable', par={'rel', 'knockable', 'col'},
-   att={
+[[ 'bashable', {'rel', 'knockable', 'col'},
+   {
       bash_dx=1,
       rel_bash_dx=1,
       hit=@1, bash=@1
@@ -16,15 +16,15 @@ end
 )
 
 create_parent(
-[[ id='item', par={'rel', 'confined', 'spr_obj'},
-   att={being_held=true, destroyed=@1}
+[[ 'item', {'rel', 'confined', 'spr_obj'},
+   {being_held=true, destroyed=@1}
 ]], function(a)
    if a == a.rel_actor.item then a.rel_actor.item = nil end
 end)
 
 create_parent(
-[[ id='pokeable', par={'rel','drawable_obj','item'},
-   att={
+[[ 'pokeable', {'rel','drawable_obj','item'},
+   {
       i=@1,
       u=@2,
       e=@3,
