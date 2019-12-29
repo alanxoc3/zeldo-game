@@ -1,37 +1,14 @@
-g_att.npc = function(x, y,name,text,sind)
-   return create_actor([[
-      id='npc', par={'nnpc'},
-      att={
-         name="Npc",
-         x=@1, y=@2, name=@3,
-         sind=@4,
-         interactable_trigger=@5,
-         pause_end=@6
-      }
-      ]],x,y,name,sind,function(a)
-         tbox_with_obj(text)
-      end, function(a)
-         if g_pause_reason == 'dancing' then
-            tbox([["nice playing lank!",trigger=@1]],function() add_money(10) end)
-         end
-      end
-   )
-end
-
-g_att.save_platform = function(x, y, platform_id)
-   return create_actor([[
-      id='sign', par={'confined','trig'},
-      att={
-         rx=.625, ry=.625, x=@1, y=@2, intersects=@3, contains=@3, pause_end=@4,
-         trigger_update=nf
-      }
-   ]], x, y, function(a)
-      if g_pause_reason == 'dancing' and zdget'BANJO_TUNED' then
-         memcpy(REAL_SAVE_LOCATION, TEMP_SAVE_LOCATION, SAVE_LENGTH)
-         tbox[["The game has been saved!"]]
-      end
-   end, function(a) a:contains_or_intersects(g_pl) end)
-end
+create_actor2([['save_platform', 2, {'confined','trig'}]], [[
+      rx=.625, ry=.625, x=@1, y=@2, intersects=@3, contains=@3, pause_end=@4,
+      trigger_update=nf
+]], x, y, function(a)
+   if g_pause_reason == 'dancing' and zdget'BANJO_TUNED' then
+      memcpy(REAL_SAVE_LOCATION, TEMP_SAVE_LOCATION, SAVE_LENGTH)
+      tbox[["The game has been saved!"]]
+   end
+end, function(a)
+   a:contains_or_intersects(g_pl)
+end)
 
 g_att.sign = function(x, y, text_obj, sind)
    return create_actor([[

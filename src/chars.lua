@@ -93,13 +93,6 @@ create_actor2([['navy_blocking', 2, {'nnpc'}, NAVY_OUT]], [[
    end
 )
 
-function tester(str, ...)
-   local table = {...}
-   return function(x, y)
-      create_actor(str, x, y, munpack(table))
-   end
-end
-
 create_actor2([['teach', 2, {'nnpc'}]], [[
       name="Teach",
       sind=96,
