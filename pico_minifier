@@ -19,6 +19,7 @@ $constants{'SAVE_LENGTH'}        = '64';
 $constants{'FIRST_ITEM_COST'} = '10';
 
 # Save states
+$constants{'BOGUS_SPOT'}     = '0xffff';
 $constants{'HARD_MODE'}      = '1';
 $constants{'SAVE_SPOT'}      = '2';
 $constants{'MONEY'}          = '3';

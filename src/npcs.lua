@@ -21,29 +21,34 @@ create_actor2([['sign', 4, {'interactable'}]], [[
 end
 )
 
-g_att.shop_item = function(name, x, y, sind, cost, mem_loc)
-   assert(mem_loc != nil)
-   return not zdget(mem_loc) and create_actor([[
-      id='shop_item', par={'unpausable', 'interactable'},
-      att={
-         name=@1,
-         x=@2, y=@3,
-         interactable_trigger=@5,
-
-         sind=@4, rx=.5, ry=.5,
-         trig_x=0,   trig_y=.125,
-         trig_rx=.5, trig_ry=.625
-      }
-      ]], name, x, y, sind, function(a)
-         if remove_money(cost) then
-            a:kill()
-            g_att.item_show(g_pl, 4, mem_loc)
-            pause'chest' -- not a chest, but is the same functionality.
-            stop_music'1'
-         end
-      end
-   )
+create_parent(
+[[ id='shop_item', par={'unpausable', 'interactable'},
+   att={
+      interactable_trigger=@1,
+      rx=.5, ry=.5,
+      trig_x=0,   trig_y=.125,
+      trig_rx=.5, trig_ry=.625,
+      mem_loc=BOGUS_SPOT, cost=99
+   }
+]], function(a)
+   if remove_money(a.cost) then
+      a:kill()
+      g_att.item_show(g_pl, 4, a.mem_loc)
+      pause'chest' -- not a chest, but is the same functionality.
+      stop_music'1'
+   end
 end
+)
+
+create_actor2([['shop_brang', 2, {'shop_item'}, HAS_BOOMERANG]], [[
+   name="Brang", sind=4,
+   x=@1, y=@2, mem_loc=HAS_BOOMERANG
+]])
+
+create_actor2([['shop_shield', 2, {'shop_item'}, HAS_SHIELD]], [[
+   name="Shield", sind=6,
+   x=@1, y=@2, mem_loc=HAS_SHIELD
+]])
 
 -- for the chest.
 create_actor2([['item_show', 3, {'spr','rel','unpausable'}]], [[

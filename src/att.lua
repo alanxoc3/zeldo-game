@@ -12,12 +12,7 @@ function create_parent(...)
    end
 end
 
-function create_actor(...)
-   local tab = gun_vals(...)
-   return attach_actor(tab.id, tab.par, tab.att)
-end
-
--- params: {id, provided, parents}, str, ...
+-- params: {id, provided, parents, mem_loc?}, str, ...
 function create_actor2(meta, template_str, ...)
    local meta = gun_vals(meta)
    local id, provided, parents, mem_loc = meta[1], meta[2], meta[3], meta[4]

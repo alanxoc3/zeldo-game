@@ -58,8 +58,8 @@ function map_init()
          d={VILLAGE,20,5},
          {'pot',25.5,14.5,49},
          {'pot',30.5,14.5,49},
-         {'shop_item',"Boomerang",26.5,11.5,4, 0,HAS_BOOMERANG},
-         {'shop_item',"Shield",29.5,11.5,6,20,HAS_SHIELD},
+         {'shop_brang',26.5,11.5},
+         {'shop_shield',29.5,11.5},
          {'keep',28,10.5}
       },
       -- JANEBOB
