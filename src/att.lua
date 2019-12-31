@@ -197,6 +197,7 @@ create_parent(
       rel_y=0,
       rel_dx=0,
       rel_dy=0,
+      flippable=false,
       rel_update=@1
    }
 ]], function(a)
@@ -208,7 +209,9 @@ create_parent(
          a.rel_x += a.rel_dx
          a.rel_y += a.rel_dy
          a.xx, a.yy = a2.xx, a2.yy
-         a.xf = a2.xf
+         if a.flippable then
+            a.xf = a2.xf
+         end
       else
          a.alive = false
       end
