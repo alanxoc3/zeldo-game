@@ -94,7 +94,7 @@ create_actor([['gen_trigger_block', 7, {'rel', 'confined', 'trig'}]], [[
    rel_actor=@1, rel_x=@2, rel_y=@3, rx=@4, ry=@5, contains=@6, intersects=@7,
    not_contains_or_intersects=@8
 ]], function(a)
-   if get_cur_ma() == a then
+   if get_cur_ma() == a.rel_actor then
       change_cur_ma()
    end
 end

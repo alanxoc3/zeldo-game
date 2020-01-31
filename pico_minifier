@@ -17,6 +17,7 @@ $constants{'TEMP_SAVE_LOCATION'} = '0x5d00';
 $constants{'REAL_SAVE_LOCATION'} = '0x5e00';
 $constants{'SAVE_LENGTH'}        = '64';
 $constants{'FIRST_ITEM_COST'} = '10';
+$constants{'LANK_START_HEALTH'} = '10';
 
 # Save states
 $constants{'BOGUS_SPOT'}     = '0xffff';

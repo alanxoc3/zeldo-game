@@ -176,9 +176,27 @@ function _update60()
       -- then poke(0x5f42,0) -- glitch sound
    -- end
 
+   if g_tbox_update then
+      sfx'2'
+      if g_tbox_writing then
+         g_tbox_anim = #g_tbox_active.l1+#g_tbox_active.l2
+      else
+         del(g_tbox_messages, g_tbox_active)
+         g_tbox_active, g_tbox_anim = g_tbox_messages[1], 0
+      end
+
+      if not g_tbox_active then
+         unpause()
+         g_tbox_messages.trigger()
+      end
+
+      g_tbox_update = false
+   end
+
    if btnp'5' and btn'4' then
       g_debug = not g_debug
    end
+
    tl_node(g_tl,g_tl)
    tbox_interact()
 end
@@ -235,7 +253,12 @@ function game_update()
          batch_call(acts_loop, [[{'act', 'pause_init'}]])
          -- poke(0x5f43,1+2+4) -- softer sound
       end
-      batch_call(acts_loop, [[{'unpausable', 'update'}, {'act', 'pause_update'}, {'rel','rel_update'}]])
+      batch_call(acts_loop, [[
+         {'unpausable', 'update'},
+         {'act', 'pause_update'},
+         {'rel','rel_update'},
+         {'view','update_view'}
+      ]])
 
       batch_call(acts_loop, [[{'act', 'clean'}]])
 
@@ -308,7 +331,7 @@ function game_draw()
 
    draw_status()
    local tbox_x = 1
-   if is_game_paused'tbox' and g_tbox_active.speaker == "Lank" then
+   if is_game_paused'tbox' and get_cur_ma() == nil then
       tbox_x = 20
    end
    ttbox_draw(tbox_x,107)

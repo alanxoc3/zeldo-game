@@ -51,7 +51,7 @@ create_actor([['navy_blocking', 2, {'nnpc'}, NAVY_OUT]], [[
       name="Navy",
       sind=97,
       x=@1, y=@2, interactable_trigger=@3, pause_end=@4
-   ]],x,y,function()
+   ]],x,y,function(a)
       if zdget'HAS_BOOMERANG' then
          tbox([[
             trigger=@1,
@@ -80,8 +80,8 @@ create_actor([['navy_blocking', 2, {'nnpc'}, NAVY_OUT]], [[
             "her home."
          ]]
       end
-   end, function()
-      npc_dance_logic([[
+   end, function(a)
+      npc_dance_logic(a,[[
          "Umm... Lank, maybe you",
          "should practice that",
          "instrument a bit more."
@@ -111,8 +111,9 @@ create_actor([['teach', 2, {'nnpc'}]], [[
             "practicing the banjo?"
          ]]
       end
-   end, function()
+   end, function(a)
       if g_pause_reason == 'dancing' then
+         change_cur_ma(a)
          if not zdget'BANJO_TUNED' then
             tbox([[
                "Oh, your banjo is out of",
@@ -138,8 +139,8 @@ create_actor([['lark', 2, {'nnpc'}]], [[
    tbox[[
       "I'm your biggest fan!"
    ]]
-end, function()
-   npc_dance_logic([[
+end, function(a)
+   npc_dance_logic(a,[[
       "I'm still your biggest fan!"
    ]], [[
       "Hey, that was good!"
@@ -158,8 +159,8 @@ create_actor([['jane',2,{'nnpc'}]], [[
       "What should I make him",
       "for dinner?"
    ]])
-end, function()
-   npc_dance_logic([[
+end, function(a)
+   npc_dance_logic(a,[[
       "That hurt my ears."
    ]], [[
       "I love that song!"
@@ -168,8 +169,9 @@ end
 )
 
 -- 7658
-function npc_dance_logic(bad_text,good_text,mem_loc,money)
+function npc_dance_logic(a,bad_text,good_text,mem_loc,money)
    if g_pause_reason == 'dancing' then
+      change_cur_ma(a)
       if not zdget'BANJO_TUNED' then
          tbox(bad_text)
       else
@@ -214,8 +216,8 @@ create_actor([['bob_build', 2, {'nnpc'}, BOB_OUT]], [[
             "I'm fixing the road."
          ]])
       end
-   end, function()
-      npc_dance_logic([[
+   end, function(a)
+      npc_dance_logic(a,[[
          "I can't work with that",
          "terrible music!"
       ]], [[
@@ -232,8 +234,8 @@ create_actor([['keep', 2, {'nnpc'}]], [[
    pause_end=@4
 ]],function()
    tbox[["Buy something will ya?"]]
-end, function()
-   npc_dance_logic([[
+end, function(a)
+   npc_dance_logic(a,[[
       "That song sucked."
    ]], [[
       "That song was okay."

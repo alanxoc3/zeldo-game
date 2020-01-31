@@ -9,6 +9,7 @@ g_tbox_messages, g_tbox_anim, g_tbox_max_len = {}, 0, 25
 function tbox_interact()
    if g_tbox_active then
       g_tbox_anim += .5
+      pause'tbox'
 
       g_tbox_writing = g_tbox_anim < #g_tbox_active.l1+#g_tbox_active.l2
       if not g_tbox_writing then
@@ -20,19 +21,7 @@ function tbox_interact()
       end
 
       if btnp'4' and g_tbox_anim > .5 then
-         sfx'2'
-         if g_tbox_writing then
-            g_tbox_anim = #g_tbox_active.l1+#g_tbox_active.l2
-         else
-            del(g_tbox_messages, g_tbox_active)
-            g_tbox_active, g_tbox_anim = g_tbox_messages[1], 0
-         end
-      end
-      if g_tbox_active then
-         pause'tbox'
-      else
-         unpause()
-         g_tbox_messages.trigger()
+         g_tbox_update = true
       end
    end
 end
@@ -64,7 +53,7 @@ end
 -- draw the text boxes (if any)
 -- foreground color, background color, border width
 function ttbox_draw(x, y)
-   if is_game_paused'tbox' then -- only draw if there are messages
+   if g_tbox_active then -- only draw if there are messages
       camera(-x,-y)
       batch_call(rectfill, [[
          {0, 0, 106, 19, 5},

@@ -50,8 +50,8 @@ create_actor(
    spd=.02,
    anim_len=3,
    anim_spd=5,
-   max_health=500,
-   health=500,
+   max_health=LANK_START_HEALTH,
+   health=LANK_START_HEALTH,
    i=@3, u=@4, destroyed=@5, d=@6
 ]], function(a)
    a.ltop = g_att.lank_top(a)

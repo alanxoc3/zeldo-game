@@ -26,8 +26,8 @@ function map_init()
       },
       -- MAYOR_HOUSE
       { m=0, c=4, qx=2, qy=0,
-         x = 0,  y = 0,
-         w = 12,   h = 10,
+         x = 0,   y = 0,
+         w = 12,  h = 10,
          d={VILLAGE,12,3},
          {'pot',65.5,6.5,49},
          {'pot',65.5,7.5,49}, {'pot',66.5,7.5,49},
@@ -106,7 +106,6 @@ function map_init()
          l={FOREST_ENTRANCE,11.5,5},
          r={VILLAGE,.5,7},
          {'sign',21.5,2.5,{"Lank's House"},43},
-         {'bat',21.5,4.5,0,0},
          {'navy_blocking',13.5,5},
          {'house',20,2.5,LANK_HOUSE,4,7.5,46}
       },
