@@ -339,9 +339,9 @@ function game_draw()
 end
 
 function draw_glitch_effect()
-   o1 = flr(rnd(0x1f00)) + 0x6040
+   o1 = flr_rnd'0x1f00' + 0x6040
    o2 = o1 + flr(rnd(0x4)-0x2)
-   len = flr(rnd(0x40))
+   len = flr_rnd'0x40'
    memcpy(o1,o2,len)
 end
 

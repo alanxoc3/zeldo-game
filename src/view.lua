@@ -42,6 +42,10 @@ end
 function scr_x(x) return round((x+g_view.off_x+8-g_view.x)*8) end
 function scr_y(y) return round((y+g_view.off_y+8-g_view.y)*8) end
 
+function scr_pset(x, y, c)
+   pset(scr_x(x),scr_y(y), c)
+end
+
 function scr_rect(x1, y1, x2, y2, col)
    rect(scr_x(x1),scr_y(y1),scr_x(x2)-1,scr_y(y2)-1,col)
 end
@@ -56,4 +60,8 @@ end
 
 function scr_circfill(x, y, r, col)
    circfill(scr_x(x),scr_y(y), r*8, col)
+end
+
+function scr_circ(x, y, r, col)
+   circ(scr_x(x),scr_y(y), r*8, col)
 end

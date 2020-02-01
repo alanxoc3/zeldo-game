@@ -23,6 +23,16 @@ create_actor([['static_block', 4, {'confined', 'wall'}]], [[
 ]]
 )
 
+create_actor([['thing_destroyed', 4, {'confined', 'mov', 'drawable', 'bounded'}]], [[
+   x=@1, y=@2, c=@3, d=@6,
+   {i=@5, tl_max_time=@4}
+]], function(a)
+   a.dx = rnd(.3)-.15
+   a.dy = rnd(.3)-.15
+end, function(a)
+   scr_pset(a.x, a.y, a.c)
+end)
+
 create_actor([['pot_projectile', 3, {'confined', 'mov', 'spr', 'bounded'}]], [[
    sind=49,
    x=@1, y=@2, xf=@3,
@@ -35,6 +45,9 @@ end, function(a)
    a.ay = -sin(a.tl_tim/a.tl_max_time/2-.1)*.03
 end, function(a)
    sfx'9'
+   for i=1,10 do
+      g_att.thing_destroyed(a.x, a.y, rnd_item(1, 13, 12), rnd(.3)+.1)
+   end
 end)
 
 -- x, y, sind

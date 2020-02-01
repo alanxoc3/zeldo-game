@@ -9,7 +9,7 @@ create_actor([['lank_top', 1, {'rel','spr_obj','danceable'}]], [[
    a.outline_color = g_pl.outline_color
 
    if g_pl.item and g_pl.item.throwable then
-      a.sind=148
+      a.sind=g_pl.item.throwing and 150 or 148
    else
       a.sind=147
    end
@@ -26,8 +26,9 @@ end
 create_actor([['grabbed_item', 4, {'rel','spr_obj'}]], [[
    rel_actor=@1, sind=@2, iyy=@3, create_func=@4,
    throwable=true,
+   flippable=true,
    being_held=true,
-   { i=@6, tl_max_time=.25 }, { i=nf, u=@5 }, { visible=false, tl_max_time=.1 }
+   { throwing=true, i=@6, tl_max_time=.05 }, {i=nf,throwing=false, tl_max_time=.15}, { i=nf, u=@5 }, { throwing=true, visible=false, tl_max_time=.05 }
 ]], function(a)
    if btnp(4) or btn(5) then
       sfx'6'

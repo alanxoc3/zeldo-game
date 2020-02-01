@@ -23,10 +23,20 @@ function zsgn(num) return num == 0 and 0 or sgn(num) end
 function round(num) return flr(num + .5) end
 
 -- -1, 0, or 1
-function rnd_one(val) return (flr(rnd(3))-1)*(val or 1) end
+function rnd_one(val) return (flr_rnd'3'-1)*(val or 1) end
 
 function ti(mod_val)
    return flr(t()*FPS) % (mod_val or 0)
+end
+
+function flr_rnd(x)
+   return flr(rnd(x))
+end
+
+-- A random item from the list.
+function rnd_item(...)
+   local list = {...}
+   return list[flr_rnd(#list)+1]
 end
 
 -- Recursively copies table attributes.
