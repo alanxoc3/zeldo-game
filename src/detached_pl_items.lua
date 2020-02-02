@@ -70,7 +70,7 @@ create_actor([['brang', 1, {'confined','anim','col','mov', 'tcol'}]], [[
 end, function(a, other) -- hit 1
    if not other.pl and other.touchable and not a.did_brang_hit then
       call_not_nil(other, 'knockback', other, .3, a.xf and -1 or 1, 0)
-      call_not_nil(other, 'hurt', other, 0, 60)
+      call_not_nil(other, 'hurt', other, 4, 60)
       a.did_brang_hit = true
    end
 end, function(a) -- update 1
@@ -80,7 +80,7 @@ end, function(a, other) -- hit 2
       a.alive = false
    elseif other.touchable and not a.did_brang_hit then
       call_not_nil(other, 'knockback', other, .3, a.xf and -1 or 1, 0)
-      call_not_nil(other, 'hurt', other, 0, 60)
+      call_not_nil(other, 'hurt', other, 4, 60)
       a.did_brang_hit = true
    end
 end, function(a) -- update 2

@@ -28,7 +28,7 @@ create_actor([['grabbed_item', 4, {'rel','spr_obj'}]], [[
    throwable=true,
    flippable=true,
    being_held=true,
-   { throwing=true, i=@6, tl_max_time=.05 }, {i=nf,throwing=false, tl_max_time=.15}, { i=nf, u=@5 }, { throwing=true, visible=false, tl_max_time=.05 }
+   {i=@6, throwing=false, tl_max_time=.2}, { i=nf, u=@5 }, { throwing=true, visible=false, tl_max_time=.05 }
 ]], function(a)
    if btnp(4) or btn(5) then
       sfx'6'
@@ -137,16 +137,16 @@ end, function(a)
 -- draw
 end, function(a)
    a.ltop.outline_color = a.outline_color
-   scr_spr_out(a.ltop)
    scr_spr_out(a)
+   scr_spr_out(a.ltop)
    -- if a.item and a.item.throwable then scr_spr_out(a.item) end
 
    if a.item and not a.item.spr then
       scr_spr_out(a.item)
    end
 
-   scr_spr(a.ltop)
    scr_spr(a)
+   scr_spr(a.ltop)
    -- if a.item and a.item.throwable then scr_spr(a.item) end
 
    if a.item and not a.item.spr then

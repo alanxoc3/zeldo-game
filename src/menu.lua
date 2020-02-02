@@ -1,7 +1,7 @@
 -- a box with a character inside.
 
 function change_cur_ma(a)
-   g_right_ma_view.follow_act = a
+   g_right_ma_view:change_ma(a)
 end
 
 function get_cur_ma()
@@ -15,9 +15,8 @@ function draw_ma(view, x, y, a)
    g_view = old_view
 end
 
-
 function draw_energy_bar(x, y)
-   local width = 104
+   local width = 109
    local cur_energy = flr(max(min(g_energy/g_max_energy*width,width-1),1))
 
    camera(-x,-y)
@@ -83,16 +82,18 @@ function draw_stat(view, x, y, flip)
 end
 
 function draw_status()
+   local x = 47
+   local y = 107
    -- power orbs
-   spr_and_out(39, 111, 6, 1, 1, false, false, 1)
-   zprint(get_money_str(), 116, 4)
+   spr_and_out(39, x, y+3, 1, 1, false, false, 1)
+   zprint(get_money_str(), x+4, y)
 
    -- energy bar
-   draw_energy_bar(1,3)
+   draw_energy_bar(9,2)
 
    -- status panels
    batch_call(draw_stat, [[
-      {@1, 1, 108},
-      {@2, 126, 108, true}
+      {@1, 2, 107},
+      {@2, 125, 107, true}
    ]], g_left_ma_view, g_right_ma_view)
 end

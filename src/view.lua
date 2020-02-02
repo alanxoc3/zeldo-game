@@ -2,7 +2,10 @@ create_actor([['view_instance', 4, {'view'}]], [[
    w=@1, h=@2, follow_dim=@3, follow_act=@4,
    update_view=@5,
    center_view=@6,
-   i=@7
+   change_ma=@7,
+   {},
+   {tl_max_time=4},
+   {follow_act=false}
 ]],
 function(a)
    batch_call(update_view_helper, [[{@1,'x','w','ixx'},{@1,'y','h','iyy'}]],a)
@@ -11,8 +14,10 @@ end, function(a)
       a.x, a.y = a.follow_act.x, a.follow_act.y
    end
    a:update_view()
-end
-)
+end, function(a, ma)
+   a.follow_act = ma
+   a.tl_next = a.timeoutable and 2 or 1
+end)
 
 g_view = {}
 

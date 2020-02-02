@@ -4,7 +4,7 @@ end
 
 create_actor([['top', 2, {'bounded','danceable','confined','stunnable','mov','col','tcol','hurtable','knockable','anim','spr'}]], [[
    max_health=10, health=10,
-   name="topper",
+   name="Topper",
    evil=true,
    x=@1, y=@2,
    rx=.375, ry=.375,
@@ -20,16 +20,10 @@ create_actor([['top', 2, {'bounded','danceable','confined','stunnable','mov','co
    {i=@7, hit=nf, u=@5, tl_max_time=.5},
    {i=@6, hit=@3, u=nf, tl_max_time=1}
 ]], function(a, other, ...)
+   call_not_nil(other, 'knockback', other, .3, ...)
+
    if other.pl then
-      other.hurt(other, 0, 30)
-   end
-
-   if other.knockable then
-      other.knockback(other, .3, ...)
-   end
-
-   if not other.block then
-      -- change my state.
+      other.hurt(other, 2, 30)
    end
 end, function(a) -- init 1 @4
    a.ax, a.ay = 0, 0
@@ -40,8 +34,12 @@ end, function(a) -- init 2 @6
    amov_to_actor(a, g_pl, .06)
 end, function(a)
    a.anim_off = 1
-end, destroy_func, function(a)
+end, function(a)
+   destroy_effect(a, 30, 1, 4, 5, 2)
+   g_att.money(a.x, a.y, a.dx, a.dy)
+end, function(a)
    a.tl_next = 2
+   change_cur_ma(a)
 end)
 
 create_actor([['bat', 2, {'bounded','confined','stunnable','mov','col','hurtable','knockable','anim','spr'}]], [[

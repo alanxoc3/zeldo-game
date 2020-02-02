@@ -203,10 +203,11 @@ end
 
 function _draw()
    cls()
+   if g_debug then rect(0,0,127,127,8) end
    call_not_nil(g_tl, 'd', g_tl)
    if g_debug then
       zprint(g_debug_message, 1, 102)
-      zprint(stat(1), 104, 102)
+      zprint(stat(1), 52, 120, true)
    end
 end
 
@@ -319,7 +320,7 @@ function game_draw()
    fade(g_card_fade)
 
    local x = 8+g_card_shake_x
-   local y = 8-6/8+g_card_shake_y
+   local y = 8-7/8+g_card_shake_y
 
    map_and_act_draw(x, y, {5,1})
    if g_menu_open then
@@ -330,11 +331,11 @@ function game_draw()
    acts_loop('inventory_item', 'draw_both')
 
    draw_status()
-   local tbox_x = 1
-   if is_game_paused'tbox' and get_cur_ma() == nil then
-      tbox_x = 20
+   local tbox_x = 2
+   if is_game_paused'tbox' and not get_cur_ma() then
+      tbox_x = 19
    end
-   ttbox_draw(tbox_x,107)
+   ttbox_draw(tbox_x,106)
    fade(0)
 end
 
