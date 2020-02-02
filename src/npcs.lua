@@ -24,8 +24,10 @@ end
 create_parent(
 [[ 'shop_item', {'unpausable', 'interactable'},
    {
+      costable=true,
       interactable_trigger=@1,
       rx=.5, ry=.5,
+      iyy=-3,
       trig_x=0,   trig_y=.125,
       trig_rx=.5, trig_ry=.625,
       mem_loc=BOGUS_SPOT, cost=99
@@ -33,9 +35,11 @@ create_parent(
 ]], function(a)
    if remove_money(a.cost) then
       a:kill()
-      g_att.item_show(g_pl, 4, a.mem_loc)
+      g_att.item_show(g_pl, a.sind, a.mem_loc)
       pause'chest' -- not a chest, but is the same functionality.
       stop_music'1'
+   else
+      sfx'7'
    end
 end
 )

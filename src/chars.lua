@@ -66,10 +66,6 @@ create_actor([['navy_blocking', 2, {'nnpc'}, NAVY_OUT]], [[
             "A shield! Good choice!","",
             "You can use that protect",
             "my sister from monsters!"
-
-            "Find something to protect",
-            "yourself with, then bring",
-            "her home."
          ]], get_npc_reload_room'NAVY_OUT')
       else
          tbox[[

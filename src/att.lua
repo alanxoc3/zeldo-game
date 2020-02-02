@@ -287,6 +287,7 @@ create_parent(
    {
       health=-1,
       max_health=-1,
+      hurt_func=nf,
       hurt=@1
    }
 ]], function(a, damage, stun_val)
@@ -294,6 +295,7 @@ create_parent(
       a.stun_countdown = stun_val
       a.health = min(a.max_health, a.health-damage)
       if a.health <= 0 then a.alive = false end
+      a:hurt_func()
    end
 end)
 
@@ -408,12 +410,16 @@ end)
 create_parent(
 [[ 'tcol', {'vec','dim'},
    {
-      'tile_hit'=nf,
-      'coll_tile'=@1
+      tile_solid=true,
+      tile_hit=nf,
+      coll_tile=@1
    }
 ]], function(a, solid_func)
-   a.x, a.dx = coll_tile_help(a.x, a.y, a.dx, a.rx, a.ry, 0, a, a.tile_hit, solid_func)
-   a.y, a.dy = coll_tile_help(a.y, a.x, a.dy, a.ry, a.rx, 2, a, a.tile_hit, function(y, x) return solid_func(x, y) end)
+   local x, dx = coll_tile_help(a.x, a.y, a.dx, a.rx, a.ry, 0, a, a.tile_hit, solid_func)
+   local y, dy = coll_tile_help(a.y, a.x, a.dy, a.ry, a.rx, 2, a, a.tile_hit, function(y, x) return solid_func(x, y) end)
+   if a.tile_solid then
+      a.x, a.y, a.dx, a.dy = x, y, dx, dy
+   end
 end)
 
 create_parent(

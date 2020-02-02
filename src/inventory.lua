@@ -172,8 +172,7 @@ create_actor([['sword', 1, {'item','col','bashable','pokeable'}]], [[
 
    {hurt_amount=5, bash_dx=.3, hit=@2, tl_max_time=.1},
    {i=nf, u=@3, e=nf, hurt_amount=2,  bash_dx=.1, hit=@2}
-]], sword_hit, sword_shield_u2
-)
+]], sword_hit, sword_shield_u2)
 
 create_actor([['shield', 1, {'item','bashable','pokeable'}]], [[
    rel_actor=@1,
@@ -193,7 +192,12 @@ create_actor([['shield', 1, {'item','bashable','pokeable'}]], [[
    poke_energy=10,
    poke_ixx=0,
 
-   {bash_dx=.4, tl_max_time=.1},
-   {i=nf, u=@2, e=nf, bash_dx=.2}
-]], sword_shield_u2
-)
+   {hit=@2, bash_dx=.4, tl_max_time=.1},
+   {u=@3, tl_max_time=.1},
+   {hit=@2, i=nf, u=@3, e=nf, bash_dx=.2}
+]], function(a, other)
+   if other != a.rel_actor and a.tl_cur < 3 then
+      call_not_nil(other, 'hurt', other, 0, 30)
+   end
+   a:bash(other)
+end, sword_shield_u2)

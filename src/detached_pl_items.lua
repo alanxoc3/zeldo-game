@@ -44,7 +44,9 @@ end, function(a)
 end
 )
 
-create_actor([['brang', 1, {'confined','anim','col','mov'}]], [[
+create_actor([['brang', 1, {'confined','anim','col','mov', 'tcol'}]], [[
+   did_brang_hit=false,
+   tile_solid=false,
    rel_actor=@1,
    being_held=true,
    rx=.375,
@@ -52,48 +54,58 @@ create_actor([['brang', 1, {'confined','anim','col','mov'}]], [[
    sinds={4,260,516,772},
    anim_len=4,
    anim_spd=3,
-   tl_loop=false,
    ix=.8, iy=.8,
    touchable=false,
+   tile_hit=@10,
 
-   {hit=@2, i=@3, u=@4, tl_max_time=.125},
-   {hit=@2, i=nf, u=@6, tl_max_time=.5},
-   {hit=@2, i=nf, u=@5, tl_max_time=3}
-]], function(a, other)
-   change_cur_ma(other)
-   if other.pl then
-      if a.tl_cur != 1 then
-         a.alive = false
-      end
-   elseif other.touchable then
-      if other.knockable then
-         other.knockback(other, .05, a.xf and -1 or 1, 0)
-      end
-
-      card_shake(9)
-      if a.tl_cur < 3 then
-         -- go to next state.
-         a.tl_cur = 3
-      end
-   end
-end, function(a)
+   {i=@2, hit=@3, u=@4, tl_max_time=.1},
+   {i=nf, hit=@5, u=@6, tl_max_time=.75},
+   {ax=0, ay=0, dx=0, dy=0, i=@9, hit=nf, u=@4, tl_max_time=.15},
+   {i=nf, hit=@7, u=@8, tl_max_time=3}
+]], function(a) -- init 1
    a.x, a.y = a.rel_actor.x, a.rel_actor.y
    a.xf = a.rel_actor.xf
    a.ax = a.xf and -.1 or .1
    use_energy(10)
-end, function(a)
-   a.ay = ybtn()*.05
+end, function(a, other) -- hit 1
+   if not other.pl and other.touchable and not a.did_brang_hit then
+      call_not_nil(other, 'knockback', other, .3, a.xf and -1 or 1, 0)
+      call_not_nil(other, 'hurt', other, 0, 60)
+      a.did_brang_hit = true
+   end
+end, function(a) -- update 1
    pause_energy()
-end, function(a)
-   pause_energy()
-   amov_to_actor(a, a.rel_actor, .1)
-end, function(a)
+end, function(a, other) -- hit 2
+   if other.pl then
+      a.alive = false
+   elseif other.touchable and not a.did_brang_hit then
+      call_not_nil(other, 'knockback', other, .3, a.xf and -1 or 1, 0)
+      call_not_nil(other, 'hurt', other, 0, 60)
+      a.did_brang_hit = true
+   end
+end, function(a) -- update 2
    pause_energy()
    a.ax = xbtn()*.05
    a.ay = ybtn()*.05
-   if not a.being_held then
-      return true
+   return not a.being_held or a.did_brang_hit
+end, function(a, other) -- hit 3
+   if other.pl then
+      a.alive = false
+   elseif other.touchable and not a.did_brang_hit then
+      if other.knockable then
+         other.knockback(other, .05, a.xf and -1 or 1, 0)
+      end
+      a.did_brang_hit = true
    end
+end, function(a) -- update 3
+   pause_energy()
+   amov_to_actor(a, a.rel_actor, .1)
+end, function(a)
+   if a.did_brang_hit then
+      card_shake(9)
+   end
+end, function(a)
+   a.did_brang_hit = true
 end
 )
 

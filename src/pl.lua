@@ -60,7 +60,7 @@ end, function(a)
    -- movement logic
    if a.stun_countdown == 0 then
       if not btn'5' then
-         if (xbtn() != 0) then a.xf = btn'0' end
+         if (xbtn() != 0) and not (a.item and (a.item.brang or a.item.shield)) then a.xf = btn'0' end
          a.ax = xbtn()*a.spd
          a.ay = ybtn()*a.spd
          if g_debug then
@@ -75,7 +75,7 @@ end, function(a)
       end
    end
 
-   if a.item and a.item.banjo then
+   if a.item and (a.item.banjo or a.item.brang) then
       a.ax = 0 a.ay = 0
    end
 

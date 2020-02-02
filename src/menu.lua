@@ -65,10 +65,15 @@ function draw_stat(view, x, y, flip)
 
       draw_ma(view, flip and (x-8) or x+9,y+9,a)
 
+      -- TODO: Refactor here.
       if a.hurtable then
          local health_str = a.max_health < 0 and '???/???' or flr(a.health)..'/'..a.max_health
          draw_health_bar(operator2,y+7,a.max_health,a.health, flip)
          zprint(health_str,align_text(health_str, operator, flip),y+13,true)
+      elseif a.costable then
+         local str = ""..a.cost
+         zprint(str,align_text(str, operator, flip),y+13,true)
+         spr_and_out(39, align_text(str, operator, flip)-4, y+16, 1, 1, false, false, 1)
       end
 
       if a.name then

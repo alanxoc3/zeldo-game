@@ -14,7 +14,7 @@ function load_room(new_room_index, rx, ry)
    -- reload the map (remove shovel things).
    reload(0x1000, 0x1000, 0x2000)
 
-   -- todo: here
+   -- todo: refactor here
    g_cur_room_index = new_room_index
    g_cur_room = g_rooms[new_room_index]
 
@@ -36,8 +36,8 @@ end
 
 create_actor([['transitioner', 3, {'act','unpausable'}]], [[
    new_room_index=@1, rx=@2, ry=@3,
-   {tl_name='intro',  i=@4, u=@5, tl_max_time=.5},
-   {tl_name='ending', i=@6, u=@7, tl_max_time=.5, e=@8}
+   {tl_name='intro',  i=@4, u=@5, tl_max_time=.5, e=@6},
+   {tl_name='ending', i=@9, u=@7, tl_max_time=.5, e=@8}
 ]], -- init
 function(a)
    pause'transitioning'
@@ -48,13 +48,15 @@ end, function(a)
    -- todo: put this logic into the player, like a reset function.
    g_pl.ax, g_pl.dx, g_pl.ay, g_pl.dy = 0, 0, 0, 0
    tbox_clear()
+   g_game_paused = false
 end, function(a)
    g_card_fade = (a.ending.tl_max_time-a.ending.tl_tim)/a.ending.tl_max_time*10
 end, function()
    unpause()
    g_card_fade = 0
-end
-)
+end, function()
+   g_game_paused = true
+end)
 
 function room_update()
    -- plus .5 and minus .375 is because there is a screen border.

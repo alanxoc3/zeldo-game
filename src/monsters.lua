@@ -2,25 +2,26 @@ function destroy_func(a)
    g_att.money(a.x, a.y, a.dx, a.dy)
 end
 
-create_actor([['top', 2, {'bounded','confined','stunnable','mov','col','tcol','hurtable','knockable','anim','spr'}]], [[
+create_actor([['top', 2, {'bounded','danceable','confined','stunnable','mov','col','tcol','hurtable','knockable','anim','spr'}]], [[
+   max_health=10, health=10,
    name="topper",
    evil=true,
-   x=@1,
-   y=@2,
-   rx=.375,
-   ry=.375,
+   x=@1, y=@2,
+   rx=.375, ry=.375,
+   tl_loop=true,
    iyy=-2,
    sinds={112,113},
    anim_len=1,
    touchable=true,
    destroyed=@8,
+   hurt_func=@9,
 
-   {i=@4, hit=nf, u=nf, tl_max_time=1.5},
+   {i=@4, hit=nf, u=nf, tl_max_time=.5},
    {i=@7, hit=nf, u=@5, tl_max_time=.5},
    {i=@6, hit=@3, u=nf, tl_max_time=1}
 ]], function(a, other, ...)
    if other.pl then
-      other.hurt(other, 10, 30)
+      other.hurt(other, 0, 30)
    end
 
    if other.knockable then
@@ -30,24 +31,18 @@ create_actor([['top', 2, {'bounded','confined','stunnable','mov','col','tcol','h
    if not other.block then
       -- change my state.
    end
-end,
--- init 1 @4
-function(a)
+end, function(a) -- init 1 @4
    a.ax, a.ay = 0, 0
    a.anim_off = 0
-end,
--- update 1 @5
-function(a)
+end, function(a) -- update 1 @5
    a.xf = g_pl.x < a.x
-end,
--- init 2 @6
-function(a)
+end, function(a) -- init 2 @6
    amov_to_actor(a, g_pl, .06)
-end,
-function(a)
+end, function(a)
    a.anim_off = 1
-end, destroy_func
-)
+end, destroy_func, function(a)
+   a.tl_next = 2
+end)
 
 create_actor([['bat', 2, {'bounded','confined','stunnable','mov','col','hurtable','knockable','anim','spr'}]], [[
    evil=true,

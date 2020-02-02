@@ -59,7 +59,7 @@ function call_not_nil(table, key, ...)
    end
 end
 
-function munpack(t) return t[1], t[2], t[3], t[4], t[5], t[6], t[7], t[8], t[9] end
+function munpack(t) return t[1], t[2], t[3], t[4], t[5], t[6], t[7], t[8], t[9], t[10] end
 
 function batch_call_table(func,table)
    -- Table is unpacked in this way, for both efficiency and tokens. The
@@ -151,7 +151,13 @@ function tl_node(root, node, ...)
          return_value = true
       elseif return_value then
          root.tl_old_state = nil
-         node.tl_cur = (node.tl_cur % #node) + 1
+
+         if type(return_value) == "NUMBER" then
+            node.tl_cur = return_value
+         else
+            node.tl_cur = (node.tl_cur % #node) + 1
+         end
+
          return_value = node.tl_cur == 1 and not node.tl_loop
       end
 
@@ -166,7 +172,7 @@ function tl_node(root, node, ...)
 
       return_value = call_not_nil(root, 'u', root, ...)
       if root.tl_next then
-         return_value, root.tl_next = true
+         return_value, root.tl_next = root.tl_next
       end
    end
 

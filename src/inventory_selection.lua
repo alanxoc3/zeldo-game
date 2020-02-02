@@ -31,7 +31,7 @@ create_actor([['inventory_item', 6, {'rel','spr_obj', 'drawable'}]], [[
    i=@7, u=@8
 ]], function(a)
    a.draw_both = a.enabled and scr_spr_and_out or function(a)
-      scr_rectfill(a.x-.125, a.y-.125, a.x, a.y, a.outline_color)
+      scr_rectfill(a.x+a.xx/8-.125, a.y+a.yy/8-.125, a.x+a.xx/8, a.y+a.yy/8, a.outline_color)
    end
 end, function(a)
    a.outline_color = a.selected and 2 or 1
