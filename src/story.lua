@@ -97,8 +97,7 @@ function map_init()
          {'house',16,13.5,TEACH_STUDIO,4,7.5,46},
          {'house',12,12.5,MAYOR_HOUSE,6,9.5,46},
          {'house',8,13.5,JANEBOB,4,7.5,46},
-         {'house',20,14.5,SHOP,4,7.5,46},
-         {'top',12,16}
+         {'house',20,14.5,SHOP,4,7.5,46}
       },
       -- LANK_FRONT_YARD
       { m=0, c=3, qx=0, qy=0,
@@ -174,7 +173,8 @@ function map_init()
          u={FOREST_ENTRANCE,6,9.5},
          r={LANK_FRONT_YARD,.5,5},
 
-         {'sign',51.5,21.5,{"Don't get lost!"},52}
+         {'sign',51.5,21.5,{"Don't get lost!"},43},
+         {'top',45.5, 26}
       },
       -- FOREST_1
       { m=2, c=3, qx=1, qy=0,
