@@ -12,11 +12,11 @@
 -- TODO: Boomerang retract/use item.
 -- TODO: Shield retract (shield timeout/don't kill immediately).
 -- TODO: Navy go back home.
+-- TODO: Create wall that boomerang can go through!
 
 -- planning sprint:
 -- TODO: How should the title screen be designed?
 -- TODO: How should the game over screen be designed?
--- TODO: What should go into a demo of the game?
 
 -- item sprint:
 -- TODO: Continue bomb mechanics.
@@ -36,6 +36,7 @@
 -- TODO: Finish the basic map transitions.
 
 ----------------------- things that are done: --------------------
+-- done: What should go into a demo of the game?
 -- done: Make ma work correctly for interactable things.
 -- done: Make ma work for items.
 -- done: Fix the boomerang timeout problem.
