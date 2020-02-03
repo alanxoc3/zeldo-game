@@ -97,9 +97,9 @@ create_actor([['teach', 2, {'nnpc'}]], [[
    ]], function()
       if zdget'BANJO_TUNED' then
          tbox[[
-            "To save your progress, try",
-            "playing the banjo on a",
-            "save platform!"
+            "To save your progress,",
+            "try playing the banjo on",
+            "a save platform!"
          ]]
       else
          tbox[[

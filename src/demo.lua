@@ -8,39 +8,43 @@
 --        2569 2575 2682 2896 2906 2754 2759 2776 2774 2781 2802 2698 2712 2838
 --        3102 3017 2974 2941 2861 2858 2830 2911 2985 3177 3249 4804
 
--- idea: for compression, reuse words from text boxes. It might just be a good idea.
+-- TODO: Pot collide with walls.
+-- TODO: Boomerang retract/use item.
+-- TODO: Shield retract (shield timeout/don't kill immediately).
+-- TODO: Navy go back home.
 
--- ma sprint:
--- TODO: Make ma work correctly for interactable things.
--- TODO: Make ma work for items.
+-- planning sprint:
+-- TODO: How should the title screen be designed?
+-- TODO: How should the game over screen be designed?
+-- TODO: What should go into a demo of the game?
 
 -- item sprint:
--- TODO: Fix the boomerang timeout problem.
 -- TODO: Continue bomb mechanics.
 -- TODO: Arrow bump bomb or arrow grab bomb.
 -- TODO: Boomerang bump bomb or boomerang return bomb.
 -- TODO: Sword, shield, and bow persist through rooms.
-
--- item sprint 2:
--- TODO: Make a flippable attribute on all items.
 
 -- engine sprint:
 -- TODO: Just make bombs better in general.
 
 -- enemy sprint:
 -- TODO: Make the bat enemy do something
--- TODO: Refine the top enemy more.
 -- TODO: Make the chicken enemy go crazy.
 -- TODO: Interaction with Top enemy and write plans for other enemies.
 
 -- story sprint
--- Finish the basic map transitions.
--- Work on house transitions again.
--- Finish house transitions.
+-- TODO: Finish the basic map transitions.
 
 ----------------------- things that are done: --------------------
+-- done: Make ma work correctly for interactable things.
+-- done: Make ma work for items.
+-- done: Fix the boomerang timeout problem.
+-- done: Make a flippable attribute on all items.
+-- done: Refine the top enemy more.
 -- done: Tbox pop up and down, or think about transition.
 -- done: Fix sign artifact bug (when sign is gone, trigger still exists).
+-- done: Work on house transitions again.
+-- done: Finish house transitions.
 -- done: Pause game on tbox.
 -- done: Fix tbox screen pause
 -- done: Pause game on room transition.
@@ -161,7 +165,7 @@ function _init()
    )
 
    g_tl = {
-      -- g_logo, g_title,
+      g_logo, g_title,
       g_game
    }
 
