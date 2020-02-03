@@ -166,7 +166,7 @@ function _init()
    )
 
    g_tl = {
-      g_logo, g_title,
+      -- g_logo, g_title,
       g_game
    }
 

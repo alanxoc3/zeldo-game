@@ -44,13 +44,15 @@ function destroy_effect(a, num, ...)
    end
 end
 
-create_actor([['pot_projectile', 3, {'col', 'confined', 'mov', 'spr', 'bounded'}]], [[
+create_actor([['pot_projectile', 3, {'col', 'confined', 'mov', 'spr', 'bounded', 'tcol'}]], [[
+   tile_solid=true,
    sind=49,
    x=@1, y=@2, xf=@3,
    touchable=false,
    i=@4,
    destroyed=@6,
    hit=@7,
+   tile_hit=@8,
    { u=@5, tl_max_time=.3 }
 ]], function(a)
    a.ax = a.xf and -.04 or .04
@@ -66,6 +68,8 @@ end, function(a, o)
       call_not_nil(o, 'knockback', o, .6, -bool_to_num(a.xf), 0)
       a.tl_next = true
    end
+end, function(a)
+   a.tl_next = true
 end)
 
 -- x, y, sind

@@ -403,7 +403,6 @@ create_parent(
    -- actor b, dirs d
    for b, d in pairs(hit_list) do
       a:hit(b,  d.dx,  d.dy)
-      b:hit(a, -d.dx, -d.dy)
    end
 end)
 
