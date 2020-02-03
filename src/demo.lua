@@ -8,28 +8,28 @@
 --        2569 2575 2682 2896 2906 2754 2759 2776 2774 2781 2802 2698 2712 2838
 --        3102 3017 2974 2941 2861 2858 2830 2911 2985 3177 3249 4804
 
+-- Demo sprint!
 -- TODO: Pot collide with walls.
 -- TODO: Boomerang retract/use item.
 -- TODO: Shield retract (shield timeout/don't kill immediately).
 -- TODO: Navy go back home.
 -- TODO: Create wall that boomerang can go through!
-
--- planning sprint:
 -- TODO: How should the title screen be designed?
 -- TODO: How should the game over screen be designed?
+-- TODO: Sword, shield, and bow persist through rooms.
+-- TODO: Make the chicken enemy go crazy.
+-- TODO: Make some good music.
 
 -- item sprint:
 -- TODO: Continue bomb mechanics.
 -- TODO: Arrow bump bomb or arrow grab bomb.
 -- TODO: Boomerang bump bomb or boomerang return bomb.
--- TODO: Sword, shield, and bow persist through rooms.
 
 -- engine sprint:
 -- TODO: Just make bombs better in general.
 
 -- enemy sprint:
 -- TODO: Make the bat enemy do something
--- TODO: Make the chicken enemy go crazy.
 -- TODO: Interaction with Top enemy and write plans for other enemies.
 
 -- story sprint
