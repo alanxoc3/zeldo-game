@@ -160,13 +160,16 @@ function _init()
    g_money = zdget_value(MONEY)
    poke(0x5f34, 1) -- for pattern colors.
 
+   game_init()
+
    g_game = gun_vals([[
       { i=@1, u=@2, d=@3 }
    ]], game_init, game_update, game_draw
    )
 
    g_tl = {
-      -- g_logo, g_title,
+      -- g_logo,
+      g_title,
       g_game
    }
 
@@ -297,7 +300,7 @@ function card_shake(fx)
    end
 end
 
-function map_and_act_draw(x, y, border_colors)
+function map_draw(x, y, border_colors)
    local rx = x - g_view.w/2
    local ry = y - g_view.h/2
 
@@ -311,7 +314,16 @@ function map_and_act_draw(x, y, border_colors)
    zclip(rx*8+4, ry*8+4, (rx+g_view.w)*8-5, (ry+g_view.h)*8-5)
    zcls(g_cur_room.c)
    scr_map(g_cur_room.x, g_cur_room.y, g_cur_room.x, g_cur_room.y, g_cur_room.w, g_cur_room.h)
+   clip()
+end
 
+function map_and_act_draw(x, y, border_colors)
+   local rx = x - g_view.w/2
+   local ry = y - g_view.h/2
+
+   map_draw(x, y, border_colors)
+
+   zclip(rx*8+4, ry*8+4, (rx+g_view.w)*8-5, (ry+g_view.h)*8-5)
    isorty(g_act_arrs.drawable)
    acts_loop('drawable', 'd')
    acts_loop('item_show', 'd')

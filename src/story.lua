@@ -224,6 +224,11 @@ function map_init()
          x = 24,  y = 0,
          w = 8,  h = 8,
          l={FOREST_BOSS,11.5,6}
+      },
+      -- TITLE_SCREEN
+      { m=2, c=3, qx=0, qy=0,
+         x = 0,  y = 20,
+         w = 12, h = 12
       }
    ]])
 
