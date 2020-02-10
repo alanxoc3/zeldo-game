@@ -19,8 +19,6 @@ end, function(a, ma)
    a.tl_next = a.timeoutable and 2 or 1
 end)
 
-g_view = {}
-
 function update_view_helper(view, xy, wh, ii)
    local follow_coord = view.follow_act and (view.follow_act[xy]+view.follow_act[ii]/8) or 0
    local view_coord = view[xy]

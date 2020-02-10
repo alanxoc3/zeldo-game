@@ -173,8 +173,7 @@ function map_init()
          u={FOREST_ENTRANCE,6,9.5},
          r={LANK_FRONT_YARD,.5,5},
 
-         {'sign',51.5,21.5,{"Don't get lost!"},43},
-         {'top',45.5, 26}
+         {'sign',51.5,21.5,{"Don't get lost!"},43}
       },
       -- FOREST_1
       { m=2, c=3, qx=1, qy=0,

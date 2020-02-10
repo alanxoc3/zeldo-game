@@ -1,19 +1,9 @@
-mx=8 my=8
-function draw_logo(logo)
-   fade(g_card_fade)
+create_actor([['title_move', 0, {'mov'}]], [[
+   x=0, y=0, dx=.1, dy=.1, ax=0, ay=0, ix=1, iy=1, ixx=0, iyy=0
+]])
 
-   g_card_shake_x = 0
-   g_card_shake_y = 0
-   local x, y = 8, 8
-   if t() % 3 == .5 then
-      mx = rnd(8)+4
-      my = rnd(8)+4
-   end
-
-   map_draw(mx+g_card_shake_x, my+g_card_shake_y, {5,1,1})
-
-   fade(0)
-   camera(-x*8, -y*8)
+function draw_logo(a)
+   camera(-a.x*8, -a.y*8)
    -- (str, x, y, alignment, shadow_below)
    batch_call(zprint2, [[
       {@1, 0, -14, 10, 0, false}
@@ -27,26 +17,39 @@ function draw_logo(logo)
       )
    end
 
-   zspr(224, 0, 0, 7, 2)
+   zspr(224, 0, 0, 6, 2)
    camera()
 end
 
 -- the sound is assumed to be sfx 0!
 g_title = gun_vals([[
-      { i=@3, u=@2, d=@1 }
-   ]], draw_logo, function()
-      room_update()
+{ x=8, y=8, prev_trans_index=@4,
+   d=@5, tl_max_time=.5},
+{ tl_name='outer', tl_loop=true, { i=@3, u=@2, d=@1, tl_max_time=5 } }
+   ]], function(a)
+      fade(g_card_fade)
+      map_draw(a.x, a.y, {5,1,1})
+      fade'0'
 
-      if t() % 3 == 0 then
-         g_title_trans = g_att.transitioner(flr_rnd(20)+1, 0, 0)
+      draw_logo(a)
+   end, function(a)
+      batch_call(acts_loop, [[
+         {'act', 'update'},
+         {'mov','move'},
+         {'vec','vec_update'},
+         {'act', 'clean'},
+         {'view','update_view'}
+      ]])
+
+      if btnp(4) then
+         a.outer.tl_loop = false
+         return true
       end
-      if g_title_trans then
-         g_title_trans:update()
-      end
-
-
-      return btnp(4)
-   end, function()
-      load_room(SHOP, 3, 4)
+   end, function(a)
+      g_att.transitioner(flr_rnd'20'+1, 0, 0, g_att.title_move())
+   end, flr_rnd'20'+1, function(a)
+      fade(8-7*a.tl_tim/a.tl_max_time)
+      draw_logo(a)
+      fade'0'
    end
 )

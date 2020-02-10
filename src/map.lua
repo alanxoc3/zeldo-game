@@ -1,6 +1,7 @@
 g_card_fade = 0
 
 function isorty(t)
+   if t then
     for n=2,#t do
         local i=n
         while i>1 and t[i].y<t[i-1].y do
@@ -8,9 +9,10 @@ function isorty(t)
             i=i-1
         end
     end
+ end
 end
 
-function load_room(new_room_index, rx, ry)
+function load_room(new_room_index, rx, ry, follow_actor)
    -- reload the map (remove shovel things).
    reload(0x1000, 0x1000, 0x2000)
 
@@ -24,30 +26,31 @@ function load_room(new_room_index, rx, ry)
    acts_loop('confined', 'kill')
    if g_cur_room.i then g_cur_room.i() end
 
-   g_pl.x = rx + g_cur_room.x
-   g_pl.y = ry + g_cur_room.y
+   if follow_actor then
+      printh(follow_actor)
+      follow_actor.x = rx + g_cur_room.x
+      follow_actor.y = ry + g_cur_room.y
+   end
 
-   g_view = g_att.view_instance(min(14, g_cur_room.w), min(12, g_cur_room.h), 2, g_pl)
-   g_left_ma_view = g_att.view_instance(2.75, 3, 0, g_pl)
+   g_view = g_att.view_instance(min(14, g_cur_room.w), min(12, g_cur_room.h), 2, follow_actor)
+   g_left_ma_view = g_att.view_instance(2.75, 3, 0, follow_actor)
    g_right_ma_view = g_att.view_instance(2.75, 3, 0, nil)
    g_right_ma_view.timeoutable = true
 
    acts_loop('view', 'center_view')
 end
 
-create_actor([['transitioner', 3, {'act','unpausable'}]], [[
-   new_room_index=@1, rx=@2, ry=@3,
-   {tl_name='intro',  i=@4, u=@5, tl_max_time=.5, e=@6},
-   {tl_name='ending', i=@9, u=@7, tl_max_time=.5, e=@8}
+create_actor([['transitioner', 4, {'act','unpausable'}]], [[
+   new_room_index=@1, rx=@2, ry=@3, follow_actor=@4,
+   {tl_name='intro',  i=@5, u=@6, tl_max_time=.5, e=@7},
+   {tl_name='ending', i=@10, u=@8, tl_max_time=.5, e=@9}
 ]], -- init
 function(a)
    pause'transitioning'
 end, function(a)
    g_card_fade = a.intro.tl_tim/a.intro.tl_max_time*10
 end, function(a)
-   load_room(a.new_room_index, a.rx, a.ry)
-   -- todo: put this logic into the player, like a reset function.
-   g_pl.ax, g_pl.dx, g_pl.ay, g_pl.dy = 0, 0, 0, 0
+   load_room(a.new_room_index, a.rx, a.ry, a.follow_actor)
    tbox_clear()
    g_game_paused = false
 end, function(a)
@@ -70,7 +73,7 @@ function room_update()
       end
 
       if dir != nil and g_cur_room[dir] then
-         g_att.transitioner(g_cur_room[dir][1], g_cur_room[dir][2], g_cur_room[dir][3])
+         g_att.transitioner(g_cur_room[dir][1], g_cur_room[dir][2], g_cur_room[dir][3], g_pl)
       end
    end
 end

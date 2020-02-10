@@ -28,9 +28,8 @@ create_actor([['top', 2, {'bounded','danceable','confined','stunnable','mov','co
 end, function(a) -- init 1 @4
    a.ax, a.ay = 0, 0
    a.anim_off = 0
-end, function(a) -- update 1 @5
-   a.xf = g_pl.x < a.x
-end, function(a) -- init 2 @6
+end, look_at_pl, -- update 1 @5
+function(a) -- init 2 @6
    amov_to_actor(a, g_pl, .06)
 end, function(a)
    a.anim_off = 1

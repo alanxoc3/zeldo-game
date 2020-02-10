@@ -1,5 +1,7 @@
 function look_at_pl(a)
-   a.xf = a.x-g_pl.x > 0
+   if g_pl then
+      a.xf = a.x-g_pl.x > 0
+   end
 end
 
 create_parent(
@@ -184,7 +186,7 @@ end
 function get_npc_reload_room(mem_loc)
    return function()
       zdset(mem_loc)
-      g_att.transitioner(g_cur_room_index, g_pl.x-g_cur_room.x, g_pl.y-g_cur_room.y)
+      g_att.transitioner(g_cur_room_index, g_pl.x-g_cur_room.x, g_pl.y-g_cur_room.y, g_pl)
    end
 end
 

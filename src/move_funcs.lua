@@ -1,5 +1,7 @@
 function amov_to_actor(a1, a2, spd)
-   amov_to_point(a1, spd, a2.x, a2.y)
+   if a1 and a2 then
+      amov_to_point(a1, spd, a2.x, a2.y)
+   end
 end
 
 function amov_to_point(a, spd, x, y)

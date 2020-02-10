@@ -168,13 +168,16 @@ create_parent(
       iy=.85,
       ax=0,
       ay=0,
-      move=@1
+      move=@1,
+      stop=@2
    }
 ]], function(a)
    a.dx += a.ax a.dy += a.ay
    a.dx *= a.ix a.dy *= a.iy
    if a.ax == 0 and abs(a.dx) < .01 then a.dx = 0 end
    if a.ay == 0 and abs(a.dy) < .01 then a.dy = 0 end
+end, function(a)
+   a.ax, a.ay, a.dx, a.dy = 0, 0, 0, 0
 end)
 
 create_parent(
