@@ -94,11 +94,21 @@ function zprint2(str, x, y, color, alignment, shadow_below)
    zprint(str, x - new_x, y, shadow_below, color)
 end
 
-function zprint(str, x, y, shadow_below, color)
+function tprint(str, x, y, c1, c2)
+   x -= #str*2
+   for i=-1,1 do
+      for j=-1,1 do
+         zprint(str, x+i, y+j, true, 1, 1)
+      end
+   end
+   zprint(str, x, y, true, c1, c2)
+end
+
+function zprint(str, x, y, shadow_below, color, c2)
    batch_call(print, [[
-      {@1, @2, @4, 1},
+      {@1, @2, @4, @6},
       {@1, @2, @3, @5}
-   ]], str, x, y, y + (shadow_below and 1 or 0xffff), color or 7)
+   ]], str, x, y, y + (shadow_below and 1 or 0xffff), color or 7, c2 or 1)
 end
 
 function zclip(x1, y1, x2, y2)

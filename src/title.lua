@@ -5,19 +5,18 @@ create_actor([['title_move', 0, {'mov'}]], [[
 function draw_logo(a)
    camera(-a.x*8, -a.y*8)
    -- (str, x, y, alignment, shadow_below)
-   batch_call(zprint2, [[
-      {@1, 0, -14, 10, 0, false}
-   ]], "THE STORY OF"
+   batch_call(tprint, [[
+      {"The Story Of", 0, -11, 10, 4}
+   ]]
    )
+   zspr(224, 0, 3, 6, 2)
 
    if t() % 1 < .5 then
-      batch_call(zprint2, [[
-         {@1, -1, 9, 7, 0, true}
-      ]], "PRESS 🅾️ TO START"
-      )
+      batch_call(tprint, [[
+         {"Press 🅾️ To Play", -1, 50, 7, 5}
+      ]])
    end
 
-   zspr(224, 0, 0, 6, 2)
    camera()
 end
 
