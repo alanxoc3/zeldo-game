@@ -27,7 +27,6 @@ function load_room(new_room_index, rx, ry, follow_actor)
    if g_cur_room.i then g_cur_room.i() end
 
    if follow_actor then
-      printh(follow_actor)
       follow_actor.x = rx + g_cur_room.x
       follow_actor.y = ry + g_cur_room.y
    end

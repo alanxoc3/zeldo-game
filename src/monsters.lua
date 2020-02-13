@@ -41,63 +41,63 @@ end, function(a)
    change_cur_ma(a)
 end)
 
-create_actor([['bat', 2, {'bounded','confined','stunnable','mov','col','hurtable','knockable','anim','spr'}]], [[
-   evil=true,
-   x=@1, y=@2,
-   rx=.375, ry=.375,
-   sinds={114,115},
-   anim_len=2,
-   anim_spd=10,
-   destroyed=@4,
-   touchable=false,
-
-   {i=@3, tl_max_time=1.5}
-]], function(a)
-   a.ax = .01
-end, destroy_func
-)
-
-create_actor([['skelly', 2, {'bounded','confined','stunnable','mov','col','tcol','hurtable','knockable','anim','spr'}]], [[
-   evil=true,
-   x=@1, y=@2,
-   ax=.005, ay=.01,
-   rx=.375, ry=.375,
-   sinds={66},
-   destroyed=@4,
-   anim_len=1,
-   {i=@3, tl_max_time=1.5}
-]], function(a)
-   end, destroy_func
-)
-
-create_actor([['ghost', 2, {'bounded','confined','stunnable','mov','col','hurtable','knockable','anim','spr'}]], [[
-   evil=true,
-   x=@1, y=@2,
-   rx=.375, ry=.375,
-   sinds={84},
-   anim_len=1,
-   destroyed=@4,
-   touchable=false,
-
-   {i=@3, tl_max_time=1.5}
-]], function(a)
-      a.ax = sin(t())/50
-      a.xf = sgn(a.ax) < 1
-   end, destroy_func
-)
-
-create_actor([['chicken', 2, {'loopable','bounded','confined','stunnable','mov','col','tcol','hurtable','knockable','anim','spr','danceable'}]], [[
-   name="Chicken",
-   evil=true,
-   x=@1, y=@2,
-   rx=.375, ry=.375,
-   sinds={32},
-   destroyed=@4,
-   anim_len=1,
-
-   {i=@3, tl_max_time=.5}
-]], function(a)
-   a.ax, a.ay = rnd_one(.01), rnd_one(.01)
-   a.xf = a.ax < 0
-end, destroy_func
-)
+-- create_actor([['bat', 2, {'bounded','confined','stunnable','mov','col','hurtable','knockable','anim','spr'}]], [[
+--    evil=true,
+--    x=@1, y=@2,
+--    rx=.375, ry=.375,
+--    sinds={114,115},
+--    anim_len=2,
+--    anim_spd=10,
+--    destroyed=@4,
+--    touchable=false,
+-- 
+--    {i=@3, tl_max_time=1.5}
+-- ]], function(a)
+--    a.ax = .01
+-- end, destroy_func
+-- )
+-- 
+-- create_actor([['skelly', 2, {'bounded','confined','stunnable','mov','col','tcol','hurtable','knockable','anim','spr'}]], [[
+--    evil=true,
+--    x=@1, y=@2,
+--    ax=.005, ay=.01,
+--    rx=.375, ry=.375,
+--    sinds={66},
+--    destroyed=@4,
+--    anim_len=1,
+--    {i=@3, tl_max_time=1.5}
+-- ]], function(a)
+--    end, destroy_func
+-- )
+-- 
+-- create_actor([['ghost', 2, {'bounded','confined','stunnable','mov','col','hurtable','knockable','anim','spr'}]], [[
+--    evil=true,
+--    x=@1, y=@2,
+--    rx=.375, ry=.375,
+--    sinds={84},
+--    anim_len=1,
+--    destroyed=@4,
+--    touchable=false,
+-- 
+--    {i=@3, tl_max_time=1.5}
+-- ]], function(a)
+--       a.ax = sin(t())/50
+--       a.xf = sgn(a.ax) < 1
+--    end, destroy_func
+-- )
+-- 
+-- create_actor([['chicken', 2, {'loopable','bounded','confined','stunnable','mov','col','tcol','hurtable','knockable','anim','spr','danceable'}]], [[
+--    name="Chicken",
+--    evil=true,
+--    x=@1, y=@2,
+--    rx=.375, ry=.375,
+--    sinds={32},
+--    destroyed=@4,
+--    anim_len=1,
+-- 
+--    {i=@3, tl_max_time=.5}
+-- ]], function(a)
+--    a.ax, a.ay = rnd_one(.01), rnd_one(.01)
+--    a.xf = a.ax < 0
+-- end, destroy_func
+-- )

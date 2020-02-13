@@ -86,7 +86,7 @@ create_actor([['navy_blocking', 2, {'nnpc'}, NAVY_OUT]], [[
       ]], [[
          "Nice playing lank!", "",
          "If I had money, I would",
-         "give it to you!"
+         "give it to you!", trigger=@1
       ]], HAS_BANJO, 0) -- will not give money, because you have the banjo.
    end
 )
@@ -141,7 +141,7 @@ end, function(a)
    npc_dance_logic(a,[[
       "I'm still your biggest fan!"
    ]], [[
-      "Hey, that was good!"
+      "Hey, that was good!", trigger=@1
    ]], LARK_DANCE, 60)
 end
 )
@@ -161,19 +161,18 @@ end, function(a)
    npc_dance_logic(a,[[
       "That hurt my ears."
    ]], [[
-      "I love that song!"
+      "I love that song!", trigger=@1
    ]], JANE_DANCE, 24)
 end
 )
 
--- 7658
 function npc_dance_logic(a,bad_text,good_text,mem_loc,money)
    if g_pause_reason == 'dancing' then
       change_cur_ma(a)
       if not zdget'BANJO_TUNED' then
          tbox(bad_text)
       else
-         tbox(good_text..',trigger=@1', function()
+         tbox(good_text, function()
             if not zdget(mem_loc) then
                add_money(money)
                zdset(mem_loc)
@@ -220,7 +219,7 @@ create_actor([['bob_build', 2, {'nnpc'}, BOB_OUT]], [[
          "terrible music!"
       ]], [[
          "If only music could",
-         "quench my hunger."
+         "quench my hunger.", trigger=@1
       ]], BOB_DANCE, 14)
    end
 )
@@ -236,7 +235,7 @@ end, function(a)
    npc_dance_logic(a,[[
       "That song sucked."
    ]], [[
-      "That song was okay."
+      "That song was okay.", trigger=@1
    ]], KEEP_DANCE, 1)
 end
 )

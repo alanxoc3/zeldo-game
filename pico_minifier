@@ -109,4 +109,7 @@ if ($dev_mode) {
 # Note that this is slightly more compression space.
 # $lines[0] =~ s/([^\"]) ([^\"])/$1\n$2/g;
 @lines = pop_text_logics(@lines);
-print $dev_mode ? "$_\n" : "$_" for @lines;
+
+my $file = join($dev_mode ? "\n" : "", @lines);
+$file = multiline_string_replace($file);
+print $file;

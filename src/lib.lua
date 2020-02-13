@@ -109,6 +109,7 @@ end
 -- Supports variable arguments, true, false, nil, nf, numbers, and strings.
 param_cache = {}
 function gun_vals(val_str, ...)
+   val_str = g_gunvals[0+val_str]
    -- there is global state logic in here. you have been warned.
    if not param_cache[val_str] then
       param_cache[val_str] = { gun_vals_helper(val_str..',',1,{}) }

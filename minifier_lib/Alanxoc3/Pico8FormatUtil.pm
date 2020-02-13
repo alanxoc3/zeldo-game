@@ -5,7 +5,7 @@ use experimental 'smartmatch';
 
 use Exporter;
 our @ISA = 'Exporter';
-our @EXPORT = qw(tokenize_lines populate_vars single_quotes_to_double remove_comments pop_text_logics remove_texts remove_spaces @lua_keywords @pico8_api);
+our @EXPORT = qw(tokenize_lines populate_vars single_quotes_to_double remove_comments pop_text_logics remove_texts remove_spaces @lua_keywords @pico8_api multiline_string_replace);
 
 our @lua_keywords = qw(
 break do else elseif end false for function goto if in local nil not or repeat
@@ -49,6 +49,29 @@ sub get_next_var_name {
    } else {
       return $ret;
    }
+}
+
+my %multiline_strings;
+my $multiline_number = 2;
+sub test_multiline_string {
+   my $str = shift;
+   if (not exists($multiline_strings{$str})) {
+      $multiline_strings{$str} = $multiline_number++;
+   }
+   return "[[" . $multiline_strings{$str} . "]]";
+}
+
+sub multiline_string_replace {
+   my $file = shift;
+   $file =~ s/\[\[(.*?)\]\]/test_multiline_string($1)/gimse;
+
+   my $gunval_strs = "g_gunvals={1";
+   foreach my $name (sort { $multiline_strings{$a} <=> $multiline_strings{$b} } keys %multiline_strings) {
+      $gunval_strs = $gunval_strs . ",[[" . $name . "]]";
+   }
+   $gunval_strs = $gunval_strs . "}";
+
+   return $gunval_strs . "\n" . $file
 }
 
 sub remove_spaces {

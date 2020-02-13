@@ -387,7 +387,6 @@ function zdget(ind)
 end
 
 function zdset(ind, val)
-   -- printh((ind or "nil").." and "..(val or "nil"))
    return poke(TEMP_SAVE_LOCATION+ind, val or 1)
 end
 
