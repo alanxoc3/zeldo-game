@@ -386,7 +386,7 @@ create_parent(
          if a != b and (not a.static or not b.static) then
             local x,y = abs(a.x+dx-b.x), abs(a.y+dy-b.y)
             if x < a.rx+b.rx and y < a.ry+b.ry then
-               hit_list[b] = hit_list[b] or gun_vals'dx=0,dy=0'
+               hit_list[b] = hit_list[b] or gun_vals[[dx=0,dy=0]]
 
                batch_call(col_help, [[
                   {'x', 'dx', @1, @2, @3, @4},
