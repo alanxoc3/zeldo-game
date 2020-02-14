@@ -1,48 +1,49 @@
-create_actor([['bomb', 3, {'bounded','confined','col','mov','knockable','spr'}]], [[
-   x=@1, y=@2, xf=@3,
-   rx=.375,
-   ry=.375,
-   sind=5,
-   touchable=true,
-   tl_loop=false,
-
-   {i=@4, tl_max_time=.25},
-   {i=@5, tl_max_time=1.25},
-   {d=@9, draw_spr=nf,draw_out=nf,i=@6, rx=1, ry=1, hit=@8, tl_max_time=.25}
-]], function(a)
-   -- a.xf = a.rel_act.xf
-   -- a.x, a.y = a.rel_act.x+(a.rel_act.xf and -1 or 1), a.rel_act.y
-   use_energy(5)
-end, function(a)
-   if a == g_pl.item then
-      g_pl.item = nil
-   end
-end, function(a)
-   a.rx, a.ry = .75, .75
-   card_shake'8'
-end, pause_energy,
-function(a, other)
-   if other.bomb and other.tl_cur < 3 then
-      a.tl_cur = 3
-      -- change my state to 3.
-   end
-
-   change_cur_ma(other)
-
-   if other.knockable then
-      local ang = atan2(other.x-a.x, other.y-a.y)
-      other.knockback(other, .5, cos(ang), sin(ang))
-   end
-
-   call_not_nil(other, 'hurt', other, 15, 30)
-end, function(a)
-   scr_circfill(a.x, a.y, sin(a.tl_tim/.25), 8)
-   scr_circfill(a.x+rnd(2)-1, a.y+rnd(2)-1, sin(a.tl_tim/.25)*rnd(.25)+.25, 1)
-   scr_circfill(a.x+rnd(2)-1, a.y+rnd(2)-1, sin(a.tl_tim/.25)*rnd(.25)+.25, 2)
-   scr_circfill(a.x+rnd(2)-1, a.y+rnd(2)-1, sin(a.tl_tim/.25)*rnd(.25)+.25, 9)
-   scr_circfill(a.x+rnd(2)-1, a.y+rnd(2)-1, sin(a.tl_tim/.25)*rnd(.25)+.25, 10)
-end
-)
+-- TODO: uncomment when tokens go down & bombs are supported.
+-- create_actor([['bomb', 3, {'bounded','confined','col','mov','knockable','spr'}]], [[
+--    x=@1, y=@2, xf=@3,
+--    rx=.375,
+--    ry=.375,
+--    sind=5,
+--    touchable=true,
+--    tl_loop=false,
+-- 
+--    {i=@4, tl_max_time=.25},
+--    {i=@5, tl_max_time=1.25},
+--    {d=@9, draw_spr=nf,draw_out=nf,i=@6, rx=1, ry=1, hit=@8, tl_max_time=.25}
+-- ]], function(a)
+--    -- a.xf = a.rel_act.xf
+--    -- a.x, a.y = a.rel_act.x+(a.rel_act.xf and -1 or 1), a.rel_act.y
+--    use_energy(5)
+-- end, function(a)
+--    if a == g_pl.item then
+--       g_pl.item = nil
+--    end
+-- end, function(a)
+--    a.rx, a.ry = .75, .75
+--    card_shake'8'
+-- end, pause_energy,
+-- function(a, other)
+--    if other.bomb and other.tl_cur < 3 then
+--       a.tl_cur = 3
+--       -- change my state to 3.
+--    end
+-- 
+--    change_cur_ma(other)
+-- 
+--    if other.knockable then
+--       local ang = atan2(other.x-a.x, other.y-a.y)
+--       other.knockback(other, .5, cos(ang), sin(ang))
+--    end
+-- 
+--    call_not_nil(other, 'hurt', other, 15, 30)
+-- end, function(a)
+--    scr_circfill(a.x, a.y, sin(a.tl_tim/.25), 8)
+--    scr_circfill(a.x+rnd(2)-1, a.y+rnd(2)-1, sin(a.tl_tim/.25)*rnd(.25)+.25, 1)
+--    scr_circfill(a.x+rnd(2)-1, a.y+rnd(2)-1, sin(a.tl_tim/.25)*rnd(.25)+.25, 2)
+--    scr_circfill(a.x+rnd(2)-1, a.y+rnd(2)-1, sin(a.tl_tim/.25)*rnd(.25)+.25, 9)
+--    scr_circfill(a.x+rnd(2)-1, a.y+rnd(2)-1, sin(a.tl_tim/.25)*rnd(.25)+.25, 10)
+-- end
+-- )
 
 create_actor([['brang', 1, {'confined','anim','col','mov', 'tcol'}]], [[
    did_brang_hit=false,
