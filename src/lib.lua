@@ -71,6 +71,22 @@ function batch_call(func,...)
    batch_call_table(func,gun_vals(...))
 end
 
+function split_string(delimiter, str)
+   local str_list, cur_str = {}, ""
+
+   for i=1,#str do
+      local char = sub(str, i, i)
+      if char == "|" and #cur_str > 0 then
+         add(str_list, cur_str)
+         cur_str = ""
+      else
+         cur_str = cur_str..char
+      end
+   end
+
+   return str_list
+end
+
 -- Returns the parsed table, the current position, and the parameter locations
 function gun_vals_helper(val_str,i,new_params)
    local val_list, val, val_ind, isnum, val_key, str_mode = {}, '', 1, true
@@ -194,6 +210,10 @@ function tl_node(root, node, ...)
 
    return return_value
 end
+
+-- TODO: Find a better home for this.
+-- For parsing zipped values.
+g_gunvals = split_string("|", g_gunvals_raw)
 
 -- For debugging.
 -- function tostring(any) if type(any)=='function' then return 'function' end

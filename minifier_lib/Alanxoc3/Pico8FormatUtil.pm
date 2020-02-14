@@ -52,7 +52,7 @@ sub get_next_var_name {
 }
 
 my %multiline_strings;
-my $multiline_number = 2;
+my $multiline_number = 1;
 sub test_multiline_string {
    my $str = shift;
    if (not exists($multiline_strings{$str})) {
@@ -65,11 +65,11 @@ sub multiline_string_replace {
    my $file = shift;
    $file =~ s/\[\[(.*?)\]\]/test_multiline_string($1)/gimse;
 
-   my $gunval_strs = "g_gunvals={1";
+   my $gunval_strs = "g_gunvals_raw=[[";
    foreach my $name (sort { $multiline_strings{$a} <=> $multiline_strings{$b} } keys %multiline_strings) {
-      $gunval_strs = $gunval_strs . ",[[" . $name . "]]";
+      $gunval_strs = $gunval_strs . $name . "|";
    }
-   $gunval_strs = $gunval_strs . "}";
+   $gunval_strs = $gunval_strs . "]]";
 
    return $gunval_strs . "\n" . $file
 }
