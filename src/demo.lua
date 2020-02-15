@@ -9,8 +9,7 @@
 --        3102 3017 2974 2941 2861 2858 2830 2911 2985 3177 3249 4804
 
 -- Demo sprint!
--- TODO: Pot collide with walls.
--- TODO: Boomerang retract/use item.
+-- TODO: Fix title screen early btn press bug.
 -- TODO: Shield retract (shield timeout/don't kill immediately).
 -- TODO: Navy go back home.
 -- TODO: Create wall that boomerang can go through!
@@ -44,6 +43,8 @@
 -- done: Refine the top enemy more.
 -- done: Tbox pop up and down, or think about transition.
 -- done: Fix sign artifact bug (when sign is gone, trigger still exists).
+-- done: Pot collide with walls.
+-- done: Boomerang retract/use item.
 -- done: Work on house transitions again.
 -- done: Finish house transitions.
 -- done: Pause game on tbox.

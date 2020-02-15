@@ -36,7 +36,7 @@ function create_outline(sind, sw, sh)
    sw*=8 sh*=8 sh-=1
 
    local bounds, is_bkgd = {}, function(x, y)
-      return mid(0,x,sw) == x and sget(x+sind*8%128, y+flr(sind/16)*8) != 0
+      return mid(0,x,sw-1) == x and sget(x+sind*8%128, y+flr(sind/16)*8) != 0
    end
 
    local calc_bound = function(x)
