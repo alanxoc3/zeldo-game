@@ -62,10 +62,8 @@ function create_outline(sind, sw, sh)
 end
 
 function spr_out(sind, x, y, sw, sh, xf, yf, col)
-   if not sw then sw = 1 end
-   if not sh then sh = 1 end
-   x = x - sw*4
-   y = y - sh*4
+   sw=sw or 1 sh=sh or 1
+   x-=sw*4 y-=sh*4
 
    local ox, x_mult, oy, y_mult = x, 1, y, 1
    if xf then ox, x_mult = sw*8-1+x, 0xffff end
