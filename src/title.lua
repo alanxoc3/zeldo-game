@@ -9,7 +9,7 @@ function draw_logo(a)
       {"The Story Of", 0, -11, 10, 4}
    ]]
    )
-   zspr(224, 0, 3, 6, 2)
+   spr_and_out(224, 0, 3, 6, 2, false, false, 1)
 
    if t() % 1 < .5 then
       batch_call(tprint, [[
