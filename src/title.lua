@@ -9,8 +9,8 @@ function draw_logo(a)
       {"ThE StOrY Of", 0, -17, 10, 4}
    ]]
    )
-   for i=0,4 do
-      spr_and_out(224+i, i*10-20, sgn(cos(t()/2+i/4))/2+1, 1, 2, false, false, 1)
+   for i=-2,2 do
+      spr_and_out(226+i, i*10, sgn(cos(t()/2+i/4))/2+1, 1, 2, false, false, 1)
    end
 
    if t() % 1 < .5 then
