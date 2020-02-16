@@ -6,14 +6,16 @@ function draw_logo(a)
    camera(-a.x*8, -a.y*8)
    -- (str, x, y, alignment, shadow_below)
    batch_call(tprint, [[
-      {"The Story Of", 0, -11, 10, 4}
+      {"ThE StOrY Of", 0, -17, 10, 4}
    ]]
    )
-   spr_and_out(224, 0, 3, 6, 2, false, false, 1)
+   for i=0,4 do
+      spr_and_out(224+i, i*10-20, sgn(cos(t()/2+i/4))/2+1, 1, 2, false, false, 1)
+   end
 
    if t() % 1 < .5 then
       batch_call(tprint, [[
-         {"Press 🅾️ To Play", -1, 50, 7, 5}
+         {"🅾️ Or ❎ To PlAy  ", 0, 12, 7, 5}
       ]])
    end
 
@@ -40,7 +42,7 @@ g_title = gun_vals([[
          {'view','update_view'}
       ]])
 
-      if btnp(4) then
+      if btnp'4' or btnp'5' then
          a.outer.tl_loop = false
          return true
       end
