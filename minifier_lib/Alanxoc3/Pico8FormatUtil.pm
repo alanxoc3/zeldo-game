@@ -142,8 +142,18 @@ my @texts;
 sub text_logic {
    my $non_quote = shift;
    my $quote = shift;
-   $quote =~ tr/A-Za-z/a-zA-Z/; # flip the pico upper and lower case.
-   push @texts, $quote;
+   my @char_arr = split(//, $quote);
+
+   for my $i (0 .. $#char_arr) {
+      if ($i % 2 == 0) {
+         $char_arr[$i] = uc( $char_arr[$i] );
+      } else {
+         $char_arr[$i] = lc( $char_arr[$i] );
+      }
+   }
+
+   # $quote =~ tr/A-Za-z/a-zA-Z/; # flip the pico upper and lower case.
+   push @texts, join("", @char_arr);
    return $non_quote."P_TEXT_LOGIC";
 }
 

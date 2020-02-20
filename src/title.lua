@@ -6,7 +6,7 @@ function draw_logo(a)
    camera(-a.x*8, -a.y*8)
    -- (str, x, y, alignment, shadow_below)
    batch_call(tprint, [[
-      {"ThE StOrY Of", 0, -17, 10, 4}
+      {"that story about", 0, -17, 10, 4}
    ]]
    )
    for i=-2,2 do
@@ -29,7 +29,7 @@ g_title = gun_vals([[
 { tl_name='outer', tl_loop=true, { i=@3, u=@2, d=@1, tl_max_time=5 } }
    ]], function(a)
       fade(g_card_fade)
-      map_draw(a.x, a.y, {5,1,1})
+      map_draw(a.x, a.y, [[0,0,13,1]])
       fade'0'
 
       draw_logo(a)

@@ -12,7 +12,7 @@ GetOptions('dev' => \$dev_mode) or die "Usage: $0 [--dev]\n";
 my %constants;
 $constants{'INTERACT_SPACE'} = '.5';
 $constants{'FPS'} = '60';
-$constants{'CART_NAME'} = '"ZELDO_TEST30"';
+$constants{'CART_NAME'} = '"zeldo_test30"';
 $constants{'TEMP_SAVE_LOCATION'} = '0x5d00';
 $constants{'REAL_SAVE_LOCATION'} = '0x5e00';
 $constants{'SAVE_LENGTH'}        = '64';
@@ -90,8 +90,8 @@ $constants{'FOREST_TREASURE'}         = '24';
 my @lines = <>;
 chomp(@lines);
 @lines = remove_comments(@lines);
-@lines = tokenize_lines(\@lines, \%constants);
 @lines = remove_texts(@lines);
+@lines = tokenize_lines(\@lines, \%constants);
 @lines = single_quotes_to_double(@lines);
 
 if ($dev_mode) {

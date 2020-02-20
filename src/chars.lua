@@ -57,35 +57,35 @@ create_actor([['navy_blocking', 2, {'nnpc'}, NAVY_OUT]], [[
       if zdget'HAS_BOOMERANG' then
          tbox([[
             trigger=@1,
-            "A boomerang?","",
-            "Isn't that a toy?","",
-            "I hope you can save my",
+            "a boomerang?","",
+            "isn't that a toy?","",
+            "i hope you can save my",
             "sister with that thing."
          ]], get_npc_reload_room'NAVY_OUT')
       elseif zdget'HAS_SHIELD' then
          tbox([[
             trigger=@1,
-            "A shield! Good choice!","",
-            "You can use that protect",
+            "a shield! good choice!","",
+            "you can use that protect",
             "my sister from monsters!"
          ]], get_npc_reload_room'NAVY_OUT')
       else
          tbox[[
-            "My sister has been in the",
+            "my sister has been in the",
             "forest all day.",
-            "Find something to protect",
+            "find something to protect",
             "yourself with, then bring",
             "her home."
          ]]
       end
    end, function(a)
       npc_dance_logic(a,[[
-         "Umm... Lank, maybe you",
+         "umm... lank, maybe you",
          "should practice that",
          "instrument a bit more."
       ]], [[
-         "Nice playing lank!", "",
-         "If I had money, I would",
+         "nice playing lank!", "",
+         "if i had money, i would",
          "give it to you!", trigger=@1
       ]], HAS_BANJO, 0) -- will not give money, because you have the banjo.
    end
@@ -225,17 +225,17 @@ create_actor([['bob_build', 2, {'nnpc'}, BOB_OUT]], [[
 )
 
 create_actor([['keep', 2, {'nnpc'}]], [[
-   name="Keep",
+   name="keep",
    sind=83,
    x=@1, y=@2, interactable_trigger=@3,
    pause_end=@4
 ]],function()
-   tbox[["Buy something will ya?"]]
+   tbox[["buy somethin' will ya?"]]
 end, function(a)
    npc_dance_logic(a,[[
-      "That song sucked."
+      "that song sucked."
    ]], [[
-      "That song was okay.", trigger=@1
+      "that song was okay.", trigger=@1
    ]], KEEP_DANCE, 1)
 end
 )

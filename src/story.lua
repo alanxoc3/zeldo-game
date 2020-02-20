@@ -92,7 +92,7 @@ function map_init()
          {'sign',13.5,12.5,{"Mayor Lark's House"},43},
          {'sign',17.5,13.5,{"Teach's Studio"},43},
          {'sign',9.5,13.5,{"Bob And Jane's House"},43},
-         {'sign',21.5,14.5,{"Hiroll Shop"},43},
+         {'sign',21.5,14.5,{"hi-roll shop"},43},
          {'house',4,14.5,LIMENAVY,4,7.5,46},
          {'house',16,13.5,TEACH_STUDIO,4,7.5,46},
          {'house',12,12.5,MAYOR_HOUSE,6,9.5,46},

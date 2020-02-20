@@ -31,6 +31,22 @@ function spr_and_out(...)
    zspr(...)
 end
 
+function zrect(x1, y1, x2, y2, color_gun)
+   local list = gun_vals(color_gun)
+   for k=#list,1,-1 do
+      local v = list[k]
+      local xx1, yy1, xx2, yy2 = x1+k-1, y1+k-1, x2-k+1, y2-k+1
+      rect(xx1, yy1, xx2, yy2, v)
+
+      pset(xx1+1, yy1+1, v) pset(xx2-1, yy1+1, v)
+      pset(xx1+1, yy2-1, v) pset(xx2-1, yy2-1, v)
+   end
+   pset(x1, y1, 0)
+   pset(x2, y1, 0)
+   pset(x2, y2, 0)
+   pset(x1, y2, 0)
+end
+
 g_out_cache = {}
 function create_outline(sind, sw, sh)
    sw*=8 sh*=8 sh-=1

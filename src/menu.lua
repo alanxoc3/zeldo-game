@@ -11,12 +11,12 @@ end
 function draw_ma(view, x, y, a)
    local old_view = g_view
    g_view = view
-   map_and_act_draw(x/8,y/8, {0,5,6})
+   map_and_act_draw(x/8,y/8, [[0,0,13,1]])
    g_view = old_view
 end
 
 function draw_energy_bar(x, y)
-   local width = 109
+   local width = 107
    local cur_energy = flr(max(min(g_energy/g_max_energy*width,width-1),1))
 
    camera(-x,-y)
@@ -68,15 +68,15 @@ function draw_stat(view, x, y, flip)
       if a.hurtable then
          local health_str = a.max_health < 0 and '???/???' or flr(a.health)..'/'..a.max_health
          draw_health_bar(operator2,y+7,a.max_health,a.health, flip)
-         zprint(health_str,align_text(health_str, operator, flip),y+13,true)
+         zprint(health_str,align_text(health_str, operator, flip),y+13,true, 7, 5)
       elseif a.costable then
          local str = ""..a.cost
-         zprint(str,align_text(str, operator, flip),y+13,true)
+         zprint(str,align_text(str, operator, flip),y+13,true, 7, 5)
          spr_and_out(39, align_text(str, operator, flip)-4, y+16, 1, 1, false, false, 1)
       end
 
       if a.name then
-         zprint(a.name,align_text(a.name, operator, flip),y)
+         zprint(a.name,align_text(a.name, operator, flip),y-1, true, 7, 5)
       end
    end
 end
@@ -85,11 +85,11 @@ function draw_status()
    local x = 47
    local y = 107
    -- power orbs
-   spr_and_out(39, x, y+3, 1, 1, false, false, 1)
-   zprint(get_money_str(), x+4, y)
+   spr_and_out(39, x, y+2, 1, 1, false, false, 1)
+   zprint(get_money_str(), x+4, y-1, true, 7, 5)
 
    -- energy bar
-   draw_energy_bar(9,2)
+   draw_energy_bar(10,2)
 
    -- status panels
    batch_call(draw_stat, [[

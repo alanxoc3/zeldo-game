@@ -301,25 +301,26 @@ end
 
 function map_draw(x, y, border_colors)
    if g_view then
-   local rx = x - g_view.w/2
-   local ry = y - g_view.h/2
+      local rx = x - g_view.w/2
+      local ry = y - g_view.h/2
 
-   g_view.off_x = -(16-g_view.w)/2+rx
-   g_view.off_y = -(16-g_view.h)/2+ry
+      g_view.off_x = -(16-g_view.w)/2+rx
+      g_view.off_y = -(16-g_view.h)/2+ry
 
-   for k,v in pairs(border_colors) do
-      rectfill(rx*8+k,ry*8+k, (rx+g_view.w)*8-k-1, (ry+g_view.h)*8-k-1, v)
+      local x1, x2 = rx*8, (rx+g_view.w)*8-1
+      local y1, y2 = ry*8, (ry+g_view.h)*8-1
+
+      zclip(x1, y1, x2, y2)
+      zcls(g_cur_room.c)
+      scr_map(g_cur_room.x, g_cur_room.y, g_cur_room.x, g_cur_room.y, g_cur_room.w, g_cur_room.h)
+
+      isorty(g_act_arrs.drawable)
+      acts_loop('drawable', 'd')
+      if g_debug then acts_loop('dim', 'debug_rect') end
+      clip()
+
+      zrect(x1, y1, x2, y2, border_colors)
    end
-
-   zclip(rx*8+4, ry*8+4, (rx+g_view.w)*8-5, (ry+g_view.h)*8-5)
-   zcls(g_cur_room.c)
-   scr_map(g_cur_room.x, g_cur_room.y, g_cur_room.x, g_cur_room.y, g_cur_room.w, g_cur_room.h)
-
-   isorty(g_act_arrs.drawable)
-   acts_loop('drawable', 'd')
-   if g_debug then acts_loop('dim', 'debug_rect') end
-   clip()
-end
 end
 
 function map_and_act_draw(x, y, border_colors)
@@ -333,7 +334,7 @@ function game_draw()
    local x = 8+g_card_shake_x
    local y = 8-7/8+g_card_shake_y
 
-   map_and_act_draw(x, y, {5,1})
+   map_and_act_draw(x, y, [[0,0,13,1]])
    if g_menu_open then
       if g_selected == 5 then g_pl.outline_color = 2 end
       g_pl.d(g_pl)
