@@ -55,13 +55,13 @@ end
 function ttbox_draw(x, y)
    if g_tbox_active then -- only draw if there are messages
       camera(-x,-y)
-      rectfill(0,0,106,19,0)
-      zrect(0,0,106,19,[[13,1]])
+      rectfill(-1,0,105,19,0)
+      zrect(-1,0,105,19,[[13,1]])
 
       -- print the message
       batch_call(zprint, [[
-         {@1, 4, 3, true, 7, 5},
-         {@2, 4, 11, true, 7, 5}
+         {@1, 3, 3, true, 7, 5},
+         {@2, 3, 11, true, 7, 5}
       ]],
          sub(g_tbox_active.l1, 1, g_tbox_anim),
          sub(g_tbox_active.l2, 0, max(g_tbox_anim - #g_tbox_active.l1, 0))
@@ -69,7 +69,7 @@ function ttbox_draw(x, y)
 
       -- draw the arrow
       if not g_tbox_writing then
-         spr(38, 101, ti(40)<20 and 13 or 14)
+         spr(38, 100, ti(40)<20 and 13 or 14)
       end
       camera()
    end
