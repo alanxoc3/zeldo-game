@@ -97,7 +97,8 @@ function map_init()
          {'house',16,13.5,TEACH_STUDIO,4,7.5,46},
          {'house',12,12.5,MAYOR_HOUSE,6,9.5,46},
          {'house',8,13.5,JANEBOB,4,7.5,46},
-         {'house',20,14.5,SHOP,4,7.5,46}
+         {'house',20,14.5,SHOP,4,7.5,46},
+         {'top',20,16.5}
       },
       -- LANK_FRONT_YARD
       { m=0, c=3, qx=0, qy=0,

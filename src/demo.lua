@@ -332,7 +332,7 @@ function game_draw()
    fade(g_card_fade)
 
    local x = 8+g_card_shake_x
-   local y = 8-7/8+g_card_shake_y
+   local y = 7+g_card_shake_y
 
    map_and_act_draw(x, y, [[0,0,13,1]])
    if g_menu_open then
@@ -347,7 +347,7 @@ function game_draw()
    if is_game_paused'tbox' and not get_cur_ma() then
       tbox_x = 19
    end
-   ttbox_draw(tbox_x,106)
+   ttbox_draw(tbox_x,105)
    fade(0)
 end
 
@@ -361,8 +361,8 @@ end
 function game_init()
    map_init()
    g_pl = g_att.pl(0, 0)
-   load_room(LANK_HOUSE, 3, 4, g_pl)
-   -- load_room(SHOP, 3, 4, g_pl)
+   -- load_room(LANK_HOUSE, 3, 4, g_pl)
+   load_room(SHOP, 3, 4, g_pl)
 end
 
 function pause(reason)

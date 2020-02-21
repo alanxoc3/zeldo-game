@@ -16,17 +16,17 @@ function draw_ma(view, x, y, a)
 end
 
 function draw_energy_bar(x, y)
-   local width = 107
-   local cur_energy = flr(max(min(g_energy/g_max_energy*width,width-1),1))
+   local width = 54
+   local cur_energy = flr(min(width-g_energy/g_max_energy*width, width))
 
    camera(-x,-y)
-   batch_call(rect, [[
-      {0,2,@1,3,@2},
-      {1,1,@1,4,0x100d},
-      {@1,0,@1,5,9},
-      {@1,2,@1,3,10},
-      {0,0,@3,5,1}
-   ]], cur_energy, patternize(0x6c,3), width)
+
+   if cur_energy > 0 then
+      rectfill(-width, 2, -width, 5, 13)
+      rectfill(width-1, 2, width-1, 5, 13)
+      rectfill(-cur_energy, 2, cur_energy-1, 5, 2)
+      rectfill(-cur_energy, 2, cur_energy-1, 4, 8)
+   end
    camera()
 end
 
@@ -34,7 +34,7 @@ end
 function draw_health_bar(x, y, max_health, health, flip)
    -- normalize health to draw
    health = health/max_health*37+1
-   local x_begin, x_end = 1, health
+   local x_begin, x_end = 0, health
 
    if flip then
       health = 39-health
@@ -42,13 +42,10 @@ function draw_health_bar(x, y, max_health, health, flip)
    end
 
    camera(-x,-y)
-   batch_call(rect, [[
-      {0, 0, 39, 3, 1},
-      {@1, 1, @2, 1, 11},
-      {@1, 2, @2, 2, 3},
-      {@3, 1, @3, 2, 9},
-      {@3, 1, @3, 1, 10}
-   ]], x_begin, x_end, health)
+   batch_call(rectfill, [[
+      {@1, 0, @2, 2, 11},
+      {@1, 3, @2, 3, 3}
+   ]], x_begin, x_end)
    camera()
 end
 
@@ -70,9 +67,7 @@ function draw_stat(view, x, y, flip)
          draw_health_bar(operator2,y+7,a.max_health,a.health, flip)
          zprint(health_str,align_text(health_str, operator, flip),y+13,true, 7, 5)
       elseif a.costable then
-         local str = ""..a.cost
-         zprint(str,align_text(str, operator, flip),y+13,true, 7, 5)
-         spr_and_out(39, align_text(str, operator, flip)-4, y+16, 1, 1, false, false, 1)
+         draw_money(x-37, y+13, a.cost)
       end
 
       if a.name then
@@ -81,19 +76,27 @@ function draw_stat(view, x, y, flip)
    end
 end
 
+function get_money_str(money)
+   local new_str = '00'..money
+   return sub(new_str, #new_str-2, #new_str)
+end
+
+function draw_money(x, y, amount)
+   zprint("$"..get_money_str(amount), x+3, y, true, 7, 5)
+end
+
 function draw_status()
-   local x = 47
-   local y = 107
+   local x = 48
+   local y = 106
    -- power orbs
-   spr_and_out(39, x, y+2, 1, 1, false, false, 1)
-   zprint(get_money_str(), x+4, y-1, true, 7, 5)
+   draw_money(x-4, y-1, g_money)
 
    -- energy bar
-   draw_energy_bar(10,2)
+   draw_energy_bar(64,1)
 
    -- status panels
    batch_call(draw_stat, [[
-      {@1, 2, 107},
-      {@2, 125, 107, true}
+      {@1, 3, 106},
+      {@2, 124, 106, true}
    ]], g_left_ma_view, g_right_ma_view)
 end

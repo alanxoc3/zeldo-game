@@ -1,5 +1,5 @@
 create_actor([['money', 4, {'bounded','confined','tcol','spr','col','mov'}]], [[
-   sind=39,rx=.375,ry=.375,
+   sind=36,rx=.125,ry=.125,
    x=@1, y=@2, dx=@3, dy=@4,
    touchable=false,
    hit=@5,

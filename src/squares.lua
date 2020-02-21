@@ -14,11 +14,6 @@ function remove_money(amount)
    end
 end
 
-function get_money_str()
-   local new_str = '00'..g_money
-   return sub(new_str, #new_str-2, #new_str)
-end
-
 function energy_update(amount)
    if g_energy_tired and g_energy >= 100 then
       g_energy_tired = false
