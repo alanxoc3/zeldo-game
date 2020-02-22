@@ -65,9 +65,9 @@ function draw_stat(view, x, y, flip)
       if a.hurtable then
          local health_str = a.max_health < 0 and '???/???' or flr(a.health)..'/'..a.max_health
          draw_health_bar(operator2,y+7,a.max_health,a.health, flip)
-         zprint(health_str,align_text(health_str, operator, flip),y+13,true, 7, 5)
+         zprint(health_str,align_text(health_str, x+61, not flip),y+13,true, 7, 5)
       elseif a.costable then
-         draw_money(x-37, y+13, a.cost)
+         draw_money(x-33, y+13, a.cost)
       end
 
       if a.name then
@@ -77,8 +77,8 @@ function draw_stat(view, x, y, flip)
 end
 
 function get_money_str(money)
-   local new_str = '00'..money
-   return sub(new_str, #new_str-2, #new_str)
+   local new_str = '0'..money
+   return sub(new_str, #new_str-1, #new_str)
 end
 
 function draw_money(x, y, amount)
@@ -89,7 +89,7 @@ function draw_status()
    local x = 48
    local y = 106
    -- power orbs
-   draw_money(x-4, y-1, g_money)
+   draw_money(x-28, y+13, g_money)
 
    -- energy bar
    draw_energy_bar(64,1)

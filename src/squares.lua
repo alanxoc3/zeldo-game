@@ -2,7 +2,7 @@
 g_cur_enemy_timer = nil, 0
 
 function add_money(amount)
-   g_money = min(g_money + amount, 999)
+   g_money = min(g_money + amount, 99)
    zdset(MONEY,g_money)
 end
 
