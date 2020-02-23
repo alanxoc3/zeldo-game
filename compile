@@ -21,7 +21,7 @@ src/title.lua
 src/view.lua
 
 src/parents.lua
-src/acts.lua
+src/acts/*
 src/demo.lua
 "
 

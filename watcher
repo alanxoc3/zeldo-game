@@ -1,15 +1,7 @@
 #!/usr/bin/env bash
 # pico watch, by Alan Morgan
 
-# assumes current directory.
-DIRS=""
-for f in ./src; do
-	if [ -e $f ]; then
-		DIRS="$f $DIRS"
-	fi
-done
-
-inotifywait -e close_write,moved_to,create -m $DIRS |
+inotifywait -e close_write,moved_to,create -mr ./src |
 while read -r directory; do
   echo "'$directory' was changed."
   ./compile
