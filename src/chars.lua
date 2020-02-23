@@ -15,7 +15,6 @@ function able_to_interact()
       and btnp'4'
 end
 
-
 function npc_dance_logic(a,bad_text,good_text,mem_loc,money)
    if g_pause_reason == 'dancing' then
       change_cur_ma(a)
