@@ -40,28 +40,6 @@ function load_room(new_room_index, rx, ry, follow_actor)
    acts_loop('view', 'center_view')
 end
 
-create_actor([['transitioner', 4, {'act','unpausable'}]], [[
-   new_room_index=@1, rx=@2, ry=@3, follow_actor=@4,
-   {tl_name='intro',  i=@5, u=@6, tl_max_time=.5, e=@7},
-   {tl_name='ending', i=@10, u=@8, tl_max_time=.5, e=@9}
-]], -- init
-function(a)
-   pause'transitioning'
-end, function(a)
-   g_card_fade = a.intro.tl_tim/a.intro.tl_max_time*10
-end, function(a)
-   load_room(a.new_room_index, a.rx, a.ry, a.follow_actor)
-   tbox_clear()
-   g_game_paused = false
-end, function(a)
-   g_card_fade = (a.ending.tl_max_time-a.ending.tl_tim)/a.ending.tl_max_time*10
-end, function()
-   unpause()
-   g_card_fade = 0
-end, function()
-   g_game_paused = true
-end)
-
 function room_update()
    -- plus .5 and minus .375 is because there is a screen border.
    if not is_game_paused() and g_cur_room then

@@ -1,25 +1,3 @@
-create_actor([['view_instance', 4, {'view'}]], [[
-   tl_loop=true,
-   w=@1, h=@2, follow_dim=@3, follow_act=@4,
-   update_view=@5,
-   center_view=@6,
-   change_ma=@7,
-   {},
-   {tl_max_time=4},
-   {follow_act=false}
-]],
-function(a)
-   batch_call(update_view_helper, [[{@1,'x','w','ixx'},{@1,'y','h','iyy'}]],a)
-end, function(a)
-   if a.follow_act then
-      a.x, a.y = a.follow_act.x, a.follow_act.y
-   end
-   a:update_view()
-end, function(a, ma)
-   a.follow_act = ma
-   a.tl_next = a.timeoutable and 2 or 1
-end)
-
 function update_view_helper(view, xy, wh, ii)
    local follow_coord = view.follow_act and (view.follow_act[xy]+view.follow_act[ii]/8) or 0
    local view_coord = view[xy]

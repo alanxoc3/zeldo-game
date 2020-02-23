@@ -1,7 +1,3 @@
-create_actor([['title_move', 0, {'mov'}]], [[
-   x=0, y=0, dx=.1, dy=.1, ax=0, ay=0, ix=1, iy=1, ixx=0, iyy=0
-]])
-
 function draw_logo(a)
    camera(-a.x*8, -a.y*8)
    -- (str, x, y, alignment, shadow_below)
