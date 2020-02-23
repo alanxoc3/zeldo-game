@@ -41,7 +41,7 @@ end)
 
 create_actor(
 [['pl', 2, {'anim','col','mov','tcol','hurtable','knockable','stunnable','spr','danceable'}]], [[
-   name="Lank",
+   name="'lank'",
    x=@1,
    y=@2,
    sinds={144, 145, 146},

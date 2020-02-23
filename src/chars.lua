@@ -225,17 +225,17 @@ create_actor([['bob_build', 2, {'nnpc'}, BOB_OUT]], [[
 )
 
 create_actor([['keep', 2, {'nnpc'}]], [[
-   name="keep",
+   name="'keep'",
    sind=83,
    x=@1, y=@2, interactable_trigger=@3,
    pause_end=@4
 ]],function()
-   tbox[["buy somethin' will ya?"]]
+   tbox[["'buy somethin' will ya?'"]]
 end, function(a)
    npc_dance_logic(a,[[
-      "that song sucked."
+      "'that song sucked.'"
    ]], [[
-      "that song was okay.", trigger=@1
+      "'that song was okay.'", trigger=@1
    ]], KEEP_DANCE, 1)
 end
 )

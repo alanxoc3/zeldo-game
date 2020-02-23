@@ -216,9 +216,34 @@ end
 g_gunvals = split_string("|", g_gunvals_raw)
 
 -- For debugging.
--- function tostring(any) if type(any)=='function' then return 'function' end
--- if any==nil then return 'nil end if type(any)=='string' then return any end
--- if type(any)=='boolean' then if any then return 'true' end return 'false'
--- end if type(any)=='table' then local str = "{ " for k,v in pairs(any) do
--- str=str..tostring(k).."->"..tostring(v).." " end return str.."}" end if
--- type(any)=='number' then return ""..any end return 'unknown' end
+-- function tostring(any, nest)
+--     if type(any)=="function" then
+--         return "function"
+--     end
+--     if any==nil then
+--         return "nil"
+--     end
+--     if type(any)=="string" then
+--         return any
+--     end
+-- 
+--     if type(any)=="boolean" then
+--         if any then return "true" end
+--         return "false"
+--     end
+-- 
+--     if type(any)=="table" then
+--          if nest == nil then nest = 1
+--          elseif nest > 3 then return "nest" end
+-- 
+--         local str = "{\n"
+--         for k,v in pairs(any) do
+--             str=str..tostring(k, nest+1).."->"..tostring(v, nest+1).." "
+--         end
+--         return str.."\n}\n"
+--     end
+--     if type(any)=="number" then
+--         return ""..any
+--     end
+--     return "unkown" -- should never show
+-- end

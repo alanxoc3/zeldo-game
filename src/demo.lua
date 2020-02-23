@@ -169,7 +169,6 @@ function _init()
    )
 
    g_tl = {
-      g_title,
       g_game
    }
 

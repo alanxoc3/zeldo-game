@@ -45,12 +45,12 @@ end
 )
 
 create_actor([['shop_brang', 2, {'shop_item'}, HAS_BOOMERANG]], [[
-   name="Brang", sind=4,
+   name="'brang'", sind=4,
    x=@1, y=@2, mem_loc=HAS_BOOMERANG
 ]])
 
 create_actor([['shop_shield', 2, {'shop_item'}, HAS_SHIELD]], [[
-   name="Shield", sind=6,
+   name="'shield'", sind=6,
    x=@1, y=@2, mem_loc=HAS_SHIELD
 ]])
 

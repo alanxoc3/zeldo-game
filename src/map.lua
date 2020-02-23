@@ -34,6 +34,7 @@ function load_room(new_room_index, rx, ry, follow_actor)
    g_view = g_att.view_instance(min(14, g_cur_room.w), min(12, g_cur_room.h), 2, follow_actor)
    g_left_ma_view = g_att.view_instance(2.75, 3, 0, follow_actor)
    g_right_ma_view = g_att.view_instance(2.75, 3, 0, nil)
+   g_right_ma_view.yoyo = true
    g_right_ma_view.timeoutable = true
 
    acts_loop('view', 'center_view')

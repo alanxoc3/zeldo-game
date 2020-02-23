@@ -142,18 +142,22 @@ my @texts;
 sub text_logic {
    my $non_quote = shift;
    my $quote = shift;
-   my @char_arr = split(//, $quote);
 
-   for my $i (0 .. $#char_arr) {
-      if ($i % 2 == 0) {
-         $char_arr[$i] = uc( $char_arr[$i] );
-      } else {
-         $char_arr[$i] = lc( $char_arr[$i] );
+   if ($quote =~ s/^"'(.*?)'"$/"$1"/g) {
+      my @char_arr = split(//, $quote);
+
+      for my $i (0 .. $#char_arr) {
+         if ($i % 2 == 0) {
+            $char_arr[$i] = uc( $char_arr[$i] );
+         } else {
+            $char_arr[$i] = lc( $char_arr[$i] );
+         }
       }
+
+      $quote = join("", @char_arr);
    }
 
-   # $quote =~ tr/A-Za-z/a-zA-Z/; # flip the pico upper and lower case.
-   push @texts, join("", @char_arr);
+   push @texts, $quote;
    return $non_quote."P_TEXT_LOGIC";
 }
 
@@ -163,7 +167,7 @@ sub remove_texts {
 
    for (@_) {
       my $line = $_;
-      $line =~ s/([^"]*)(\"[^\"]*\")/text_logic($1,$2)/ge;
+      $line =~ s/(.*)(\".*?\")/text_logic($1,$2)/ge;
       push @new_lines, $line;
    }
 

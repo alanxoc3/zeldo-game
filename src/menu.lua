@@ -31,7 +31,7 @@ function draw_energy_bar(x, y)
 end
 
 -- 5927
-function draw_health_bar(x, y, max_health, health, flip)
+function draw_health_bar(x, y, health, max_health, flip)
    -- normalize health to draw
    health = health/max_health*37+1
    local x_begin, x_end = 0, health
@@ -43,6 +43,7 @@ function draw_health_bar(x, y, max_health, health, flip)
 
    camera(-x,-y)
    batch_call(rectfill, [[
+      {38, 0, 38, 3, 13},
       {@1, 0, @2, 2, 11},
       {@1, 3, @2, 3, 3}
    ]], x_begin, x_end)
@@ -64,8 +65,8 @@ function draw_stat(view, x, y, flip)
       -- TODO: Refactor here.
       if a.hurtable then
          local health_str = a.max_health < 0 and '???/???' or flr(a.health)..'/'..a.max_health
-         draw_health_bar(operator2,y+7,a.max_health,a.health, flip)
-         zprint(health_str,align_text(health_str, x+61, not flip),y+13,true, 7, 5)
+         draw_health_bar(operator2,y+7,a.health,a.max_health,flip)
+         zprint(health_str,align_text(health_str, x+20, flip),y+13,true, 7, 5)
       elseif a.costable then
          draw_money(x-33, y+13, a.cost)
       end
@@ -89,7 +90,7 @@ function draw_status()
    local x = 48
    local y = 106
    -- power orbs
-   draw_money(x-28, y+13, g_money)
+   draw_money(x, y+13, g_money)
 
    -- energy bar
    draw_energy_bar(64,1)
