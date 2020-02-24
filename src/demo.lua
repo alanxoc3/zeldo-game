@@ -59,7 +59,7 @@ end
 
 function _draw()
    cls()
-   if g_debug then rect(0,0,127,127,8) end
+   if g_debug then rect(0,0,127,127,FG_RED) end
    call_not_nil(g_tl, 'd', g_tl)
    if g_debug then
       zprint(stat(1), 52, 2, true)
@@ -67,7 +67,6 @@ function _draw()
 end
 
 function game_update()
-   patterns_update()
    room_update()
 
    if not is_game_paused() then
@@ -181,11 +180,11 @@ function game_draw()
    local x = 8+g_card_shake_x
    local y = 7+g_card_shake_y
 
-   map_and_act_draw(x, y, [[0,0,13,1]])
+   map_and_act_draw(x, y, [[BG,BG,FG_UI,BG_UI]])
    if g_menu_open then
-      if g_selected == 5 then g_pl.outline_color = 2 end
+      if g_selected == 5 then g_pl.outline_color = SL_UI end
       g_pl.d(g_pl)
-      g_pl.outline_color = 1
+      g_pl.outline_color = BG_UI
    end
    acts_loop('inventory_item', 'draw_both')
 

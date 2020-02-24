@@ -22,7 +22,7 @@ function destroy_inventory_items()
    end
    g_item_selector = nil
    g_items_drawn = nil
-   g_pl.outline_color = 1
+   g_pl.outline_color = BG_UI
 end
 
 function enable_item(index)
@@ -72,7 +72,6 @@ function inventory_update()
          g_selected = G_INTERACT
       end
    end
-
 
    if g_menu_open then
       create_inventory_items()

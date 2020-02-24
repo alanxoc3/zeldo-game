@@ -1,5 +1,3 @@
--- a box with a character inside.
-
 function change_cur_ma(a)
    g_right_ma_view:change_ma(a)
 end
@@ -11,7 +9,7 @@ end
 function draw_ma(view, x, y, a)
    local old_view = g_view
    g_view = view
-   map_and_act_draw(x/8,y/8, [[0,0,13,1]])
+   map_and_act_draw(x/8,y/8, [[BG,BG,FG_UI,BG_UI]])
    g_view = old_view
 end
 
@@ -21,8 +19,8 @@ function draw_bar(x1,y1,x2,y2,num,dem,align,fg,bg)
 
    if num > 0 then
       batch_call(rectfill, [[
-         {@1, @2, @1, @4, 13},
-         {@3, @2, @3, @4, 13},
+         {@1, @2, @1, @4, FG_UI},
+         {@3, @2, @3, @4, FG_UI},
          {@5, @2, @6, @4, @7},
          {@5, @4, @6, @4, @8}
       ]], x1, y1, x2, y2,
@@ -47,9 +45,10 @@ function draw_stat(view, x, y, flip)
       -- TODO: Refactor here.
       if a.hurtable then
          -- Health Bar.
-         draw_bar(operator2, y+7, operator2+38, y+10, a.health,a.max_health, flip and 1 or -1, 11, 3)
+         draw_bar(operator2, y+7, operator2+38, y+10, a.health,a.max_health,
+                  flip and 1 or -1, FG_GREEN, BG_GREEN)
          local health_str = a.max_health < 0 and '???/???' or flr(a.health)..'/'..a.max_health
-         zprint(health_str,align_text(health_str, x+20, flip),y+13,true, 7, 5)
+         zprint(health_str,align_text(health_str, x+20, flip),y+13,true, FG_WHITE, BG_WHITE)
       elseif a.costable then
          draw_money(x-33, y+13, a.cost)
       end
@@ -66,7 +65,7 @@ function get_money_str(money)
 end
 
 function draw_money(x, y, amount)
-   zprint("$"..get_money_str(amount), x+3, y, true, 7, 5)
+   zprint("$"..get_money_str(amount), x+3, y, true, FG_WHITE, BG_WHITE)
 end
 
 function draw_status()
@@ -74,7 +73,7 @@ function draw_status()
    local y = 106
 
    draw_money(x, y+13, g_money)
-   draw_bar(10, 2, 117, 6, g_energy, MAX_ENERGY, 0, 8, 2)
+   draw_bar(10, 2, 117, 6, g_energy, MAX_ENERGY, 0, FG_RED, BG_RED)
 
    -- status panels
    batch_call(draw_stat, [[

@@ -10,6 +10,22 @@ GetOptions('dev' => \$dev_mode) or die "Usage: $0 [--dev]\n";
 
 # Constants specific to Zeldo.
 my %constants;
+
+# Colors
+$constants{'FG_YELLOW'} = '10';
+$constants{'BG_YELLOW'} = '9';
+$constants{'FG_WHITE'} = '7';
+$constants{'BG_WHITE'} = '5';
+$constants{'FG_RED'} = '8';
+$constants{'BG_RED'} = '2';
+$constants{'FG_GREEN'} = '11';
+$constants{'BG_GREEN'} = '3';
+$constants{'FG_UI'} = '13';
+$constants{'BG_UI'} = '1';
+$constants{'SL_UI'} = '2';
+$constants{'BG'} = '0';
+
+# Othen
 $constants{'MAX_ENERGY'} = '100';
 $constants{'INTERACT_SPACE'} = '.5';
 $constants{'FPS'} = '60';

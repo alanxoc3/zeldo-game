@@ -179,7 +179,7 @@ create_parent(
 [[ 'spr_obj', {'vec', 'drawable_obj'},
    {
       sind=0,
-      outline_color=1,
+      outline_color=BG_UI,
       sw=1,
       sh=1,
       xf=false,

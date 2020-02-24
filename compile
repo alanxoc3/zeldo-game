@@ -12,7 +12,6 @@ src/map.lua
 src/menu.lua
 src/misc.lua
 src/move_funcs.lua
-src/pattern.lua
 src/squares.lua
 src/story.lua
 src/tbox.lua

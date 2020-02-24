@@ -155,11 +155,11 @@ fadetable=gun_vals([[
 ]])
 
 function fade(i)
- for c=0,15 do
-  if flr(i+1)>=8 then
-   pal(c,0)
-  else
-   pal(c,fadetable[c+1][flr(i+1)])
-  end
- end
+   for c=0,15 do
+      if flr(i+1)>=8 then
+         pal(c,0)
+      else
+         pal(c,fadetable[c+1][flr(i+1)])
+      end
+   end
 end
