@@ -1,62 +1,62 @@
 -- SECTION: CHARS
 create_actor([['navy_blocking', 2, {'nnpc'}, NAVY_OUT]], [[
-      name="Navy",
+      name="'navy'",
       sind=97,
       x=@1, y=@2, interactable_trigger=@3, pause_end=@4
    ]],x,y,function(a)
       if zdget'HAS_BOOMERANG' then
          tbox([[
             trigger=@1,
-            "a boomerang?","",
-            "isn't that a toy?","",
-            "i hope you can save my",
-            "sister with that thing."
+            "'a boomerang?'","''",
+            "'isn't that a toy?'","''",
+            "'i hope you can save my'",
+            "'sister with that thing.'"
          ]], get_npc_reload_room'NAVY_OUT')
       elseif zdget'HAS_SHIELD' then
          tbox([[
             trigger=@1,
-            "a shield! good choice!","",
-            "you can use that protect",
-            "my sister from monsters!"
+            "'a shield! good choice!'","",
+            "'you can use that protect'",
+            "'my sister from monsters!'"
          ]], get_npc_reload_room'NAVY_OUT')
       else
          tbox[[
-            "my sister has been in the",
-            "forest all day.",
-            "find something to protect",
-            "yourself with, then bring",
-            "her home."
+            "'my sister has been in the'",
+            "'forest all day.'",
+            "'find something to protect'",
+            "'yourself with, then bring'",
+            "'her home.'"
          ]]
       end
    end, function(a)
       npc_dance_logic(a,[[
-         "umm... lank, maybe you",
-         "should practice that",
-         "instrument a bit more."
+         "'umm... lank, maybe you'",
+         "'should practice that'",
+         "'instrument a bit more.'"
       ]], [[
-         "nice playing lank!", "",
-         "if i had money, i would",
-         "give it to you!", trigger=@1
+         "'nice playing lank!'", "''",
+         "'if i had money, i would'",
+         "'give it to you!'", trigger=@1
       ]], HAS_BANJO, 0) -- will not give money, because you have the banjo.
    end
 )
 
 create_actor([['teach', 2, {'nnpc'}]], [[
-      name="Teach",
+      name="'teach'",
       sind=96,
       x=@1, y=@2, interactable_trigger=@3,
       pause_end=@4
    ]], function()
       if zdget'BANJO_TUNED' then
          tbox[[
-            "To save your progress,",
-            "try playing the banjo on",
-            "a save platform!"
+            "'To save your progress,'",
+            "'try playing the banjo on'",
+            "'a save platform!'"
          ]]
       else
          tbox[[
-            "Hi Lank, have you been",
-            "practicing the banjo?"
+            "'Hi Lank, have you been'",
+            "'practicing the banjo?'"
          ]]
       end
    end, function(a)
@@ -79,74 +79,74 @@ create_actor([['teach', 2, {'nnpc'}]], [[
 )
 
 create_actor([['lark', 2, {'nnpc'}]], [[
-   name="Lark",
+   name="'lark'",
    sind=99,
    x=@1, y=@2, interactable_trigger=@3,
    pause_end=@4
 ]],function()
    tbox[[
-      "I'm your biggest fan!"
+      "'I'm your biggest fan!'"
    ]]
 end, function(a)
    npc_dance_logic(a,[[
-      "I'm still your biggest fan!"
+      "'I'm still your biggest fan!'"
    ]], [[
-      "Hey, that was good!", trigger=@1
+      "'Hey, that was good!'", trigger=@1
    ]], LARK_DANCE, 60)
 end
 )
 
 create_actor([['jane',2,{'nnpc'}]], [[
-   name="Jane", sind=81,
+   name="'jane'", sind=81,
    x=@1, y=@2, interactable_trigger=@3,
    pause_end=@4
 ]],function()
    tbox([[
-      "My husband always works",
-      "so hard.",
-      "What should I make him",
-      "for dinner?"
+      "'My husband always works'",
+      "'so hard.'",
+      "'What should I make him'",
+      "'for dinner?'"
    ]])
 end, function(a)
    npc_dance_logic(a,[[
-      "That hurt my ears."
+      "'That hurt my ears.'"
    ]], [[
-      "I love that song!", trigger=@1
+      "'I love that song!'", trigger=@1
    ]], JANE_DANCE, 24)
 end
 )
 
 create_actor([['bob_build', 2, {'nnpc'}, BOB_OUT]], [[
-      name="Bob",
+      name="'bob'",
       sind=80,
       x=@1, y=@2, interactable_trigger=@3,
       pause_end=@4
    ]],function()
       if zdget'LETTER' then
          tbox([[
-            "Is that letter for me?",
-            "",
-            "Oh...",
-            "",
-            "It's dinner time!!!",
+            "'Is that letter for me?'",
+            "''",
+            "'Oh...",
+            "''",
+            "'It's dinner time!!!'",
             trigger=@1
          ]], get_npc_reload_room'BOB_OUT')
       else
          tbox([[
-            "Hey Lank, I'm hungry.",
-            "",
-            "I mean...",
-            "",
-            "I'm fixing the road."
+            "'Hey Lank, I'm hungry.'",
+            "''",
+            "'I mean...'",
+            "''",
+            "'I'm fixing the road.'"
          ]])
       end
    end, function(a)
       npc_dance_logic(a,[[
-         "I can't work with that",
-         "terrible music!"
+         "'I can't work with that'",
+         "'terrible music!'"
       ]], [[
-         "If only music could",
-         "quench my hunger.", trigger=@1
+         "'If only music could'",
+         "'quench my hunger.'", trigger=@1
       ]], BOB_DANCE, 14)
    end
 )

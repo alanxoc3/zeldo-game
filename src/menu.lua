@@ -15,39 +15,21 @@ function draw_ma(view, x, y, a)
    g_view = old_view
 end
 
-function draw_energy_bar(x, y)
-   local width = 54
-   local cur_energy = flr(min(width-g_energy/g_max_energy*width, width))
+function draw_bar(x1,y1,x2,y2,num,dem,align,fg,bg)
+   local bar_off = x2-x1-min(num/dem, 1)*(x2-x1)
+   if align == 0 then bar_off /= 2 end
 
-   camera(-x,-y)
-
-   if cur_energy > 0 then
-      rectfill(-width, 2, -width, 5, 13)
-      rectfill(width-1, 2, width-1, 5, 13)
-      rectfill(-cur_energy, 2, cur_energy-1, 5, 2)
-      rectfill(-cur_energy, 2, cur_energy-1, 4, 8)
+   if num > 0 then
+      batch_call(rectfill, [[
+         {@1, @2, @1, @4, 13},
+         {@3, @2, @3, @4, 13},
+         {@5, @2, @6, @4, @7},
+         {@5, @4, @6, @4, @8}
+      ]], x1, y1, x2, y2,
+         ceil(x1+(align >= 0 and bar_off or 0)),
+         flr(x2-(align <= 0 and bar_off or 0)),
+         fg, bg)
    end
-   camera()
-end
-
--- 5927
-function draw_health_bar(x, y, health, max_health, flip)
-   -- normalize health to draw
-   health = health/max_health*37+1
-   local x_begin, x_end = 0, health
-
-   if flip then
-      health = 39-health
-      x_begin, x_end = health, 38
-   end
-
-   camera(-x,-y)
-   batch_call(rectfill, [[
-      {38, 0, 38, 3, 13},
-      {@1, 0, @2, 2, 11},
-      {@1, 3, @2, 3, 3}
-   ]], x_begin, x_end)
-   camera()
 end
 
 function draw_stat(view, x, y, flip)
@@ -57,15 +39,16 @@ function draw_stat(view, x, y, flip)
       local operator2 = operator
 
       if flip then
-         operator, operator2 = x-17, x-59
+         operator, operator2 = x-17, x-58
       end
 
       draw_ma(view, flip and (x-8) or x+9,y+9,a)
 
       -- TODO: Refactor here.
       if a.hurtable then
+         -- Health Bar.
+         draw_bar(operator2, y+7, operator2+38, y+10, a.health,a.max_health, flip and 1 or -1, 11, 3)
          local health_str = a.max_health < 0 and '???/???' or flr(a.health)..'/'..a.max_health
-         draw_health_bar(operator2,y+7,a.health,a.max_health,flip)
          zprint(health_str,align_text(health_str, x+20, flip),y+13,true, 7, 5)
       elseif a.costable then
          draw_money(x-33, y+13, a.cost)
@@ -89,11 +72,9 @@ end
 function draw_status()
    local x = 48
    local y = 106
-   -- power orbs
-   draw_money(x, y+13, g_money)
 
-   -- energy bar
-   draw_energy_bar(64,1)
+   draw_money(x, y+13, g_money)
+   draw_bar(10, 2, 117, 6, g_energy, MAX_ENERGY, 0, 8, 2)
 
    -- status panels
    batch_call(draw_stat, [[

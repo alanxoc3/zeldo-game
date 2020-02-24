@@ -7,9 +7,9 @@ function map_init()
          l={VILLAGE,23.5,7},
          u={FIELD,3,11.5},
          {'sign',58, 26,{
-            "⬆️ Hiroll Field",
-            "⬅️ Hiroll Village"
-         },52},
+            "'⬆️ hiroll field'",
+            "'⬅️ hiroll village'"
+         },43},
          {'bob_build',61,26}
       },
       -- LANK_HOUSE
@@ -47,8 +47,8 @@ function map_init()
          d={VILLAGE,16,4},
          {'pot',25.5,6.5,49},
          {'pot',30.5,6.5,49},
-         {'sign',25.5,1.5,{"Press 🅾️ to use yer item."},52},
-         {'sign',30.5,1.5,{"Hold down ❎ to select","yer item."},52},
+         {'sign',25.5,1.5,{"'press 🅾️ to use yer item.'"},43},
+         {'sign',30.5,1.5,{"'hold down ❎ to select'","'yer item.'"},43},
          {'teach',26.5,4}
       },
       -- SHOP
@@ -88,11 +88,11 @@ function map_init()
          w = 24,  h = 10,
          l={LANK_FRONT_YARD,11.5,5},
          r={VILLAGE_PATH,.5,5},
-         {'sign',5.5,14.5,{"Lime And Navy's House"},43},
-         {'sign',13.5,12.5,{"Mayor Lark's House"},43},
-         {'sign',17.5,13.5,{"Teach's Studio"},43},
-         {'sign',9.5,13.5,{"Bob And Jane's House"},43},
-         {'sign',21.5,14.5,{"hi-roll shop"},43},
+         {'sign',5.5,14.5,{"'lime and navy's house'"},43},
+         {'sign',13.5,12.5,{"'mayor lark's house'"},43},
+         {'sign',17.5,13.5,{"'teach's studio'"},43},
+         {'sign',9.5,13.5,{"'bob and jane's house'"},43},
+         {'sign',21.5,14.5,{"'hi-roll shop'"},43},
          {'house',4,14.5,LIMENAVY,4,7.5,46},
          {'house',16,13.5,TEACH_STUDIO,4,7.5,46},
          {'house',12,12.5,MAYOR_HOUSE,6,9.5,46},
@@ -106,7 +106,7 @@ function map_init()
          w = 12,  h = 10,
          l={FOREST_ENTRANCE,11.5,5},
          r={VILLAGE,.5,7},
-         {'sign',21.5,2.5,{"Lank's House"},43},
+         {'sign',21.5,2.5,{"'lank's house'"},43},
          {'navy_blocking',13.5,5},
          {'house',20,2.5,LANK_HOUSE,4,7.5,46}
       },
@@ -123,7 +123,7 @@ function map_init()
          w = 12,  h = 10,
          l={FIELD,23.5,3},
          r={GRAVEYARD,.5,17},
-         {'sign',105.5,4.5,{"Here lies an old person (probably)."},45}
+         {'sign',105.5,4.5,{"'here lies an old person (probably).'"},45}
       },
       -- GRAVEYARD
       { m=2, c=13, qx=3, qy=0,
@@ -174,7 +174,7 @@ function map_init()
          u={FOREST_ENTRANCE,6,9.5},
          r={LANK_FRONT_YARD,.5,5},
 
-         {'sign',51.5,21.5,{"Don't get lost!"},43}
+         {'sign',51.5,21.5,{"'don't get lost!'"},43}
       },
       -- FOREST_1
       { m=2, c=3, qx=1, qy=0,

@@ -11,7 +11,7 @@ end, function(a)
 end)
 
 create_actor([['sign', 4, {'interactable'}]], [[
-   name="Sign",
+   name="'sign'",
    rx=.5,      ry=.5,
    trig_x=0,   trig_y=.125,
    trig_rx=.75, trig_ry=.625,

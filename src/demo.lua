@@ -3,11 +3,12 @@
 cartdata(CART_NAME)
 memcpy(TEMP_SAVE_LOCATION, REAL_SAVE_LOCATION, SAVE_LENGTH)
 
-g_debug, g_debug_message = false, ''
+g_debug = false
 
 function _init()
    g_money = zdget_value(MONEY)
    poke(0x5f34, 1) -- for pattern colors.
+   zdset(HAS_SWORD) -- TODO: remove this.
 
    map_init()
 
@@ -61,8 +62,7 @@ function _draw()
    if g_debug then rect(0,0,127,127,8) end
    call_not_nil(g_tl, 'd', g_tl)
    if g_debug then
-      zprint(g_debug_message, 1, 102)
-      zprint(stat(1), 52, 120, true)
+      zprint(stat(1), 52, 2, true)
    end
 end
 

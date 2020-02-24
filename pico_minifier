@@ -10,6 +10,7 @@ GetOptions('dev' => \$dev_mode) or die "Usage: $0 [--dev]\n";
 
 # Constants specific to Zeldo.
 my %constants;
+$constants{'MAX_ENERGY'} = '100';
 $constants{'INTERACT_SPACE'} = '.5';
 $constants{'FPS'} = '60';
 $constants{'CART_NAME'} = '"zeldo_test30"';

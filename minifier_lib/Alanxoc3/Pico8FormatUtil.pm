@@ -140,7 +140,6 @@ sub populate_vars {
 
 my @texts;
 sub text_logic {
-   my $non_quote = shift;
    my $quote = shift;
 
    if ($quote =~ s/^"'(.*?)'"$/"$1"/g) {
@@ -158,7 +157,7 @@ sub text_logic {
    }
 
    push @texts, $quote;
-   return $non_quote."P_TEXT_LOGIC";
+   return "P_TEXT_LOGIC";
 }
 
 # Removes tbox texts, similar to removing comments. ($|, "|)
@@ -167,7 +166,7 @@ sub remove_texts {
 
    for (@_) {
       my $line = $_;
-      $line =~ s/(.*)(\".*?\")/text_logic($1,$2)/ge;
+      $line =~ s/(\".*?\")/text_logic($1)/ge;
       push @new_lines, $line;
    }
 

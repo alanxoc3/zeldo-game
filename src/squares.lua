@@ -14,19 +14,19 @@ function remove_money(amount)
    end
 end
 
-function energy_update(amount)
-   if g_energy_tired and g_energy >= 100 then
+function energy_update(refresh_rate)
+   if g_energy_tired and g_energy <= 0 then
       g_energy_tired = false
    end
 
    if g_energy_amount > 0 then
       g_energy_amount = max(0, g_energy_amount-1)
-      g_energy = g_energy - 1
+      g_energy = g_energy + 1
    elseif not g_energy_pause then
-      g_energy = min(g_max_energy, g_energy + amount)
+      g_energy = max(0, g_energy - refresh_rate)
    end
 
-   if g_energy <= 0 then
+   if g_energy >= MAX_ENERGY then
       g_energy_tired = true
    end
 
@@ -37,7 +37,7 @@ function pause_energy()
    g_energy_pause = true
 end
 
-g_max_energy, g_energy, g_energy_tired, g_energy_amount, g_energy_stop = 100, 100, false, 0, false
+g_energy, g_energy_tired, g_energy_amount, g_energy_stop = 0, false, 0, false
 function use_energy(amount)
    g_energy_amount += amount
 end
