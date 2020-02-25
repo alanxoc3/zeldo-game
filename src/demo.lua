@@ -62,7 +62,7 @@ function _draw()
    if g_debug then rect(0,0,127,127,FG_RED) end
    call_not_nil(g_tl, 'd', g_tl)
    if g_debug then
-      zprint(stat(1), 52, 2, true)
+      zprint(""..stat(1), 64, 2, 0, FG_WHITE, BG_WHITE)
    end
 end
 

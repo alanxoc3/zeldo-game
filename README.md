@@ -11,7 +11,6 @@ Enjoy my game. Made with <3 in PICO-8.
 - TODO: Shield retract (shield timeout/don't kill immediately).
 - TODO: Navy go back home.
 - TODO: Create wall that boomerang can go through!
-- TODO: How should the title screen be designed?
 - TODO: How should the game over screen be designed?
 - TODO: Sword, shield, and bow persist through rooms.
 - TODO: Make the chicken enemy go crazy.
@@ -147,3 +146,4 @@ Enjoy my game. Made with <3 in PICO-8.
 - tbox pause the game. should it? if so, do it. it is right now.
 - make a sign
 - create 2 parts of lank (feet and arms).
+- how should the title screen be designed?

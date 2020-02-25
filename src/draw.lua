@@ -103,27 +103,24 @@ function align_text(str, x, right)
    return x - (right and (#str*4+1) or 0)
 end
 
--- alignment: -1 (left), 0 (center), 1 (right)
-function zprint2(str, x, y, color, alignment, shadow_below)
-   local new_x = (alignment < 0) and 0 or (alignment == 0) and (#str*2) or (#str*4+1)
-   zprint(str, x - new_x, y, shadow_below, color)
-end
-
 function tprint(str, x, y, c1, c2)
    x -= #str*2
    for i=-1,1 do
       for j=-1,1 do
-         zprint(str, x+i, y+j, true, 1, 1)
+         zprint(str, x+i, y+j, 0, BG_UI, BG_UI)
       end
    end
-   zprint(str, x, y, true, c1, c2)
+   zprint(str, x, y, 0, c1, c2)
 end
 
-function zprint(str, x, y, shadow_below, color, c2)
+function zprint(str, x, y, align, fg, bg)
+   if align == 0    then x -= #str*2
+   elseif align > 0 then x -= #str*4+1 end
+
    batch_call(print, [[
       {@1, @2, @4, @6},
       {@1, @2, @3, @5}
-   ]], str, x, y, y + (shadow_below and 1 or 0xffff), color or 7, c2 or 1)
+   ]], str, x, y, y+1, fg, bg)
 end
 
 function zclip(x1, y1, x2, y2)
