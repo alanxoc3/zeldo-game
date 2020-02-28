@@ -37,3 +37,13 @@ g_logo = gun_vals([[
    camera()
 end
 )
+
+-- To transition rooms.
+function transition(new_room_index, room_x, room_y, follow_actor)
+   g_att.fader_out(function()
+      pause'transitioning'
+   end, function()
+      load_room(new_room_index, room_x, room_y, follow_actor)
+      g_att.fader_in(tbox_clear, unpause)
+   end)
+end

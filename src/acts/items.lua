@@ -141,7 +141,7 @@ create_actor([['banjo', 1, {'item','unpausable','danceable'}]], [[
    ry=.3,
    sind=1,
    touchable=false,
-   destroyed=@3,
+   e=@3,
    {tl_name='loop', i=@2, tl_max_time=4.25}
 ]], function(a)
    a.rel_y = 0

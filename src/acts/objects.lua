@@ -1,13 +1,31 @@
-create_actor([['save_platform', 2, {'confined','trig'}]], [[
-      rx=.625, ry=.625, x=@1, y=@2, intersects=@3, contains=@3, pause_end=@4,
-      trigger_update=nf
+-- TODO: refactor the save platform!
+create_actor([['save_spot', 2, {'confined','trig','drawable_obj'}]], [[
+      name="'save spot'",
+      rx=.625, ry=.625,
+      x=@1, y=@2,
+      intersects=@3, contains=@3,
+      pause_end=@4, not_contains_or_intersects=@5
 ]], function(a)
-   if g_pause_reason == 'dancing' and zdget'BANJO_TUNED' then
-      memcpy(REAL_SAVE_LOCATION, TEMP_SAVE_LOCATION, SAVE_LENGTH)
-      tbox[["The game has been saved!"]]
+   change_cur_ma(a)
+end, function(a)
+   if do_actors_intersect(a, g_pl) then
+      if g_pause_reason == 'dancing' then
+         if zdget'BANJO_TUNED' then
+            memcpy(REAL_SAVE_LOCATION, TEMP_SAVE_LOCATION, SAVE_LENGTH)
+            tbox[["'the game has been saved!'"]]
+         else
+            sfx'7'
+            tbox[[
+               "'the game won't save for'",
+               "'bad banjo players.'"
+            ]]
+         end
+      end
    end
 end, function(a)
-   a:contains_or_intersects(g_pl)
+   if get_cur_ma() == a then
+      change_cur_ma()
+   end
 end)
 
 create_actor([['sign', 4, {'interactable'}]], [[
@@ -52,7 +70,7 @@ end
 -- triggers_template={{rel_x, rel_y, rx, ry, func}},
 
 create_actor([['chest', 4, {'unpausable','interactable'}]], [[
-   name="Chest",
+   name="'chest'",
    sind=50,rx=.375,ry=.375,
    x=@1, y=@2, xf=@3, mem_loc=@4,
    trig_y=0,
@@ -92,7 +110,7 @@ create_actor([['house', 6, {'confined','spr'}]], [[
    a.b3 = g_att.static_block(a.x,a.y-4/8, 1,.25)
    a.trig = g_att.gen_trigger_block(a, 0, 1/8, .5, 5/8, function(trig, other)
       if other.pl then
-         g_att.transitioner(a.room, a.room_x, a.room_y, g_pl)
+         transition(a.room, a.room_x, a.room_y, g_pl)
       end
    end, nf)
 end, function(a)

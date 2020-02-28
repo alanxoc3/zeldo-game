@@ -29,11 +29,7 @@ create_actor([['navy_blocking', 2, {'nnpc'}, NAVY_OUT]], [[
          ]]
       end
    end, function(a)
-      npc_dance_logic(a,[[
-         "'umm... lank, maybe you'",
-         "'should practice that'",
-         "'instrument a bit more.'"
-      ]], [[
+      npc_dance_logic(a,[["'umm...'"]], [[
          "'nice playing lank!'", "''",
          "'if i had money, i would'",
          "'give it to you!'", trigger=@1
@@ -49,9 +45,8 @@ create_actor([['teach', 2, {'nnpc'}]], [[
    ]], function()
       if zdget'BANJO_TUNED' then
          tbox[[
-            "'To save your progress,'",
-            "'try playing the banjo on'",
-            "'a save platform!'"
+            "'try playing yer banjo on'",
+            "'a save spot!'"
          ]]
       else
          tbox[[
@@ -64,14 +59,14 @@ create_actor([['teach', 2, {'nnpc'}]], [[
          change_cur_ma(a)
          if not zdget'BANJO_TUNED' then
             tbox([[
-               "Oh, your banjo is out of",
-               "tune!",
-               "Let me fix that for you.",
+               "'Oh, your banjo is out of'",
+               "'tune!'",
+               "'Let me fix that for you.'",
                trigger=@1
             ]], get_npc_reload_room'BANJO_TUNED')
          else
             tbox[[
-               "Now that's my student!"
+               "'now that's my student!'"
             ]]
          end
       end
@@ -85,13 +80,13 @@ create_actor([['lark', 2, {'nnpc'}]], [[
    pause_end=@4
 ]],function()
    tbox[[
-      "'I'm your biggest fan!'"
+      "'i'm your biggest fan!'"
    ]]
 end, function(a)
    npc_dance_logic(a,[[
-      "'I'm still your biggest fan!'"
+      "'i'm still your biggest fan!'"
    ]], [[
-      "'Hey, that was good!'", trigger=@1
+      "'hey, that was good!'", trigger=@1
    ]], LARK_DANCE, 60)
 end
 )

@@ -23,7 +23,7 @@ function load_room(new_room_index, rx, ry, follow_actor)
    switch_song(g_cur_room.m)
 
    -- take care of actors.
-   acts_loop('confined', 'kill')
+   acts_loop('confined', 'delete')
    if g_cur_room.i then g_cur_room.i() end
 
    if follow_actor then
@@ -34,8 +34,6 @@ function load_room(new_room_index, rx, ry, follow_actor)
    g_view = g_att.view_instance(min(14, g_cur_room.w), min(12, g_cur_room.h), 2, follow_actor)
    g_left_ma_view = g_att.view_instance(2.75, 3, 0, follow_actor)
    g_right_ma_view = g_att.view_instance(2.75, 3, 0, nil)
-   g_right_ma_view.yoyo = true
-   g_right_ma_view.timeoutable = true
 
    acts_loop('view', 'center_view')
 end
@@ -51,7 +49,7 @@ function room_update()
       end
 
       if dir != nil and g_cur_room[dir] then
-         g_att.transitioner(g_cur_room[dir][1], g_cur_room[dir][2], g_cur_room[dir][3], g_pl)
+         transition(g_cur_room[dir][1], g_cur_room[dir][2], g_cur_room[dir][3], g_pl)
       end
    end
 end

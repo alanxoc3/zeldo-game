@@ -14,10 +14,13 @@ function _init()
 
    g_game = gun_vals([[
       { i=@1, u=@2, d=@3 }
-   ]], game_init, game_update, game_draw
-   )
+   ]], function()
+      pause'transitioning'
+      g_att.fader_in(game_init, unpause)
+   end, game_update, game_draw)
 
    g_tl = {
+      g_title,
       g_game
    }
 
@@ -25,12 +28,11 @@ function _init()
 end
 
 function _update60()
-   -- if btnp'0'
-      -- then poke(0x5f42,15) -- glitch sound
-   -- end
-   -- if btnp'1'
-      -- then poke(0x5f42,0) -- glitch sound
-   -- end
+   if g_debug then
+      poke(0x5f42,15) -- glitch sound
+   else
+      poke(0x5f42,0) -- no glitch sound
+   end
 
    if g_tbox_update then
       sfx'2'
@@ -62,7 +64,8 @@ function _draw()
    if g_debug then rect(0,0,127,127,FG_RED) end
    call_not_nil(g_tl, 'd', g_tl)
    if g_debug then
-      zprint(""..stat(1), 64, 2, 0, FG_WHITE, BG_WHITE)
+      zprint(""..stat(0), 48, 2, 1, FG_WHITE, BG_WHITE)
+      zprint(""..stat(1), 80, 2, -1, FG_WHITE, BG_WHITE)
    end
 end
 
@@ -162,6 +165,7 @@ function map_draw(x, y, border_colors)
 
       isorty(g_act_arrs.drawable)
       acts_loop('drawable', 'd')
+      acts_loop('item_show', 'd')
       if g_debug then acts_loop('dim', 'debug_rect') end
       clip()
 
@@ -171,7 +175,6 @@ end
 
 function map_and_act_draw(x, y, border_colors)
    map_draw(x, y, border_colors)
-   acts_loop('item_show', 'd')
 end
 
 function game_draw()
@@ -189,11 +192,7 @@ function game_draw()
    acts_loop('inventory_item', 'draw_both')
 
    draw_status()
-   local tbox_x = 2
-   if is_game_paused'tbox' and not get_cur_ma() then
-      tbox_x = 19
-   end
-   ttbox_draw(tbox_x,105)
+   ttbox_draw(2,105)
    fade(0)
 end
 
@@ -207,8 +206,8 @@ end
 function game_init()
    map_init()
    g_pl = g_att.pl(0, 0)
-   -- load_room(LANK_HOUSE, 3, 4, g_pl)
-   load_room(SHOP, 3, 4, g_pl)
+   load_room(LANK_HOUSE, 3, 4, g_pl)
+   -- load_room(SHOP, 3, 5, g_pl)
 end
 
 function pause(reason)

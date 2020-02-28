@@ -84,7 +84,7 @@ end)
 -- )
 
 -- create_actor([['chicken', 2, {'loopable','bounded','confined','stunnable','mov','col','tcol','hurtable','knockable','anim','spr','danceable'}]], [[
---    name="Chicken",
+--    name="'chicken'",
 --    evil=true,
 --    x=@1, y=@2,
 --    rx=.375, ry=.375,

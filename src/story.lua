@@ -17,12 +17,11 @@ function map_init()
          x = 24,  y = 16,
          w = 8,   h = 8,
          d={LANK_FRONT_YARD,8,3},
-         {'chest',61.5,52,true,HAS_BANJO},
          {'pot',57.5,49.5,49},
          {'pot',62.5,49.5,49},
          {'pot',57.5,54.5,49},
-         {'pot',62.5,54.5,49},
-         {'save_platform',59,52,0}
+         {'chest',62.5,54.5,true,HAS_BANJO},
+         {'save_spot',59,52}
       },
       -- MAYOR_HOUSE
       { m=0, c=4, qx=2, qy=0,
@@ -237,6 +236,8 @@ function map_init()
          batch_call_table(function(att_name, ...)
                g_att[att_name](...)
          end, v)
+
+         acts_loop('act', 'room_init')
       end
       v.x,v.y = v.x+v.qx*32, v.y+v.qy*32
    end

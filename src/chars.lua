@@ -34,7 +34,7 @@ end
 function get_npc_reload_room(mem_loc)
    return function()
       zdset(mem_loc)
-      g_att.transitioner(g_cur_room_index, g_pl.x-g_cur_room.x, g_pl.y-g_cur_room.y, g_pl)
+      transition(g_cur_room_index, g_pl.x-g_cur_room.x, g_pl.y-g_cur_room.y, g_pl)
    end
 end
 

@@ -47,6 +47,7 @@ create_actor(
    x=@1,
    y=@2,
    sinds={144, 145, 146},
+   sind=144,
    rx=.375,
    ry=.375,
    iyy=-2,
@@ -55,7 +56,7 @@ create_actor(
    anim_spd=5,
    max_health=LANK_START_HEALTH,
    health=LANK_START_HEALTH,
-   i=@3, u=@4, destroyed=@5, d=@6
+   i=@3, u=@4, destroyed=@5, d=@6, room_init=@7
 ]], function(a)
    a.ltop = g_att.lank_top(a)
 end, function(a)
@@ -154,6 +155,9 @@ end, function(a)
    if a.item and not a.item.spr then
       scr_spr(a.item)
    end
+end, function(a)
+   a:i()
+   a.room_init = nil
 end
 )
 

@@ -11,6 +11,8 @@ create_parent(
    update=@1,
    clean=@2,
    kill=@3,
+   delete=@4,
+   room_init=nf,
    pause_update=nf,
    pause_init=nf,
    pause_end=nf,
@@ -27,9 +29,11 @@ create_parent(
 end, function(a)
    if not a.alive then
       a:destroyed()
-      del_act(a)
+      a:delete()
    end
-end, function(a) a.alive = nil end)
+end, function(a)
+   a.alive = nil
+end, del_act)
 
 create_parent[[
    'confined', {'act'}, {}

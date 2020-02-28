@@ -37,27 +37,20 @@ end, function(a)
 end
 )
 
--- SECTION: MAP
-create_actor([['transitioner', 4, {'act','unpausable'}]], [[
-   new_room_index=@1, rx=@2, ry=@3, follow_actor=@4,
-   {tl_name='intro',  i=@5, u=@6, tl_max_time=.5, e=@7},
-   {tl_name='ending', i=@10, u=@8, tl_max_time=.5, e=@9}
-]], -- init
-function(a)
-   pause'transitioning'
-end, function(a)
-   g_card_fade = a.intro.tl_tim/a.intro.tl_max_time*10
-end, function(a)
-   load_room(a.new_room_index, a.rx, a.ry, a.follow_actor)
-   tbox_clear()
-   g_game_paused = false
-end, function(a)
-   g_card_fade = (a.ending.tl_max_time-a.ending.tl_tim)/a.ending.tl_max_time*10
-end, function()
-   unpause()
-   g_card_fade = 0
-end, function()
-   g_game_paused = true
+-- params: initCallback, endCallback
+create_actor([['fader_out', 2, {'act','unpausable'}]], [[
+   i=@1, e=@2,
+   {tl_name='timeline', u=@3, tl_max_time=FADE_TIME}
+]], function(a)
+   g_card_fade = max(a.timeline.tl_tim/a.timeline.tl_max_time*10, g_card_fade)
+end)
+
+-- params: initCallback, endCallback
+create_actor([['fader_in', 2, {'act','unpausable'}]], [[
+   i=@1, e=@2,
+   {tl_name='timeline', u=@3, tl_max_time=FADE_TIME}
+]], function(a)
+   g_card_fade = min((a.timeline.tl_max_time-a.timeline.tl_tim)/a.timeline.tl_max_time*10,g_card_fade)
 end)
 
 -- SECTION: TITLE
@@ -85,6 +78,6 @@ end, function(a)
    a:update_view()
 end, function(a, ma)
    a.follow_act = ma
-   a.tl_next = a.timeoutable and 2 or 1
+   a.tl_next = ma and ma.timeoutable and 2 or 1
 end)
 

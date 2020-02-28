@@ -18,16 +18,19 @@ function draw_logo(a)
    camera()
 end
 
+-- fade in. fade loop. fade out
+
 -- the sound is assumed to be sfx 0!
 g_title = gun_vals([[
-{ x=8, y=8, prev_trans_index=@4,
-   d=@5, tl_max_time=.5},
-{ tl_name='outer', tl_loop=true, { i=@3, u=@2, d=@1, tl_max_time=5 } }
-   ]], function(a)
+   { x=8, y=8, i=@8, d=@5, u=@6 }, {
+      tl_name='outer', tl_loop=true,
+      { i=nf, e=@3, u=@2, d=@1, tl_max_time=5 }
+   }, { i=@4, u=@6, e=nf },
+   { i=@7, d=@9 }
+]], function(a)
       fade(g_card_fade)
       map_draw(a.x, a.y, [[0,0,13,1]])
       fade'0'
-
       draw_logo(a)
    end, function(a)
       batch_call(acts_loop, [[
@@ -43,9 +46,50 @@ g_title = gun_vals([[
          return true
       end
    end, function(a)
-      g_att.transitioner(flr_rnd'20'+1, 0, 0, g_att.title_move())
-   end, flr_rnd'20'+1, function(a)
-      fade(8-7*a.tl_tim/a.tl_max_time)
+      transition(flr_rnd'20'+1, 0, 0, g_att.title_move())
+   end, function(a)
+      batch_call(acts_loop, [[
+         {'fader_in', 'delete'},
+         {'fader_out', 'delete'}
+      ]])
+
+      g_att.fader_out(
+         function() pause'transitioning' end,
+         function() a.tl_next = true end)
+   end, function(a)
+      fade(g_card_fade)
+      map_draw(a.x, a.y, [[0,0,13,1]])
+      draw_logo(a)
+      fade'0'
+   end, function(a)
+      -- TODO: this is kind of like the basics for updating things.... I can probably
+      -- extract it out...
+      batch_call(acts_loop, [[
+         {'act', 'update'},
+         {'mov','move'},
+         {'vec','vec_update'},
+         {'act', 'clean'},
+         {'view','update_view'}
+      ]])
+   end, function(a)
+      g_card_fade = 0
+      g_att.fader_out(
+         nf, function() a.tl_next = true end
+      )
+   end, function(a)
+      g_card_fade=8
+      -- TODO: duplicate logic here
+      load_room(flr_rnd'20'+1, 0, 0, g_att.title_move())
+      g_att.fader_in(
+         function()
+            pause'transitioning'
+         end, function()
+            a.tl_next = true
+            unpause()
+         end
+      )
+   end, function(a)
+      fade(g_card_fade)
       draw_logo(a)
       fade'0'
    end

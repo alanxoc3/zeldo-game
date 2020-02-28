@@ -25,11 +25,12 @@ $constants{'BG_UI'} = '1';
 $constants{'SL_UI'} = '2';
 $constants{'BG'} = '0';
 
-# Othen
+# Other
+$constants{'FADE_TIME'} = '.5';
 $constants{'MAX_ENERGY'} = '100';
 $constants{'INTERACT_SPACE'} = '.5';
 $constants{'FPS'} = '60';
-$constants{'CART_NAME'} = '"zeldo_test30"';
+$constants{'CART_NAME'} = '"zeldo_test1"';
 $constants{'TEMP_SAVE_LOCATION'} = '0x5d00';
 $constants{'REAL_SAVE_LOCATION'} = '0x5e00';
 $constants{'SAVE_LENGTH'}        = '64';
