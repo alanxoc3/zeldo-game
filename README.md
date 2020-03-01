@@ -7,7 +7,6 @@ Enjoy my game. Made with <3 in PICO-8.
 ## TODOS (For the developer):
 
 ### Next todos:
-- TODO: Figure out a framework for all objects to be saveable.
 - TODO: Player health must be saveable too.
 
 ### Player helper objects sprint!
@@ -155,13 +154,5 @@ Enjoy my game. Made with <3 in PICO-8.
 - create 2 parts of lank (feet and arms).
 - how should the title screen be designed?
 - Fix title screen early btn press bug.
-
-## Thoughts
-For the saving logic, what are the saving conditions?
-- mem_loc goes to a state.
-- mem_loc decides whether or not the object is loaded.
-- mem_loc decides whether an item is available.
-- mem_loc holds numbers (money and health information).
-
-Really, mem_loc isn't specific to any one thing. So it shouldn't be handled
-with everything.
+- Figure out a framework for all objects to be saveable.
+- Make Lark's room smaller.
