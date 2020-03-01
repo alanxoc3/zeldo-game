@@ -1,5 +1,8 @@
 -- We write save data to the general purpose buffer, until a save platform
 -- is triggered.
+
+-- Protect against that pesky glitchy reset.
+memset(0x05d00, 0, 0x100)
 cartdata(CART_NAME)
 memcpy(TEMP_SAVE_LOCATION, REAL_SAVE_LOCATION, SAVE_LENGTH)
 
@@ -207,7 +210,8 @@ function game_init()
    map_init()
    g_pl = g_att.pl(0, 0)
    -- load_room(LANK_HOUSE, 3, 4, g_pl)
-   load_room(SHOP, 3, 5, g_pl)
+   -- load_room(SHOP, 3, 5, g_pl)
+   load_room(MAYOR_HOUSE, 3, 5, g_pl)
 end
 
 function pause(reason)
