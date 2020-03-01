@@ -206,8 +206,8 @@ end
 function game_init()
    map_init()
    g_pl = g_att.pl(0, 0)
-   load_room(LANK_HOUSE, 3, 4, g_pl)
-   -- load_room(SHOP, 3, 5, g_pl)
+   -- load_room(LANK_HOUSE, 3, 4, g_pl)
+   load_room(SHOP, 3, 5, g_pl)
 end
 
 function pause(reason)

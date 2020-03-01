@@ -508,3 +508,17 @@ create_parent(
 end
 )
 
+-- exists based on memory
+create_parent(
+[[ 'mem_dep', {'act'},
+   {
+      room_init=@1,
+      mem_loc=BOGUS_SPOT,
+      mem_loc_expect=true
+   }
+]], function(a)
+   if zdget(a.mem_loc) == a.mem_loc_expect then
+      a:delete()
+   end
+end
+)

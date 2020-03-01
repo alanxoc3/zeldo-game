@@ -6,8 +6,15 @@ Enjoy my game. Made with <3 in PICO-8.
 
 ## TODOS (For the developer):
 
+### Next todos:
+- TODO: Figure out a framework for all objects to be saveable.
+- TODO: Player health must be saveable too.
+
+### Player helper objects sprint!
+- TODO: Create some sort of "heart" object.
+- TODO: Tweak the money object to look nicer (particles and collision box).
+
 ### Demo sprint!
-- TODO: Fix title screen early btn press bug.
 - TODO: Shield retract (shield timeout/don't kill immediately).
 - TODO: Navy go back home.
 - TODO: Create wall that boomerang can go through!
@@ -147,3 +154,14 @@ Enjoy my game. Made with <3 in PICO-8.
 - make a sign
 - create 2 parts of lank (feet and arms).
 - how should the title screen be designed?
+- Fix title screen early btn press bug.
+
+## Thoughts
+For the saving logic, what are the saving conditions?
+- mem_loc goes to a state.
+- mem_loc decides whether or not the object is loaded.
+- mem_loc decides whether an item is available.
+- mem_loc holds numbers (money and health information).
+
+Really, mem_loc isn't specific to any one thing. So it shouldn't be handled
+with everything.

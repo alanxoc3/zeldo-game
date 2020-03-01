@@ -1,7 +1,7 @@
 -- SECTION: CHARS
-create_actor([['navy_blocking', 2, {'nnpc'}, NAVY_OUT]], [[
+create_actor([['navy_blocking', 2, {'nnpc','mem_dep'}]], [[
       name="'navy'",
-      sind=97,
+      sind=97, mem_loc=NAVY_OUT,
       x=@1, y=@2, interactable_trigger=@3, pause_end=@4
    ]],x,y,function(a)
       if zdget'HAS_BOOMERANG' then
@@ -84,7 +84,7 @@ create_actor([['lark', 2, {'nnpc'}]], [[
    ]]
 end, function(a)
    npc_dance_logic(a,[[
-      "'i'm still your biggest fan!'"
+      "'hey, that was bad!'",
    ]], [[
       "'hey, that was good!'", trigger=@1
    ]], LARK_DANCE, 60)
@@ -111,9 +111,10 @@ end, function(a)
 end
 )
 
-create_actor([['bob_build', 2, {'nnpc'}, BOB_OUT]], [[
+create_actor([['bob_build', 2, {'nnpc','mem_dep'}]], [[
       name="'bob'",
       sind=80,
+      mem_loc=BOB_OUT,
       x=@1, y=@2, interactable_trigger=@3,
       pause_end=@4
    ]],function()

@@ -188,21 +188,27 @@ end, function(a)
 end)
 
 -- x, y, sind
-create_actor([['pot', 3, {'bounded','confined','tcol','spr','col','mov'}]], [[
+create_actor([['pot', 4, {'bounded','confined','tcol','spr','col','mov','mem_dep'}]], [[
    static=true,
    rx=.375,ry=.375,
-   x=@1, y=@2, sind=@3,
+   mem_loc=@1, x=@2, y=@3, sind=@4,
    touchable=true,
-   i=@4
+   i=@5
 ]], function(a)
    g_att.gen_trigger_block(a, 0, 0, .5, .5, nf, function(trig, other)
       if btnp(4) and not other.item then
          other.item = g_att.grabbed_item(g_pl, a.sind, -7, function(x, y, xf)
             g_att.pot_projectile(other.x, other.y, xf)
          end)
+         zdset(a.mem_loc)
          a:kill()
       end
    end)
 end
 )
 
+-- TODO: Bomb support.
+create_actor([['box', 2, {'confined','wall','spr','col'}]], [[
+   static=true,
+   rx=.5,ry=.5, sind=35, x=@1, y=@2
+]])

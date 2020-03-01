@@ -12,23 +12,21 @@ function create_parent(...)
    end
 end
 
--- params: {id, provided, parents, mem_loc?}, str, ...
+-- params: {id, provided, parents}, str, ...
 function create_actor(meta, template_str, ...)
-   local template_params, id, provided, parents, mem_loc = {...}, munpack(gun_vals(meta))
+   local template_params, id, provided, parents = {...}, munpack(gun_vals(meta))
 
    g_att[id] = function(...)
-      if not mem_loc or not zdget(mem_loc) then
-         local func_params, params = {...}, {}
-         for i=1,provided do
-            add(params, func_params[i] or false)
-         end
-
-         foreach(template_params, function(x)
-            add(params, x)
-         end)
-
-         return attach_actor(id, parents, gun_vals(template_str, munpack(params)), {})
+      local func_params, params = {...}, {}
+      for i=1,provided do
+         add(params, func_params[i] or false)
       end
+
+      foreach(template_params, function(x)
+         add(params, x)
+      end)
+
+      return attach_actor(id, parents, gun_vals(template_str, munpack(params)), {})
    end
 end
 
