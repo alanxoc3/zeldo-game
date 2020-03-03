@@ -24,12 +24,13 @@ function load_room(new_room_index, rx, ry, follow_actor)
 
    -- take care of actors.
    acts_loop('confined', 'delete')
-   if g_cur_room.i then g_cur_room.i() end
 
    if follow_actor then
       follow_actor.x = rx + g_cur_room.x
       follow_actor.y = ry + g_cur_room.y
    end
+
+   if g_cur_room.i then g_cur_room.i() end
 
    g_view = g_att.view_instance(min(14, g_cur_room.w), min(12, g_cur_room.h), 2, follow_actor)
    g_left_ma_view = g_att.view_instance(2.75, 3, 0, follow_actor)

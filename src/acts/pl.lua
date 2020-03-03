@@ -41,6 +41,31 @@ end, function(a)
    sfx'5'
 end)
 
+create_actor([['fairy', 1, {'drawable', 'mov'}]], [[
+   rel_actor=@1, sind=52, u=@2, off_x=1, off_y=0, d=@3,
+   fg=12, bg=6, room_init=@4
+   -- fg=1, bg=2
+]], function(a)
+   local act = get_cur_ma() or a.rel_actor
+
+   local dist = abs(a.x-act.x) + abs(a.y-act.y)
+   amov_to_actor(a, act, dist*.025, a.off_x, a.off_y)
+   a.off_x = cos(a.tl_tim*.5)
+   a.off_y = sin(a.tl_tim*.5)-.25
+
+   a.xf = a.dx < 0
+
+   destroy_effect(a, 1, a.fg, a.bg)
+   if flr(a.tl_tim / 10) % 2 == 0 then
+      a.off_x = -a.off_x
+   end
+end, function(a)
+   scr_circfill(a.x, a.y, .125, a.fg)
+end, function(a)
+   a.x = a.rel_actor.x
+   a.y = a.rel_actor.y
+end)
+
 create_actor(
 [['pl', 2, {'anim','col','mov','tcol','hurtable','knockable','stunnable','spr','danceable'}]], [[
    name="'lank'",
@@ -157,6 +182,7 @@ end, function(a)
    end
 end, function(a)
    a:i()
+   a.lanks_fairy = g_att.fairy(a)
    a.room_init = nil
 end
 )

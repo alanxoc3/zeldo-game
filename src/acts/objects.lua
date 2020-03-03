@@ -151,10 +151,10 @@ create_actor([['thing_destroyed', 3, {'confined', 'mov', 'drawable', 'bounded'}]
    {i=@4, tl_max_time=@3}
 ]], function(a)
    local p = a.parent
-   a.x = p.x+p.ixx/8
-   a.y = p.y+p.iyy/8
-   a.dx = p.dx + rnd(.3)-.15
-   a.dy = p.dy + rnd(.3)-.15
+   a.x = p.x+p.ixx/8 + rnd(.25)-.125
+   a.y = p.y+p.iyy/8 + rnd(.25)-.125
+   a.dx = p.dx
+   a.dy = p.dy
 end, function(a)
    scr_pset(a.x, a.y, a.c)
 end)
