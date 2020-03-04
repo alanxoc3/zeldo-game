@@ -83,6 +83,7 @@ create_actor([['brang', 1, {'confined','anim','col','mov', 'tcol'}]], [[
    ix=.8, iy=.8,
    touchable=false,
    tile_hit=@10,
+   item_slow=true,
 
    {i=@2, hit=@3, u=@4, tl_max_time=.1},
    {i=nf, hit=@5, u=@6, tl_max_time=.75},
@@ -142,6 +143,7 @@ create_actor([['banjo', 1, {'item','unpausable','danceable'}]], [[
    ry=.3,
    sind=1,
    touchable=false,
+   item_stop=true,
    e=@3,
    {tl_name='loop', i=@2, tl_max_time=4.25}
 ]], function(a)
@@ -221,6 +223,7 @@ end
 -- )
 
 create_actor([['sword', 1, {'item','col','bashable','pokeable'}]], [[
+   item_slow=true,
    rel_actor=@1,
    rel_bash_dx=.4,
    max_stun_val=20,
@@ -242,6 +245,7 @@ create_actor([['sword', 1, {'item','col','bashable','pokeable'}]], [[
 ]], sword_hit, sword_shield_u2)
 
 create_actor([['shield', 1, {'item','bashable','pokeable'}]], [[
+   item_slow=true,
    rel_actor=@1,
    rel_bash_dx=.1,
    max_stun_val=60,
@@ -268,4 +272,3 @@ create_actor([['shield', 1, {'item','bashable','pokeable'}]], [[
    end
    a:bash(other)
 end, sword_shield_u2)
-

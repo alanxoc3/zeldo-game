@@ -1,5 +1,8 @@
 -- lib. make sure this is included first.
 
+-- Globals - a table with every global variable in the program.
+_g = {}
+
 -- util functions:
 -- 7661 -> 7650
 function dir_to_coord(dir)

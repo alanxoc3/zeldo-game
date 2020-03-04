@@ -1,7 +1,3 @@
-function gen_pl_item(pl)
-   return get_selected_item() and call_not_nil(g_att, get_selected_item().name, pl)
-end
-
 function destroy_effect(a, num, ...)
    for i=1,num do
       g_att.thing_destroyed(a, rnd_item(...), rnd(.5)+.1)

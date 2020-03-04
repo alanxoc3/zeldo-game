@@ -10,7 +10,7 @@ create_actor([['lank_top', 1, {'rel','spr_obj','danceable'}]], [[
    a.alive = g_pl.alive
    a.outline_color = g_pl.outline_color
 
-   if g_pl.item and g_pl.item.throwable then
+   if g_pl:get[['item','throwable']] then
       a.sind=g_pl.item.throwing and 150 or 148
    else
       a.sind=147
@@ -88,7 +88,7 @@ end, function(a)
    -- movement logic
    if a.stun_countdown == 0 then
       if not btn'5' then
-         if (xbtn() != 0) and not (a.item and (a.item.brang or a.item.shield or a.item.sword)) then a.xf = btn'0' end
+         if (xbtn() != 0) and not a:get[['item','item_slow']] then a.xf = btn'0' end
          a.ax = xbtn()*a.spd
          a.ay = ybtn()*a.spd
          if g_debug then
@@ -103,7 +103,7 @@ end, function(a)
       end
    end
 
-   if a.item and a.item.banjo then
+   if a:get[['item','item_stop']] then
       a.ax, a.ay = 0, 0
    end
 

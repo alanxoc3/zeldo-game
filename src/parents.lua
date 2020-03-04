@@ -16,7 +16,8 @@ create_parent(
    pause_update=nf,
    pause_init=nf,
    pause_end=nf,
-   destroyed=nf
+   destroyed=nf,
+   get=@5 -- super useful
 }
 ]], function(a)
    if a.alive and a.stun_countdown <= 0 then
@@ -33,7 +34,16 @@ end, function(a)
    end
 end, function(a)
    a.alive = nil
-end, del_act)
+end, del_act, function(a, ...)
+   local arr, cur_act = gun_vals(...), a
+   for i=1,#arr do
+      cur_act = cur_act[arr[i]]
+      if not cur_act then
+         break
+      end
+   end
+   return cur_act
+end)
 
 create_parent[[
    'confined', {'act'}, {}
