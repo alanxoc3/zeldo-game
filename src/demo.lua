@@ -11,6 +11,7 @@ g_debug = false
 function _init()
    g_money = zdget_value(MONEY)
    poke(0x5f34, 1) -- for pattern colors.
+   zdset(HAS_BOOMERANG) -- TODO: remove this.
 
    map_init()
 

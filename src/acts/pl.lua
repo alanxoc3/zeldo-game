@@ -103,8 +103,8 @@ end, function(a)
       end
    end
 
-   if a.item and (a.item.banjo or a.item.brang) then
-      a.ax = 0 a.ay = 0
+   if a.item and a.item.banjo then
+      a.ax, a.ay = 0, 0
    end
 
    -- item logic
@@ -137,12 +137,11 @@ end, function(a)
          a.item = nil
       end
 
-      if (not btn'4' or btn'5') then
+      if not btn'4' and not btn'5' then
          item.being_held = false
       end
 
-      a.ax *= .5
-      a.ay *= .5
+      a.ax *= .5 a.ay *= .5
    end
 
    a.anim_sind = nil
@@ -186,4 +185,3 @@ end, function(a)
    a.room_init = nil
 end
 )
-

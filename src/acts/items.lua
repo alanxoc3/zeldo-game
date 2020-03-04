@@ -1,26 +1,27 @@
 -- SECTION: DETACHED PL ITEMS
-create_actor([['arrow', 3, {'confined','mov','col','spr'}]], [[
-   x=@1, y=@2, xf=@3,
-   rx=.375,ry=.375,
-   sind=23,
-   touchable=false,
-   i=@4,
-
-   {hit=@5, tl_max_time=1}
-]], function(a)
-   a.ax = a.xf and -.1 or .1
-end, function(a, other)
-   if other.evil then
-      change_cur_ma(other)
-
-      call_not_nil(other, 'knockback', other, (a.cur == 1) and .3 or .1, a.xf and -1 or 1, 0)
-      call_not_nil(other, 'stun', other, 30)
-      call_not_nil(other, 'hurt', other, 1, 30)
-
-      a.alive = false
-   end
-end
-)
+-- TODO: uncomment when tokens
+-- create_actor([['arrow', 3, {'confined','mov','col','spr'}]], [[
+--    x=@1, y=@2, xf=@3,
+--    rx=.375,ry=.375,
+--    sind=23,
+--    touchable=false,
+--    i=@4,
+-- 
+--    {hit=@5, tl_max_time=1}
+-- ]], function(a)
+--    a.ax = a.xf and -.1 or .1
+-- end, function(a, other)
+--    if other.evil then
+--       change_cur_ma(other)
+-- 
+--       call_not_nil(other, 'knockback', other, (a.cur == 1) and .3 or .1, a.xf and -1 or 1, 0)
+--       call_not_nil(other, 'stun', other, 30)
+--       call_not_nil(other, 'hurt', other, 1, 30)
+-- 
+--       a.alive = false
+--    end
+-- end
+-- )
 
 -- TODO: uncomment when tokens go down & bombs are supported.
 -- create_actor([['bomb', 3, {'bounded','confined','col','mov','knockable','spr'}]], [[
@@ -160,63 +161,64 @@ end, function(a)
 end
 )
 
-create_actor([['shovel', 1, {'item','bashable','pokeable'}]], [[
-   rel_actor=@1,
-   rx=.3, ry=.3,
-   sind=3, touchable=false,
-   poke_energy=5, poke_ixx=1,
-   poke_dist=.75, rel_bash_dx=.185,
-   bash_dx=.1,
-   did_hit=false,
-   hit=@4,
+-- TODO: uncomment when tokens
+-- create_actor([['shovel', 1, {'item','bashable','pokeable'}]], [[
+--    rel_actor=@1,
+--    rx=.3, ry=.3,
+--    sind=3, touchable=false,
+--    poke_energy=5, poke_ixx=1,
+--    poke_dist=.75, rel_bash_dx=.185,
+--    bash_dx=.1,
+--    did_hit=false,
+--    hit=@4,
+-- 
+--    {tl_max_time=.1},
+--    {i=nf, u=@2, e=nf, tl_max_time=.25},
+--    {i=@3, u=@2, e=nf, tl_max_time=.25}
+-- ]], function(a)
+--    pause_energy()
+-- end, function(a)
+--    --a.xf = not a.xf
+--    a.yf = true
+--    --a.rel_x += sgn(-a.rel_x)*.125
+--    a.rel_y = -.25
+--    a:bash()
+-- 
+--    if not a.did_hit and fget(mget(a.x,a.y), 7) then
+--       mset(a.x, a.y, 73)
+--       sfx'6'
+--    else
+--       sfx'9'
+--    end
+-- end, function(a, o)
+--    a.did_hit = o.touchable and o != a.rel_actor
+-- end
+-- )
 
-   {tl_max_time=.1},
-   {i=nf, u=@2, e=nf, tl_max_time=.25},
-   {i=@3, u=@2, e=nf, tl_max_time=.25}
-]], function(a)
-   pause_energy()
-end, function(a)
-   --a.xf = not a.xf
-   a.yf = true
-   --a.rel_x += sgn(-a.rel_x)*.125
-   a.rel_y = -.25
-   a:bash()
-
-   if not a.did_hit and fget(mget(a.x,a.y), 7) then
-      mset(a.x, a.y, 73)
-      sfx'6'
-   else
-      sfx'9'
-   end
-end, function(a, o)
-   a.did_hit = o.touchable and o != a.rel_actor
-end
-)
-
-create_actor([['bow', 1, {'item','pokeable'}]], [[
-   rel_actor=@1,
-   rx=.5,
-   ry=.375,
-   rel_y=0,
-   iyy=-1,
-   sind=7,
-   destroyed=@3,
-   touchable=false,
-   poke_energy=5,
-   poke_ixx=1,
-   poke_dist=.5,
-
-   {tl_max_time=.1},
-   {e=nf, i=nf, u=@2}
-]], function(a) -- update 2
-   item_check_being_held(a)
-end, function(a) -- destroyed
-   if remove_money(1) then
-      sfx'6'
-      g_att.arrow(a.x, a.y, a.xf)
-   end
-end
-)
+-- create_actor([['bow', 1, {'item','pokeable'}]], [[
+--    rel_actor=@1,
+--    rx=.5,
+--    ry=.375,
+--    rel_y=0,
+--    iyy=-1,
+--    sind=7,
+--    destroyed=@3,
+--    touchable=false,
+--    poke_energy=5,
+--    poke_ixx=1,
+--    poke_dist=.5,
+-- 
+--    {tl_max_time=.1},
+--    {e=nf, i=nf, u=@2}
+-- ]], function(a) -- update 2
+--    item_check_being_held(a)
+-- end, function(a) -- destroyed
+--    if remove_money(1) then
+--       sfx'6'
+--       g_att.arrow(a.x, a.y, a.xf)
+--    end
+-- end
+-- )
 
 create_actor([['sword', 1, {'item','col','bashable','pokeable'}]], [[
    rel_actor=@1,
