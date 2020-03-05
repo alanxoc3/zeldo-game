@@ -5,16 +5,12 @@ _g = {}
 
 -- util functions:
 -- 7661 -> 7650
-function dir_to_coord(dir)
-   return dir == 'l' and 0xffff or dir == 'r' and 1 or 0, dir == 'u' and 0xffff or dir == 'd' and 1 or 0
-end
-
 function nf() end
 function btn_helper(f, a, b)
    return f(a) and f(b) and 0 or f(a) and 0xffff or f(b) and 1 or 0
 end
 
-function bool_to_num(condition) return condition and 1 or 0xffff end
+function bool_to_num(condition) return condition and 0xffff or 1 end
 
 function xbtn() return btn_helper(btn, 0, 1) end
 function ybtn() return btn_helper(btn, 2, 3) end
@@ -28,8 +24,8 @@ function round(num) return flr(num + .5) end
 -- -1, 0, or 1
 function rnd_one(val) return (flr_rnd'3'-1)*(val or 1) end
 
-function ti(mod_val)
-   return flr(t()*FPS) % (mod_val or 0)
+function ti(period, length)
+   return t() % period < length
 end
 
 function flr_rnd(x)
@@ -74,12 +70,12 @@ function batch_call(func,...)
    batch_call_table(func,gun_vals(...))
 end
 
-function split_string(delimiter, str)
+function split_string(str, delimiter)
    local str_list, cur_str = {}, ""
 
    for i=1,#str do
       local char = sub(str, i, i)
-      if char == "|" and #cur_str > 0 then
+      if char == delimiter and #cur_str > 0 then
          add(str_list, cur_str)
          cur_str = ""
       else
@@ -216,7 +212,7 @@ end
 
 -- TODO: Find a better home for this.
 -- For parsing zipped values.
-g_gunvals = split_string("|", g_gunvals_raw)
+g_gunvals = split_string(g_gunvals_raw, "|")
 
 -- For debugging
 -- function tostring(any)

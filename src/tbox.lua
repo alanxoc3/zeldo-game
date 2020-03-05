@@ -69,7 +69,7 @@ function ttbox_draw(x, y)
 
       -- draw the arrow
       if not g_tbox_writing then
-         spr(38, 100, ti(40)<20 and 13 or 14)
+         spr(38, 100, ti(.6,.3) and 13 or 14)
       end
       camera()
    end

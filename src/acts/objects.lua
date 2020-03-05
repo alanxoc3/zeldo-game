@@ -170,7 +170,7 @@ create_actor([['pot_projectile', 3, {'col', 'confined', 'mov', 'spr', 'bounded',
    tile_hit=@8,
    { u=@5, tl_max_time=.3 }
 ]], function(a)
-   a.ax = a.xf and -.04 or .04
+   a.ax = bool_to_num(a.xf)*.04
 end, function(a)
    a.iyy = -cos(a.tl_tim/a.tl_max_time/4)*8
 end, function(a)
@@ -180,7 +180,7 @@ end, function(a)
 end, function(a, o)
    if o.touchable and not o.pl then
       call_not_nil(o, 'hurt', o, 0, 60)
-      call_not_nil(o, 'knockback', o, .6, -bool_to_num(a.xf), 0)
+      call_not_nil(o, 'knockback', o, .6, bool_to_num(a.xf), 0)
       a.tl_next = true
    end
 end, function(a)

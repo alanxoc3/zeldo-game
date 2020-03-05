@@ -92,7 +92,7 @@ create_actor([['brang', 1, {'confined','anim','col','mov', 'tcol'}]], [[
 ]], function(a) -- init 1
    a.x, a.y = a.rel_actor.x, a.rel_actor.y
    a.xf = a.rel_actor.xf
-   a.ax = a.xf and -.1 or .1
+   a.ax = bool_to_num(a.xf)*.1
    use_energy(10)
 end, function(a, other) -- hit 1
    if not other.pl and other.touchable and not a.did_brang_hit then

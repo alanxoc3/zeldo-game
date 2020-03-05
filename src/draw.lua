@@ -6,16 +6,7 @@ end
 
 function scr_spr(a, spr_func, ...)
    if a.visible then
-      local dir = flr(a.sind/256)
-      local sind = a.sind % 256
-      local xf, yf = a.xf, a.yf
-
-      if dir != 0 then
-         xf = dir == 2 or dir == 3
-         yf = dir == 1 or dir == 2
-      end
-
-      (spr_func or zspr)(sind, scr_x(a.x)+a.ixx+a.xx, scr_y(a.y)+a.iyy+a.yy, a.sw, a.sh, xf, yf, ...)
+      (spr_func or zspr)(a.sind, scr_x(a.x)+a.ixx+a.xx, scr_y(a.y)+a.iyy+a.yy, a.sw, a.sh, a.xf, a.yf, ...)
    end
 end
 

@@ -452,7 +452,7 @@ create_parent(
    }
 ]], function(a, o)
    if o != a.rel_actor then
-      call_not_nil(o, 'knockback', o, a.bash_dx, -bool_to_num(a.xf), 0)
+      call_not_nil(o, 'knockback', o, a.bash_dx, bool_to_num(a.xf), 0)
       if a.rel_actor then
          call_not_nil(a.rel_actor, 'knockback', a.rel_actor, a.rel_bash_dx, bool_to_num(a.xf), 0)
       end
@@ -486,7 +486,7 @@ create_parent(
    use_energy(a.poke_energy)
 end, function(a) -- u
    local spd = a.poke_dist/a.tl_max_time/FPS
-   a.rel_dx = a.xf and -spd or spd
+   a.rel_dx = bool_to_num(a.xf)*spd
    pause_energy()
 end, function(a) -- e
    a.rel_dx = 0

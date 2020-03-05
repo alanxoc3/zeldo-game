@@ -9,7 +9,7 @@ function draw_logo(a)
       spr_and_out(226+i, i*10, sgn(cos(t()/2+i/4))/2+1, 1, 2, false, false, 1)
    end
 
-   if t() % 1 < .5 then
+   if ti(1,.5) then
       batch_call(tprint, [[
          {"'🅾️ or ❎ to play  '", 0, 12, 7, 5}
       ]])
