@@ -15,17 +15,14 @@ function _init()
 
    map_init()
 
-   g_game = gun_vals([[
+   local tl_game = gun_vals([[
       { i=@1, u=@2, d=@3 }
    ]], function()
       pause'transitioning'
       g_att.fader_in(game_init, unpause)
    end, game_update, game_draw)
 
-   g_tl = {
-      g_title,
-      g_game
-   }
+   g_tl = { g_title, tl_game }
 
    inventory_init()
 end
@@ -181,29 +178,18 @@ function map_and_act_draw(x, y, border_colors)
 end
 
 function game_draw()
+   local x, y = 8+g_card_shake_x, 7+g_card_shake_y
+
    fade(g_card_fade)
-
-   local x = 8+g_card_shake_x
-   local y = 7+g_card_shake_y
-
    map_and_act_draw(x, y, [[BG,BG,FG_UI,BG_UI]])
    if g_menu_open then
-      if g_selected == 5 then g_pl.outline_color = SL_UI end
+      if g_selected == 5 then g_pl:set_color'SL_UI' end
       g_pl.d(g_pl)
-      g_pl.outline_color = BG_UI
+      g_pl:set_color'BG_UI'
    end
    acts_loop('inventory_item', 'draw_both')
-
    draw_status()
    ttbox_draw(2,105)
-   fade(0)
-end
-
-function draw_glitch_effect()
-   o1 = flr_rnd'0x1f00' + 0x6040
-   o2 = o1 + flr(rnd(0x4)-0x2)
-   len = flr_rnd'0x40'
-   memcpy(o1,o2,len)
 end
 
 function game_init()
@@ -245,7 +231,6 @@ function mute_music()
    sfx(62,1,1)
 end
 
-music_val=0
 function stop_music(sound)
    poke(0x5f43,3)
    -- mute_music()
@@ -257,15 +242,13 @@ end
 function resume_music(song)
    switch_song(song)
    poke(0x5f43,0)
-   sfx(63,-1)
-   sfx(62,-1)
-   song = song or g_music_current
-   g_music_current = song
+   sfx(63,-1) sfx(62,-1)
+   g_music_current = song or g_music_current
 end
 
 -- switches the current song
 function switch_song(song)
-   if song and song != g_music_current then
+   if song and song ~= g_music_current then
       g_music_current = song
       music(song, 500, 3)
    end

@@ -2,13 +2,10 @@
 -- SECTION: PL
 create_actor([['lank_top', 1, {'rel','spr_obj','danceable'}]], [[
       rel_actor=@1,
-      sind=147,
-      iyy=-2,
+      sind=147, iyy=-2,
       u=@2, pause_update=@3
 ]], function(a)
-   a.xf = g_pl.xf
-   a.alive = g_pl.alive
-   a.outline_color = g_pl.outline_color
+   a.xf, a.alive = g_pl.xf, g_pl.alive
 
    if g_pl:get[['item','throwable']] then
       a.sind=g_pl.item.throwing and 150 or 148
@@ -81,7 +78,7 @@ create_actor(
    anim_spd=5,
    max_health=LANK_START_HEALTH,
    health=LANK_START_HEALTH,
-   i=@3, u=@4, destroyed=@5, d=@6, room_init=@7
+   i=@3, u=@4, destroyed=@5, d=@6, room_init=@7, set_color=@8
 ]], function(a)
    a.ltop = g_att.lank_top(a)
 end, function(a)
@@ -89,8 +86,7 @@ end, function(a)
    if a.stun_countdown == 0 then
       if not btn'5' then
          if (xbtn() != 0) and not a:get[['item','item_slow']] then a.xf = btn'0' end
-         a.ax = xbtn()*a.spd
-         a.ay = ybtn()*a.spd
+         a.ax, a.ay = xbtn()*a.spd, ybtn()*a.spd
          if g_debug then
             a.ax *= 3
             a.ay *= 3
@@ -108,22 +104,11 @@ end, function(a)
    end
 
    -- item logic
-   if not btn'5' and not a.item then
-      if btnp'4' and g_energy_tired then
-         if not get_selected_item().interact then
+   if not btn'5' and not a.item and btnp'4' then
+      if not get_selected_item().interact then
+         if g_energy_tired then
             sfx'7'
-         end
-      elseif btnp'4' and not g_energy_tired then
-         if get_selected_item().name == 'bomb' then
-            if remove_money(5) then
-               a.item = g_att.grabbed_item(a, 5, -6, g_att.bomb)
-               -- a.item = g_att.grabbed_item(32, -7, function(a) g_att.chicken(a.x, a.y) end)
-               -- a.item = g_att.grabbed_item(49, -9, function(a) g_att.pot(a.x, a.y) end)
-               sfx'5'
-            else
-               sfx'7'
-            end
-         elseif not get_selected_item().interact then
+         else
             a.item = gen_pl_item(a)
             sfx'5'
          end
@@ -144,44 +129,29 @@ end, function(a)
       a.ax *= .5 a.ay *= .5
    end
 
-   a.anim_sind = nil
-
    -- walking animation logic
-   if flr((abs(a.dx) + abs(a.dy))*50) > 0 then
-      a.anim_len = 3
-   else
-      a.anim_len = 1
-   end
+   a.anim_len = abs(a.dx) + abs(a.dy) > 0 and 3 or 1
 
    -- shaking logic
-   if a.stun_countdown != 0 then
-      if a.item then
-         a.item.xx = a.xx
-      end
+   if a.stun_countdown != 0 and a.item then
+      a.item.xx = a.xx
    end
 end, function(a)
    if a.item then a.item.alive = false end
 -- draw
 end, function(a)
-   a.ltop.outline_color = a.outline_color
-   scr_spr_out(a)
-   scr_spr_out(a.ltop)
-   -- if a.item and a.item.throwable then scr_spr_out(a.item) end
-
+   scr_spr_out(a) scr_spr_out(a.ltop)
    if a.item and not a.item.spr then
       scr_spr_out(a.item)
    end
 
-   scr_spr(a)
-   scr_spr(a.ltop)
-   -- if a.item and a.item.throwable then scr_spr(a.item) end
-
+   scr_spr(a) scr_spr(a.ltop)
    if a.item and not a.item.spr then
       scr_spr(a.item)
    end
 end, function(a)
    a:i()
-   a.lanks_fairy = g_att.fairy(a)
-   a.room_init = nil
-end
-)
+   a.lanks_fairy, a.room_init = g_att.fairy(a)
+end, function(a, color) -- set color
+   a.outline_color, a.ltop.outline_color = color, color
+end)
