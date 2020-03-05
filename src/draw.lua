@@ -25,62 +25,39 @@ end
 function zrect(x1, y1, x2, y2, color_gun)
    local list = gun_vals(color_gun)
    for k=#list,1,-1 do
-      local v = list[k]
-      local xx1, yy1, xx2, yy2 = x1+k-1, y1+k-1, x2-k+1, y2-k+1
-      rect(xx1, yy1, xx2, yy2, v)
+      rect(x1+k-1, y1+k-1, x2-k+1, y2-k+1, list[k])
 
-      pset(xx1+1, yy1+1, v) pset(xx2-1, yy1+1, v)
-      pset(xx1+1, yy2-1, v) pset(xx2-1, yy2-1, v)
+      batch_call(pset, [[
+         {@1,@2,@5},
+         {@3,@2,@5},
+         {@3,@4,@5},
+         {@1,@4,@5}
+      ]], x1+k,y1+k,x2-k,y2-k,list[k])
    end
-   pset(x1, y1, 0)
-   pset(x2, y1, 0)
-   pset(x2, y2, 0)
-   pset(x1, y2, 0)
+
+   batch_call(pset, [[
+      {@1,@2,@5},
+      {@3,@2,@5},
+      {@3,@4,@5},
+      {@1,@4,@5}
+   ]], x1,y1,x2,y2,list[k])
 end
 
-g_out_cache = {}
-function create_outline(sind, sw, sh)
-   sw*=8 sh*=8 sh-=1
-
-   local bounds, is_bkgd = {}, function(x, y)
-      return mid(0,x,sw-1) == x and sget(x+sind*8%128, y+flr(sind/16)*8) != 0
-   end
-
-   local calc_bound = function(x)
-      local top, bot
-
-      for i=0,sh do
-         top, bot = top or is_bkgd(x,i) and i-1, bot or is_bkgd(x,sh-i) and sh+1-i
-      end
-
-      return gun_vals([[top=@1, bot=@2]], top or sh+1, bot or 0)
-   end
-
-   g_out_cache[sind] = {}
-   for i=0xffff,sw do
-      -- prev, cur, next
-      local p, c, n = calc_bound(i-1), calc_bound(i), calc_bound(i+1)
-      local top, bot = min(min(p.top, c.top), n.top), max(max(p.bot, c.bot), n.bot)
-
-      if bot >= top then
-         add(g_out_cache[sind], {x1=i,y1=top,x2=i,y2=bot})
-      end
+function outline_helper(flip, coord, dim)
+   coord = coord-dim*4
+   if flip then
+      return dim*8-1+coord, 0xffff
+   else
+      return coord, 1
    end
 end
 
 function spr_out(sind, x, y, sw, sh, xf, yf, col)
-   sw=sw or 1 sh=sh or 1
-   x-=sw*4 y-=sh*4
+   sw,sh=sw or 1,sh or 1
+   local ox, x_mult = outline_helper(xf, x, sw)
+   local oy, y_mult = outline_helper(yf, y, sh)
 
-   local ox, x_mult, oy, y_mult = x, 1, y, 1
-   if xf then ox, x_mult = sw*8-1+x, 0xffff end
-   if yf then oy, y_mult = sh*8-1+y, 0xffff end
-
-   if not g_out_cache[sind] then
-      create_outline(sind, sw, sh)
-   end
-
-   foreach(g_out_cache[sind], function(r)
+   foreach(g_out_cache[''..sind], function(r)
       rectfill(
          ox+x_mult*r.x1,
          oy+y_mult*r.y1,
@@ -88,10 +65,6 @@ function spr_out(sind, x, y, sw, sh, xf, yf, col)
          oy+y_mult*r.y2,
       col)
    end)
-end
-
-function align_text(str, x, right)
-   return x - (right and (#str*4+1) or 0)
 end
 
 function tprint(str, x, y, c1, c2)
@@ -122,7 +95,7 @@ function zcls(col)
 end
 
 -- fading
-fadetable=gun_vals([[
+g_fadetable=gun_vals([[
  {0,0,0,0,0,0,0},
  {1,1,1,0,0,0,0},
  {2,2,2,1,0,0,0},
@@ -143,10 +116,6 @@ fadetable=gun_vals([[
 
 function fade(i)
    for c=0,15 do
-      if flr(i+1)>=8 then
-         pal(c,0)
-      else
-         pal(c,fadetable[c+1][flr(i+1)])
-      end
+      pal(c,g_fadetable[c+1][min(flr(i+1), 7)])
    end
 end

@@ -1,0 +1,8 @@
+#!/bin/bash
+# This will create all the outlines and store them in a file.
+# This way, the outlines are cached, and I save on token space :).
+cp zeldo.p8 .zeldo_outline_copy.p8
+perl -0777 -pi -e 's/(__lua__).*(__gfx__)/$1\n#include _compile_outline.lua\n$2/igs' .zeldo_outline_copy.p8
+pico8 -x .zeldo_outline_copy > src/outlines.lua
+sed -i '/RUNNING/d' src/outlines.lua
+rm .zeldo_outline_copy.p8

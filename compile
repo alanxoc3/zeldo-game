@@ -5,6 +5,7 @@ src/lib.lua
 src/att.lua
 
 src/chars.lua
+src/outlines.lua
 src/draw.lua
 src/inventory.lua
 src/inventory_selection.lua
