@@ -1,3 +1,8 @@
+function spr_and_out(...)
+   spr_out(...)
+   zspr(...)
+end
+
 function draw_logo(a)
    camera(-a.x*8, -a.y*8)
    -- (str, x, y, alignment, shadow_below)

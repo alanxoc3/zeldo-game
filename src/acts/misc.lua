@@ -38,17 +38,17 @@ end
 )
 
 -- params: initCallback, endCallback
-create_actor([['fader_out', 2, {'act','unpausable'}]], [[
-   i=@1, e=@2,
-   {tl_name='timeline', u=@3, tl_max_time=FADE_TIME}
+create_actor([['fader_out', 2, {'act'}, {'update'}]], [[
+   i=@1, e=@2,u=@3,
+   {tl_name='timeline', tl_max_time=FADE_TIME}
 ]], function(a)
    g_card_fade = max(a.timeline.tl_tim/a.timeline.tl_max_time*10, g_card_fade)
 end)
 
 -- params: initCallback, endCallback
-create_actor([['fader_in', 2, {'act','unpausable'}]], [[
-   i=@1, e=@2,
-   {tl_name='timeline', u=@3, tl_max_time=FADE_TIME}
+create_actor([['fader_in', 2, {'act'}, {'update'}]], [[
+   i=@1, e=@2,u=@3,
+   {tl_name='timeline', tl_max_time=FADE_TIME}
 ]], function(a)
    g_card_fade = min((a.timeline.tl_max_time-a.timeline.tl_tim)/a.timeline.tl_max_time*10,g_card_fade)
 end)

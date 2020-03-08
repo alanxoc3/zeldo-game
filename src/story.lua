@@ -180,7 +180,9 @@ function map_init()
          w = 12,  h = 10,
          l={FOREST_1,11.5,5},
          r={LANK_FRONT_YARD,.5,5},
-         d={FOREST_LOST,4,.5}
+         d={FOREST_LOST,4,.5},
+
+         {'spikes',2.5,2.5}
       },
       -- FOREST_LOST
       { m=2, c=3, qx=1, qy=0,

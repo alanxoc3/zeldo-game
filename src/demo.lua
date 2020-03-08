@@ -76,7 +76,7 @@ function game_update()
       inventory_update()
       batch_call(
          acts_loop, [[
-            {'drawable','reset_off'},
+            {'drawable_obj','reset_off'},
             {'stunnable', 'stun_update'},
             {'act','update'},
             {'mov','move'},
@@ -111,9 +111,10 @@ function game_update()
          -- poke(0x5f43,1+2+4) -- softer sound
       end
       batch_call(acts_loop, [[
-         {'unpausable', 'update'},
-         {'act', 'pause_update'},
+         {'act', 'update'},
          {'rel','rel_update'},
+         {'fairy', 'move'},
+         {'fairy', 'vec_update'},
          {'view','update_view'}
       ]])
 

@@ -5,7 +5,7 @@ function zspr(sind, x, y, sw, sh, ...)
 end
 
 function scr_spr(a, spr_func, ...)
-   if a.visible then
+   if a and a.visible then
       (spr_func or zspr)(a.sind, scr_x(a.x)+a.ixx+a.xx, scr_y(a.y)+a.iyy+a.yy, a.sw, a.sh, a.xf, a.yf, ...)
    end
 end
@@ -13,13 +13,8 @@ end
 function scr_spr_out(a) scr_spr(a, spr_out, a.outline_color) end
 
 function scr_spr_and_out(...)
-   scr_spr_out(...)
-   scr_spr(...)
-end
-
-function spr_and_out(...)
-   spr_out(...)
-   zspr(...)
+   foreach({...}, scr_spr_out)
+   foreach({...}, scr_spr)
 end
 
 function zrect(x1, y1, x2, y2, color_gun)

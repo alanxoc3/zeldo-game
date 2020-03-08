@@ -4,7 +4,7 @@
 
 -- to generate an actor.
 create_parent(
-[['act', {}, {
+[['act', {}, {}, {
    alive=true,
    stun_countdown=0,
    i=nf, u=nf,
@@ -13,7 +13,6 @@ create_parent(
    kill=@3,
    delete=@4,
    room_init=nf,
-   pause_update=nf,
    pause_init=nf,
    pause_end=nf,
    destroyed=nf,
@@ -46,16 +45,16 @@ end, del_act, function(a, ...)
 end)
 
 create_parent[[
-   'confined', {'act'}, {}
+   'confined', {'act'}, {}, {}
 ]]
 
 create_parent[[
-   'loopable', {'act'},
+   'loopable', {'act'}, {},
    {tl_loop=true}
 ]]
 
 create_parent([[
-   'bounded', {'act'},
+   'bounded', {'act'}, {},
    {check_bounds=@1}
 ]], function(a)
    if a.x+a.dx < g_cur_room.x+.5 then
@@ -80,7 +79,7 @@ create_parent([[
 end)
 
 create_parent(
-[[ 'timed', {'act'},
+[[ 'timed', {'act'}, {},
    {
       t=0,
       tick=@1
@@ -90,7 +89,7 @@ create_parent(
 end)
 
 create_parent(
-[[ 'pos', {'act'},
+[[ 'pos', {'act'}, {},
    {
       x=0,
       y=0
@@ -99,7 +98,7 @@ create_parent(
 )
 
 create_parent(
-[[ 'vec', {'pos'},
+[[ 'vec', {'pos'}, {},
    {
       dx=0,
       dy=0,
@@ -111,7 +110,7 @@ create_parent(
 end)
 
 create_parent(
-[[ 'mov', {'vec'},
+[[ 'mov', {'vec'}, {},
    {
       ix=.85,
       iy=.85,
@@ -130,7 +129,7 @@ end, function(a)
 end)
 
 create_parent(
-[[ 'dim', {'pos'},
+[[ 'dim', {'pos'}, {},
    {
       rx=.375,
       ry=.375,
@@ -142,7 +141,7 @@ end)
 
 -- used with player items/weapons.
 create_parent(
-[[ 'rel', {'act'},
+[[ 'rel', {'act'}, {},
    {
       rel_actor=nil,
       rel_x=0,
@@ -171,7 +170,7 @@ create_parent(
 end)
 
 create_parent(
-[[ 'drawable_obj', {'act'},
+[[ 'drawable_obj', {'act'}, {'reset_off'},
    {
       ixx=0,
       iyy=0,
@@ -185,12 +184,12 @@ create_parent(
 end)
 
 create_parent(
-[[ 'drawable', {'act', 'drawable_obj'},
+[[ 'drawable', {'act', 'drawable_obj'}, {'d'},
    {d=nf}
 ]])
 
 create_parent(
-[[ 'spr_obj', {'vec', 'drawable_obj'},
+[[ 'spr_obj', {'vec', 'drawable_obj'}, {},
    {
       sind=0,
       outline_color=BG_UI,
@@ -206,14 +205,14 @@ create_parent(
 )
 
 create_parent(
-[[ 'spr', {'vec','spr_obj','drawable'},
+[[ 'spr', {'vec','spr_obj','drawable'}, {},
    {
       d=@1
    }
 ]], scr_spr_and_out)
 
 create_parent(
-[[ 'knockable', {'mov'},
+[[ 'knockable', {'mov'}, {},
    {
       knockback=@1
    }
@@ -223,7 +222,7 @@ create_parent(
 end)
 
 create_parent(
-[[ 'stunnable', {'mov','drawable_obj'},
+[[ 'stunnable', {'mov','drawable_obj'}, {},
    {
       stun_update=@1
    }
@@ -235,7 +234,7 @@ create_parent(
 end)
 
 create_parent(
-[[ 'hurtable', {'act'},
+[[ 'hurtable', {'act'}, {},
    {
       health=-1,
       max_health=-1,
@@ -252,7 +251,7 @@ create_parent(
 end)
 
 create_parent(
-[[ 'anim', {'spr','timed'},
+[[ 'anim', {'spr','timed'}, {},
    {
       sinds={},
       anim_loc=1,
@@ -276,14 +275,14 @@ create_parent(
 end)
 
 create_parent(
-[[ 'wall', {'vec','dim'},
+[[ 'wall', {'vec','dim'}, {},
    {
       block=true,static=true,touchable=true,hit=nf
    }
 ]])
 
 create_parent(
-[[ 'trig', {'vec','dim'},
+[[ 'trig', {'vec','dim'}, {},
    {
       contains=nf,
       intersects=nf,
@@ -302,7 +301,7 @@ create_parent(
 end)
 
 create_parent(
-[[ 'col', {'vec','dim'},
+[[ 'col', {'vec','dim'}, {},
    {
       static=false,
       touchable=true,
@@ -359,7 +358,7 @@ create_parent(
 end)
 
 create_parent(
-[[ 'tcol', {'vec','dim'},
+[[ 'tcol', {'vec','dim'}, {},
    {
       tile_solid=true,
       tile_hit=nf,
@@ -374,7 +373,7 @@ create_parent(
 end)
 
 create_parent(
-[[ 'view', {'act', 'confined'},
+[[ 'view', {'act', 'confined'}, {},
    {
       x=0, y=0,
       w=1, h=1,
@@ -385,13 +384,8 @@ create_parent(
 ]])
 
 create_parent(
-[[ 'unpausable', {'act'},
-   {}
-]])
-
-create_parent(
-[[ 'danceable', {'act'},
-   {dance_update=@1, pause_update=@1, dance_init=@2, pause_init=@2}
+[[ 'danceable', {'act'}, {u=@1},
+   {dance_update=@1, dance_init=@2, pause_init=@2}
 ]], function(a)
    if is_game_paused'dancing' then
       a.dance_time = cos(t()-a.initial_time)
@@ -409,7 +403,7 @@ end)
 
 -- SECTION: CHARS
 create_parent(
-[[ 'interactable', {'spr','wall','confined'},
+[[ 'interactable', {'spr','wall','confined'}, {},
    {
       interactable_trigger=nf,
       trig_x=0,
@@ -435,7 +429,7 @@ create_parent(
 end)
 
 create_parent(
-[[ 'nnpc', {'danceable', 'interactable'},
+[[ 'nnpc', {'danceable', 'interactable'}, {},
    {
       rx=.5,ry=.5,iyy=-2,
       u=@1
@@ -444,7 +438,7 @@ create_parent(
 
 -- SECTION: INVENTORY
 create_parent(
-[[ 'bashable', {'rel', 'knockable', 'col'},
+[[ 'bashable', {'rel', 'knockable', 'col'}, {},
    {
       bash_dx=1,
       rel_bash_dx=1,
@@ -461,14 +455,14 @@ end
 )
 
 create_parent(
-[[ 'item', {'rel', 'confined', 'spr_obj'},
+[[ 'item', {'rel', 'confined', 'spr_obj'}, {},
    {being_held=true, destroyed=@1}
 ]], function(a)
    if a == a.rel_actor.item then a.rel_actor.item = nil end
 end)
 
 create_parent(
-[[ 'pokeable', {'rel','drawable_obj','item'},
+[[ 'pokeable', {'rel','drawable_obj','item'}, {},
    {
       i=@1,
       u=@2,
@@ -496,7 +490,7 @@ end
 
 -- SECTION: NPCS
 create_parent(
-[[ 'shop_item', {'unpausable', 'interactable'},
+[[ 'shop_item', {'interactable'}, {'update'},
    {
       costable=true,
       interactable_trigger=@1,
@@ -520,7 +514,7 @@ end
 
 -- exists based on memory
 create_parent(
-[[ 'mem_dep', {'act'},
+[[ 'mem_dep', {'act'}, {},
    {
       room_init=@1,
       mem_loc=BOGUS_SPOT,

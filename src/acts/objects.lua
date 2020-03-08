@@ -39,18 +39,18 @@ create_actor([['sign', 4, {'interactable'}]], [[
 end
 )
 
-create_actor([['shop_brang', 2, {'shop_item'}, HAS_BOOMERANG]], [[
+create_actor([['shop_brang', 2, {'shop_item'}]], [[
    name="'brang'", sind=4,
    x=@1, y=@2, mem_loc=HAS_BOOMERANG
 ]])
 
-create_actor([['shop_shield', 2, {'shop_item'}, HAS_SHIELD]], [[
+create_actor([['shop_shield', 2, {'shop_item'}]], [[
    name="'shield'", sind=6,
    x=@1, y=@2, mem_loc=HAS_SHIELD
 ]])
 
 -- for the chest.
-create_actor([['item_show', 3, {'spr','rel','unpausable'}]], [[
+create_actor([['item_show', 3, {'confined', 'spr','rel'}, {'update'}]], [[
    rel_actor=@1, sind=@2, mem_loc=@3,
    rel_y=-1.125,
    {tl_max_time=2, e=@4}
@@ -69,7 +69,7 @@ end
 -- Not sure if we need this...
 -- triggers_template={{rel_x, rel_y, rx, ry, func}},
 
-create_actor([['chest', 4, {'unpausable','interactable'}]], [[
+create_actor([['chest', 4, {'interactable'}, {'update'}]], [[
    name="'chest'",
    sind=50,rx=.375,ry=.375,
    x=@1, y=@2, xf=@3, mem_loc=@4,
@@ -212,3 +212,14 @@ create_actor([['box', 2, {'confined','wall','spr','col'}]], [[
    static=true,
    rx=.5,ry=.5, sind=35, x=@1, y=@2
 ]])
+
+create_actor([['spikes', 2, {'confined','spr','col'}]], [[
+   static=true, touchable=false,
+   rx=.5,ry=.5, sind=53, x=@1, y=@2, u=@3
+]], function(a)
+    if ti(2, 1) then
+        a.sind = 54
+    else
+        a.sind = 53
+    end
+end)

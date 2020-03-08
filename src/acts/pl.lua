@@ -1,9 +1,8 @@
 -- SECTION: NPC
 -- SECTION: PL
-create_actor([['lank_top', 1, {'rel','spr_obj','danceable'}]], [[
+create_actor([['lank_top', 1, {'rel','spr_obj','danceable'}, {'dancing'}]], [[
       rel_actor=@1,
-      sind=147, iyy=-2,
-      u=@2, pause_update=@3
+      sind=147, iyy=-2, u=@2, dancing=@3
 ]], function(a)
    a.xf, a.alive = g_pl.xf, g_pl.alive
 
@@ -38,7 +37,7 @@ end, function(a)
    sfx'5'
 end)
 
-create_actor([['fairy', 1, {'drawable', 'mov'}]], [[
+create_actor([['fairy', 1, {'drawable', 'mov'}, {'update'}]], [[
    rel_actor=@1, sind=52, u=@2, off_x=1, off_y=0, d=@3,
    fg=12, bg=6,
    -- fg=1, bg=2,
@@ -141,15 +140,7 @@ end, function(a)
    if a.item then a.item.alive = false end
 -- draw
 end, function(a)
-   scr_spr_out(a) scr_spr_out(a.ltop)
-   if a.item and not a.item.spr then
-      scr_spr_out(a.item)
-   end
-
-   scr_spr(a) scr_spr(a.ltop)
-   if a.item and not a.item.spr then
-      scr_spr(a.item)
-   end
+   scr_spr_and_out(a, a.ltop, a.item)
 end, function(a)
    a:i()
    a.lanks_fairy, a.room_init = g_att.fairy(a)

@@ -137,7 +137,7 @@ end
 )
 
 -- SECTION: INVENTORY
-create_actor([['banjo', 1, {'item','unpausable','danceable'}]], [[
+create_actor([['banjo', 1, {'item','danceable'}, {'update'}]], [[
    rel_actor=@1,
    rx=.3,
    ry=.3,
