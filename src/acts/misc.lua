@@ -59,7 +59,8 @@ create_actor([['title_move', 0, {'mov'}]], [[
 ]])
 
 -- SECTION: VIEW
-create_actor([['view_instance', 4, {'view'}]], [[
+create_actor([['view', 4, {'act','confined'}]], [[
+   x=0, y=0, room_crop=2,
    tl_loop=true,
    w=@1, h=@2, follow_dim=@3, follow_act=@4,
    update_view=@5,

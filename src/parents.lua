@@ -4,7 +4,7 @@
 
 -- to generate an actor.
 create_parent(
-[['act', {}, {}, {
+[['act', {}, {'room_init','pause_init','pause_end','clean','delete'}, {
    alive=true,
    stun_countdown=0,
    i=nf, u=nf,
@@ -127,6 +127,8 @@ create_parent(
 end, function(a)
    a.ax, a.ay, a.dx, a.dy = 0, 0, 0, 0
 end)
+
+create_parent[[ 'move_pause', {'act'}, {'update', 'move', 'vec_update', 'tick'}, {}]]
 
 create_parent(
 [[ 'dim', {'pos'}, {},
@@ -371,17 +373,6 @@ create_parent(
       a.x, a.y, a.dx, a.dy = x, y, dx, dy
    end
 end)
-
-create_parent(
-[[ 'view', {'act', 'confined'}, {},
-   {
-      x=0, y=0,
-      w=1, h=1,
-      follow_dim=1,
-      room_crop=2,
-      follow_act=nil
-   }
-]])
 
 create_parent(
 [[ 'danceable', {'act'}, {u=@1},

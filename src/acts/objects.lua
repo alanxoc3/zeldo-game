@@ -146,7 +146,7 @@ create_actor([['static_block', 4, {'confined', 'wall'}]], [[
 ]]
 )
 
-create_actor([['thing_destroyed', 3, {'confined', 'mov', 'drawable', 'bounded'}]], [[
+create_actor([['thing_destroyed', 3, {'confined', 'mov', 'drawable', 'bounded'}, {'update'}]], [[
    parent=@1, c=@2, d=@5,
    {i=@4, tl_max_time=@3}
 ]], function(a)

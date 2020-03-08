@@ -37,7 +37,7 @@ end, function(a)
    sfx'5'
 end)
 
-create_actor([['fairy', 1, {'drawable', 'mov'}, {'update'}]], [[
+create_actor([['fairy', 1, {'drawable', 'mov', 'move_pause'}, {'u'}]], [[
    rel_actor=@1, sind=52, u=@2, off_x=1, off_y=0, d=@3,
    fg=12, bg=6,
    -- fg=1, bg=2,
