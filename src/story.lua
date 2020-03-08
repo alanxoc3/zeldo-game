@@ -1,7 +1,7 @@
 function map_init()
    g_rooms = gun_vals([[
       -- VILLAGE_PATH
-      { m=0, c=3, qx=1, qy=0,
+      { m=14, c=3, qx=1, qy=0,
          x = 24,  y = 24,
          w = 8,   h = 8,
          l={VILLAGE,23.5,7},
@@ -13,7 +13,7 @@ function map_init()
          {'bob_build',61,26}
       },
       -- LANK_HOUSE
-      { m=0, c=4, qx=1, qy=1,
+      { m=14, c=4, qx=1, qy=1,
          x = 24,  y = 16,
          w = 8,   h = 8,
          d={LANK_FRONT_YARD,8,3},
@@ -24,7 +24,7 @@ function map_init()
          {'save_spot',60,52}
       },
       -- MAYOR_HOUSE
-      { m=0, c=4, qx=1, qy=1,
+      { m=14, c=4, qx=1, qy=1,
          x = 24,   y = 8,
          w = 8,  h = 8,
          d={VILLAGE,12,3},
@@ -43,7 +43,7 @@ function map_init()
          {'lark',60,44}
       },
       -- TEACH_STUDIO
-      { m=0, c=4, qx=0, qy=0,
+      { m=14, c=4, qx=0, qy=0,
          x = 24,  y = 0,
          w = 8,   h = 8,
          d={VILLAGE,16,4},
@@ -54,7 +54,7 @@ function map_init()
          {'teach',26.5,4}
       },
       -- SHOP
-      { m=0, c=4, qx=0, qy=0,
+      { m=14, c=4, qx=0, qy=0,
          x = 24,  y = 8,
          w = 8,   h = 8,
          d={VILLAGE,20,5},
@@ -79,7 +79,7 @@ function map_init()
          {'keep',27.5,10.5}
       },
       -- JANEBOB
-      { m=0, c=4, qx=0, qy=0,
+      { m=14, c=4, qx=0, qy=0,
          x = 24,  y = 16,
          w = 8,   h = 8,
          d={VILLAGE,8,4},
@@ -89,7 +89,7 @@ function map_init()
          {'pot',POT_20,26.5,17.5,48}
       },
       -- LIMENAVY
-      { m=0, c=4, qx=0, qy=0,
+      { m=14, c=4, qx=0, qy=0,
          x = 24,  y = 24,
          w = 8,   h = 8,
          d={VILLAGE,4,5},
@@ -99,7 +99,7 @@ function map_init()
          {'pot',POT_26,30.5,29.5,49}, {'pot',POT_27,30.5,30.5,49}, {'pot',POT_28,29.5,30.5,49}
       },
       -- VILLAGE
-      { m=0, c=3, qx=0, qy=0,
+      { m=14, c=3, qx=0, qy=0,
          x = 0,   y = 10,
          w = 24,  h = 10,
          l={LANK_FRONT_YARD,11.5,5},
@@ -116,7 +116,7 @@ function map_init()
          {'house',20,14.5,SHOP,4,7.5,46}
       },
       -- LANK_FRONT_YARD
-      { m=0, c=3, qx=0, qy=0,
+      { m=14, c=3, qx=0, qy=0,
          x = 12,  y = 0,
          w = 12,  h = 10,
          l={FOREST_ENTRANCE,11.5,5},
