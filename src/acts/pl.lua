@@ -29,7 +29,7 @@ create_actor([['grabbed_item', 4, {'rel','spr_obj'}]], [[
    being_held=true,
    {i=@6, throwing=false, tl_max_time=.2}, { i=nf, u=@5 }, { throwing=true, visible=false, tl_max_time=.05 }
 ]], function(a)
-   if btnp(4) or btn(5) then
+   if btnp'4' or btn'5' then
       sfx'6'
       a.create_func(a.x, a.y+a.iyy/8, a.xf)
       return true

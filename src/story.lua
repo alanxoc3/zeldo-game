@@ -180,12 +180,12 @@ function map_init()
          w = 12,  h = 10,
          l={FOREST_1,11.5,5},
          r={LANK_FRONT_YARD,.5,5},
-         d={FOREST_LOST,6,.5}
+         d={FOREST_LOST,4,.5}
       },
       -- FOREST_LOST
       { m=2, c=3, qx=1, qy=0,
-         x = 12,  y = 20,
-         w = 12,  h = 12,
+         x = 24,  y = 8,
+         w = 8,  h = 8,
          u={FOREST_ENTRANCE,6,9.5},
          r={LANK_FRONT_YARD,.5,5},
 
@@ -196,8 +196,8 @@ function map_init()
          x = 0,   y = 0,
          w = 12,  h = 10,
          r={FOREST_ENTRANCE,.5,5},
-         l={FOREST_LOST,6,6},
-         u={FOREST_LOST,6,6},
+         l={FOREST_LOST,4,4},
+         u={FOREST_LOST,4,4},
          d={FOREST_2,6,.5}
       },
       -- FOREST_2
@@ -205,8 +205,8 @@ function map_init()
          x = 12,  y = 0,
          w = 12,  h = 10,
          u={FOREST_1,6,9.5},
-         r={FOREST_LOST,6,6},
-         d={FOREST_LOST,6,6},
+         r={FOREST_LOST,4,4},
+         d={FOREST_SECRET,4,.5},
          l={FOREST_3,11.5,5}
       },
       -- FOREST_3
@@ -214,8 +214,8 @@ function map_init()
          x = 0,   y = 10,
          w = 12,  h = 10,
          r={FOREST_2,.5,5},
-         l={FOREST_LOST,6,6},
-         d={FOREST_LOST,6,6},
+         l={FOREST_LOST,4,4},
+         d={FOREST_LOST,4,4},
          u={FOREST_4,6,9.5}
       },
       -- FOREST_4
@@ -224,8 +224,8 @@ function map_init()
          w = 12,  h = 10,
          d={FOREST_3,6,.5},
          u={FOREST_BOSS,6,11.5},
-         l={FOREST_LOST,6,6},
-         r={FOREST_LOST,6,6}
+         l={FOREST_LOST,4,4},
+         r={FOREST_LOST,4,4}
       },
       -- FOREST_BOSS
       { m=2, c=3, qx=1, qy=0,
@@ -240,10 +240,11 @@ function map_init()
          w = 8,  h = 8,
          l={FOREST_BOSS,11.5,6}
       },
-      -- TITLE_SCREEN
-      { m=2, c=3, qx=0, qy=0,
-         x = 0,  y = 20,
-         w = 12, h = 12
+      -- FOREST_SECRET
+      { m=2, c=3, qx=1, qy=0,
+         x = 24,  y = 16,
+         w = 8,  h = 8,
+         u={FOREST_2, 6, 9.5}
       }
    ]])
 

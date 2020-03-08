@@ -95,7 +95,7 @@ function game_update()
          function(x, y)
             return x >= g_cur_room.x and x < g_cur_room.x+g_cur_room.w and
                    y >= g_cur_room.y and y < g_cur_room.y+g_cur_room.h and
-                   fget(mget(x, y), 1)
+                   fget(mget(x, y), 6)
          end,
          g_pl,
          g_act_arrs['wall']

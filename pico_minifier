@@ -136,6 +136,7 @@ $constants{'FOREST_3'}                = '21';
 $constants{'FOREST_4'}                = '22';
 $constants{'FOREST_BOSS'}             = '23';
 $constants{'FOREST_TREASURE'}         = '24';
+$constants{'FOREST_SECRET'}           = '25';
 
 # Go through the actual minifying.
 my @lines = <>;
