@@ -4,7 +4,7 @@
 
 -- to generate an actor.
 create_parent(
-[['act', {}, {'room_init','pause_init','pause_end','clean','delete'}, {
+[['act', {}, {'room_init','pause_init','pause_update','pause_end','clean','delete'}, {
    alive=true,
    stun_countdown=0,
    i=nf, u=nf,
@@ -14,6 +14,7 @@ create_parent(
    delete=@4,
    room_init=nf,
    pause_init=nf,
+   pause_update=nf,
    pause_end=nf,
    destroyed=nf,
    get=@5 -- super useful
@@ -131,7 +132,7 @@ end)
 create_parent[[ 'move_pause', {'act'}, {'update', 'move', 'vec_update', 'tick'}, {}]]
 
 create_parent(
-[[ 'dim', {'pos'}, {},
+[[ 'dim', {'pos'}, {'debug_rect'},
    {
       rx=.375,
       ry=.375,
@@ -143,7 +144,7 @@ end)
 
 -- used with player items/weapons.
 create_parent(
-[[ 'rel', {'act'}, {},
+[[ 'rel', {'act'}, {'rel_update'},
    {
       rel_actor=nil,
       rel_x=0,
@@ -375,8 +376,13 @@ create_parent(
 end)
 
 create_parent(
-[[ 'danceable', {'act'}, {u=@1},
-   {dance_update=@1, dance_init=@2, pause_init=@2}
+[[ 'danceable', {'act'}, {},
+   {
+      initial_time=0,
+      dance_update=@1,
+      pause_update=@1,
+      pause_init=@2
+   }
 ]], function(a)
    if is_game_paused'dancing' then
       a.dance_time = cos(t()-a.initial_time)

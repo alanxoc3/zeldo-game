@@ -79,6 +79,7 @@ function game_update()
             {'drawable_obj','reset_off'},
             {'stunnable', 'stun_update'},
             {'act','update'},
+            {'act','pause_update'},
             {'mov','move'},
             {'col','move_check',@1},
             {'col','move_check',@4},
@@ -112,6 +113,7 @@ function game_update()
       end
       batch_call(acts_loop, [[
          {'act', 'update'},
+         {'act','pause_update'},
          {'rel','rel_update'},
          {'fairy', 'move'},
          {'fairy', 'vec_update'},

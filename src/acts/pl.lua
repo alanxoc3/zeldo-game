@@ -1,8 +1,7 @@
 -- SECTION: NPC
 -- SECTION: PL
-create_actor([['lank_top', 1, {'rel','spr_obj','danceable'}, {'dancing'}]], [[
-      rel_actor=@1,
-      sind=147, iyy=-2, u=@2, dancing=@3
+create_actor([['lank_top', 1, {'rel','spr_obj','danceable'}]], [[
+      rel_actor=@1, sind=147, iyy=-2, u=@2, pause_update=@3
 ]], function(a)
    a.xf, a.alive = g_pl.xf, g_pl.alive
 

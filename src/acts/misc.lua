@@ -25,7 +25,7 @@ create_actor([['item_selector', 1, {'rel'}]], [[
 end
 )
 
-create_actor([['inventory_item', 6, {'rel','spr_obj', 'drawable'}]], [[
+create_actor([['inventory_item', 6, {'rel','spr_obj', 'drawable'}, {'draw_both'}]], [[
    rel_actor=@1, rel_x=@2, rel_y=@3, enabled=@4, flippable=@5, sind=@6, visible=@6,
    i=@7, u=@8
 ]], function(a)
@@ -59,7 +59,10 @@ create_actor([['title_move', 0, {'mov'}]], [[
 ]])
 
 -- SECTION: VIEW
-create_actor([['view', 4, {'act','confined'}]], [[
+create_actor([['view', 4,
+   {'act','confined'},
+   {'center_view', 'update_view'}
+]], [[
    x=0, y=0, room_crop=2,
    tl_loop=true,
    w=@1, h=@2, follow_dim=@3, follow_act=@4,
