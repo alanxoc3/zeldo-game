@@ -40,8 +40,9 @@ end)
 
 create_actor([['fairy', 1, {'drawable', 'mov'}]], [[
    rel_actor=@1, sind=52, u=@2, off_x=1, off_y=0, d=@3,
-   fg=12, bg=6, room_init=@4
-   -- fg=1, bg=2
+   fg=12, bg=6,
+   -- fg=1, bg=2,
+    room_init=@4
 ]], function(a)
    local act = get_cur_ma() or a.rel_actor
 

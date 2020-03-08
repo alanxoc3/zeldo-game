@@ -1,0 +1,145 @@
+* That Story About Zeldo
+Lank wakes up from a good night's rest only to find Hi-roll in danger! You gotta
+help him save the Land of Hi-roll from the forces of evil.
+
+Enjoy my game. Made with <3 in PICO-8.
+
+** In progress
+*** TODO Player health must be saveable too.
+*** TODO Create some sort of "heart" object.
+*** TODO Tweak the money object to look nicer (particles and collision box).
+*** TODO Shield retract (shield timeout/don't kill immediately).
+*** TODO Navy go back home.
+*** TODO Create wall that boomerang can go through!
+*** TODO How should the game over screen be designed?
+*** TODO Sword, shield, and bow persist through rooms.
+*** TODO Make some good music.
+*** TODO Finish the basic map transitions.
+** Enemy sprint
+*** TODO Make the bat enemy do something
+*** TODO Make the chicken enemy go crazy.
+*** TODO Interaction with Top enemy and write plans for other enemies.
+** Bomb sprint
+*** TODO Arrow bump bomb or arrow grab bomb.
+*** TODO Boomerang bump bomb or boomerang return bomb.
+*** TODO Continue bomb mechanics.
+*** TODO Just make bombs better in general.
+** Finished items
+*** DONE What should go into a demo of the game?
+*** DONE Make ma work correctly for interactable things.
+*** DONE Make ma work for items.
+*** DONE Fix the boomerang timeout problem.
+*** DONE Make a flippable attribute on all items.
+*** DONE Refine the top enemy more.
+*** DONE Tbox pop up and down, or think about transition.
+*** DONE Fix sign artifact bug (when sign is gone, trigger still exists).
+*** DONE Pot collide with walls.
+*** DONE Boomerang retract/use item.
+*** DONE Work on house transitions again.
+*** DONE Finish house transitions.
+*** DONE Pause game on tbox.
+*** DONE Fix tbox screen pause
+*** DONE Pause game on room transition.
+*** DONE Token saving sprint, (items and enemies). Get down to 7500!
+*** DONE Continue shovel mechanics.
+*** DONE work on shovel animation.
+*** DONE Disable inventory on room transition.
+*** DONE Pause game on banjo play.
+*** DONE Tbox triggers should work.
+*** DONE Think about player arm movement (above head? ...).
+*** DONE Banjo play song.
+*** DONE Plant throwing. (basic version)
+*** DONE Chicken throwing. (basic version)
+*** DONE Held item persists through rooms.
+*** DONE Bomb throwing. Bomb should be similar to pickupable items.
+*** DONE Inventory spacing left and right correct.
+*** DONE Fix inventory pixel off problem.
+*** DONE Think about state name with tl. All nodes have optional names and time state.
+*** DONE design menu actor area/transitions. this is done by fading now.
+*** DONE create title screen.
+*** DONE Create a more modular view.
+*** DONE fix tbox double press bugs.
+*** DONE More efficient trigger, only interact with player.
+*** DONE create zcls, that uses rectfill to fill the screen (within cropped area).
+*** DONE cell shading only for sub items.
+*** DONE Fix ma player 2 parts (for enemies). Fixed with modular view.
+*** DONE no screen shake when enemy hits enemy/house.
+*** DONE Think about text interaction more. Only Lank is to the left.
+*** DONE Separate tbox speaker.
+*** DONE Connect tbox with menu actors.
+*** DONE go through sprite file optimizations.
+*** DONE Make tbox use gun_vals.
+*** DONE give player money
+*** DONE Work on sword & shield walking.
+*** DONE ma don't move if pl not moving (look at dx/dy)
+*** DONE create power square item.
+*** DONE tbox only interact if in interact state.
+*** DONE create a chicken object.
+*** DONE make bombs work
+*** DONE make and tweak an after stun timer.
+*** DONE make item (boomerang) recoil timer.
+*** DONE copy logic for contains, between trigger and col (or remove it from col).
+*** DONE house needs to clean up after itself.
+*** DONE see if caden can fetch/merge.
+*** DONE delete old map room logic.
+*** DONE when running out of energy
+*** DONE create palace map.
+*** DONE gun vals number
+*** DONE optimize gun nums again
+*** DONE player banjo walk
+*** DONE player no run
+*** DONE player item in front.
+*** DONE try the 'just around player' status thing (caden idea.)
+*** DONE think about sub table gun_vals cache. don't want. problem was state.
+*** DONE fix enemy share state bug
+*** DONE tl update don't use t(), or fix pausing.
+*** DONE create stateful draw.
+*** DONE tl update return next.
+*** DONE tl takes no parameters? debate about this idea.
+*** DONE shield house collision.
+*** DONE room loading draw on load.
+*** DONE map rooms need separate init functions.
+*** DONE item selection sprites, based on pl's items.
+*** DONE enemy needs to collide with house correctly
+*** DONE enemy needs to be stunned correctly again.
+*** DONE enemy collide with screen edge.
+*** DONE field fix up. field and gravep connect better.
+*** DONE think about connecting map logic.
+*** DONE connect up grave dungeon.
+*** DONE connect up castle
+*** DONE change drawing functions to work with tl better. incorporate tl even more.
+*** DONE no double draw items
+*** DONE create boomerang.
+*** DONE screen shake when hitting player.
+*** DONE pl item shakes with pl.
+*** DONE create separate logic between doors and map.
+*** DONE tl and actor work together better.
+*** DONE add nf (nothing function) to the gun vals logic.
+*** DONE make tl optional.
+*** DONE fix string or value bug in gun nums.
+*** DONE make actor update more simple (use tl?).
+*** DONE do we need a begin init function? (no, embed tl can handle that).
+*** DONE fix tbox arrow sprite offset.
+*** DONE create actor/parent more simple? no. it is good.
+*** DONE create actor adds actor to g_attach.
+*** DONE rethink items again.
+*** DONE create power square variable.
+*** DONE make enemy health bar.
+*** DONE make the top 'tired' bar work.
+*** DONE connect the map.
+*** DONE make the code size smaller in menu.
+*** DONE token cleanup on status bars
+*** DONE menu actor name and different backgrounds. opted with black background.
+*** DONE nice functions to integrate with menu actors. think i did this.
+*** DONE create card transitions.
+*** DONE change the top of the screen (new layout).
+*** DONE menu enemy support must be better.
+*** DONE make area information (if no enemy). opted no, i can have signs.
+*** DONE tl embedded tl. decided on no! Then I later implemented it!
+*** DONE tbox pause the game. should it? if so, do it. it is right now.
+*** DONE make a sign
+*** DONE create 2 parts of lank (feet and arms).
+*** DONE how should the title screen be designed?
+*** DONE Fix title screen early btn press bug.
+*** DONE Figure out a framework for all objects to be saveable.
+*** DONE Make Lark's room smaller.

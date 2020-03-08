@@ -77,7 +77,7 @@ create_actor([['brang', 1, {'confined','anim','col','mov', 'tcol'}]], [[
    being_held=true,
    rx=.375,
    ry=.375,
-   sinds={4,260,516,772},
+   sinds={4,19,20,21},
    anim_len=4,
    anim_spd=3,
    ix=.8, iy=.8,
