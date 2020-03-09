@@ -149,11 +149,8 @@ chomp(@lines);
 if ($dev_mode) {
    @lines = remove_spaces(@lines);
 } else {
+   @lines = remove_spaces(@lines);
    my %vars = populate_vars(@lines);
-   @lines = remove_spaces(@lines);
-   my $file_line = join(" ",@lines);
-   @lines = ($file_line);
-   @lines = remove_spaces(@lines);
    @lines = tokenize_lines(\@lines, \%vars);
 }
 
@@ -162,6 +159,6 @@ if ($dev_mode) {
 # $lines[0] =~ s/([^\"]) ([^\"])/$1\n$2/g;
 @lines = pop_text_logics(@lines);
 
-my $file = join($dev_mode ? "\n" : "", @lines);
+my $file = join($dev_mode ? "\n" : "\n", @lines);
 $file = multiline_string_replace($file);
 print $file;

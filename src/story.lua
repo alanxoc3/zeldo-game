@@ -247,6 +247,7 @@ function map_init()
          d={FOREST_SECRET,4,.5},
          l={FOREST_3,11.5,5}
       },
+
       -- FOREST_3
       { m=2, c=3, qx=1, qy=0,
          x = 0,   y = 10,
