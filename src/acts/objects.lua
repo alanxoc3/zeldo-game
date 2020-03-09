@@ -213,13 +213,18 @@ create_actor([['box', 2, {'drawable','confined','wall','spr','col'}]], [[
    rx=.5,ry=.5, sind=35, x=@1, y=@2
 ]])
 
-create_actor([['spikes', 2, {'pre_drawable','confined','spr','col'}]], [[
+create_actor([['spikes', 3, {'trig','pre_drawable','confined','spr'}]], [[
    static=true, touchable=false,
-   rx=.5,ry=.5, sind=53, x=@1, y=@2, u=@3
+   rx=.5, ry=.5, sind=53, x=@1, y=@2, offset=@3, u=@4,
+   intersects=@5, contains=@5
 ]], function(a)
-    if ti(2, 1) then
+    if (a.tl_tim + a.offset) % 1 < .75 then
         a.sind = 54
     else
         a.sind = 53
     end
+end, function(a, o)
+  if a.sind == 53 then
+    call_not_nil(o, 'hurt', o, 1, 15)
+  end
 end)

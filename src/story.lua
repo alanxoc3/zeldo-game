@@ -186,7 +186,11 @@ function map_init()
             "'⬅️ spike's forest'",
             "'➡️ hiroll village'"
          },43},
-         {'spikes',2.5,2.5}
+         {'spikes',2.5,2.5,.5},
+         {'spikes',2.5,7.5,.5},
+
+         {'spikes',2.5,4.5,0}, {'spikes',2.5,5.5,0},
+         {'spikes',3.5,4.5,0}, {'spikes',3.5,5.5,0}
       },
       -- FOREST_LOST
       { m=2, c=3, qx=1, qy=0,
