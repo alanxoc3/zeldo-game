@@ -182,6 +182,10 @@ function map_init()
          r={LANK_FRONT_YARD,.5,5},
          d={FOREST_LOST,4,.5},
 
+         {'sign',6,2.5,{
+            "'⬅️ spike's forest'",
+            "'➡️ hiroll village'"
+         },43},
          {'spikes',2.5,2.5}
       },
       -- FOREST_LOST

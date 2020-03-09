@@ -186,10 +186,9 @@ create_parent(
    a.xx, a.yy = 0, 0
 end)
 
-create_parent(
-[[ 'drawable', {'act', 'drawable_obj'}, {'d'},
-   {d=nf}
-]])
+create_parent[['drawable',     {'drawable_obj'}, {'d'}, {d=nf}]]
+create_parent[['pre_drawable', {'drawable_obj'}, {'d'}, {d=nf}]]
+create_parent[['post_drawable',{'drawable_obj'}, {'d'}, {d=nf}]]
 
 create_parent(
 [[ 'spr_obj', {'vec', 'drawable_obj'}, {},
@@ -208,7 +207,7 @@ create_parent(
 )
 
 create_parent(
-[[ 'spr', {'vec','spr_obj','drawable'}, {},
+[[ 'spr', {'vec','spr_obj'}, {},
    {
       d=@1
    }
@@ -426,7 +425,7 @@ create_parent(
 end)
 
 create_parent(
-[[ 'nnpc', {'danceable', 'interactable'}, {},
+[[ 'nnpc', {'drawable','danceable', 'interactable'}, {},
    {
       rx=.5,ry=.5,iyy=-2,
       u=@1
@@ -452,7 +451,7 @@ end
 )
 
 create_parent(
-[[ 'item', {'rel', 'confined', 'spr_obj'}, {},
+[[ 'item', {'drawable', 'rel', 'confined', 'spr_obj'}, {},
    {being_held=true, destroyed=@1}
 ]], function(a)
    if a == a.rel_actor.item then a.rel_actor.item = nil end
@@ -487,7 +486,7 @@ end
 
 -- SECTION: NPCS
 create_parent(
-[[ 'shop_item', {'interactable'}, {'update'},
+[[ 'shop_item', {'drawable','interactable'}, {'update'},
    {
       costable=true,
       interactable_trigger=@1,

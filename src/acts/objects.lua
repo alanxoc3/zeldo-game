@@ -28,7 +28,7 @@ end, function(a)
    end
 end)
 
-create_actor([['sign', 4, {'interactable'}]], [[
+create_actor([['sign', 4, {'drawable','interactable'}]], [[
    name="'sign'",
    rx=.5,      ry=.5,
    trig_x=0,   trig_y=.125,
@@ -50,7 +50,7 @@ create_actor([['shop_shield', 2, {'shop_item'}]], [[
 ]])
 
 -- for the chest.
-create_actor([['item_show', 3, {'confined', 'spr','rel'}, {'update'}]], [[
+create_actor([['item_show', 3, {'post_drawable', 'confined', 'spr','rel'}, {'update'}]], [[
    rel_actor=@1, sind=@2, mem_loc=@3,
    rel_y=-1.125,
    {tl_max_time=2, e=@4}
@@ -69,7 +69,7 @@ end
 -- Not sure if we need this...
 -- triggers_template={{rel_x, rel_y, rx, ry, func}},
 
-create_actor([['chest', 4, {'interactable'}, {'update'}]], [[
+create_actor([['chest', 4, {'drawable','interactable'}, {'update'}]], [[
    name="'chest'",
    sind=50,rx=.375,ry=.375,
    x=@1, y=@2, xf=@3, mem_loc=@4,
@@ -100,7 +100,7 @@ end
 )
 
 -- todo: trim code here.
-create_actor([['house', 6, {'confined','spr'}]], [[
+create_actor([['house', 6, {'drawable','confined','spr'}]], [[
    x=@1, y=@2, room=@3, room_x=@4, room_y=@5, sind=@6,
    i=@7, destroyed=@8,
    iyy=-4, sw=2, sh=2
@@ -119,7 +119,7 @@ end
 )
 
 -- SECTION: OBJECTS
-create_actor([['money', 4, {'bounded','confined','tcol','spr','col','mov'}]], [[
+create_actor([['money', 4, {'drawable','bounded','confined','tcol','spr','col','mov'}]], [[
    sind=36,rx=.125,ry=.125,
    x=@1, y=@2, dx=@3, dy=@4,
    touchable=false,
@@ -159,7 +159,7 @@ end, function(a)
    scr_pset(a.x, a.y, a.c)
 end)
 
-create_actor([['pot_projectile', 3, {'col', 'confined', 'mov', 'spr', 'bounded', 'tcol'}]], [[
+create_actor([['pot_projectile', 3, {'drawable','col', 'confined', 'mov', 'spr', 'bounded', 'tcol'}]], [[
    tile_solid=true,
    sind=49,
    x=@1, y=@2, xf=@3,
@@ -188,7 +188,7 @@ end, function(a)
 end)
 
 -- x, y, sind
-create_actor([['pot', 4, {'bounded','confined','tcol','spr','col','mov','mem_dep'}]], [[
+create_actor([['pot', 4, {'drawable','bounded','confined','tcol','spr','col','mov','mem_dep'}]], [[
    static=true,
    rx=.375,ry=.375,
    mem_loc=@1, x=@2, y=@3, sind=@4,
@@ -208,12 +208,12 @@ end
 )
 
 -- TODO: Bomb support.
-create_actor([['box', 2, {'confined','wall','spr','col'}]], [[
+create_actor([['box', 2, {'drawable','confined','wall','spr','col'}]], [[
    static=true,
    rx=.5,ry=.5, sind=35, x=@1, y=@2
 ]])
 
-create_actor([['spikes', 2, {'confined','spr','col'}]], [[
+create_actor([['spikes', 2, {'pre_drawable','confined','spr','col'}]], [[
    static=true, touchable=false,
    rx=.5,ry=.5, sind=53, x=@1, y=@2, u=@3
 ]], function(a)

@@ -167,8 +167,11 @@ function map_draw(x, y, border_colors)
       scr_map(g_cur_room.x, g_cur_room.y, g_cur_room.x, g_cur_room.y, g_cur_room.w, g_cur_room.h)
 
       isorty(g_act_arrs.drawable)
-      acts_loop('drawable', 'd')
-      acts_loop('item_show', 'd')
+      batch_call(acts_loop, [[
+         {'pre_drawable','d'},
+         {'drawable','d'},
+         {'post_drawable','d'}
+      ]])
       if g_debug then acts_loop('dim', 'debug_rect') end
       clip()
 

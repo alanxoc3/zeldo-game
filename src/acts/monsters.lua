@@ -1,5 +1,5 @@
 -- SECTION: MONSTERS
-create_actor([['top', 2, {'bounded','danceable','confined','stunnable','mov','col','tcol','hurtable','knockable','anim','spr'}]], [[
+create_actor([['top', 2, {'drawable','bounded','danceable','confined','stunnable','mov','col','tcol','hurtable','knockable','anim','spr'}]], [[
    max_health=10, health=10,
    name="'topper'",
    evil=true,
