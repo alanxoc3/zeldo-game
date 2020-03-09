@@ -215,7 +215,7 @@ create_actor([['box', 2, {'drawable','confined','wall','spr','col'}]], [[
 
 create_actor([['spikes', 3, {'trig','pre_drawable','confined','spr'}]], [[
    static=true, touchable=false,
-   rx=.5, ry=.5, sind=54, x=@1, y=@2, offset=@3, u=@4,
+   rx=.375, ry=.375, sind=54, x=@1, y=@2, offset=@3, u=@4,
    intersects=@5, contains=@5, i=@6
 ]], function(a)
     if (a.tl_tim + a.offset) % 1 < .75 then
