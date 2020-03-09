@@ -205,15 +205,43 @@ function map_init()
       { m=2, c=3, qx=1, qy=0,
          x = 0,   y = 0,
          w = 12,  h = 10,
+
+         {'spikes',41.5,2.5,.5},
+         {'spikes',34.5,7.5,0},
+
+         {'spikes',37.5,3.5,0}, {'spikes',38.5,3.5,0},
+         {'spikes',37.5,4.5,0}, {'spikes',38.5,4.5,0},
+         {'spikes',37.5,5.5,.5}, {'spikes',38.5,5.5,.5},
+         {'spikes',37.5,6.5,.5}, {'spikes',38.5,6.5,.5},
+
          r={FOREST_ENTRANCE,.5,5},
          l={FOREST_LOST,4,4},
          u={FOREST_LOST,4,4},
-         d={FOREST_2,6,.5}
+         d={FOREST_2,6,.5},
       },
       -- FOREST_2
       { m=2, c=3, qx=1, qy=0,
          x = 12,  y = 0,
          w = 12,  h = 10,
+
+         {'spikes',47.5,1.5,.5}, {'spikes',47.5,2.5,.5},
+         {'spikes',48.5,1.5,.75}, {'spikes',48.5,2.5,.75},
+         {'spikes',51.5,1.5,.5}, {'spikes',51.5,2.5,.5},
+         {'spikes',52.5,1.5,.75}, {'spikes',52.5,2.5,.75},
+
+         {'spikes',53.5,3.5,0}, {'spikes',54.5,3.5,0},
+         {'spikes',53.5,6.5,0}, {'spikes',54.5,6.5,0},
+
+         {'spikes',47.5,4.5,0}, {'spikes',47.5,5.5,0},
+         {'spikes',48.5,4.5,0}, {'spikes',48.5,5.5,0},
+         {'spikes',51.5,4.5,0}, {'spikes',51.5,5.5,0},
+         {'spikes',52.5,4.5,0}, {'spikes',52.5,5.5,0},
+
+         {'spikes',47.5,7.5,.75}, {'spikes',47.5,8.5,.75},
+         {'spikes',48.5,7.5,.5}, {'spikes',48.5,8.5,.5},
+         {'spikes',51.5,7.5,.75}, {'spikes',51.5,8.5,.75},
+         {'spikes',52.5,7.5,.5}, {'spikes',52.5,8.5,.5},
+
          u={FOREST_1,6,9.5},
          r={FOREST_LOST,4,4},
          d={FOREST_SECRET,4,.5},
@@ -223,6 +251,10 @@ function map_init()
       { m=2, c=3, qx=1, qy=0,
          x = 0,   y = 10,
          w = 12,  h = 10,
+
+         {'spikes',34.5,14.5,0}, {'spikes',35.5,14.5,0},
+         -- {'spikes',34.5,15.5,0}, {'spikes',35.5,15.5,0},
+
          r={FOREST_2,.5,5},
          l={FOREST_LOST,4,4},
          d={FOREST_LOST,4,4},
