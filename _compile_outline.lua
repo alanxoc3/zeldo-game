@@ -50,12 +50,12 @@ end
 -- manually putting in all the indexes.
 
 for i=0,255 do
-  if fget(i,5) then
+  if fget(i,5) and fget(i,4) then
+    create_outline(i, 2, 2)
+  elseif fget(i,5) then
     create_outline(i, 1, 1)
   elseif fget(i,4) then
     create_outline(i, 1, 2)
-  elseif fget(i,3) then
-    create_outline(i, 2, 2)
   end
 end
 

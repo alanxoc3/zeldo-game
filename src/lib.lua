@@ -89,6 +89,7 @@ end
 -- Returns the parsed table, the current position, and the parameter locations
 function gun_vals_helper(val_str,i,new_params)
    local val_list, val, val_ind, isnum, val_key, str_mode = {}, '', 1, true
+   local macro_mode = nil
 
    while i <= #val_str do
       local x = sub(val_str, i, i)
@@ -96,6 +97,7 @@ function gun_vals_helper(val_str,i,new_params)
       elseif str_mode then val=val..x
       elseif x == '}' or x == ',' then
          if type(val) == 'table' or not isnum then
+         elseif macro_mode then val = _g[val]
          elseif sub(val,1,1) == '@' then
             local sec = tonum(sub(val,2,#val))
             assert(sec != nil)
@@ -108,12 +110,21 @@ function gun_vals_helper(val_str,i,new_params)
          end
 
          val_list[val_key or val_ind], isnum, val, val_ind, val_key = val, true, '', val_key and val_ind or val_ind+1
+         macro_mode = nil
 
          if x == '}' then
             return val_list, i
          end
-      elseif x == '{' then val, i, isnum = gun_vals_helper(val_str,i+1,new_params)
+      elseif x == '{' then
+         local ret_val = nil
+         ret_val, i, isnum = gun_vals_helper(val_str,i+1,new_params)
+         if macro_mode then
+            val = _g[val](munpack(ret_val))
+         else
+            val = ret_val
+         end
       elseif x == '=' then isnum, val_key, val = true, val, ''
+      elseif x == '!' then macro_mode = true
       elseif x != " " and x != '\n' then val=val..x end
       i += 1
    end

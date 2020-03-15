@@ -7,7 +7,7 @@ function draw_logo(a)
    camera(-a.x*8, -a.y*8)
    -- (str, x, y, alignment, shadow_below)
    batch_call(tprint, [[
-      {"'that story about'", 0, -17, 10, 4}
+      {"that story about", 0, -17, 10, 4}
    ]]
    )
    for i=-2,2 do
@@ -16,7 +16,7 @@ function draw_logo(a)
 
    if ti(1,.5) then
       batch_call(tprint, [[
-         {"'🅾️ or ❎ to play  '", 0, 12, 7, 5}
+         {"🅾️ or ❎ to play  ", 0, 12, 7, 5}
       ]])
    end
 

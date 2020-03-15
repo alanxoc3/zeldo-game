@@ -1,7 +1,7 @@
 -- SECTION: MONSTERS
 create_actor([['top', 2, {'drawable','bounded','danceable','confined','stunnable','mov','col','tcol','hurtable','knockable','anim','spr'}]], [[
    max_health=10, health=10,
-   name="'topper'",
+   name="topper",
    evil=true,
    x=@1, y=@2,
    rx=.375, ry=.375,
@@ -84,7 +84,7 @@ end)
 -- )
 
 -- create_actor([['chicken', 2, {'loopable','bounded','confined','stunnable','mov','col','tcol','hurtable','knockable','anim','spr','danceable'}]], [[
---    name="'chicken'",
+--    name="chicken",
 --    evil=true,
 --    x=@1, y=@2,
 --    rx=.375, ry=.375,

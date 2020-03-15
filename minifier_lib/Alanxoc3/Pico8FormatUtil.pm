@@ -142,19 +142,12 @@ my @texts;
 sub text_logic {
    my $quote = shift;
 
-   if ($quote =~ s/^"'(.*?)'"$/"$1"/g) {
-      my @char_arr = split(//, $quote);
-
-      for my $i (0 .. $#char_arr) {
-         if ($i % 2 == 0) {
-            $char_arr[$i] = uc( $char_arr[$i] );
-         } else {
-            $char_arr[$i] = lc( $char_arr[$i] );
-         }
-      }
-
-      $quote = join("", @char_arr);
+   # Convert all letters to lowercase.
+   my @char_arr = split(//, $quote);
+   for my $i (0 .. $#char_arr) {
+      $char_arr[$i] = lc( $char_arr[$i] );
    }
+   $quote = join("", @char_arr);
 
    push @texts, $quote;
    return "P_TEXT_LOGIC";

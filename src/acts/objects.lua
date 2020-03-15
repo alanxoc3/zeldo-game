@@ -1,6 +1,6 @@
 -- TODO: refactor the save platform!
 create_actor([['save_spot', 2, {'confined','trig','drawable_obj'}]], [[
-      name="'save spot'",
+      name="save spot",
       rx=.625, ry=.625,
       x=@1, y=@2,
       intersects=@3, contains=@3,
@@ -12,12 +12,12 @@ end, function(a)
       if g_pause_reason == 'dancing' then
          if zdget'BANJO_TUNED' then
             memcpy(REAL_SAVE_LOCATION, TEMP_SAVE_LOCATION, SAVE_LENGTH)
-            tbox[["'the game has been saved!'"]]
+            tbox[["the game has been saved!"]]
          else
             sfx'7'
             tbox[[
-               "'the game won't save for'",
-               "'bad banjo players.'"
+               "the game won't save for",
+               "bad banjo players."
             ]]
          end
       end
@@ -29,7 +29,7 @@ end, function(a)
 end)
 
 create_actor([['sign', 4, {'drawable','interactable'}]], [[
-   name="'sign'",
+   name="sign",
    rx=.5,      ry=.5,
    trig_x=0,   trig_y=.125,
    trig_rx=.75, trig_ry=.625,
@@ -40,12 +40,12 @@ end
 )
 
 create_actor([['shop_brang', 2, {'shop_item'}]], [[
-   name="'brang'", sind=4,
+   name="brang", sind=4,
    x=@1, y=@2, mem_loc=HAS_BOOMERANG
 ]])
 
 create_actor([['shop_shield', 2, {'shop_item'}]], [[
-   name="'shield'", sind=6,
+   name="shield", sind=6,
    x=@1, y=@2, mem_loc=HAS_SHIELD
 ]])
 
@@ -70,7 +70,7 @@ end
 -- triggers_template={{rel_x, rel_y, rx, ry, func}},
 
 create_actor([['chest', 4, {'drawable','interactable'}, {'update'}]], [[
-   name="'chest'",
+   name="chest",
    sind=50,rx=.375,ry=.375,
    x=@1, y=@2, xf=@3, mem_loc=@4,
    trig_y=0,
@@ -188,12 +188,12 @@ end, function(a)
 end)
 
 -- x, y, sind
-create_actor([['pot', 4, {'drawable','bounded','confined','tcol','spr','col','mov','mem_dep'}]], [[
+create_actor([['pot', 3, {'drawable','bounded','confined','tcol','spr','col','mov','mem_dep'}]], [[
    static=true,
    rx=.375,ry=.375,
-   mem_loc=@1, x=@2, y=@3, sind=@4,
+   x=@1, y=@2, mem_loc=@3, sind=49,
    touchable=true,
-   i=@5
+   i=@4
 ]], function(a)
    g_att.gen_trigger_block(a, 0, 0, .5, .5, nf, function(trig, other)
       if btnp(4) and not other.item then

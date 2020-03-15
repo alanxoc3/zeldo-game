@@ -50,6 +50,12 @@ function tbox(...)
    tbox_with_obj(gun_vals(...))
 end
 
+function _g.tbox_closure(obj)
+   return function()
+      tbox_with_obj(obj)
+   end
+end
+
 -- draw the text boxes (if any)
 -- foreground color, background color, border width
 function ttbox_draw(x, y)
