@@ -1,10 +1,10 @@
 pico-8 cartridge // http://www.pico-8.com
 version 18
 __lua__
--- zeldo game
+-- that story about zeldo
 -- amorg
---#include _compiled_dev.lua
-#include _compiled_prod.lua
+#include _compiled_dev.lua
+--#include _compiled_prod.lua
 -- glitch anyone?
 --__draw=_draw function _draw()__draw()poke(0x5f2d, 1)
 --memcpy(0x6000,stat(33)/128*0x6000,0x2000) end
