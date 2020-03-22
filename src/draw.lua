@@ -54,10 +54,10 @@ function spr_out(sind, x, y, sw, sh, xf, yf, col)
 
    foreach(g_out_cache[''..sind], function(r)
       rectfill(
-         ox+x_mult*r.x1,
-         oy+y_mult*r.y1,
-         ox+x_mult*r.x2,
-         oy+y_mult*r.y2,
+         ox+x_mult*r[1],
+         oy+y_mult*r[2],
+         ox+x_mult*r[3],
+         oy+y_mult*r[4],
       col)
    end)
 end

@@ -1,21 +1,21 @@
-function tostring(any)
+function array_to_string(any)
   if type(any)~="table" then return tostr(any) end
   local str = "{"
-  for k,v in pairs(any) do
-    if str~="{" then str=str.."," end
-    str=str..tostring(k).."="..tostring(v)
+  for v in all(any) do
+     if str~="{" then str=str.."," end
+     str=str..tostr(v)
   end
   return str.."}"
 end
 
 function printarr(arr)
    for i=1,#arr do
-      printh(" "..tostring(arr[i])..((i == #arr) and "" or ","))
+      printh(" "..array_to_string(arr[i])..((i == #arr) and "" or ","))
    end
 end
 
 function does_a_contain_b(a, b)
-   return b.x1 >= a.x1 and b.x2 <= a.x2 and b.y1 >= a.y1 and b.y2 <= a.y2
+   return b[1] >= a[1] and b[3] <= a[3] and b[2] >= a[2] and b[4] <= a[4]
 end
 
 g_out_cache = {}
@@ -48,7 +48,7 @@ function create_outline(sind, sw, sh)
       local top, bot = min(min(p.top, c.top), n.top), max(max(p.bot, c.bot), n.bot)
 
       if bot >= top then
-         add(outline, {x1=i,y1=top,x2=i,y2=bot})
+         add(outline, {i,top,i,bot})
       end
    end
 
@@ -59,14 +59,14 @@ function create_outline(sind, sw, sh)
 
       for j=i,#outline do
          local tail = outline[j]
-         if head.y1 >= tail.y1 and head.y2 <= tail.y2 then
-            new_x2 = tail.x1
+         if head[2] >= tail[2] and head[4] <= tail[4] then
+            new_x2 = tail[1]
          else
             break
          end
       end
 
-      head.x2 = new_x2
+      head[3] = new_x2
    end
 
    -- Phase 3. Remove contained rects.
