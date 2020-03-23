@@ -112,31 +112,35 @@ $constants{'POT_29'}         = '67' ; # Used
 $constants{'BOGUS_SPOT'}   = '255'; # Used
 
 # Rooms
-$constants{'VILLAGE_PATH'}            = '1';
-$constants{'LANK_HOUSE'}              = '2';
-$constants{'MAYOR_HOUSE'}             = '3';
-$constants{'TEACH_STUDIO'}            = '4';
-$constants{'SHOP'}                    = '5';
-$constants{'JANEBOB'}                 = '6';
-$constants{'LIMENAVY'}                = '7';
-$constants{'VILLAGE'}                 = '8';
-$constants{'LANK_FRONT_YARD'}         = '9';
-$constants{'FIELD'}                   = '10';
-$constants{'GRAVEYARD_ENTRANCE'}      = '11';
-$constants{'GRAVEYARD'}               = '12';
-$constants{'GRAVEYARD_END'}           = '13';
-$constants{'CANYON_START'}            = '14';
-$constants{'CANYON_PATH'}             = '15';
-$constants{'CANYON_END'}              = '16';
-$constants{'FOREST_ENTRANCE'}         = '17';
-$constants{'FOREST_LOST'}             = '18';
-$constants{'FOREST_1'}                = '19';
-$constants{'FOREST_2'}                = '20';
-$constants{'FOREST_3'}                = '21';
-$constants{'FOREST_4'}                = '22';
-$constants{'FOREST_BOSS'}             = '23';
-$constants{'FOREST_TREASURE'}         = '24';
-$constants{'FOREST_SECRET'}           = '25';
+$constants{'R_00'} = '0';
+$constants{'R_01'} = '1';
+$constants{'R_02'} = '2';
+$constants{'R_06'} = '6';
+$constants{'R_07'} = '7';
+$constants{'R_08'} = '8';
+$constants{'R_09'} = '9';
+
+$constants{'R_10'} = '10';
+$constants{'R_11'} = '11';
+$constants{'R_12'} = '12';
+$constants{'R_13'} = '13';
+$constants{'R_14'} = '14';
+$constants{'R_16'} = '16';
+$constants{'R_17'} = '17';
+$constants{'R_18'} = '18';
+$constants{'R_19'} = '19';
+
+$constants{'R_21'} = '21';
+$constants{'R_22'} = '22';
+$constants{'R_24'} = '24';
+$constants{'R_26'} = '26';
+
+$constants{'R_30'} = '30';
+$constants{'R_31'} = '31';
+$constants{'R_33'} = '33';
+
+$constants{'R_57'} = '57';
+$constants{'R_58'} = '58';
 
 # Go through the actual minifying.
 my @lines = <>;

@@ -124,6 +124,7 @@ function gun_vals_helper(val_str,i,new_params)
             val = ret_val
          end
       elseif x == '=' then isnum, val_key, val = true, val, ''
+      elseif x == '#' then isnum, val_key, val = true, tonum(val), ''
       elseif x == '!' then macro_mode = true
       elseif x != " " and x != '\n' then val=val..x end
       i += 1
