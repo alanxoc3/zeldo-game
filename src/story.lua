@@ -39,7 +39,7 @@ function map_init()
          l={R_01,11.5,5},
          r={R_19,.5,5},
          {'sign',5,4,{"lime and navy's house"},43},
-         {'sign',13,2,{"mayor lark's house"},43},
+         {'sign',13,2,{"lark's house"},43},
          {'sign',17,3,{"teach's studio"},43},
          {'sign',9,3,{"bob and jane's house"},43},
          {'sign',21,4,{"hi-roll shop"},43},
