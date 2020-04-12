@@ -3,33 +3,7 @@
 # By Alan Morgan
 
 # First compile the map builder:
-files_in_order="
-src/lib.lua
-src/att.lua
-
-src/chars.lua
-src/outlines.lua
-src/draw.lua
-src/inventory.lua
-src/inventory_selection.lua
-src/map.lua
-src/menu.lua
-src/misc.lua
-src/move_funcs.lua
-src/squares.lua
-src/tbox.lua
-src/tcol.lua
-src/title.lua
-src/view.lua
-
-src/parents.lua
-src/acts/*
-
-src/map_data.lua
-src/mapbuilder_demo.lua
-"
-
-./pico_minifier -d $files_in_order > _compiled_mapbuilder_dev.lua
+./compile_mapbuilder
 
 # Now create the p8 file for the map builder.
 cp zeldo.p8 .mapb.p8
