@@ -1,6 +1,23 @@
 dir_arr = {'l', 'r', 'u', 'd'}
 met_arr = {'template', 'm', 'c', 'w', 'h'}
 
+obj_templates = {
+   {k="sign"         , s=43, sw=1, sh=1, p={'sign'         , 0,0,{"this is a sign"},43 }},
+   {k="house"        , s=46, sw=2, sh=2, p={'house'        , 0,0,58,4,7.5,46           }},
+   {k="spikes"       , s=53, sw=1, sh=1, p={'spikes'       , 0,0,0                     }},
+   {k="spikes_1"     , s=53, sw=1, sh=1, p={'spikes'       , 0,0,.25                   }},
+   {k="spikes_2"     , s=53, sw=1, sh=1, p={'spikes'       , 0,0,.5                    }},
+   {k="spikes_3"     , s=53, sw=1, sh=1, p={'spikes'       , 0,0,.75                   }},
+   {k="shop_brang"   , s=4,  sw=1, sh=1, p={'shop_brang'   , 0,0                       }},
+   {k="shop_shield"  , s=6,  sw=1, sh=1, p={'shop_shield'  , 0,0                       }},
+   {k="navy_blocking", s=97, sw=1, sh=1, p={'navy_blocking', 0,0                       }},
+   {k="teach"        , s=96, sw=1, sh=1, p={'teach'        , 0,0                       }},
+   {k="keep"         , s=83, sw=1, sh=1, p={'keep'         , 0,0                       }},
+   {k="jane"         , s=81, sw=1, sh=1, p={'jane'         , 0,0                       }},
+   {k="bob_build"    , s=80, sw=1, sh=1, p={'bob_build'    , 0,0                       }},
+   {k="lark"         , s=99, sw=1, sh=1, p={'lark'         , 0,0                       }},
+}
+
 function sort(t)
    if t then
       for n=2,#t do
@@ -181,6 +198,13 @@ function _init()
    poke(0x5f2d, 1)
    music(14)
 
+   obj_templates_key_to_ind = {}
+   for i=1,#obj_templates do
+      obj_templates_key_to_ind[obj_templates[i].k] = i
+   end
+
+   cur_obj_ind = 1
+
    mouse_x, mouse_y = 0, 0
    prev_mouse_x, prev_mouse_y = 0, 0
    sel_x, sel_y, is_selected = 0, 0, false
@@ -215,18 +239,18 @@ function _update60()
    local qx, qy = flr(k/10 % 4), flr(k/40)
    local t_ind = k % 10
 
+   cur_room = g_rooms[k]
    map_x = qx*32 + g_room_template[t_ind].x
    map_y = qy*32 + g_room_template[t_ind].y
-   map_w = g_rooms[k].w or g_room_template[t_ind].w
-   map_h = g_rooms[k].h or g_room_template[t_ind].h
-   map_c = g_rooms[k].c or 0
+   map_w = cur_room.w or g_room_template[t_ind].w
+   map_h = cur_room.h or g_room_template[t_ind].h
+   map_c = cur_room.c or 0
 
    mouse_x = mid(0, stat(32), 128)
    mouse_y = mid(0, stat(33), 128)
 
    ht_x = min(max(flr((mouse_x - scrx()-3)/4)/2, 0), map_w-1)
    ht_y = min(max(flr((mouse_y - scry()-3)/4)/2, 0), map_h-1)
-
 
    if not btn(4) then
       prev_mouse_x, prev_mouse_y = mouse_x, mouse_y
@@ -250,6 +274,18 @@ function _update60()
       off_y = prev_mouse_y - mouse_y
    end
 
+   if btnp(5) then
+      show_objs = not show_objs
+   end
+
+   if btnp(2) then
+      cur_obj_ind = mid(1, cur_obj_ind - 1, #obj_templates)
+   elseif btnp(3) then
+      cur_obj_ind = mid(1, cur_obj_ind + 1, #obj_templates)
+   end
+
+   cur_obj = obj_templates[cur_obj_ind]
+
    foreach(butts, function(b)
       if stat(34) == 1 then
          if did_click_button(b) then
@@ -264,11 +300,25 @@ function _draw()
 
    map(map_x, map_y, scrx(0), scry(0), map_w, map_h)
 
+   if show_objs then
+      for obj in all(cur_room) do
+         local temp = obj_templates[obj_templates_key_to_ind[obj[1]]]
+         local x, y = obj[2], obj[3]
+
+         spr(temp.s, scrx(x*8+4)-temp.sw*4, scry(y*8+4)-temp.sh*4, temp.sw, temp.sh)
+      end
+   end
+
    foreach(butts, function(b)
       draw_button(b)
    end)
 
-   print("room #"..g_room_inds[g_cur_room_ind], 5, 121, 7)
+   if show_objs then
+      print("on", 2, 115, 10)
+   else
+      print("off", 2, 115, 2)
+   end
+   print("room #"..g_room_inds[g_cur_room_ind], 2, 121, 7)
 
    if is_hover then
       rect(scrx(ht_x*8), scry(ht_y*8), scrx(ht_x*8)+7, scry(ht_y*8)+7, 6)
@@ -277,9 +327,22 @@ function _draw()
       rect(scrx(sel_x*8), scry(sel_y*8), scrx(sel_x*8)+7, scry(sel_y*8)+7, 10)
    end
 
-   spr(0, mouse_x-4, mouse_y-4)
    if is_hover then
       print(ht_x, 92, 121, 7)
       print(ht_y, 111, 121, 7)
    end
+
+   if is_selected then
+      print(sel_x, 92, 115, 10)
+      print(sel_x, 111, 115, 10)
+   end
+
+   spr(cur_obj.s, 9-cur_obj.sw*4, 9-cur_obj.sh*4, cur_obj.sw, cur_obj.sh)
+   print(cur_obj.k, 20, 1, 7)
+   if is_selected then
+      print(sel_x, 92, 115, 10)
+      print(sel_x, 111, 115, 10)
+   end
+
+   spr(0, mouse_x-4, mouse_y-4)
 end
