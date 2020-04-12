@@ -49,7 +49,7 @@ create_actor([['teach', 2, {'nnpc'}]], [[
          ]]
       else
          tbox[[
-            "Hi Lank, have you been",
+            "hi lank, have you been",
             "practicing the banjo?"
          ]]
       end
@@ -58,9 +58,9 @@ create_actor([['teach', 2, {'nnpc'}]], [[
          change_cur_ma(a)
          if not zdget'BANJO_TUNED' then
             tbox[[
-               "Oh, your banjo is out of",
+               "oh, your banjo is out of",
                "tune!",
-               "Let me fix that for you.",
+               "let me fix that for you.",
                trigger=!get_npc_reload_room{BANJO_TUNED}
             ]]
          else
@@ -86,14 +86,14 @@ create_actor([['lark', 2, {'nnpc'}]], [[
 create_actor([['jane',2,{'nnpc'}]], [[
    name="jane", sind=81,
    x=@1, y=@2, interactable_trigger=!tbox_closure{{
-      "My husband always works",
+      "my husband always works",
       "so hard.",
-      "What should I make him",
+      "what should i make him",
       "for dinner?"
    }},pause_end=!npc_dance_logic{{
-      "That hurt my ears."
+      "that hurt my ears."
    },{
-      "I love that song!", trigger=!memloc_money{JANE_DANCE, 24}
+      "i love that song!", trigger=!memloc_money{JANE_DANCE, 24}
    }}
 ]])
 
@@ -103,29 +103,29 @@ create_actor([['bob_build', 2, {'nnpc','mem_dep'}]], [[
    mem_loc=BOB_OUT,
    x=@1, y=@2, interactable_trigger=@3,
    pause_end=!npc_dance_logic{{
-      "I can't work with that",
+      "i can't work with that",
       "terrible music!"
    }, {
-      "If only music could",
+      "if only music could",
       "quench my hunger.", trigger=!memloc_money{BOB_DANCE, 14}
    }}
 ]],function()
    if zdget'LETTER' then
       tbox[[
-         "Is that letter for me?",
+         "is that letter for me?",
          "",
-         "Oh..",
+         "oh..",
          "",
-         "It's dinner time!!!",
+         "it's dinner time!!!",
          trigger=!get_npc_reload_room{BOB_OUT}
       ]]
    else
       tbox[[
-         "Hey Lank, I'm hungry.",
+         "hey lank, i'm hungry.",
          "",
-         "I mean...",
+         "i mean...",
          "",
-         "I'm fixing the road."
+         "i'm fixing the road."
       ]]
    end
 end)
