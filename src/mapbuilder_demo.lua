@@ -249,7 +249,7 @@ function _init()
       create_button(DEL, "delete"),
       create_button(COL, "color"),
       create_button(MUS, "music"),
-      create_button(SAV, "save")
+      create_button(SAV, "exit")
    }
 end
 
