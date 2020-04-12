@@ -166,6 +166,16 @@ g_map = {
 off_x = 0
 off_y = 0
 
+ht_x, ht_y = 0, 0
+
+function scrx(val)
+   return (val or 0) + 64-map_w*4-off_x
+end
+
+function scry(val)
+   return (val or 0) + 64-map_h*4-off_y
+end
+
 function _init()
    reload(0x0000, 0x0000, 0x4300, "zeldo.p8")
    poke(0x5f2d, 1)
@@ -173,6 +183,7 @@ function _init()
 
    mouse_x, mouse_y = 0, 0
    prev_mouse_x, prev_mouse_y = 0, 0
+   sel_x, sel_y, is_selected = 0, 0, false
 
    g_room_inds = {}
    g_cur_room_ind = 1
@@ -213,8 +224,27 @@ function _update60()
    mouse_x = mid(0, stat(32), 128)
    mouse_y = mid(0, stat(33), 128)
 
+   ht_x = min(max(flr((mouse_x - scrx()-3)/4)/2, 0), map_w-1)
+   ht_y = min(max(flr((mouse_y - scry()-3)/4)/2, 0), map_h-1)
+
+
    if not btn(4) then
       prev_mouse_x, prev_mouse_y = mouse_x, mouse_y
+
+      if mouse_x > scrx(0) and mouse_y > scry(0) and
+         mouse_x < scrx(map_w*8) and mouse_y < scry(map_h*8) then
+         is_hover = true
+         if stat(34) == 1 then
+            is_selected = true
+            sel_x = ht_x
+            sel_y = ht_y
+         end
+      else
+         is_hover = false
+         if stat(34) == 1 then
+            is_selected = false
+         end
+      end
    else
       off_x = prev_mouse_x - mouse_x
       off_y = prev_mouse_y - mouse_y
@@ -232,7 +262,7 @@ end
 function _draw()
    cls(map_c)
 
-   map(map_x, map_y, 64-map_w*4-off_x, 64-map_h*4-off_y, map_w, map_h)
+   map(map_x, map_y, scrx(0), scry(0), map_w, map_h)
 
    foreach(butts, function(b)
       draw_button(b)
@@ -240,5 +270,16 @@ function _draw()
 
    print("room #"..g_room_inds[g_cur_room_ind], 5, 121, 7)
 
+   if is_hover then
+      rect(scrx(ht_x*8), scry(ht_y*8), scrx(ht_x*8)+7, scry(ht_y*8)+7, 6)
+   end
+   if is_selected then
+      rect(scrx(sel_x*8), scry(sel_y*8), scrx(sel_x*8)+7, scry(sel_y*8)+7, 10)
+   end
+
    spr(0, mouse_x-4, mouse_y-4)
+   if is_hover then
+      print(ht_x, 92, 121, 7)
+      print(ht_y, 111, 121, 7)
+   end
 end
