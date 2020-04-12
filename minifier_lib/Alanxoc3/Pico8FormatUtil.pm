@@ -14,6 +14,7 @@ unknown number
 );
 
 our @pico8_api = qw(
+label screen rec video audio_rec audio_end pause reset breadcrumb shutdown
 g_gunvals_raw _init _update _update60 _draw setmetatable getmetatable cocreate coresume lshr
 costatus cd yield load save folder ls run resume reboot stat info flip printh
 clip pget pset sget sset fget fset print cursor color ceil cls camera circ

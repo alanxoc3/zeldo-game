@@ -13,4 +13,8 @@ sheet.png
 .dropbox
 _compiled*.lua
 
+.mapb.bin/
+.mapb.p8
+.zeldo_outline_copy.p8
+
 tags

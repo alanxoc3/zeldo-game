@@ -14,12 +14,13 @@ src/menu.lua
 src/misc.lua
 src/move_funcs.lua
 src/squares.lua
-src/story.lua
 src/tbox.lua
 src/tcol.lua
 src/title.lua
 src/view.lua
 
+src/map_data.lua
+src/story.lua
 src/parents.lua
 src/acts/*
 src/demo.lua

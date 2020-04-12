@@ -25,6 +25,13 @@ $constants{'BG_UI'} = '1';
 $constants{'SL_UI'} = '2';
 $constants{'BG'} = '0';
 
+# Symbols
+$constants{'B_UP'} = '⬆️';
+$constants{'B_DOWN'} = '⬇️';
+$constants{'B_LEFT'} = '⬅️';
+$constants{'B_X'} = '❎';
+$constants{'B_O'} = '🅾️';
+
 # Other
 $constants{'FADE_TIME'} = '.5';
 $constants{'MAX_ENERGY'} = '100';

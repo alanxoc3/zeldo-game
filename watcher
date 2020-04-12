@@ -1,8 +1,14 @@
 #!/usr/bin/env bash
 # pico watch, by Alan Morgan
 
+FILE='compile'
+if [[ $# -eq 1 ]]; then
+   FILE=$1
+fi
+echo "Using file '$FILE'"
+
 inotifywait -e close_write,moved_to,create -mr ./src |
 while read -r directory; do
   echo "'$directory' was changed."
-  ./compile
+  ./$FILE
 done
