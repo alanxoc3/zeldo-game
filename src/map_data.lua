@@ -5,7 +5,7 @@ R_00#{
    r={R_01,0.5,5},
    d={R_17,4,0.5},
 
-   {'sign',5.5,2,{"b_left spike's forest","b_right hiroll village"},43},
+   {'sign',5.5,2,{"B_LEFT spike's forest","B_RIGHT hiroll village"},43},
    {'spikes',2,2,0.5},
    {'spikes',2,7,0.5},
    {'spikes',2,4,0},
@@ -42,8 +42,8 @@ R_06#{
    template=6, m=18, c=4,
    d={R_02,16,4},
 
-   {'sign',1,1,{"press b_o to use yer item."},43},
-   {'sign',6,1,{"hold down b_x to select","yer item."},43},
+   {'sign',1,1,{"press B_O to use yer item."},43},
+   {'sign',6,1,{"hold down B_X to select","yer item."},43},
    {'teach',3.5,3.5},
 },
 R_07#{
@@ -187,7 +187,7 @@ R_19#{
    l={R_02,23.5,7},
    u={R_24,3,11.5},
 
-   {'sign',1.5,1.5,{"b_up hiroll field","b_left hiroll village"},43},
+   {'sign',1.5,1.5,{"B_UP hiroll field","B_LEFT hiroll village"},43},
    {'bob_build',4.5,1.5},
 },
 R_21#{

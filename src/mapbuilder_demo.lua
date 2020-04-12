@@ -420,31 +420,31 @@ function _draw()
    if cur_mode == INS and show_objs then
       spr(ins_obj.s, 9-ins_obj.sw*4, 9-ins_obj.sh*4, ins_obj.sw, ins_obj.sh)
       print(ins_obj.k, 21, 1, 7)
-      print('B_UP/B_DOWN to change item.', 21, 7, 7)
+      print('⬆️/⬇️ to change item.', 21, 7, 7)
       print("click to insert!", 21, 13, 7)
    elseif cur_mode == MUS then
       print("song: "..cur_room.m, 1, 1, 7)
-      print('B_UP/B_DOWN to change song.', 1, 7, 7)
+      print('⬆️/⬇️ to change song.', 1, 7, 7)
    elseif cur_mode == COL then
       print("color: "..cur_room.c, 1, 1, 7)
-      print('B_UP/B_DOWN to change color.', 1, 7, 7)
+      print('⬆️/⬇️ to change color.', 1, 7, 7)
    elseif cur_mode == SAV then
-      print('B_UP/B_DOWN to save and exit!', 1, 1, 7)
+      print('⬆️/⬇️ to save and exit!', 1, 1, 7)
    elseif is_selectable_mode() then
       if cur_selected_obj then
          print("obj: "..cur_selected_obj[1], 1, 1, 10)
          if cur_mode == DEL then
-            print('B_UP/B_DOWN to delete.', 1, 7, 7)
+            print('⬆️/⬇️ to delete.', 1, 7, 7)
          elseif cur_mode == MOV then
             if is_moving then
                print('click a new square to move!', 1, 7, 7)
             else
-               print('B_UP/B_DOWN to start moving.', 1, 7, 7)
+               print('⬆️/⬇️ to start moving.', 1, 7, 7)
             end
          end
       elseif cur_mode == EXA then
-         print('B_LEFT/B_RIGHT to change room.', 1, 1, 7)
-         print('B_O'.."=pan.".." "..'B_X'.."=show objs.", 1, 7, 7)
+         print('⬅️/➡️ to change room.', 1, 1, 7)
+         print("🅾️=pan. ❎=show objs.", 1, 7, 7)
          print("tab=change mode", 1, 13, 7)
       elseif cur_mode == DEL then
          print("select an obj to delete it!", 1, 1, 7)

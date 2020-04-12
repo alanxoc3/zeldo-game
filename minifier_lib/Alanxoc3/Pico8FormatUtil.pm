@@ -142,14 +142,6 @@ sub populate_vars {
 my @texts;
 sub text_logic {
    my $quote = shift;
-
-   # Convert all letters to lowercase.
-   my @char_arr = split(//, $quote);
-   for my $i (0 .. $#char_arr) {
-      $char_arr[$i] = lc( $char_arr[$i] );
-   }
-   $quote = join("", @char_arr);
-
    push @texts, $quote;
    return "P_TEXT_LOGIC";
 }

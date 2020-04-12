@@ -8,5 +8,4 @@ src/map_data.lua
 src/mapbuilder_demo.lua
 "
 
-./pico_minifier -d $files_in_order > _compiled_mapbuilder_dev.lua
-
+./pico_minifier -a -d $files_in_order > _compiled_mapbuilder_dev.lua
