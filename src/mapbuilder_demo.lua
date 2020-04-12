@@ -1,4 +1,4 @@
-NOP=0 MOV=1 INS=2 DEL=3
+EXA=0 MOV=1 INS=2 DEL=3
 COL=4 MUS=5 SAV=6
 
 dir_arr = {'l', 'r', 'u', 'd'}
@@ -34,7 +34,7 @@ function sort(t)
 end
 
 function is_selectable_mode()
-   return cur_mode == NOP or cur_mode == MOV or cur_mode == DEL
+   return cur_mode == EXA or cur_mode == MOV or cur_mode == DEL
 end
 
 function sort_by_k(t)
@@ -161,10 +161,10 @@ function array_tostring(any)
 end
 
 -- Here is the logic for the map builder tool.
-function create_button(mode, text, cb)
+function create_button(mode, text)
    local hw = #text*2
    return {
-      x=121, y=mode*8+3, mode=mode, rx=hw, ry=3, text=text, callback=cb,
+      x=115+hw, y=mode*8+3, mode=mode, rx=hw, ry=3, text=text,
    }
 end
 
@@ -177,8 +177,9 @@ end
 
 function draw_button(b)
    if b.mode == cur_mode then
-      rectfill(b.x-b.rx-4,b.y-b.ry,b.x+b.rx,b.y+b.ry,12)
-      print(b.text, b.x-b.rx-3, b.y-b.ry+1, 1)
+      local l = #b.text*4 - 3*4
+      rectfill(b.x-b.rx-l,b.y-b.ry,b.x+b.rx,b.y+b.ry,12)
+      print(b.text, b.x-b.rx-l+1, b.y-b.ry+1, 1)
    else
       rectfill(b.x-b.rx,b.y-b.ry,b.x+b.rx,b.y+b.ry,9)
       print(b.text, b.x-b.rx+1, b.y-b.ry+1, 7)
@@ -227,6 +228,7 @@ function _init()
    end
 
    cur_obj_ind = 1
+   show_objs = true
 
    mouse_x, mouse_y = 0, 0
    prev_mouse_x, prev_mouse_y = 0, 0
@@ -241,23 +243,13 @@ function _init()
 
    cur_mode = 0 -- noop
    butts = {
-      create_button(NOP, "nop", function()
-      end),
-
-      create_button(MOV, "mov", function()
-      end),
-
-      create_button(INS, "ins", function()
-      end),
-
-      create_button(DEL, "del", nf),
-      create_button(COL, "col", nf),
-      create_button(MUS, "mus", nf),
-
-      create_button(SAV, "sav", function()
-         printh("g_rooms = gun_vals[".."[\n"..rooms_to_str(g_rooms).."]".."]\n")
-         extcmd("shutdown")
-      end)
+      create_button(EXA, "examine"),
+      create_button(MOV, "move"),
+      create_button(INS, "insert"),
+      create_button(DEL, "delete"),
+      create_button(COL, "color"),
+      create_button(MUS, "music"),
+      create_button(SAV, "save")
    }
 end
 
@@ -315,6 +307,9 @@ function _update60()
          if cur_selected_obj then
             is_moving = true
          end
+      elseif cur_mode == SAV then
+         printh("g_rooms = gun_vals[".."[\n"..rooms_to_str(g_rooms).."]".."]\n")
+         extcmd("shutdown")
       end
    end
 
@@ -368,6 +363,11 @@ function _update60()
       cur_selected_obj = get_cur_selected_obj()
    end
 
+   if btnp(4,1) then
+      cur_mode = (cur_mode + 1) % 7
+      is_moving = false
+   end
+
    foreach(butts, function(b)
       if is_hovering_button(b) then
          is_hover = false
@@ -375,7 +375,6 @@ function _update60()
          if stat(34) == 1 then
             is_selected = false
             cur_mode = b.mode
-            b.callback()
          end
       end
    end)
@@ -421,25 +420,36 @@ function _draw()
    if cur_mode == INS and show_objs then
       spr(ins_obj.s, 9-ins_obj.sw*4, 9-ins_obj.sh*4, ins_obj.sw, ins_obj.sh)
       print(ins_obj.k, 21, 1, 7)
-      print("click to insert!", 21, 7, 7)
+      print('B_UP/B_DOWN to change item.', 21, 7, 7)
+      print("click to insert!", 21, 13, 7)
    elseif cur_mode == MUS then
       print("song: "..cur_room.m, 1, 1, 7)
-      print('B_UP or B_DOWN to change song.', 1, 7, 7)
+      print('B_UP/B_DOWN to change song.', 1, 7, 7)
    elseif cur_mode == COL then
       print("color: "..cur_room.c, 1, 1, 7)
-      print('B_UP or B_DOWN to change color.', 1, 7, 7)
+      print('B_UP/B_DOWN to change color.', 1, 7, 7)
+   elseif cur_mode == SAV then
+      print('B_UP/B_DOWN to save and exit!', 1, 1, 7)
    elseif is_selectable_mode() then
       if cur_selected_obj then
          print("obj: "..cur_selected_obj[1], 1, 1, 10)
          if cur_mode == DEL then
-            print('B_UP or B_DOWN to delete.', 1, 7, 7)
+            print('B_UP/B_DOWN to delete.', 1, 7, 7)
          elseif cur_mode == MOV then
             if is_moving then
                print('click a new square to move!', 1, 7, 7)
             else
-               print('B_UP or B_DOWN to start moving.', 1, 7, 7)
+               print('B_UP/B_DOWN to start moving.', 1, 7, 7)
             end
          end
+      elseif cur_mode == EXA then
+         print('B_LEFT/B_RIGHT to change room.', 1, 1, 7)
+         print('B_O'.."=pan.".." "..'B_X'.."=show objs.", 1, 7, 7)
+         print("tab=change mode", 1, 13, 7)
+      elseif cur_mode == DEL then
+         print("select an obj to delete it!", 1, 1, 7)
+      elseif cur_mode == MOV then
+         print("select an obj to move it!", 1, 1, 7)
       end
    end
 

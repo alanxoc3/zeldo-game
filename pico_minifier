@@ -29,6 +29,7 @@ $constants{'BG'} = '0';
 $constants{'B_UP'} = '⬆️';
 $constants{'B_DOWN'} = '⬇️';
 $constants{'B_LEFT'} = '⬅️';
+$constants{'B_RIGHT'} = '➡️';
 $constants{'B_X'} = '❎';
 $constants{'B_O'} = '🅾️';
 
