@@ -34,7 +34,7 @@ function sort(t)
 end
 
 function is_selectable_mode()
-   return cur_mode == NOP or cur_mode == INS or cur_mode == MOV or cur_mode == DEL
+   return cur_mode == NOP or cur_mode == MOV or cur_mode == DEL
 end
 
 function sort_by_k(t)
@@ -242,15 +242,12 @@ function _init()
    cur_mode = 0 -- noop
    butts = {
       create_button(NOP, "nop", function()
-
       end),
 
       create_button(MOV, "mov", function()
-
       end),
 
       create_button(INS, "ins", function()
-
       end),
 
       create_button(DEL, "del", nf),
@@ -265,10 +262,17 @@ function _init()
 end
 
 function _update60()
-   if btnp(0) then
-      g_cur_room_ind = max(g_cur_room_ind-1, 1)
-   elseif btnp(1) then
-      g_cur_room_ind = min(g_cur_room_ind+1, #g_room_inds)
+   is_mouse_pressed = not is_mouse_down and stat(34) == 1
+   is_mouse_down = stat(34) == 1
+
+   local lr = xbtnp()
+   if lr != 0 then
+      g_cur_room_ind = mid(1, g_cur_room_ind+lr, #g_room_inds)
+   end
+
+   if btnp(5) then
+      show_objs = not show_objs
+      is_moving = false
    end
 
    local k = g_room_inds[g_cur_room_ind]
@@ -282,7 +286,7 @@ function _update60()
    map_h = cur_room.h or g_room_template[t_ind].h
    map_c = cur_room.c or 0
 
-   if btnp(0) or btnp(1) then
+   if lr != 0 then
       music(cur_room.m)
    end
 
@@ -292,20 +296,66 @@ function _update60()
    ht_x = min(max(flr((mouse_x - scrx()-3)/4)/2, 0), map_w-1)
    ht_y = min(max(flr((mouse_y - scry()-3)/4)/2, 0), map_h-1)
 
+   local ud = ybtnp()
+   if ud != 0 then
+      if cur_mode == INS then
+         if show_objs then
+            cur_obj_ind = mid(1, cur_obj_ind + ud, #obj_templates)
+         end
+      elseif cur_mode == MUS then
+         cur_room.m = mid(0, cur_room.m + ud, 63)
+         music(cur_room.m)
+      elseif cur_mode == COL then
+         cur_room.c = mid(0, cur_room.c + ud, 15)
+      elseif cur_mode == DEL then
+         if cur_selected_obj then
+            del(cur_room, cur_selected_obj)
+         end
+      elseif cur_mode == MOV then
+         if cur_selected_obj then
+            is_moving = true
+         end
+      end
+   end
+
+   -- For insert
+   ins_obj = obj_templates[cur_obj_ind]
+
    if not btn(4) then
       prev_mouse_x, prev_mouse_y = mouse_x, mouse_y
 
       if mouse_x > scrx(0) and mouse_y > scry(0) and
          mouse_x < scrx(map_w*8) and mouse_y < scry(map_h*8) then
          is_hover = true
-         if stat(34) == 1 then
+         if is_mouse_pressed then
             is_selected = true
             sel_x = ht_x
             sel_y = ht_y
+
+            local new_cur_obj = get_cur_selected_obj()
+            if cur_mode == MOV and cur_selected_obj and is_moving then
+               is_moving = false
+               if new_cur_obj then
+                  sfx(7)
+               else
+                  cur_selected_obj[2] = sel_x
+                  cur_selected_obj[3] = sel_y
+               end
+            elseif cur_mode == INS and show_objs then
+               if new_cur_obj then
+                  sfx(7)
+               else
+                  local new_obj = tabcpy(ins_obj.p)
+                  new_obj[2] = sel_x
+                  new_obj[3] = sel_y
+                  add(cur_room, new_obj)
+               end
+            end
          end
       else
          is_hover = false
-         if stat(34) == 1 then
+         is_moving = false
+         if is_mouse_pressed then
             is_selected = false
          end
       end
@@ -318,39 +368,10 @@ function _update60()
       cur_selected_obj = get_cur_selected_obj()
    end
 
-   if btnp(5) then
-      show_objs = not show_objs
-   end
-
-   if btnp(2) then
-      if cur_mode == INS then
-         cur_obj_ind = mid(1, cur_obj_ind - 1, #obj_templates)
-      elseif cur_mode == MUS then
-         cur_room.m = mid(0, cur_room.m - 1, 63)
-         music(cur_room.m)
-      elseif cur_mode == COL then
-         cur_room.c = mid(0, cur_room.c - 1, 15)
-      elseif cur_mode == DEL then
-         del(cur_room, cur_selected_obj)
-      end
-   elseif btnp(3) then
-      if cur_mode == INS then
-         cur_obj_ind = mid(1, cur_obj_ind + 1, #obj_templates)
-      elseif cur_mode == MUS then
-         cur_room.m = mid(0, cur_room.m + 1, 63)
-         music(cur_room.m)
-      elseif cur_mode == COL then
-         cur_room.c = mid(0, cur_room.c + 1, 15)
-      elseif cur_mode == DEL then
-         del(cur_room, cur_selected_obj)
-      end
-   end
-
-   cur_obj = obj_templates[cur_obj_ind]
-
    foreach(butts, function(b)
       if is_hovering_button(b) then
          is_hover = false
+         is_moving = false
          if stat(34) == 1 then
             is_selected = false
             cur_mode = b.mode
@@ -397,18 +418,27 @@ function _draw()
       print(ht_y, 111, 121, 7)
    end
 
-   if cur_mode == INS then
-      spr(cur_obj.s, 9-cur_obj.sw*4, 9-cur_obj.sh*4, cur_obj.sw, cur_obj.sh)
-      print(cur_obj.k, 20, 1, 7)
+   if cur_mode == INS and show_objs then
+      spr(ins_obj.s, 9-ins_obj.sw*4, 9-ins_obj.sh*4, ins_obj.sw, ins_obj.sh)
+      print(ins_obj.k, 21, 1, 7)
+      print("click to insert!", 21, 7, 7)
    elseif cur_mode == MUS then
       print("song: "..cur_room.m, 1, 1, 7)
+      print('B_UP or B_DOWN to change song.', 1, 7, 7)
    elseif cur_mode == COL then
       print("color: "..cur_room.c, 1, 1, 7)
+      print('B_UP or B_DOWN to change color.', 1, 7, 7)
    elseif is_selectable_mode() then
       if cur_selected_obj then
          print("obj: "..cur_selected_obj[1], 1, 1, 10)
          if cur_mode == DEL then
             print('B_UP or B_DOWN to delete.', 1, 7, 7)
+         elseif cur_mode == MOV then
+            if is_moving then
+               print('click a new square to move!', 1, 7, 7)
+            else
+               print('B_UP or B_DOWN to start moving.', 1, 7, 7)
+            end
          end
       end
    end
