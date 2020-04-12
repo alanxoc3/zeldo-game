@@ -1,3 +1,6 @@
+NOP=0 MOV=1 INS=2 DEL=3
+COL=4 MUS=5 SAV=6
+
 dir_arr = {'l', 'r', 'u', 'd'}
 met_arr = {'template', 'm', 'c', 'w', 'h'}
 
@@ -154,23 +157,25 @@ function array_tostring(any)
 end
 
 -- Here is the logic for the map builder tool.
-function create_button(x, y, text, cb)
+function create_button(mode, text, cb)
    local hw = #text*2
    return {
-      x=x, y=y, rx=hw, ry=3, text=text, callback=cb, active=true
+      x=121, y=mode*8+3, mode=mode, rx=hw, ry=3, text=text, callback=cb,
    }
 end
 
 function did_click_button(b)
-   return b.active and
-      mouse_x < b.x+b.rx and
+   return mouse_x < b.x+b.rx and
       mouse_x > b.x-b.rx and
       mouse_y < b.y+b.ry and
       mouse_y > b.y-b.ry
 end
 
 function draw_button(b)
-   if b.active then
+   if b.mode == cur_mode then
+      rectfill(b.x-b.rx-4,b.y-b.ry,b.x+b.rx,b.y+b.ry,12)
+      print(b.text, b.x-b.rx-3, b.y-b.ry+1, 1)
+   else
       rectfill(b.x-b.rx,b.y-b.ry,b.x+b.rx,b.y+b.ry,9)
       print(b.text, b.x-b.rx+1, b.y-b.ry+1, 7)
    end
@@ -216,14 +221,35 @@ function _init()
    end
    sort(g_room_inds)
 
+   cur_mode = 0 -- noop
    butts = {
-      create_button(115,3, "save", function()
-         printh("g_rooms = gun_vals[".."[\n"..rooms_to_str(g_rooms).."]".."]\n")
-         extcmd("shutdown")
+      create_button(NOP, "nop", function()
+
       end),
 
-      create_button(90,3, "delete", function()
+      create_button(MOV, "mov", function()
 
+      end),
+
+      create_button(INS, "ins", function()
+
+      end),
+
+      create_button(DEL, "del", function()
+
+      end),
+
+      create_button(COL, "col", function()
+
+      end),
+
+      create_button(MUS, "mus", function()
+
+      end),
+
+      create_button(SAV, "sav", function()
+         printh("g_rooms = gun_vals[".."[\n"..rooms_to_str(g_rooms).."]".."]\n")
+         extcmd("shutdown")
       end)
    }
 end
@@ -245,6 +271,10 @@ function _update60()
    map_w = cur_room.w or g_room_template[t_ind].w
    map_h = cur_room.h or g_room_template[t_ind].h
    map_c = cur_room.c or 0
+
+   if btnp(0) or btnp(1) then
+      music(cur_room.m)
+   end
 
    mouse_x = mid(0, stat(32), 128)
    mouse_y = mid(0, stat(33), 128)
@@ -279,9 +309,23 @@ function _update60()
    end
 
    if btnp(2) then
-      cur_obj_ind = mid(1, cur_obj_ind - 1, #obj_templates)
+      if cur_mode == INS then
+         cur_obj_ind = mid(1, cur_obj_ind - 1, #obj_templates)
+      elseif cur_mode == MUS then
+         cur_room.m = mid(0, cur_room.m - 1, 63)
+         music(cur_room.m)
+      elseif cur_mode == COL then
+         cur_room.c = mid(0, cur_room.c - 1, 15)
+      end
    elseif btnp(3) then
-      cur_obj_ind = mid(1, cur_obj_ind + 1, #obj_templates)
+      if cur_mode == INS then
+         cur_obj_ind = mid(1, cur_obj_ind + 1, #obj_templates)
+      elseif cur_mode == MUS then
+         cur_room.m = mid(0, cur_room.m + 1, 63)
+         music(cur_room.m)
+      elseif cur_mode == COL then
+         cur_room.c = mid(0, cur_room.c + 1, 15)
+      end
    end
 
    cur_obj = obj_templates[cur_obj_ind]
@@ -289,6 +333,7 @@ function _update60()
    foreach(butts, function(b)
       if stat(34) == 1 then
          if did_click_button(b) then
+            cur_mode = b.mode
             b.callback()
          end
       end
@@ -337,8 +382,15 @@ function _draw()
       print(sel_x, 111, 115, 10)
    end
 
-   spr(cur_obj.s, 9-cur_obj.sw*4, 9-cur_obj.sh*4, cur_obj.sw, cur_obj.sh)
-   print(cur_obj.k, 20, 1, 7)
+   if cur_mode == INS then
+      spr(cur_obj.s, 9-cur_obj.sw*4, 9-cur_obj.sh*4, cur_obj.sw, cur_obj.sh)
+      print(cur_obj.k, 20, 1, 7)
+   elseif cur_mode == MUS then
+      print("song: "..cur_room.m, 1, 1, 7)
+   elseif cur_mode == COL then
+      print("color: "..cur_room.c, 1, 1, 7)
+   end
+
    if is_selected then
       print(sel_x, 92, 115, 10)
       print(sel_x, 111, 115, 10)
