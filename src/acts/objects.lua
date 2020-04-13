@@ -28,16 +28,25 @@ end, function(a)
    end
 end)
 
-create_actor([['sign', 4, {'drawable','interactable'}]], [[
-   name="sign",
+create_actor([['sign', 3, {'drawable','interactable'}]], [[
+   name="sign", sind=43,
    rx=.5,      ry=.5,
    trig_x=0,   trig_y=.125,
    trig_rx=.75, trig_ry=.625,
-   x=@1, y=@2, text_obj=@3, sind=@4, interactable_trigger=@5
+   x=@1, y=@2, text_obj=@3, interactable_trigger=@4
 ]], function(a)
    tbox_with_obj(a.text_obj)
-end
-)
+end)
+
+create_actor([['grave', 3, {'drawable','interactable'}]], [[
+   name="grave", sind=45,
+   rx=.5,      ry=.5,
+   trig_x=0,   trig_y=.125,
+   trig_rx=.75, trig_ry=.625,
+   x=@1, y=@2, text_obj=@3, interactable_trigger=@4
+]], function(a)
+   tbox_with_obj(a.text_obj)
+end)
 
 create_actor([['shop_brang', 2, {'shop_item'}]], [[
    name="brang", sind=4,
@@ -188,19 +197,18 @@ end, function(a)
 end)
 
 -- x, y, sind
-create_actor([['pot', 3, {'drawable','bounded','confined','tcol','spr','col','mov','mem_dep'}]], [[
+create_actor([['pot', 2, {'drawable','bounded','confined','tcol','spr','col','mov'}]], [[
    static=true,
    rx=.375,ry=.375,
-   x=@1, y=@2, mem_loc=@3, sind=49,
+   x=@1, y=@2, sind=49,
    touchable=true,
-   i=@4
+   i=@3
 ]], function(a)
    g_att.gen_trigger_block(a, 0, 0, .5, .5, nf, function(trig, other)
       if btnp(4) and not other.item then
          other.item = g_att.grabbed_item(g_pl, a.sind, -7, function(x, y, xf)
             g_att.pot_projectile(other.x, other.y, xf)
          end)
-         zdset(a.mem_loc)
          a:kill()
       end
    end)
