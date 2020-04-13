@@ -218,7 +218,7 @@ end
 -- TODO: Bomb support.
 create_actor([['box', 2, {'drawable','confined','wall','spr','col'}]], [[
    static=true,
-   rx=.5,ry=.5, sind=35, x=@1, y=@2
+   rx=.375,ry=.375, sind=35, x=@1, y=@2
 ]])
 
 create_actor([['tall_tree', 2, {'drawable','confined','wall','spr','col'}]], [[

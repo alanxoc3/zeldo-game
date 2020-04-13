@@ -17,6 +17,8 @@ obj_templates = {
    {k="grave"        , s=45,  sw=1, sh=1, p={'grave'        , 0,0,{"a dead dude is here"} }},
    {k="sign"         , s=43,  sw=1, sh=1, p={'sign'         , 0,0,{"this is a sign"}      }},
    {k="tall_tree"    , s=26,  sw=1, sh=2, p={'tall_tree'    , 0,0                         }},
+   {k="chest"        , s=50,  sw=1, sh=1, p={'chest'        , 0,0,false,HAS_BANJO         }},
+   {k="chest_left"   , s=50,  sw=1, sh=1, p={'chest'        , 0,0,true,HAS_BANJO          }},
 
    {k="house"        , s=46,  sw=2, sh=2, p={'house'        , 0,0,58,4,7.5,46             }},
    {k="shop_brang"   , s=4,   sw=1, sh=1, p={'shop_brang'   , 0,0                         }},
