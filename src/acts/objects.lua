@@ -221,6 +221,12 @@ create_actor([['box', 2, {'drawable','confined','wall','spr','col'}]], [[
    rx=.5,ry=.5, sind=35, x=@1, y=@2
 ]])
 
+create_actor([['tall_tree', 2, {'drawable','confined','wall','spr','col'}]], [[
+   static=true,
+   sw=1, sh=2, iyy=-4,
+   rx=.5,ry=.5, sind=26, x=@1, y=@2
+]])
+
 create_actor([['spikes', 3, {'trig','pre_drawable','confined','spr'}]], [[
    static=true, touchable=false,
    rx=.375, ry=.375, sind=54, x=@1, y=@2, offset=@3, u=@4,

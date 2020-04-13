@@ -12,6 +12,8 @@ R_00#{
    {'spikes',2,5,0},
    {'spikes',3,4,0},
    {'spikes',3,5,0},
+   {'tall_tree',4,3},
+   {'tall_tree',5.5,6.5},
 },
 R_01#{
    template=1, m=14, c=3,
