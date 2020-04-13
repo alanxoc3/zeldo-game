@@ -1,7 +1,37 @@
 -- SECTION: MONSTERS
-create_actor([['top', 2, {'drawable','bounded','danceable','confined','stunnable','mov','col','tcol','hurtable','knockable','anim','spr'}]], [[
+create_actor([['slimy', 2, {'drawable','bounded','danceable','confined','stunnable','mov','col','tcol','hurtable','knockable','spr_obj', 'spr'}]], [[
+   x=@1, y=@2,
+   max_health=3, health=3,
+   name="slimy", evil=true, tl_loop=true,
+   rx=.25, ry=.25,
+   iyy=-2,
+   sind=118,
+   anim_len=1,
+   touchable=true,
+   hurt_func=@9,
+
+   {i=@5, hit=nf, u=nf, tl_max_time=3},
+   {i=nf, hit=nf, u=@3, e=@6, tl_max_time=.25},
+   {i=nf, hit=@7, u=@4, e=@6, tl_max_time=.25},
+]], function(a)
+   look_at_pl(a)
+   a.ixx = rnd_one()
+end, function(a) -- init 1 @4
+   amov_to_actor(a, g_pl, .05)
+   a.iyy += sin(a.tl_tim/a.tl_max_time)
+   a.sind=119
+end, function(a)
+   a.ax, a.ay = 0, 0
+end, function(a)
+   a.ixx = 0 a.iyy = -2
+   a.sind=118
+end, function(a, other, ...)
+   call_not_nil(other, 'knockback', other, .4, ...)
+end)
+
+create_actor([['topy', 2, {'drawable','bounded','danceable','confined','stunnable','mov','col','tcol','hurtable','knockable','anim','spr'}]], [[
    max_health=10, health=10,
-   name="topper",
+   name="topy",
    evil=true,
    x=@1, y=@2,
    rx=.375, ry=.375,
@@ -83,19 +113,18 @@ end)
 --    end, destroy_func
 -- )
 
--- create_actor([['chicken', 2, {'loopable','bounded','confined','stunnable','mov','col','tcol','hurtable','knockable','anim','spr','danceable'}]], [[
---    name="chicken",
---    evil=true,
---    x=@1, y=@2,
---    rx=.375, ry=.375,
---    sinds={32},
---    destroyed=@4,
---    anim_len=1,
+create_actor([['kluck', 2, {'drawable','loopable','bounded','confined','stunnable','mov','col','tcol','hurtable','knockable','spr','danceable'}]], [[
+   name="kluck",
+   evil=true,
+   x=@1, y=@2,
+   rx=.375, ry=.375,
+   sind=32,
+   destroyed=@4,
 
---    {i=@3, tl_max_time=.5}
--- ]], function(a)
---    a.ax, a.ay = rnd_one(.01), rnd_one(.01)
---    a.xf = a.ax < 0
--- end, destroy_func
--- )
+   {i=@3, tl_max_time=.5}
+]], function(a)
+   a.ax, a.ay = rnd_one(.01), rnd_one(.01)
+   a.xf = a.ax < 0
+end, destroy_func
+)
 
