@@ -21,6 +21,7 @@ end, function(a) -- init 1 @4
    a.iyy += sin(a.tl_tim/a.tl_max_time)
    a.sind=119
 end, function(a)
+   a[1].tl_max_time = rnd(2)+1
    a.ax, a.ay = 0, 0
 end, function(a)
    a.ixx = 0 a.iyy = -2
