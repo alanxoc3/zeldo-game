@@ -10,7 +10,7 @@ create_actor([['slimy', 2, {'drawable','bounded','danceable','confined','stunnab
    touchable=true,
    hurt_func=@9,
 
-   {i=@5, hit=nf, u=nf, tl_max_time=3},
+   {i=@5, hit=nf, u=@8, tl_max_time=3},
    {i=nf, hit=nf, u=@3, e=@6, tl_max_time=.25},
    {i=nf, hit=@7, u=@4, e=@6, tl_max_time=.25},
 ]], function(a)
@@ -27,7 +27,7 @@ end, function(a)
    a.sind=118
 end, function(a, other, ...)
    call_not_nil(other, 'knockback', other, .4, ...)
-end)
+end, look_at_pl)
 
 create_actor([['topy', 2, {'drawable','bounded','danceable','confined','stunnable','mov','col','tcol','hurtable','knockable','anim','spr'}]], [[
    max_health=10, health=10,
