@@ -18,5 +18,6 @@ _compiled*.lua
 .zeldo_outline_copy.p8
 
 .tmp_map_data.lua
+._compiled.lua
 
 tags

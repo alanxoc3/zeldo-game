@@ -228,7 +228,6 @@ function get_cur_selected_obj()
 end
 
 function _init()
-   reload(0x0000, 0x0000, 0x4300, "zeldo.p8")
    poke(0x5f2d, 1)
    music(14)
 

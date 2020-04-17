@@ -1,13 +1,26 @@
 #!/usr/bin/env bash
-# Zeldo Map Builder
-# By Alan Morgan
+t1="zeldo mapbuilder"
+t2="amorg"
 
-# First compile the map builder:
-./compile_mapbuilder
+files_in_order="
+src/lib.lua
+src/story.lua
+src/map_data.lua
+src/mapbuilder_demo.lua
+"
+./pico_minifier -a -d $files_in_order > ._compiled.lua
 
 # Now create the p8 file for the map builder.
 cp zeldo.p8 .mapb.p8
-perl -0777 -pi -e 's/(__lua__).*(__gfx__)/$1\n#include _compiled_mapbuilder_dev.lua\n$2/igs' .mapb.p8
+perl -0777 -pi -e '
+my $doc = do {
+    local $/ = undef;
+    open my $fh, "<", "._compiled.lua"
+        or die "could not open file";
+    <$fh>;
+}; my $header = "'"-- $t1\n-- $t2"'";
+s/(__lua__).*(__gfx__)/$1\n$header\n$doc\n$2/igs;
+' .mapb.p8
 
 # Next convert that pico8 file into a binary, so we can close out of it on save.
 # pico8 .mapb.p8 -export "-i 48 .mapb.bin"
@@ -27,4 +40,5 @@ fi
 
 # And finally some cleanup.
 # rm -r .mapb.bin
+rm ._compiled.lua
 rm .mapb.p8
