@@ -24,7 +24,7 @@ Enjoy my game. Made with <3 in PICO-8.
 - TODO Boomerang bump bomb or boomerang return bomb.
 - TODO Continue bomb mechanics.
 - TODO Just make bombs better in general.
-** Caden Todo
+** Caden's Things
 - TODO Make snow and rock walls look good.
 - TODO Work on Hyroll field, graveyard, and mountains in map editor.
 - TODO Replace placeholders with physical objects.
