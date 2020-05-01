@@ -29,3 +29,4 @@ src/demo.lua
 "
 
 ./pico_minifier -d $files_in_order > ._compiled.lua
+./pico_minifier $files_in_order > ._compiled_prod.lua
