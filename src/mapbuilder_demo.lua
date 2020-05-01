@@ -2,7 +2,7 @@ EXA=0 MOV=1 INS=2 DEL=3
 COL=4 MUS=5 SAV=6
 
 dir_arr = {'l', 'r', 'u', 'd'}
-met_arr = {'template', 'm', 'c', 'w', 'h'}
+met_arr = {'m', 'c', 'w', 'h'}
 
 obj_templates = {
    {k="box"          , s=35,  sw=1, sh=1, p={'box'          , 0,0                         }},
