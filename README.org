@@ -5,6 +5,7 @@ help him save the Land of Hi-roll from the forces of evil.
 Enjoy my game. Made with <3 in PICO-8.
 
 ** In progress
+- TODO Performance improvements.
 - TODO Player health must be saveable too.
 - TODO Create some sort of "heart" object.
 - TODO Tweak the money object to look nicer (particles and collision box).
