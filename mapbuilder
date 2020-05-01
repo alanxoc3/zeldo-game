@@ -8,14 +8,14 @@ src/story.lua
 src/map_data.lua
 src/mapbuilder_demo.lua
 "
-./pico_minifier -a -d $files_in_order > ._compiled.lua
+./pico_minifier -a -d $files_in_order > ._compiled_mb.lua
 
 # Now create the p8 file for the map builder.
 cp zeldo.p8 .mapb.p8
 perl -0777 -pi -e '
 my $doc = do {
     local $/ = undef;
-    open my $fh, "<", "._compiled.lua"
+    open my $fh, "<", "._compiled_mb.lua"
         or die "could not open file";
     <$fh>;
 }; my $header = "'"-- $t1\n-- $t2"'";
@@ -40,5 +40,5 @@ fi
 
 # And finally some cleanup.
 # rm -r .mapb.bin
-rm ._compiled.lua
+rm ._compiled_mb.lua
 rm .mapb.p8

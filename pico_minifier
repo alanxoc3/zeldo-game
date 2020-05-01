@@ -123,35 +123,71 @@ $constants{'POT_29'}         = '67' ; # Used
 $constants{'BOGUS_SPOT'}   = '255'; # Used
 
 # Rooms
-$constants{'R_00'} = '0';
-$constants{'R_01'} = '1';
-$constants{'R_02'} = '2';
-$constants{'R_06'} = '6';
-$constants{'R_07'} = '7';
-$constants{'R_08'} = '8';
-$constants{'R_09'} = '9';
+$constants{'R_00'} = '00';
+$constants{'R_01'} = '01';
+$constants{'R_02'} = '02';
+$constants{'R_03'} = '03';
+$constants{'R_04'} = '04';
+$constants{'R_05'} = '05';
+$constants{'R_06'} = '06';
+$constants{'R_07'} = '07';
+$constants{'R_08'} = '08';
+$constants{'R_09'} = '09';
 
 $constants{'R_10'} = '10';
 $constants{'R_11'} = '11';
 $constants{'R_12'} = '12';
 $constants{'R_13'} = '13';
 $constants{'R_14'} = '14';
+$constants{'R_15'} = '15';
 $constants{'R_16'} = '16';
 $constants{'R_17'} = '17';
 $constants{'R_18'} = '18';
 $constants{'R_19'} = '19';
 
+$constants{'R_20'} = '20';
 $constants{'R_21'} = '21';
 $constants{'R_22'} = '22';
+$constants{'R_23'} = '23';
 $constants{'R_24'} = '24';
+$constants{'R_25'} = '25';
 $constants{'R_26'} = '26';
+$constants{'R_27'} = '27';
+$constants{'R_28'} = '28';
+$constants{'R_29'} = '29';
 
 $constants{'R_30'} = '30';
 $constants{'R_31'} = '31';
+$constants{'R_32'} = '32';
 $constants{'R_33'} = '33';
+$constants{'R_34'} = '34';
+$constants{'R_35'} = '35';
+$constants{'R_36'} = '36';
+$constants{'R_37'} = '37';
+$constants{'R_38'} = '38';
+$constants{'R_39'} = '39';
 
+$constants{'R_50'} = '50';
+$constants{'R_51'} = '51';
+$constants{'R_52'} = '52';
+$constants{'R_53'} = '53';
+$constants{'R_54'} = '54';
+$constants{'R_55'} = '55';
+$constants{'R_56'} = '56';
 $constants{'R_57'} = '57';
 $constants{'R_58'} = '58';
+$constants{'R_59'} = '59';
+
+$constants{'R_70'} = '70';
+$constants{'R_71'} = '71';
+$constants{'R_72'} = '72';
+$constants{'R_73'} = '73';
+$constants{'R_74'} = '74';
+$constants{'R_75'} = '75';
+$constants{'R_76'} = '76';
+$constants{'R_77'} = '77';
+$constants{'R_78'} = '78';
+$constants{'R_79'} = '79';
 
 # Go through the actual minifying.
 my @lines = <>;

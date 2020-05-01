@@ -45,8 +45,10 @@ R_02#{
    {'kluck',8,6.5},
    {'topy',6,7},
 },
+R_03#{ template=6, m=18, c=4 },
+R_04#{ template=6, m=18, c=4 },
+R_05#{ template=6, m=18, c=4 },
 R_06#{
-   template=6, m=18, c=4,
    d={R_02,16,4},
 
    {'sign',1,1,{"press B_O to use yer item."},43},
@@ -239,6 +241,7 @@ R_14#{
    {'spikes',10,4,0.75},
    {'spikes',9,4,0.75},
 },
+R_15#{ template=6, m=18, c=4 },
 R_16#{
    template=6, m=14, c=3,
    l={R_14,11.5,6},
@@ -280,6 +283,7 @@ R_19#{
    {'sign',1.5,1.5,{"B_UP hiroll field","B_LEFT hiroll village"},43},
    {'bob_build',4.5,1.5},
 },
+R_20#{ template=6, m=18, c=4 },
 R_21#{
    template=1, m=14, c=6,
    d={R_26,4,0.5},
@@ -289,6 +293,7 @@ R_22#{
    l={R_31,11.5,7},
    u={R_26,4,15.5},
 },
+R_23#{ template=6, m=18, c=4 },
 R_24#{
    template=4, m=14, c=3, w=24,
    r={R_33,0.5,3},
@@ -296,11 +301,15 @@ R_24#{
 
    {'topy',21,2.5},
 },
+R_25#{ template=6, m=18, c=4 },
 R_26#{
    template=6, m=14, c=4, h=16,
    u={R_21,6,9.5},
    d={R_22,18,0.5},
 },
+R_27#{ template=6, m=18, c=4 },
+R_28#{ template=6, m=18, c=4 },
+R_29#{ template=6, m=18, c=4 },
 R_30#{
    template=0, m=14, c=13, h=20,
    l={R_33,11.5,7},
@@ -311,11 +320,25 @@ R_31#{
    l={R_30,11.5,17},
    r={R_22,0.5,7},
 },
+R_32#{ template=6, m=18, c=4 },
 R_33#{
    template=3, m=14, c=13,
    l={R_24,23.5,3},
    r={R_30,0.5,17},
 },
+R_34#{ template=6, m=18, c=4 },
+R_35#{ template=6, m=18, c=4 },
+R_36#{ template=6, m=18, c=4 },
+R_37#{ template=6, m=18, c=4 },
+R_38#{ template=6, m=18, c=4 },
+R_39#{ template=6, m=18, c=4 },
+R_50#{ template=6, m=18, c=4 },
+R_51#{ template=6, m=18, c=4 },
+R_52#{ template=6, m=18, c=4 },
+R_53#{ template=6, m=18, c=4 },
+R_54#{ template=6, m=18, c=4 },
+R_55#{ template=6, m=18, c=4 },
+R_56#{ template=6, m=18, c=4 },
 R_57#{
    template=7, m=18, c=4,
    d={R_02,12,3},
@@ -337,5 +360,17 @@ R_58#{
    {'pot',1,5},
    {'pot',6,4},
    {'chest',6,5,true,13},
-}]]
+},
+R_59#{ template=6, m=18, c=4 },
+R_70#{ template=6, m=18, c=4 },
+R_71#{ template=6, m=18, c=4 },
+R_72#{ template=6, m=18, c=4 },
+R_73#{ template=6, m=18, c=4 },
+R_74#{ template=6, m=18, c=4 },
+R_75#{ template=6, m=18, c=4 },
+R_76#{ template=6, m=18, c=4 },
+R_77#{ template=6, m=18, c=4 },
+R_78#{ template=6, m=18, c=4 },
+R_79#{ template=6, m=18, c=4 }
+]]
 
