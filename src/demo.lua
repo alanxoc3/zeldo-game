@@ -61,12 +61,7 @@ end
 
 function _draw()
    cls()
-   if g_debug then rect(0,0,127,127,FG_RED) end
    call_not_nil(g_tl, 'd', g_tl)
-   if g_debug then
-      zprint(""..stat(0), 48, 2, 1, FG_WHITE, BG_WHITE)
-      zprint(""..stat(1), 80, 2, -1, FG_WHITE, BG_WHITE)
-   end
 end
 
 function game_update()

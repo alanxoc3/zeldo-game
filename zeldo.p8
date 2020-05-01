@@ -2830,12 +2830,7 @@ tbox_interact()
 end
 function _draw()
 cls()
-if g_debug then rect(0,0,127,127,8)end
 call_not_nil(g_tl,"d",g_tl)
-if g_debug then
-zprint(""..stat(0),48,2,1,7,5)
-zprint(""..stat(1),80,2,-1,7,5)
-end
 end
 function game_update()
 room_update()
