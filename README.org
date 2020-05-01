@@ -5,7 +5,6 @@ help him save the Land of Hi-roll from the forces of evil.
 Enjoy my game. Made with <3 in PICO-8.
 
 ** In progress
-- TODO Performance improvements.
 - TODO Player health must be saveable too.
 - TODO Create some sort of "heart" object.
 - TODO Tweak the money object to look nicer (particles and collision box).
@@ -25,6 +24,10 @@ Enjoy my game. Made with <3 in PICO-8.
 - TODO Boomerang bump bomb or boomerang return bomb.
 - TODO Continue bomb mechanics.
 - TODO Just make bombs better in general.
+** Caden Todo
+- TODO Make snow and rock walls look good.
+- TODO Work on Hyroll field, graveyard, and mountains in map editor.
+- TODO Replace placeholders with physical objects.
 ** Finished items
 - DONE What should go into a demo of the game?
 - DONE Make ma work correctly for interactable things.
