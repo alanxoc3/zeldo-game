@@ -29,15 +29,3 @@ src/demo.lua
 "
 
 ./pico_minifier -d $files_in_order > ._compiled.lua
-
-perl -0777 -pi -e '
-my $doc = do {
-    local $/ = undef;
-    open my $fh, "<", "._compiled.lua"
-        or die "could not open file";
-    <$fh>;
-}; my $header = "'"-- $t1\n-- $t2"'";
-s/(__lua__).*(__gfx__)/$1\n$header\n$doc\n$2/igs;
-' zeldo.p8
-
-rm ._compiled.lua
