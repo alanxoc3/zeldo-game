@@ -1,5 +1,5 @@
 pico-8 cartridge // http://www.pico-8.com
-version 23
+version 27
 __lua__
 -- that story about zeldo
 -- amorg
