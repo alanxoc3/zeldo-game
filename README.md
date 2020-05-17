@@ -1,10 +1,10 @@
-* That Story About Zeldo
+# That Story About Zeldo
 Lank wakes up from a good night's rest only to find Hi-roll in danger! You gotta
 help him save the Land of Hi-roll from the forces of evil.
 
 Enjoy my game. Made with <3 in PICO-8.
 
-** In progress
+## In progress
 - TODO Player health must be saveable too.
 - TODO Create some sort of "heart" object.
 - TODO Tweak the money object to look nicer (particles and collision box).
@@ -15,20 +15,20 @@ Enjoy my game. Made with <3 in PICO-8.
 - TODO Sword, shield, and bow persist through rooms.
 - TODO Make some good music.
 - TODO Finish the basic map transitions.
-** Enemy sprint
+## Enemy sprint
 - TODO Make the bat enemy do something
 - TODO Make the chicken enemy go crazy.
 - TODO Interaction with Top enemy and write plans for other enemies.
-** Bomb sprint
+## Bomb sprint
 - TODO Arrow bump bomb or arrow grab bomb.
 - TODO Boomerang bump bomb or boomerang return bomb.
 - TODO Continue bomb mechanics.
 - TODO Just make bombs better in general.
-** Caden's Things
+## Caden's Things
 - TODO Make snow and rock walls look good.
 - TODO Work on Hyroll field, graveyard, and mountains in map editor.
 - TODO Replace placeholders with physical objects.
-** Finished items
+## Finished items
 - DONE What should go into a demo of the game?
 - DONE Make ma work correctly for interactable things.
 - DONE Make ma work for items.
