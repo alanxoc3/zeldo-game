@@ -10,6 +10,8 @@ function btn_helper(f, a, b)
    return f(a) and f(b) and 0 or f(a) and 0xffff or f(b) and 1 or 0
 end
 
+function _g.plus(a,b) return a + b end
+
 function bool_to_num(condition) return condition and 0xffff or 1 end
 
 function xbtn() return btn_helper(btn, 0, 1) end
@@ -41,6 +43,7 @@ end
 -- Recursively copies table attributes.
 function tabcpy(src, dest)
    dest = dest or {}
+
    for k,v in pairs(src or {}) do
       if type(v) == 'table' and not v.is_tabcpy_disabled then
          dest[k] = tabcpy(v)
@@ -58,16 +61,14 @@ function call_not_nil(table, key, ...)
    end
 end
 
-function munpack(t) return t[1], t[2], t[3], t[4], t[5], t[6], t[7], t[8], t[9], t[10] end
-
 function batch_call_table(func,table)
    -- Table is unpacked in this way, for both efficiency and tokens. The
    -- drawback is that it isn't dynamic.
-   foreach(table, function(t) func(munpack(t)) end)
+   foreach(table, function(t) func(unpack(t)) end)
 end
 
 function batch_call(func,...)
-   batch_call_table(func,gun_vals(...))
+   batch_call_table(func,gun_vals_global(...))
 end
 
 function split_string(str, delimiter)
@@ -87,7 +88,7 @@ function split_string(str, delimiter)
 end
 
 -- Returns the parsed table, the current position, and the parameter locations
-function gun_vals_helper(val_str,i,new_params)
+function gun_vals_helper(val_str,i,new_params,func_calls)
    local val_list, val, val_ind, isnum, val_key, str_mode = {}, '', 1, true
    local macro_mode = nil
 
@@ -96,8 +97,7 @@ function gun_vals_helper(val_str,i,new_params)
       if     x == '\"' then str_mode, isnum = not str_mode
       elseif str_mode then val=val..x
       elseif x == '}' or x == ',' then
-         if type(val) == 'table' or not isnum then
-         elseif macro_mode then val = _g[val]
+         if macro_mode or type(val) == 'table' or not isnum then
          elseif sub(val,1,1) == '@' then
             local sec = tonum(sub(val,2,#val))
             assert(sec != nil)
@@ -117,12 +117,11 @@ function gun_vals_helper(val_str,i,new_params)
          end
       elseif x == '{' then
          local ret_val = nil
-         ret_val, i, isnum = gun_vals_helper(val_str,i+1,new_params)
+         ret_val, i, isnum = gun_vals_helper(val_str,i+1,new_params,func_calls)
          if macro_mode then
-            val = _g[val](munpack(ret_val))
-         else
-            val = ret_val
+            add(func_calls, {val_list, val_key or val_ind, ret_val, val})
          end
+         val = ret_val
       elseif x == '=' then isnum, val_key, val = true, val, ''
       elseif x == '#' then isnum, val_key, val = true, tonum(val), ''
       elseif x == '!' then macro_mode = true
@@ -130,30 +129,40 @@ function gun_vals_helper(val_str,i,new_params)
       i += 1
    end
 
-   return val_list, i, new_params
+   return val_list, i, new_params, func_calls
+end
+
+function disable_tabcpy(t)
+   if type(t) == 'table' then
+      t.is_tabcpy_disabled = true
+   end
+   return t
 end
 
 -- Supports variable arguments, true, false, nil, nf, numbers, and strings.
 param_cache = {}
-function gun_vals(val_str, ...)
+function gun_vals_global(val_str, ...)
    val_str = g_gunvals[0+val_str]
    -- there is global state logic in here. you have been warned.
    if not param_cache[val_str] then
-      param_cache[val_str] = { gun_vals_helper(val_str..',',1,{}) }
+      param_cache[val_str] = { gun_vals_helper(val_str..',',1,{},{}) }
    end
 
    local params, lookup = {...}, param_cache[val_str]
    for k,v in pairs(lookup[3]) do
       foreach(lookup[3][k], function(x)
-         x[1][x[2]] = params[k]
-         if type(params[k]) == 'table' then
-            params[k].is_tabcpy_disabled = true
-         end
+         x[1][x[2]] = disable_tabcpy(params[k])
       end)
    end
 
-   return tabcpy(lookup[1])
+   foreach(lookup[4], function(x)
+      x[1][x[2]] = disable_tabcpy(_g[x[4]](unpack(x[3])))
+   end)
+
+   return lookup[1]
 end
+
+function gun_vals(...) return tabcpy(gun_vals_global(...)) end
 
 -- Assumes that each parent node has at least one item in it.
 -- Example: tl_node(actor, actor)

@@ -62,7 +62,7 @@ function ttbox_draw(x, y)
    if g_tbox_active then -- only draw if there are messages
       camera(-x,-y)
       rectfill(-1,0,105,19,0)
-      zrect(-1,0,105,19,[[13,1]])
+      zrect(1,2,103,17)
 
       -- print the message
       batch_call(zprint, [[

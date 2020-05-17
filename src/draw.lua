@@ -17,25 +17,18 @@ function scr_spr_and_out(...)
    foreach({...}, scr_spr)
 end
 
-function zrect(x1, y1, x2, y2, color_gun)
-   local list = gun_vals(color_gun)
-   for k=#list,1,-1 do
-      rect(x1+k-1, y1+k-1, x2-k+1, y2-k+1, list[k])
+function zrect(x1, y1, x2, y2)
+   batch_call(rect, [[
+      {!plus{@1,-2}, !plus{@2,-2}, !plus{@3,2}, !plus{@4,2}, 13},
+      {!plus{@1,-1}, !plus{@2,-1}, !plus{@3,1}, !plus{@4,1}, 1}
+   ]], x1, y1, x2, y2)
 
-      batch_call(pset, [[
-         {@1,@2,@5},
-         {@3,@2,@5},
-         {@3,@4,@5},
-         {@1,@4,@5}
-      ]], x1+k,y1+k,x2-k,y2-k,list[k])
-   end
-
-   batch_call(pset, [[
-      {@1,@2,@5},
-      {@3,@2,@5},
-      {@3,@4,@5},
-      {@1,@4,@5}
-   ]], x1,y1,x2,y2,list[k])
+   batch_call(sspr, [[
+      {0,0,4,4,!plus{@1,-3},!plus{@2,-3}},
+      {0,4,4,4,!plus{@1,-3},@4},
+      {4,0,4,4,@3,!plus{@2,-3}},
+      {4,4,4,4,@3,@4}
+   ]], x1, y1, x2, y2)
 end
 
 function outline_helper(flip, coord, dim)

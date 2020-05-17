@@ -110,8 +110,6 @@ function game_update()
          {'act', 'update'},
          {'act','pause_update'},
          {'rel','rel_update'},
-         {'fairy', 'move'},
-         {'fairy', 'vec_update'},
          {'view','update_view'}
       ]])
 
@@ -146,7 +144,7 @@ function card_shake(fx)
    end
 end
 
-function map_draw(x, y, border_colors)
+function map_draw(x, y)
    if g_view then
       local rx = x - g_view.w/2
       local ry = y - g_view.h/2
@@ -154,8 +152,8 @@ function map_draw(x, y, border_colors)
       g_view.off_x = -(16-g_view.w)/2+rx
       g_view.off_y = -(16-g_view.h)/2+ry
 
-      local x1, x2 = rx*8, (rx+g_view.w)*8-1
-      local y1, y2 = ry*8, (ry+g_view.h)*8-1
+      local x1, x2 = rx*8+4, (rx+g_view.w)*8-5
+      local y1, y2 = ry*8+4, (ry+g_view.h)*8-5
 
       zclip(x1, y1, x2, y2)
       zcls(g_cur_room.c)
@@ -170,12 +168,12 @@ function map_draw(x, y, border_colors)
       if g_debug then acts_loop('dim', 'debug_rect') end
       clip()
 
-      zrect(x1, y1, x2, y2, border_colors)
+      zrect(x1, y1, x2, y2)
    end
 end
 
-function map_and_act_draw(x, y, border_colors)
-   map_draw(x, y, border_colors)
+function map_and_act_draw(x, y)
+   map_draw(x, y)
 end
 
 function game_draw()

@@ -142,7 +142,7 @@ end, function(a)
    scr_spr_and_out(a, a.ltop, a.item)
 end, function(a)
    a:i()
-   a.lanks_fairy, a.room_init = g_att.fairy(a)
+   a.lanks_fairy, a.room_init = nil -- g_att.fairy(a)
 end, function(a, color) -- set color
    a.outline_color, a.ltop.outline_color = color, color
 end)
