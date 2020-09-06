@@ -32,9 +32,9 @@ function load_room(new_room_index, rx, ry, follow_actor)
 
    if g_cur_room.i then g_cur_room.i() end
 
-   g_view = g_att.view(min(14, g_cur_room.w), min(12, g_cur_room.h), 2, follow_actor)
-   g_left_ma_view = g_att.view(2.75, 3, 0, follow_actor)
-   g_right_ma_view = g_att.view(2.75, 3, 0, nil)
+   g_view = _g.view(min(14, g_cur_room.w), min(12, g_cur_room.h), 2, follow_actor)
+   g_left_ma_view = _g.view(2.75, 3, 0, follow_actor)
+   g_right_ma_view = _g.view(2.75, 3, 0, nil)
 
    acts_loop('view', 'center_view')
 end

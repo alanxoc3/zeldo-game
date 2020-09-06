@@ -63,7 +63,7 @@ end, function(a)
    a.anim_off = 1
 end, function(a)
    destroy_effect(a, 30, 1, 4, 5, 2)
-   g_att.money(a.x, a.y, a.dx, a.dy)
+   _g.money(a.x, a.y, a.dx, a.dy)
 end, function(a)
    a.tl_next = 2
    change_cur_ma(a)

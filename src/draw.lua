@@ -19,14 +19,14 @@ end
 
 function zrect(x1, y1, x2, y2)
    batch_call(rect, [[
-      {!plus{@1,-2}, !plus{@2,-2}, !plus{@3,2}, !plus{@4,2}, 13},
-      {!plus{@1,-1}, !plus{@2,-1}, !plus{@3,1}, !plus{@4,1}, 1}
+      {plus{@1,-2}, plus{@2,-2}, plus{@3,2}, plus{@4,2}, 13},
+      {plus{@1,-1}, plus{@2,-1}, plus{@3,1}, plus{@4,1}, 1}
    ]], x1, y1, x2, y2)
 
    batch_call(sspr, [[
-      {0,0,4,4,!plus{@1,-3},!plus{@2,-3}},
-      {0,4,4,4,!plus{@1,-3},@4},
-      {4,0,4,4,@3,!plus{@2,-3}},
+      {0,0,4,4,plus{@1,-3},plus{@2,-3}},
+      {0,4,4,4,plus{@1,-3},@4},
+      {4,0,4,4,@3,plus{@2,-3}},
       {4,4,4,4,@3,@4}
    ]], x1, y1, x2, y2)
 end
@@ -69,9 +69,9 @@ function zprint(str, x, y, align, fg, bg)
    elseif align > 0 then x -= #str*4+1 end
 
    batch_call(print, [[
-      {@1, @2, @4, @6},
-      {@1, @2, @3, @5}
-   ]], str, x, y, y+1, fg, bg)
+      {@1, @2, plus{@3,1}, @5},
+      {@1, @2, @3,         @4}
+   ]], str, x, y, fg, bg)
 end
 
 function zclip(x1, y1, x2, y2)

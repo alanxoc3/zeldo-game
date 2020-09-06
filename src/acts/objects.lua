@@ -94,7 +94,7 @@ end, function(a)
    a.tl_next = true
    pause'chest'
    stop_music'1'
-   a.item_show = g_att.item_show(g_pl, 1, a.mem_loc)
+   a.item_show = _g.item_show(g_pl, 1, a.mem_loc)
 end
 )
 
@@ -114,10 +114,10 @@ create_actor([['house', 6, {'drawable','confined','spr'}]], [[
    i=@7, destroyed=@8,
    iyy=-4, sw=2, sh=2
 ]], function(a)
-   a.b1 = g_att.static_block(a.x-.75,a.y, .25, .5)
-   a.b2 = g_att.static_block(a.x+.75,a.y, .25, .5)
-   a.b3 = g_att.static_block(a.x,a.y-4/8, 1,.25)
-   a.trig = g_att.gen_trigger_block(a, 0, 1/8, .5, 5/8, function(trig, other)
+   a.b1 = _g.static_block(a.x-.75,a.y, .25, .5)
+   a.b2 = _g.static_block(a.x+.75,a.y, .25, .5)
+   a.b3 = _g.static_block(a.x,a.y-4/8, 1,.25)
+   a.trig = _g.gen_trigger_block(a, 0, 1/8, .5, 5/8, function(trig, other)
       if other.pl then
          transition(a.room, a.room_x, a.room_y, g_pl)
       end
@@ -185,7 +185,7 @@ end, function(a)
 end, function(a)
    sfx'9'
    destroy_effect(a, 10, 1, 13, 12)
-   g_att.money(a.x, a.y, a.dx, a.dy)
+   _g.money(a.x, a.y, a.dx, a.dy)
 end, function(a, o)
    if o.touchable and not o.pl then
       call_not_nil(o, 'hurt', o, 0, 60)
@@ -204,10 +204,10 @@ create_actor([['pot', 2, {'drawable','bounded','confined','tcol','spr','col','mo
    touchable=true,
    i=@3
 ]], function(a)
-   g_att.gen_trigger_block(a, 0, 0, .5, .5, nf, function(trig, other)
+   _g.gen_trigger_block(a, 0, 0, .5, .5, nf, function(trig, other)
       if btnp(4) and not other.item then
-         other.item = g_att.grabbed_item(g_pl, a.sind, -7, function(x, y, xf)
-            g_att.pot_projectile(other.x, other.y, xf)
+         other.item = _g.grabbed_item(g_pl, a.sind, -7, function(x, y, xf)
+            _g.pot_projectile(other.x, other.y, xf)
          end)
          a:kill()
       end

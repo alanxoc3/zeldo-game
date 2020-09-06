@@ -1,11 +1,11 @@
 function destroy_effect(a, num, ...)
    for i=1,num do
-      g_att.thing_destroyed(a, rnd_item(...), rnd(.5)+.1)
+      _g.thing_destroyed(a, rnd_item(...), rnd(.5)+.1)
    end
 end
 
 function destroy_func(a)
-   g_att.money(a.x, a.y, a.dx, a.dy)
+   _g.money(a.x, a.y, a.dx, a.dy)
 end
 
 -- this file contains the logic for loading and saving a game.
@@ -36,10 +36,10 @@ end
 
 -- To transition rooms.
 function transition(new_room_index, room_x, room_y, follow_actor)
-   g_att.fader_out(function()
+   _g.fader_out(function()
       pause'transitioning'
    end, function()
       load_room(new_room_index, room_x, room_y, follow_actor)
-      g_att.fader_in(tbox_clear, unpause)
+      _g.fader_in(tbox_clear, unpause)
    end)
 end

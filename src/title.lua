@@ -51,14 +51,14 @@ g_title = gun_vals([[
          return true
       end
    end, function(a)
-      transition(flr_rnd'20'+1, 0, 0, g_att.title_move())
+      transition(flr_rnd'20'+1, 0, 0, _g.title_move())
    end, function(a)
       batch_call(acts_loop, [[
          {'fader_in', 'delete'},
          {'fader_out', 'delete'}
       ]])
 
-      g_att.fader_out(
+      _g.fader_out(
          function() pause'transitioning' end,
          function() a.tl_next = true end)
    end, function(a)
@@ -78,14 +78,14 @@ g_title = gun_vals([[
       ]])
    end, function(a)
       g_card_fade = 0
-      g_att.fader_out(
+      _g.fader_out(
          nf, function() a.tl_next = true end
       )
    end, function(a)
       g_card_fade=8
       -- TODO: duplicate logic here
-      load_room(flr_rnd'20'+1, 0, 0, g_att.title_move())
-      g_att.fader_in(
+      load_room(flr_rnd'20'+1, 0, 0, _g.title_move())
+      _g.fader_in(
          function()
             pause'transitioning'
          end, function()

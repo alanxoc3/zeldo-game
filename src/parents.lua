@@ -410,7 +410,7 @@ create_parent(
       i=@1, interactable_init=@1
    }
 ]], function(a)
-   a.trig = g_att.gen_trigger_block(a, a.trig_x, a.trig_y, a.trig_rx, a.trig_ry, nf, function(trig, other)
+   a.trig = _g.gen_trigger_block(a, a.trig_x, a.trig_y, a.trig_rx, a.trig_ry, nf, function(trig, other)
       if npc_able_to_interact(a, other) then
          change_cur_ma(a)
          if able_to_interact(a, other) then
@@ -499,7 +499,7 @@ create_parent(
 ]], function(a)
    if remove_money(a.cost) then
       a:kill()
-      g_att.item_show(g_pl, a.sind, a.mem_loc)
+      _g.item_show(g_pl, a.sind, a.mem_loc)
       pause'chest' -- not a chest, but is the same functionality.
       stop_music'1'
    else

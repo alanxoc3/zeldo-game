@@ -217,7 +217,7 @@ end
 -- end, function(a) -- destroyed
 --    if remove_money(1) then
 --       sfx'6'
---       g_att.arrow(a.x, a.y, a.xf)
+--       _g.arrow(a.x, a.y, a.xf)
 --    end
 -- end
 -- )

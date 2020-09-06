@@ -3,12 +3,12 @@ G_INTERACT = 5
 function create_inventory_items()
    if not g_items_drawn then
       sfx'3'
-      g_item_selector = g_att.item_selector(g_pl)
+      g_item_selector = _g.item_selector(g_pl)
       g_items_drawn = {}
       for ind=1,9 do
          local item = g_items[ind]
          item.enabled = zdget(item.mem_loc)
-         g_items_drawn[ind] = g_att.inventory_item(g_pl, item.xoff/8, item.yoff/8,
+         g_items_drawn[ind] = _g.inventory_item(g_pl, item.xoff/8, item.yoff/8,
          item.enabled, item.flippable, item.sind)
       end
    end
@@ -49,7 +49,7 @@ function inventory_init()
 end
 
 function gen_pl_item(pl)
-   return get_selected_item() and call_not_nil(g_att, get_selected_item().name, pl)
+   return get_selected_item() and call_not_nil(_g, get_selected_item().name, pl)
 end
 
 function get_selected_item(ind)

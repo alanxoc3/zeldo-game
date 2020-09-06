@@ -1,12 +1,12 @@
 -- attachment module
 -- goes after libraries. (lib and draw)
 
-g_act_arrs, g_att, g_par = {}, {}, {}
+g_act_arrs = {}
 
 -- params: str, opts
 function create_parent(...)
    local id, par, pause_funcs, att = unpack(gun_vals(...))
-   g_par[id] = function(a)
+   _g[id] = function(a)
       a = a or {}
       return a[id] and a or attach_actor(id, par, pause_funcs, att, a)
    end
@@ -16,7 +16,7 @@ end
 function create_actor(meta, template_str, ...)
    local template_params, id, provided, parents, pause_funcs = {...}, unpack(gun_vals(meta))
 
-   g_att[id] = function(...)
+   _g[id] = function(...)
       local func_params, params = {...}, {}
       for i=1,provided do
          add(params, func_params[i] or false)
@@ -33,7 +33,7 @@ end
 -- opt: {id, att, par}
 function attach_actor(id, parents, pause_funcs, template, a)
    -- step 1: atts from parent
-   foreach(parents, function(par_id) a = g_par[par_id](a) end)
+   foreach(parents, function(par_id) a = _g[par_id](a) end)
    tabcpy(template, a)
 
    -- step 2: add to list of objects

@@ -19,7 +19,7 @@ function _init()
       { i=@1, u=@2, d=@3 }
    ]], function()
       pause'transitioning'
-      g_att.fader_in(game_init, unpause)
+      _g.fader_in(game_init, unpause)
    end, game_update, game_draw)
 
    g_tl = { g_title, tl_game }
@@ -193,7 +193,7 @@ end
 
 function game_init()
    map_init()
-   g_pl = g_att.pl(0, 0)
+   g_pl = _g.pl(0, 0)
    -- load_room(R_12, 3, 5, g_pl)
    load_room(R_01, 3, 5, g_pl)
 end

@@ -71,35 +71,18 @@ function batch_call(func,...)
    batch_call_table(func,gun_vals_global(...))
 end
 
-function split_string(str, delimiter)
-   local str_list, cur_str = {}, ""
-
-   for i=1,#str do
-      local char = sub(str, i, i)
-      if char == delimiter and #cur_str > 0 then
-         add(str_list, cur_str)
-         cur_str = ""
-      else
-         cur_str = cur_str..char
-      end
-   end
-
-   return str_list
-end
-
 -- Returns the parsed table, the current position, and the parameter locations
 function gun_vals_helper(val_str,i,new_params,func_calls)
    local val_list, val, val_ind, isnum, val_key, str_mode = {}, '', 1, true
-   local macro_mode = nil
 
    while i <= #val_str do
       local x = sub(val_str, i, i)
       if     x == '\"' then str_mode, isnum = not str_mode
       elseif str_mode then val=val..x
       elseif x == '}' or x == ',' then
-         if macro_mode or type(val) == 'table' or not isnum then
-         elseif sub(val,1,1) == '@' then
-            local sec = tonum(sub(val,2,#val))
+         if type(val) == 'table' or not isnum then
+         elseif ord(val,1) == 64 then -- @ sign
+            local sec = sub(val,2)+0
             assert(sec != nil)
             if not new_params[sec] then new_params[sec] = {} end
             add(new_params[sec], {val_list, val_key or val_ind})
@@ -110,7 +93,6 @@ function gun_vals_helper(val_str,i,new_params,func_calls)
          end
 
          val_list[val_key or val_ind], isnum, val, val_ind, val_key = val, true, '', val_key and val_ind or val_ind+1
-         macro_mode = nil
 
          if x == '}' then
             return val_list, i
@@ -118,13 +100,12 @@ function gun_vals_helper(val_str,i,new_params,func_calls)
       elseif x == '{' then
          local ret_val = nil
          ret_val, i, isnum = gun_vals_helper(val_str,i+1,new_params,func_calls)
-         if macro_mode then
+         if val ~= "" then -- macro mode
             add(func_calls, {val_list, val_key or val_ind, ret_val, val})
          end
          val = ret_val
       elseif x == '=' then isnum, val_key, val = true, val, ''
       elseif x == '#' then isnum, val_key, val = true, tonum(val), ''
-      elseif x == '!' then macro_mode = true
       elseif x != " " and x != '\n' then val=val..x end
       i += 1
    end
@@ -233,7 +214,7 @@ end
 
 -- TODO: Find a better home for this.
 -- For parsing zipped values.
-g_gunvals = split_string(g_gunvals_raw, "|")
+g_gunvals = split(g_gunvals_raw, "|")
 
 -- For debugging
 -- function tostring(any)

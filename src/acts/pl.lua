@@ -79,7 +79,7 @@ create_actor(
    health=LANK_START_HEALTH,
    i=@3, u=@4, destroyed=@5, d=@6, room_init=@7, set_color=@8
 ]], function(a)
-   a.ltop = g_att.lank_top(a)
+   a.ltop = _g.lank_top(a)
 end, function(a)
    -- movement logic
    if a.stun_countdown == 0 then
@@ -142,7 +142,7 @@ end, function(a)
    scr_spr_and_out(a, a.ltop, a.item)
 end, function(a)
    a:i()
-   a.lanks_fairy, a.room_init = nil -- g_att.fairy(a)
+   a.lanks_fairy, a.room_init = nil -- _g.fairy(a)
 end, function(a, color) -- set color
    a.outline_color, a.ltop.outline_color = color, color
 end)

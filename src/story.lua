@@ -21,7 +21,7 @@ function map_init()
 
       v.i=function()
          batch_call_table(function(att_name, x, y, ...)
-            g_att[att_name](v.x+x+.5, v.y+y+.5, ...)
+            _g[att_name](v.x+x+.5, v.y+y+.5, ...)
          end, v)
 
          acts_loop('act', 'room_init')

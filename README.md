@@ -29,6 +29,7 @@ Enjoy my game. Made with <3 in PICO-8.
 - TODO Work on Hyroll field, graveyard, and mountains in map editor.
 - TODO Replace placeholders with physical objects.
 ## Finished items
+- DONE Fix zrect CPU speed.
 - DONE What should go into a demo of the game?
 - DONE Make ma work correctly for interactable things.
 - DONE Make ma work for items.
