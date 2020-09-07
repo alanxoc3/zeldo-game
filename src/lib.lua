@@ -6,6 +6,8 @@ _g = {}
 -- util functions:
 -- 7661 -> 7650
 function nf() end
+function identity(...) return ... end
+
 function btn_helper(f, a, b)
    return f(a) and f(b) and 0 or f(a) and 0xffff or f(b) and 1 or 0
 end
@@ -70,6 +72,48 @@ end
 function batch_call(func,...)
    batch_call_table(func,gun_vals_global(...))
 end
+
+-- fails if key is empty.
+function zsplitkv(str, item_delim, kv_delim, val_func, expandable)
+   local tbl, items = {}, split(str, item_delim)
+
+   for item in all(items) do
+      local kvs = split(item, kv_delim)
+      local k,v = kvs[#kvs-1] or #tbl+1, kvs[#kvs]
+
+      if expandable and #items == 1 then
+         return v
+      else
+         tbl[k] = v
+      end
+   end
+
+   return tbl
+end
+
+function ztable(str, params)
+   local tbl = zsplitkv(str, ';', ':', identity)
+   local val_func = function(x)
+      return determine_placement(tbl, x, params)
+   end
+
+   for k, v in pairs(tbl) do
+      tbl[k] = zsplitkv(v, ',', '=', val_func, true)
+   end
+end
+
+function determine_placement(tbl, str, params)
+   local rest = sub(str,2)
+   if ord(str) == 64 then -- @ param
+      return params[rest+0]
+   elseif ord(str) == 33 then -- ! func
+      local ft=split(rest, '*')
+      return _g[ft[1]](unpack(tbl[ft[2]]))
+   elseif str == 'true' or str == 'false' then return str=='true'
+   elseif str == 'nil' or str == '' then return nil
+   end
+end
+
 
 -- Returns the parsed table, the current position, and the parameter locations
 function gun_vals_helper(val_str,i,new_params,func_calls)
