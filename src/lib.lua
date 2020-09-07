@@ -73,13 +73,18 @@ function batch_call(func,...)
    batch_call_table(func,gun_vals_global(...))
 end
 
+function batch_call_new(func,...)
+   local yo = ztable(...)
+   foreach(yo, function(t) func(unpack(t)) end)
+end
+
 -- fails if key is empty.
 function zsplitkv(str, item_delim, kv_delim, val_func, expandable)
    local tbl, items = {}, split(str, item_delim)
 
    for item in all(items) do
       local kvs = split(item, kv_delim)
-      local k,v = kvs[#kvs-1] or #tbl+1, kvs[#kvs]
+      local k,v = kvs[#kvs-1] or #tbl+1, val_func(kvs[#kvs])
 
       if expandable and #items == 1 then
          return v
@@ -91,7 +96,10 @@ function zsplitkv(str, item_delim, kv_delim, val_func, expandable)
    return tbl
 end
 
-function ztable(str, params)
+function ztable(str, ...)
+   str = g_gunvals[0+str]
+
+   local params = {...}
    local tbl = zsplitkv(str, ';', ':', identity)
    local val_func = function(x)
       return determine_placement(tbl, x, params)
@@ -100,6 +108,7 @@ function ztable(str, params)
    for k, v in pairs(tbl) do
       tbl[k] = zsplitkv(v, ',', '=', val_func, true)
    end
+   return tbl
 end
 
 function determine_placement(tbl, str, params)
@@ -107,13 +116,18 @@ function determine_placement(tbl, str, params)
    if ord(str) == 64 then -- @ param
       return params[rest+0]
    elseif ord(str) == 33 then -- ! func
-      local ft=split(rest, '*')
-      return _g[ft[1]](unpack(tbl[ft[2]]))
+      local ft=split(rest, '/')
+      local ftparams = {}
+      for i=2,#ft do
+         add(ftparams, determine_placement(tbl, ft[i], params))
+      end
+      return _g[ft[1]](unpack(ftparams))
    elseif str == 'true' or str == 'false' then return str=='true'
    elseif str == 'nil' or str == '' then return nil
    end
-end
 
+   return str
+end
 
 -- Returns the parsed table, the current position, and the parameter locations
 function gun_vals_helper(val_str,i,new_params,func_calls)
@@ -157,13 +171,6 @@ function gun_vals_helper(val_str,i,new_params,func_calls)
    return val_list, i, new_params, func_calls
 end
 
-function disable_tabcpy(t)
-   if type(t) == 'table' then
-      t.is_tabcpy_disabled = true
-   end
-   return t
-end
-
 -- Supports variable arguments, true, false, nil, nf, numbers, and strings.
 param_cache = {}
 function gun_vals_global(val_str, ...)
@@ -185,6 +192,13 @@ function gun_vals_global(val_str, ...)
    end)
 
    return lookup[1]
+end
+
+function disable_tabcpy(t)
+   if type(t) == 'table' then
+      t.is_tabcpy_disabled = true
+   end
+   return t
 end
 
 function gun_vals(...) return tabcpy(gun_vals_global(...)) end
@@ -261,12 +275,12 @@ end
 g_gunvals = split(g_gunvals_raw, "|")
 
 -- For debugging
--- function tostring(any)
---   if (type(any)~="table") return tostr(any)
---   local str = "{"
---   for k,v in pairs(any) do
---     if (str~="{") str=str..","
---     str=str..tostring(k).."="..tostring(v)
---   end
---   return str.."}"
--- end
+function tostring(any)
+  if type(any)~="table" then return tostr(any) end
+  local str = "{"
+  for k,v in pairs(any) do
+    if str~="{" then str=str.."," end
+    str=str..tostring(k).."="..tostring(v)
+  end
+  return str.."}"
+end

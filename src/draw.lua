@@ -18,16 +18,16 @@ function scr_spr_and_out(...)
 end
 
 function zrect(x1, y1, x2, y2)
-   batch_call(rect, [[
-      {plus{@1,-2}, plus{@2,-2}, plus{@3,2}, plus{@4,2}, 13},
-      {plus{@1,-1}, plus{@2,-1}, plus{@3,1}, plus{@4,1}, 1}
+   batch_call_new(rect,
+   [[ !plus/@1/-2, !plus/@2/-2, !plus/@3/2, !plus/@4/2, 13;
+      !plus/@1/-1, !plus/@2/-1, !plus/@3/1, !plus/@4/1, 1;
    ]], x1, y1, x2, y2)
 
-   batch_call(sspr, [[
-      {0,0,4,4,plus{@1,-3},plus{@2,-3}},
-      {0,4,4,4,plus{@1,-3},@4},
-      {4,0,4,4,@3,plus{@2,-3}},
-      {4,4,4,4,@3,@4}
+   batch_call_new(sspr, [[
+      0,0,4,4,!plus/@1/-3,!plus/@2/-3;
+      0,4,4,4,!plus/@1/-3,@4;
+      4,0,4,4,@3,!plus/@2/-3;
+      4,4,4,4,@3,@4;
    ]], x1, y1, x2, y2)
 end
 
