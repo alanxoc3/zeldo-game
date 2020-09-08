@@ -79,54 +79,76 @@ function batch_call_new(func,...)
 end
 
 -- fails if key is empty.
+g_split_cache={}
 function zsplitkv(str, item_delim, kv_delim, val_func, expandable)
    local tbl, items = {}, split(str, item_delim)
 
    for item in all(items) do
       local kvs = split(item, kv_delim)
-      local k,v = kvs[#kvs-1] or #tbl+1, val_func(kvs[#kvs])
+      local k,v = kvs[#kvs-1] or #tbl+1, kvs[#kvs]
 
       if expandable and #items == 1 then
-         return v
+         return val_func(v)
       else
-         tbl[k] = v
+         tbl[k] = val_func(v,k)
       end
    end
 
    return tbl
 end
 
+g_ztable_cache = {}
 function ztable(str, ...)
    str = g_gunvals[0+str]
-
    local params = {...}
-   local tbl = zsplitkv(str, ';', ':', identity)
-   local val_func = function(x)
-      return determine_placement(tbl, x, params)
+
+   if g_ztable_cache[str] == nil then
+      local operations = {}
+      local tbl = zsplitkv(str, ';', ':', identity)
+      for k, v in pairs(tbl) do
+         local val_func = function(sub_val, sub_key)
+            return queue_operation(tbl, k, sub_key, sub_val, operations)
+         end
+
+         tbl[k] = zsplitkv(v, ',', '=', val_func, true)
+      end
+      g_ztable_cache[str] = {tbl, operations}
    end
 
-   for k, v in pairs(tbl) do
-      tbl[k] = zsplitkv(v, ',', '=', val_func, true)
-   end
-   return tbl
+   local table = g_ztable_cache[str][1]
+   local ops = g_ztable_cache[str][2]
+   foreach(ops, function(op)
+      local t, k = op.t, op.k
+      if op.sk then
+         t = t[op.k]
+         k = op.sk
+      end
+      t[k] = op.f(params)
+   end)
+   return g_ztable_cache[str][1]
 end
 
-function determine_placement(tbl, str, params)
-   local rest = sub(str,2)
-   if ord(str) == 64 then -- @ param
-      return params[rest+0]
-   elseif ord(str) == 33 then -- ! func
+function queue_operation(tbl, k, sub_key, v, operations)
+   local rest = sub(v,2)
+   if ord(v) == 64 then -- @ param
+      add(operations, {t=tbl, k=k, sk=sub_key, f=function(p)
+         return p[rest+0]
+      end})
+   elseif ord(v) == 33 then -- ! func
       local ft=split(rest, '/')
       local ftparams = {}
       for i=2,#ft do
-         add(ftparams, determine_placement(tbl, ft[i], params))
+         add(ftparams,queue_operation(ftparams, i-1, nil, ft[i], operations))
       end
-      return _g[ft[1]](unpack(ftparams))
-   elseif str == 'true' or str == 'false' then return str=='true'
-   elseif str == 'nil' or str == '' then return nil
+
+      add(operations, {t=tbl, k=k, sk=sub_key, f=function()
+         return _g[ft[1]](unpack(ftparams))
+      end})
+   elseif v == 'true' or v == 'false' then return v=='true'
+   elseif v == 'nil' or v == '' then return nil
    end
 
-   return str
+   return v
 end
 
 -- Returns the parsed table, the current position, and the parameter locations
