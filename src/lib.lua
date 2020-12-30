@@ -64,18 +64,11 @@ function call_not_nil(table, key, ...)
 end
 
 function batch_call_table(func,table)
-   -- Table is unpacked in this way, for both efficiency and tokens. The
-   -- drawback is that it isn't dynamic.
    foreach(table, function(t) func(unpack(t)) end)
 end
 
-function batch_call(func,...)
-   batch_call_table(func,gun_vals_global(...))
-end
-
-function batch_call_new(func,...)
-   local yo = ztable(...)
-   foreach(yo, function(t) func(unpack(t)) end)
+function batch_call_new(func, ...)
+   batch_call_table(func, ztable(...))
 end
 
 -- fails if key is empty.

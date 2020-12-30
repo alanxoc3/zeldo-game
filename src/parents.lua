@@ -338,9 +338,9 @@ create_parent(
             if x < a.rx+b.rx and y < a.ry+b.ry then
                hit_list[b] = hit_list[b] or gun_vals[[dx=0,dy=0]]
 
-               batch_call(col_help, [[
-                  {'x', 'dx', @1, @2, @3, @4},
-                  {'y', 'dy', @1, @2, @5, @6}
+               batch_call_new(col_help, [[
+                  x, dx, @1, @2, @3, @4;
+                  y, dy, @1, @2, @5, @6;
                ]], a, b, x, dx, y, dy)
             end
          end

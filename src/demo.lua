@@ -69,23 +69,23 @@ function game_update()
 
    if not is_game_paused() then
       inventory_update()
-      batch_call(
+      batch_call_new(
          acts_loop, [[
-            {'drawable_obj','reset_off'},
-            {'stunnable', 'stun_update'},
-            {'act','update'},
-            {'act','pause_update'},
-            {'mov','move'},
-            {'col','move_check',@1},
-            {'col','move_check',@4},
-            {'trig','trigger_update',@3},
-            {'tcol','coll_tile',@2},
-            {'rel','rel_update'},
-            {'vec','vec_update'},
-            {'bounded','check_bounds'},
-            {'anim','anim_update'},
-            {'timed','tick'},
-            {'view','update_view'}
+            drawable_obj, reset_off;
+            stunnable, stun_update;
+            act, update;
+            act, pause_update;
+            mov, move;
+            col, move_check, @1;
+            col, move_check, @4;
+            trig, trigger_update, @3;
+            tcol, coll_tile, @2;
+            rel, rel_update;
+            vec, vec_update;
+            bounded, check_bounds;
+            anim, anim_update;
+            timed, tick;
+            view, update_view;
          ]],
          g_act_arrs['col'],
          function(x, y)
@@ -103,22 +103,22 @@ function game_update()
    else
       if g_pause_init then
          g_pause_init = false
-         batch_call(acts_loop, [[{'act', 'pause_init'}]])
+         batch_call_new(acts_loop, [[act, pause_init]])
          -- poke(0x5f43,1+2+4) -- softer sound
       end
-      batch_call(acts_loop, [[
-         {'act', 'update'},
-         {'act','pause_update'},
-         {'rel','rel_update'},
-         {'view','update_view'}
+      batch_call_new(acts_loop, [[
+         act,  update;
+         act,  pause_update;
+         rel,  rel_update;
+         view, update_view;
       ]])
 
       if not is_game_paused() then
-         batch_call(acts_loop, [[{'act', 'pause_end'}]])
+         batch_call_new(acts_loop, [[act, pause_end]])
       end
    end
 
-   batch_call(acts_loop, [[{'act', 'clean'}]])
+   batch_call_new(acts_loop, [[act, clean]])
 
    card_shake_update()
 end
@@ -160,12 +160,14 @@ function map_draw(x, y)
       scr_map(g_cur_room.x, g_cur_room.y, g_cur_room.x, g_cur_room.y, g_cur_room.w, g_cur_room.h)
 
       isorty(g_act_arrs.drawable)
-      batch_call(acts_loop, [[
-         {'pre_drawable','d'},
-         {'drawable','d'},
-         {'post_drawable','d'}
+      batch_call_new(acts_loop, [[
+         pre_drawable,  d;
+         drawable,      d;
+         post_drawable, d;
       ]])
+
       if g_debug then acts_loop('dim', 'debug_rect') end
+
       clip()
 
       zrect(x1, y1, x2, y2)

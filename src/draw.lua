@@ -68,9 +68,9 @@ function zprint(str, x, y, align, fg, bg)
    if align == 0    then x -= #str*2
    elseif align > 0 then x -= #str*4+1 end
 
-   batch_call(print, [[
-      {@1, @2, plus{@3,1}, @5},
-      {@1, @2, @3,         @4}
+   batch_call_new(print, [[
+      @1,@2,!plus/@3/1,@5;
+      @1,@2,@3,@4;
    ]], str, x, y, fg, bg)
 end
 
@@ -79,7 +79,7 @@ function zclip(x1, y1, x2, y2)
 end
 
 function zcls(col)
-   batch_call(rectfill, [[{0x8000, 0x8000, 0x7fff, 0x7fff, @1}]], col or 0)
+   batch_call_new(rectfill, [[0x8000,0x8000,0x7fff,0x7fff,@1]], col or 0)
 end
 
 -- fading

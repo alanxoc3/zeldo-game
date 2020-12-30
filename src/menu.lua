@@ -21,11 +21,11 @@ function draw_bar(x1,y1,x2,y2,num,dem,align,fg,bg)
    if align == 0 then bar_off /= 2 end
 
    if num > 0 then
-      batch_call(rectfill, [[
-         {@1, @2, @1, @4, FG_UI},
-         {@3, @2, @3, @4, FG_UI},
-         {@5, @2, @6, @4, @7},
-         {@5, @4, @6, @4, @8}
+      batch_call_new(rectfill, [[
+         @1, @2, @1, @4, FG_UI;
+         @3, @2, @3, @4, FG_UI;
+         @5, @2, @6, @4, @7;
+         @5, @4, @6, @4, @8;
       ]], x1, y1, x2, y2,
          ceil(x1+(align >= 0 and bar_off or 0)),
          flr(x2-(align <= 0 and bar_off or 0)),
@@ -74,8 +74,8 @@ function draw_status()
    draw_bar(10, 3, 117, 7, g_energy, MAX_ENERGY, 0, FG_RED, BG_RED)
 
    -- status panels
-   batch_call(draw_stat, [[
-      {13,  115, -1, @1},
-      {117, 115, 1,  @2}
+   batch_call_new(draw_stat, [[
+      13,  115, -1, @1;
+      117, 115, 1,  @2;
    ]], g_left_ma_view, g_right_ma_view)
 end
