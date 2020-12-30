@@ -35,7 +35,7 @@ end, function(a)
 end, function(a)
    a.alive = nil
 end, del_act, function(a, ...)
-   local arr, cur_act = gun_vals(...), a
+   local arr, cur_act = ztable(...), a
    for i=1,#arr do
       cur_act = cur_act[arr[i]]
       if not cur_act then
@@ -336,7 +336,7 @@ create_parent(
          if a != b and (not a.static or not b.static) then
             local x,y = abs(a.x+dx-b.x), abs(a.y+dy-b.y)
             if x < a.rx+b.rx and y < a.ry+b.ry then
-               hit_list[b] = hit_list[b] or gun_vals[[dx=0,dy=0]]
+               hit_list[b] = hit_list[b] or ztable[[dx:0;dy:0]]
 
                batch_call_new(col_help, [[
                   x, dx, @1, @2, @3, @4;

@@ -15,14 +15,14 @@ function _init()
 
    map_init()
 
-   local tl_game = gun_vals([[
-      { i=@1, u=@2, d=@3 }
+   local tl_game = ztable([[
+      i=@1, u=@2, d=@3
    ]], function()
       pause'transitioning'
       _g.fader_in(game_init, unpause)
    end, game_update, game_draw)
 
-   g_tl = { g_title, tl_game }
+   g_tl = { g_logo, g_title, tl_game }
 
    inventory_init()
 end

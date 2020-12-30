@@ -22,34 +22,35 @@ end
 -- fade in. fade loop. fade out
 
 -- the sound is assumed to be sfx 0!
-g_title = gun_vals([[
-   { x=8, y=8, i=@8, d=@5, u=@6 }, {
-      tl_name='outer', tl_loop=true,
-      { i=nf, e=@3, u=@2, d=@1, tl_max_time=5 }
-   }, { i=@4, u=@6, e=nf },
-   { i=@7, d=@9 }
-]], function(a)
-      fade(g_card_fade)
-      map_draw(a.x, a.y, [[0,0,13,1]])
-      fade'0'
-      draw_logo(a)
-   end, function(a)
-      batch_call_new(acts_loop, [[
-         act,  update;
-         mov,  move;
-         vec,  vec_update;
-         act,  clean;
-         view, update_view;
-      ]])
+g_title = ztable([[
+   x=8, y=8, i=@6, d=@3, u=@4;
+   tl_name=outer, tl_loop=true, @1;
+   i=@2, u=@4, e=nf;
+   i=@5, d=@7;
+]], ztable([[i:nf;e:@3;u:@2;d:@1;tl_max_time:5]],
+      function(a)
+         fade(g_card_fade)
+         map_draw(a.x, a.y, [[0,0,13,1]])
+         fade'0'
+         draw_logo(a)
+      end, function(a)
+         batch_call_new(acts_loop, [[
+            act,  update;
+            mov,  move;
+            vec,  vec_update;
+            act,  clean;
+            view, update_view;
+         ]])
 
-      if btnp'4' or btnp'5' then
-         a.outer.tl_loop = false
-         return true
+         if btnp'4' or btnp'5' then
+            a.outer.tl_loop = false
+            return true
+         end
+      end, function(a)
+         -- transition(flr_rnd'20'+1, 0, 0, _g.title_move())
+         transition(1, 0, 0, _g.title_move())
       end
-   end, function(a)
-      -- transition(flr_rnd'20'+1, 0, 0, _g.title_move())
-      transition(1, 0, 0, _g.title_move())
-   end, function(a)
+   ), function(a)
       batch_call_new(acts_loop, [[
          fader_in, delete;
          fader_out, delete;

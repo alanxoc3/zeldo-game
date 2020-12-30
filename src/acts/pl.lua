@@ -5,7 +5,7 @@ create_actor([['lank_top', 1, {'rel','spr_obj','danceable'}]], [[
 ]], function(a)
    a.xf, a.alive = g_pl.xf, g_pl.alive
 
-   if g_pl:get[['item','throwable']] then
+   if g_pl:get[[item;throwable]] then
       a.sind=g_pl.item.throwing and 150 or 148
    else
       a.sind=147
@@ -84,7 +84,7 @@ end, function(a)
    -- movement logic
    if a.stun_countdown == 0 then
       if not btn'5' then
-         if (xbtn() != 0) and not a:get[['item','item_slow']] then a.xf = btn'0' end
+         if (xbtn() != 0) and not a:get[[item;item_slow]] then a.xf = btn'0' end
          a.ax, a.ay = xbtn()*a.spd, ybtn()*a.spd
          if g_debug then
             a.ax *= 3
@@ -98,7 +98,7 @@ end, function(a)
       end
    end
 
-   if a:get[['item','item_stop']] then
+   if a:get[[item;item_stop]] then
       a.ax, a.ay = 0, 0
    end
 

@@ -139,6 +139,7 @@ function queue_operation(tbl, k, sub_key, v, operations)
       end})
    elseif v == 'true' or v == 'false' then return v=='true'
    elseif v == 'nil' or v == '' then return nil
+   elseif v == 'nf' then return function() end
    end
 
    return v

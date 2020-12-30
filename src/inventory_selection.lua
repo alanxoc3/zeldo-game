@@ -31,18 +31,18 @@ end
 
 function inventory_init()
    -- global_items
-   g_items = gun_vals[[
-      {mem_loc=HAS_FORCE,     enabled=false, name='force'   , xoff=-7, yoff=-9, sind=36},
-      {mem_loc=HAS_BOOMERANG, enabled=false, name='brang'   , xoff=0, yoff=-10, sind=4},
-      {mem_loc=HAS_BOMB,      enabled=true, name='bomb'    , xoff=7, yoff=-9, sind=5},
+   g_items = ztable[[
+      mem_loc=HAS_FORCE,     enabled=false, name=force   , xoff=-7, yoff=-9, sind=36;
+      mem_loc=HAS_BOOMERANG, enabled=false, name=brang   , xoff=0, yoff=-10, sind=4;
+      mem_loc=HAS_BOMB,      enabled=true, name=bomb    , xoff=7, yoff=-9, sind=5;
 
-      {mem_loc=HAS_SHIELD,    enabled=false, name='shield'  , xoff=-8, yoff=-3, sind=6},
-      {mem_loc=ALWAYS_TRUE,   enabled=true, name='interact', interact=true, xoff=0, yoff=-3, sind=false},
-      {mem_loc=HAS_BOW,       enabled=false, name='bow'     , xoff=8, yoff=-3, sind=7},
+      mem_loc=HAS_SHIELD,    enabled=false, name=shield  , xoff=-8, yoff=-3, sind=6;
+      mem_loc=ALWAYS_TRUE,   enabled=true, name=interact, interact=true, xoff=0, yoff=-3, sind=false;
+      mem_loc=HAS_BOW,       enabled=false, name=bow     , xoff=8, yoff=-3, sind=7;
 
-      {mem_loc=HAS_SHOVEL,    enabled=false, name='shovel'  , xoff=-7, yoff=4, sind=3},
-      {mem_loc=HAS_SWORD,     enabled=false, name='sword'   , xoff=0, yoff=6, sind=2},
-      {mem_loc=HAS_BANJO,     enabled=false, name='banjo'   , xoff=7, yoff=4, sind=1}
+      mem_loc=HAS_SHOVEL,    enabled=false, name=shovel  , xoff=-7, yoff=4, sind=3;
+      mem_loc=HAS_SWORD,     enabled=false, name=sword   , xoff=0, yoff=6, sind=2;
+      mem_loc=HAS_BANJO,     enabled=false, name=banjo   , xoff=7, yoff=4, sind=1;
    ]]
    zdset(ALWAYS_TRUE) -- interact should be true
    g_selected=G_INTERACT
