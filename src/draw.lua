@@ -45,14 +45,15 @@ function spr_out(sind, x, y, sw, sh, xf, yf, col)
    local ox, x_mult = outline_helper(xf, x, sw)
    local oy, y_mult = outline_helper(yf, y, sh)
 
-   foreach(g_out_cache[''..sind], function(r)
+   local out_tbl = g_out_cache[sind]
+   for i=1,#out_tbl,4 do
       rectfill(
-         ox+x_mult*r[1],
-         oy+y_mult*r[2],
-         ox+x_mult*r[3],
-         oy+y_mult*r[4],
+         ox+x_mult*out_tbl[i],
+         oy+y_mult*out_tbl[i+1],
+         ox+x_mult*out_tbl[i+2],
+         oy+y_mult*out_tbl[i+3],
       col)
-   end)
+   end
 end
 
 function tprint(str, x, y, c1, c2)
