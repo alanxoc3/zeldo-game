@@ -46,13 +46,15 @@ function spr_out(sind, x, y, sw, sh, xf, yf, col)
    local oy, y_mult = outline_helper(yf, y, sh)
 
    local out_tbl = g_out_cache[sind]
-   for i=1,#out_tbl,4 do
-      rectfill(
-         ox+x_mult*out_tbl[i],
-         oy+y_mult*out_tbl[i+1],
-         ox+x_mult*out_tbl[i+2],
-         oy+y_mult*out_tbl[i+3],
-      col)
+   if out_tbl then
+      for i=1,#out_tbl,4 do
+         rectfill(
+            ox+x_mult*out_tbl[i],
+            oy+y_mult*out_tbl[i+1],
+            ox+x_mult*out_tbl[i+2],
+            oy+y_mult*out_tbl[i+3],
+         col)
+      end
    end
 end
 

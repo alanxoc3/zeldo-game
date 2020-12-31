@@ -72,7 +72,6 @@ function batch_call_new(func, ...)
 end
 
 -- fails if key is empty.
-g_split_cache={}
 function zsplitkv(str, item_delim, kv_delim, val_func, expandable)
    local tbl, items = {}, split(str, item_delim)
 
@@ -137,12 +136,22 @@ function queue_operation(tbl, k, sub_key, v, operations)
       add(operations, {t=tbl, k=k, sk=sub_key, f=function()
          return _g[ft[1]](unpack(ftparams))
       end})
-   elseif v == 'true' or v == 'false' then return v=='true'
-   elseif v == 'nil' or v == '' then return nil
-   elseif v == 'nf' then return function() end
    end
 
-   return v
+   local vlist = {}
+   for x in all(split(v, '/')) do
+      if x == 'true' or x == 'false' then x = x=='true'
+      elseif x == 'nil' or x == '' then x = nil
+      elseif x == 'nf' then x = function() end
+      end
+      add(vlist, x)
+   end
+
+   if #vlist < 2 then
+      return vlist[1]
+   else
+      return vlist
+   end
 end
 
 -- Returns the parsed table, the current position, and the parameter locations

@@ -35,7 +35,7 @@ create_actor([['sign', 3, {'drawable','interactable'}]], [[
    trig_rx=.75, trig_ry=.625,
    x=@1, y=@2, text_obj=@3, interactable_trigger=@4
 ]], function(a)
-   tbox_with_obj(a.text_obj)
+   tbox_with_obj(split(a.text_obj, "^"))
 end)
 
 create_actor([['grave', 3, {'drawable','interactable'}]], [[
@@ -45,7 +45,7 @@ create_actor([['grave', 3, {'drawable','interactable'}]], [[
    trig_rx=.75, trig_ry=.625,
    x=@1, y=@2, text_obj=@3, interactable_trigger=@4
 ]], function(a)
-   tbox_with_obj(a.text_obj)
+   tbox_with_obj(split(a.text_obj, "^"))
 end)
 
 create_actor([['shop_brang', 2, {'shop_item'}]], [[
