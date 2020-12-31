@@ -93,6 +93,7 @@ g_ztable_cache = {}
 function ztable(str, ...)
    str = g_gunvals[0+str]
    local params = {...}
+   foreach(params, disable_tabcpy)
 
    if g_ztable_cache[str] == nil then
       local operations = {}

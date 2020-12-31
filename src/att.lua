@@ -5,7 +5,7 @@ g_act_arrs = {}
 
 -- params: str, opts
 function create_parent(...)
-   local id, par, pause_funcs, att = unpack(gun_vals(...))
+   local id, par, pause_funcs, att = unpack(ztable(...))
    _g[id] = function(a)
       a = a or {}
       return a[id] and a or attach_actor(id, par, pause_funcs, att, a)
