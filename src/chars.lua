@@ -24,11 +24,11 @@ function _g.memloc_money(mem_loc,money)
    end
 end
 
-function _g.npc_dance_logic(bad_text,good_text)
+function _g.npc_dance_logic(bad_text, good_text, good_trigger)
    return function(a)
       if g_pause_reason == 'dancing' then
          change_cur_ma(a)
-         tbox_with_obj(zdget'BANJO_TUNED' and good_text or bad_text)
+         tbox(zdget'BANJO_TUNED' and good_text or bad_text, zdget'BANJO_TUNED' and good_trigger)
       end
    end
 end

@@ -26,33 +26,22 @@ function tbox_interact()
    end
 end
 
--- Example tbox:
--- tbox([[
---    "line 1 is cool",
---    "line 2 is better though",
---    "line 3 anyone?",
---    trigger=@1
--- ]], function reboot() end)
-function tbox_with_obj(a)
-   g_tbox_messages.trigger = a.trigger or nf
-   for i=1,#a do
+function tbox(str, trigger)
+   g_tbox_messages.trigger = trigger or nf
+   for i, x in pairs(split(str, "^")) do
       if i % 2 == 1 then
-         add(g_tbox_messages, {l1=a[i], l2=''})
+         add(g_tbox_messages, {l1=x, l2=''})
       else
-         g_tbox_messages[#g_tbox_messages].l2=a[i]
+         g_tbox_messages[#g_tbox_messages].l2=x
       end
    end
 
    g_tbox_active = g_tbox_messages[1]
 end
 
-function tbox(...)
-   tbox_with_obj(gun_vals(...))
-end
-
 function _g.tbox_closure(obj)
    return function()
-      tbox_with_obj(obj)
+      tbox(obj)
    end
 end
 
