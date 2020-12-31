@@ -30,6 +30,23 @@ function create_actor(meta, template_str, ...)
    end
 end
 
+function ncreate_actor(meta, template_str, ...)
+   local template_params, id, provided, parents, pause_funcs = {...}, unpack(ztable(meta))
+
+   _g[id] = function(...)
+      local func_params, params = {...}, {}
+      for i=1,provided do
+         add(params, func_params[i] or false)
+      end
+
+      foreach(template_params, function(x)
+         add(params, x)
+      end)
+
+      return attach_actor(id, parents, pause_funcs or {}, ztable(template_str, unpack(params)), {})
+   end
+end
+
 -- opt: {id, att, par}
 function attach_actor(id, parents, pause_funcs, template, a)
    -- step 1: atts from parent

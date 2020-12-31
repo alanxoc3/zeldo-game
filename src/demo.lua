@@ -22,7 +22,7 @@ function _init()
       _g.fader_in(game_init, unpause)
    end, game_update, game_draw)
 
-   g_tl = { tl_game }
+   g_tl = { g_title, tl_game }
 
    inventory_init()
 end
