@@ -5,24 +5,23 @@ use experimental 'smartmatch';
 
 use Exporter;
 our @ISA = 'Exporter';
-our @EXPORT = qw(tokenize_lines populate_vars single_quotes_to_double remove_comments pop_text_logics remove_texts remove_spaces @lua_keywords @pico8_api multiline_string_replace);
+our @EXPORT = qw(tokenize_lines populate_vars single_quotes_to_double remove_comments pop_text_logics remove_texts remove_spaces @lua_keywords multiline_string_replace);
 
 our @lua_keywords = qw(
 break do else elseif end false for function goto if in local nil not or repeat
 return then true until while and n b0d0 P_TEXT_LOGIC table string boolean
 unknown number
-);
 
-our @pico8_api = qw(
-label screen rec video audio_rec audio_end pause reset breadcrumb shutdown
-g_gunvals_raw _init _update _update60 _draw setmetatable getmetatable cocreate coresume lshr
-costatus cd yield load save folder ls run resume reboot stat info flip printh
-clip pget pset sget sset fget fset print cursor color ceil cls camera circ
-circfill line rect rectfill pal palt spr sspr add del all foreach pairs btn
-btnp sfx music mget mset map peek peek2 poke2 peek4 poke4 poke memcpy reload
-cstore memset max min mid flr cos sin atan2 sqrt abs rnd srand band bor bxor
-bnot shl shr cartdata dget dset sub sgn stop menuitem type tostr tonum extcmd
-ls fillp time assert t _update_buttons count mapdraw self ? __index rotl
+unpack ord split label screen rec video audio_rec audio_end pause reset
+breadcrumb shutdown g_gunvals_raw _init _update _update60 _draw setmetatable
+getmetatable cocreate coresume lshr costatus cd yield load save folder ls run
+resume reboot stat info flip printh clip pget pset sget sset fget fset print
+cursor color ceil cls camera circ circfill line rect rectfill pal palt spr sspr
+add del all foreach pairs btn btnp sfx music mget mset map peek peek2 poke2
+peek4 poke4 poke memcpy reload cstore memset max min mid flr cos sin atan2 sqrt
+abs rnd srand band bor bxor bnot shl shr cartdata dget dset sub sgn stop
+menuitem type tostr tonum extcmd ls fillp time assert t _update_buttons count
+mapdraw self ? __index rotl
 );
 
 sub get_next_var_name {
@@ -45,7 +44,7 @@ sub get_next_var_name {
 
    @{$cur_chars_ref} = reverse(@new_char_arr);
    my $ret = join("", @{$cur_chars_ref});
-   if ($ret ~~ @pico8_api or $ret ~~ @lua_keywords) {
+   if ($ret ~~ @lua_keywords) {
       return get_next_var_name($cur_chars_ref);
    } else {
       return $ret;
@@ -121,7 +120,7 @@ sub populate_vars {
       my $line = $_;
       my @matches = ($line =~ /[\W]*\b([a-z_]\w*)/g);
       foreach(@matches) {
-         if (not ($_ ~~ @pico8_api or $_ ~~ @lua_keywords)) {
+         if (not ($_ ~~ @lua_keywords)) {
             if (not exists($vars{$_})) {
                $vars{$_} = 0;
             } else {
@@ -144,7 +143,7 @@ my @texts;
 sub text_logic {
    my $quote = shift;
    push @texts, $quote;
-   return "P_TEXT_LOGIC";
+   return "\"P_TEXT_LOGIC\"";
 }
 
 # Removes tbox texts, similar to removing comments. ($|, "|)
@@ -153,7 +152,7 @@ sub remove_texts {
 
    for (@_) {
       my $line = $_;
-      $line =~ s/(\".*?\")/text_logic($1)/ge;
+      $line =~ s/\"(.*?)\"/text_logic($1)/ge;
       push @new_lines, $line;
    }
 
@@ -196,7 +195,7 @@ sub test_eval {
    my $var = shift;
    my $vars_ref = shift;
 
-   if (not ($var ~~ @pico8_api or $var ~~ @lua_keywords)) {
+   if (not ($var ~~ @lua_keywords)) {
       if (exists($vars_ref->{$var})) {
          $var = $vars_ref->{$var};
       }

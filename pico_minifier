@@ -196,11 +196,9 @@ chomp(@lines);
 @lines = tokenize_lines(\@lines, \%constants);
 @lines = remove_texts(@lines);
 @lines = single_quotes_to_double(@lines);
+@lines = remove_spaces(@lines);
 
-if ($dev_mode) {
-   @lines = remove_spaces(@lines);
-} else {
-   @lines = remove_spaces(@lines);
+if (not $dev_mode) {
    my %vars = populate_vars(@lines);
    @lines = tokenize_lines(\@lines, \%vars);
 }
