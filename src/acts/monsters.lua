@@ -1,5 +1,5 @@
 -- SECTION: MONSTERS
-ncreate_actor([[slimy;2;drawable,bounded,danceable,confined,stunnable,mov,col,tcol,hurtable,knockable,spr_obj,spr]], [[
+create_actor([[slimy;2;drawable,bounded,danceable,confined,stunnable,mov,col,tcol,hurtable,knockable,spr_obj,spr]], [[
    x:@1;y:@2;
    max_health:3;health:3;
    name:"slimy";evil:true;tl_loop:true;
@@ -30,7 +30,7 @@ end, function(a, other, ...)
    call_not_nil(other, 'knockback', other, .4, ...)
 end, look_at_pl)
 
-ncreate_actor([[topy;2;drawable,bounded,danceable,confined,stunnable,mov,col,tcol,hurtable,knockable,anim,spr]], [[
+create_actor([[topy;2;drawable,bounded,danceable,confined,stunnable,mov,col,tcol,hurtable,knockable,anim,spr]], [[
    max_health:10; health:10;
    name:"topy";
    evil:true;
@@ -114,7 +114,7 @@ end)
 --    end, destroy_func
 -- )
 
-ncreate_actor([[kluck;2;drawable,loopable,bounded,confined,stunnable,mov,col,tcol,hurtable,knockable,spr,danceable]], [[
+create_actor([[kluck;2;drawable,loopable,bounded,confined,stunnable,mov,col,tcol,hurtable,knockable,spr,danceable]], [[
    name:"kluck";
    evil:true;
    x:@1;y:@2;

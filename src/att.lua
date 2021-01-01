@@ -12,25 +12,7 @@ function create_parent(...)
    end
 end
 
--- params: {id, provided, parents}, str, ...
 function create_actor(meta, template_str, ...)
-   local template_params, id, provided, parents, pause_funcs = {...}, unpack(gun_vals(meta))
-
-   _g[id] = function(...)
-      local func_params, params = {...}, {}
-      for i=1,provided do
-         add(params, func_params[i] or false)
-      end
-
-      foreach(template_params, function(x)
-         add(params, x)
-      end)
-
-      return attach_actor(id, parents, pause_funcs or {}, gun_vals(template_str, unpack(params)), {})
-   end
-end
-
-function ncreate_actor(meta, template_str, ...)
    local template_params, id, provided, parents, pause_funcs = {...}, unpack(ztable(meta))
 
    _g[id] = function(...)

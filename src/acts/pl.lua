@@ -1,7 +1,7 @@
 -- SECTION: NPC
 -- SECTION: PL
-create_actor([['lank_top', 1, {'rel','spr_obj','danceable'}]], [[
-      rel_actor=@1, sind=147, iyy=-2, u=@2, pause_update=@3
+create_actor([[lank_top;1;rel,spr_obj,danceable]], [[
+   rel_actor:@1;sind:147;iyy:-2;u:@2;pause_update:@3;
 ]], function(a)
    a.xf, a.alive = g_pl.xf, g_pl.alive
 
@@ -20,12 +20,15 @@ end, function(a)
 end
 )
 
-create_actor([['grabbed_item', 4, {'rel','spr_obj'}]], [[
-   rel_actor=@1, sind=@2, iyy=@3, create_func=@4,
-   throwable=true,
-   flippable=true,
-   being_held=true,
-   {i=@6, throwing=false, tl_max_time=.2}, { i=nf, u=@5 }, { throwing=true, visible=false, tl_max_time=.05 }
+create_actor([[grabbed_item;4;rel,spr_obj]], [[
+   rel_actor:@1;sind:@2;iyy:@3;create_func:@4;
+   throwable:true;
+   flippable:true;
+   being_held:true;
+
+   i=@6,throwing=false,tl_max_time=.2;
+   i=nf,u=@5;
+   throwing=true,visible=false,tl_max_time=.05;
 ]], function(a)
    if btnp'4' or btn'5' then
       sfx'6'
@@ -36,11 +39,10 @@ end, function(a)
    sfx'5'
 end)
 
-create_actor([['fairy', 1, {'drawable', 'mov', 'move_pause'}, {'u'}]], [[
-   rel_actor=@1, sind=52, u=@2, off_x=1, off_y=0, d=@3,
-   fg=12, bg=6,
-   -- fg=1, bg=2,
-    room_init=@4
+create_actor([[fairy;1;drawable,mov,move_pause;u,]], [[
+   rel_actor:@1;sind:52;u:@2;off_x:1;off_y:0;d:@3;
+   fg:12;bg:6;--fg:1;bg:2;
+   room_init:@4;
 ]], function(a)
    local act = get_cur_ma() or a.rel_actor
 
@@ -62,22 +64,20 @@ end, function(a)
    a.y = a.rel_actor.y
 end)
 
-create_actor(
-[['pl', 2,
-   {'drawable','anim','col','mov','tcol','hurtable','knockable','stunnable','spr','danceable'}]], [[
-   name="lank", x=@1,
-   y=@2,
-   sinds={144, 145, 146},
-   sind=144,
-   rx=.375,
-   ry=.375,
-   iyy=-2,
-   spd=.02,
-   anim_len=3,
-   anim_spd=5,
-   max_health=LANK_START_HEALTH,
-   health=LANK_START_HEALTH,
-   i=@3, u=@4, destroyed=@5, d=@6, room_init=@7, set_color=@8
+create_actor([[pl;2;drawable,anim,col,mov,tcol,hurtable,knockable,stunnable,spr,danceable]], [[
+   name:"lank";x:@1;
+   y:@2;
+   sinds:144,145,146;
+   sind:144;
+   rx:.375;
+   ry:.375;
+   iyy:-2;
+   spd:.02;
+   anim_len:3;
+   anim_spd:5;
+   max_health:LANK_START_HEALTH;
+   health:LANK_START_HEALTH;
+   i:@3;u:@4;destroyed:@5;d:@6;room_init:@7;set_color:@8;
 ]], function(a)
    a.ltop = _g.lank_top(a)
 end, function(a)
