@@ -1,18 +1,18 @@
 -- SECTION: MONSTERS
-create_actor([['slimy', 2, {'drawable','bounded','danceable','confined','stunnable','mov','col','tcol','hurtable','knockable','spr_obj', 'spr'}]], [[
-   x=@1, y=@2,
-   max_health=3, health=3,
-   name="slimy", evil=true, tl_loop=true,
-   rx=.25, ry=.25,
-   iyy=-2,
-   sind=118,
-   anim_len=1,
-   touchable=true,
-   hurt_func=@9,
+create_actor([[slimy;2;drawable,bounded,danceable,confined,stunnable,mov,col,tcol,hurtable,knockable,spr_obj,spr]], [[
+   x:@1;y:@2;
+   max_health:3;health:3;
+   name:"slimy";evil:true;tl_loop:true;
+   rx:.25;ry:.25;
+   iyy:-2;
+   sind:118;
+   anim_len:1;
+   touchable:true;
+   hurt_func:@9;
 
-   {i=@5, hit=nf, u=@8, tl_max_time=3},
-   {i=nf, hit=nf, u=@3, e=@6, tl_max_time=.25},
-   {i=nf, hit=@7, u=@4, e=@6, tl_max_time=.25},
+   i=@5,hit=nf,u=@8,tl_max_time=3;
+   i=nf,hit=nf,u=@3,e=@6,tl_max_time=.25;
+   i=nf,hit=@7,u=@4,e=@6,tl_max_time=.25;
 ]], function(a)
    look_at_pl(a)
    a.ixx = rnd_one()
@@ -30,23 +30,23 @@ end, function(a, other, ...)
    call_not_nil(other, 'knockback', other, .4, ...)
 end, look_at_pl)
 
-create_actor([['topy', 2, {'drawable','bounded','danceable','confined','stunnable','mov','col','tcol','hurtable','knockable','anim','spr'}]], [[
-   max_health=10, health=10,
-   name="topy",
-   evil=true,
-   x=@1, y=@2,
-   rx=.375, ry=.375,
-   tl_loop=true,
-   iyy=-2,
-   sinds={112,113},
-   anim_len=1,
-   touchable=true,
-   destroyed=@8,
-   hurt_func=@9,
+create_actor([[topy;2;drawable,bounded,danceable,confined,stunnable,mov,col,tcol,hurtable,knockable,anim,spr]], [[
+   max_health:10; health:10;
+   name:"topy";
+   evil:true;
+   x:@1;y:@2;
+   rx:.375;ry:.375;
+   tl_loop:true;
+   iyy:-2;
+   sinds:112,113;
+   anim_len:1;
+   touchable:true;
+   destroyed:@8;
+   hurt_func:@9;
 
-   {i=@4, hit=nf, u=nf, tl_max_time=.5},
-   {i=@7, hit=nf, u=@5, tl_max_time=.5},
-   {i=@6, hit=@3, u=nf, tl_max_time=1}
+   i=@4,hit=nf,u=nf,tl_max_time=.5;
+   i=@7,hit=nf,u=@5,tl_max_time=.5;
+   i=@6,hit=@3,u=nf,tl_max_time=1;
 ]], function(a, other, ...)
    call_not_nil(other, 'knockback', other, .3, ...)
 
@@ -114,18 +114,16 @@ end)
 --    end, destroy_func
 -- )
 
-create_actor([['kluck', 2, {'drawable','loopable','bounded','confined','stunnable','mov','col','tcol','hurtable','knockable','spr','danceable'}]], [[
-   name="kluck",
-   evil=true,
-   x=@1, y=@2,
-   rx=.375, ry=.375,
-   sind=32,
-   destroyed=@4,
+create_actor([[kluck;2;drawable,loopable,bounded,confined,stunnable,mov,col,tcol,hurtable,knockable,spr,danceable]], [[
+   name:"kluck";
+   evil:true;
+   x:@1;y:@2;
+   rx:.375;ry:.375;
+   sind:32;
+   destroyed:@4;
 
-   {i=@3, tl_max_time=.5}
+   i=@3,tl_max_time=.5;
 ]], function(a)
    a.ax, a.ay = rnd_one(.01), rnd_one(.01)
    a.xf = a.ax < 0
-end, destroy_func
-)
-
+end, destroy_func)

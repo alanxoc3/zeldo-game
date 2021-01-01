@@ -1,10 +1,10 @@
 -- TODO: refactor the save platform!
-create_actor([['save_spot', 2, {'confined','trig','drawable_obj'}]], [[
-      name="save spot",
-      rx=.625, ry=.625,
-      x=@1, y=@2,
-      intersects=@3, contains=@3,
-      pause_end=@4, not_contains_or_intersects=@5
+create_actor([[save_spot;2;confined,trig,drawable_obj]], [[
+   name:"save spot";
+   rx:.625;ry:.625;
+   x:@1;y:@2;
+   intersects:@3;contains:@3;
+   pause_end:@4;not_contains_or_intersects:@5;
 ]], function(a)
    change_cur_ma(a)
 end, function(a)
@@ -15,10 +15,7 @@ end, function(a)
             tbox[["the game has been saved!"]]
          else
             sfx'7'
-            tbox[[
-               "the game won't save for",
-               "bad banjo players."
-            ]]
+            tbox[["the game won't save for^terrible music."]]
          end
       end
    end
@@ -28,41 +25,42 @@ end, function(a)
    end
 end)
 
-create_actor([['sign', 3, {'drawable','interactable'}]], [[
-   name="sign", sind=43,
-   rx=.5,      ry=.5,
-   trig_x=0,   trig_y=.125,
-   trig_rx=.75, trig_ry=.625,
-   x=@1, y=@2, text_obj=@3, interactable_trigger=@4
+create_actor([[sign;3;drawable,interactable]], [[
+   name:"sign";sind:43;
+   rx:.5;ry:.5;
+   trig_x:0;trig_y:.125;
+   trig_rx:.75;trig_ry:.625;
+   x:@1;y:@2;text_obj:@3;interactable_trigger:@4;
 ]], function(a)
-   tbox_with_obj(a.text_obj)
+   tbox(a.text_obj)
 end)
 
-create_actor([['grave', 3, {'drawable','interactable'}]], [[
-   name="grave", sind=45,
-   rx=.5,      ry=.5,
-   trig_x=0,   trig_y=.125,
-   trig_rx=.75, trig_ry=.625,
-   x=@1, y=@2, text_obj=@3, interactable_trigger=@4
+create_actor([[grave;3;drawable,interactable]], [[
+   name:"grave";sind:45;
+   rx:.5;ry:.5;
+   trig_x:0;trig_y:.125;
+   trig_rx:.75;trig_ry:.625;
+   x:@1;y:@2;text_obj:@3;interactable_trigger:@4;
 ]], function(a)
-   tbox_with_obj(a.text_obj)
+   tbox(a.text_obj)
 end)
 
-create_actor([['shop_brang', 2, {'shop_item'}]], [[
-   name="brang", sind=4,
-   x=@1, y=@2, mem_loc=HAS_BOOMERANG
+create_actor([[shop_brang;2;shop_item,]], [[
+   name:"brang";sind:4;
+   x:@1;y:@2;mem_loc:HAS_BOOMERANG;
 ]])
 
-create_actor([['shop_shield', 2, {'shop_item'}]], [[
-   name="shield", sind=6,
-   x=@1, y=@2, mem_loc=HAS_SHIELD
+create_actor([[shop_shield;2;shop_item,]], [[
+   name:"shield";sind:6;
+   x:@1;y:@2;mem_loc:HAS_SHIELD;
 ]])
 
 -- for the chest.
-create_actor([['item_show', 3, {'post_drawable', 'confined', 'spr','rel'}, {'update'}]], [[
-   rel_actor=@1, sind=@2, mem_loc=@3,
-   rel_y=-1.125,
-   {tl_max_time=2, e=@4}
+create_actor([[item_show;3;post_drawable,confined,spr,rel;update,]], [[
+   rel_actor:@1;sind:@2;mem_loc:@3;
+   rel_y:-1.125;
+
+   tl_max_time=2,e=@4;
 ]], function(a)
    unpause()
    resume_music()
@@ -78,14 +76,15 @@ end
 -- Not sure if we need this...
 -- triggers_template={{rel_x, rel_y, rx, ry, func}},
 
-create_actor([['chest', 4, {'drawable','interactable'}, {'update'}]], [[
-   name="chest",
-   sind=50,rx=.375,ry=.375,
-   x=@1, y=@2, xf=@3, mem_loc=@4,
-   trig_y=0,
-   trig_rx=.5,  trig_ry=.375,
-   interactable_trigger=@6,
-   {i=@5}, {i=nf, interactable_trigger=nf, sind=51}
+create_actor([[chest;4;drawable,interactable;update,]], [[
+   name:"chest";
+   sind:50;rx:.375;ry:.375;
+   x:@1;y:@2;xf:@3;mem_loc:@4;
+   trig_y:0;
+   trig_rx:.5;trig_ry:.375;
+   interactable_trigger:@6;
+
+   i=@5,;i=nf,interactable_trigger=nf,sind=51;
 ]], function(a)
    a.tl_next = zdget(a.mem_loc)
    a.trig_x = a.xf and -.125 or .125
@@ -98,9 +97,9 @@ end, function(a)
 end
 )
 
-create_actor([['gen_trigger_block', 7, {'rel', 'confined', 'trig'}]], [[
-   rel_actor=@1, rel_x=@2, rel_y=@3, rx=@4, ry=@5, contains=@6, intersects=@7,
-   not_contains_or_intersects=@8
+create_actor([[gen_trigger_block;7;rel,confined,trig]], [[
+   rel_actor:@1;rel_x:@2;rel_y:@3;rx:@4;ry:@5;contains:@6;intersects:@7;
+   not_contains_or_intersects:@8;
 ]], function(a)
    if get_cur_ma() == a.rel_actor then
       change_cur_ma()
@@ -109,10 +108,10 @@ end
 )
 
 -- todo: trim code here.
-create_actor([['house', 6, {'drawable','confined','spr'}]], [[
-   x=@1, y=@2, room=@3, room_x=@4, room_y=@5, sind=@6,
-   i=@7, destroyed=@8,
-   iyy=-4, sw=2, sh=2
+create_actor([[house;6;drawable,confined,spr]], [[
+   x:@1;y:@2;room:@3;room_x:@4;room_y:@5;sind:@6;
+   i:@7;destroyed:@8;
+   iyy:-4;sw:2;sh:2;
 ]], function(a)
    a.b1 = _g.static_block(a.x-.75,a.y, .25, .5)
    a.b2 = _g.static_block(a.x+.75,a.y, .25, .5)
@@ -128,14 +127,15 @@ end
 )
 
 -- SECTION: OBJECTS
-create_actor([['money', 4, {'drawable','bounded','confined','tcol','spr','col','mov'}]], [[
-   sind=36,rx=.125,ry=.125,
-   x=@1, y=@2, dx=@3, dy=@4,
-   touchable=false,
-   hit=@5,
-   destroyed=@7,
-   {tl_max_time=5},
-   {i=@6}
+create_actor([[money;4;drawable,bounded,confined,tcol,spr,col,mov]], [[
+   sind:36;rx:.125;ry:.125;
+   x:@1;y:@2;dx:@3;dy:@4;
+   touchable:false;
+   hit:@5;
+   destroyed:@7;
+
+   tl_max_time=5,;
+   i=@6,;
 ]],
 function(a, other)
    if other.pl then
@@ -148,16 +148,17 @@ end, function(a)
    destroy_effect(a, 9, 1, 6, 7, 13, 12)
 end)
 
-create_actor([['static_block', 4, {'confined', 'wall'}]], [[
-   x=@1, y=@2, rx=@3, ry=@4,
-   static=true,
-   touchable=true
+create_actor([[static_block;4;confined,wall]],[[
+   x:@1;y:@2;rx:@3;ry:@4;
+   static:true;
+   touchable:true;
 ]]
 )
 
-create_actor([['thing_destroyed', 3, {'confined', 'mov', 'drawable', 'bounded'}, {'update'}]], [[
-   parent=@1, c=@2, d=@5,
-   {i=@4, tl_max_time=@3}
+create_actor([[thing_destroyed;3;confined,mov,drawable,bounded;update,]], [[
+   parent:@1;c:@2;d:@5;
+
+   i=@4,tl_max_time=@3;
 ]], function(a)
    local p = a.parent
    a.x = p.x+p.ixx/8 + rnd(.25)-.125
@@ -168,16 +169,17 @@ end, function(a)
    scr_pset(a.x, a.y, a.c)
 end)
 
-create_actor([['pot_projectile', 3, {'drawable','col', 'confined', 'mov', 'spr', 'bounded', 'tcol'}]], [[
-   tile_solid=true,
-   sind=49,
-   x=@1, y=@2, xf=@3,
-   touchable=false,
-   i=@4,
-   destroyed=@6,
-   hit=@7,
-   tile_hit=@8,
-   { u=@5, tl_max_time=.3 }
+create_actor([[pot_projectile;3;drawable,col,confined,mov,spr,bounded,tcol]], [[
+   tile_solid:true;
+   sind:49;
+   x:@1;y:@2;xf:@3;
+   touchable:false;
+   i:@4;
+   destroyed:@6;
+   hit:@7;
+   tile_hit:@8;
+
+   u=@5,tl_max_time=.3;
 ]], function(a)
    a.ax = bool_to_num(a.xf)*.04
 end, function(a)
@@ -197,12 +199,12 @@ end, function(a)
 end)
 
 -- x, y, sind
-create_actor([['pot', 2, {'drawable','bounded','confined','tcol','spr','col','mov'}]], [[
-   static=true,
-   rx=.375,ry=.375,
-   x=@1, y=@2, sind=49,
-   touchable=true,
-   i=@3
+create_actor([[pot;2;drawable,bounded,confined,tcol,spr,col,mov]], [[
+   static:true;
+   rx:.375;ry:.375;
+   x:@1;y:@2;sind:49;
+   touchable:true;
+   i:@3;
 ]], function(a)
    _g.gen_trigger_block(a, 0, 0, .5, .5, nf, function(trig, other)
       if btnp(4) and not other.item then
@@ -216,21 +218,21 @@ end
 )
 
 -- TODO: Bomb support.
-create_actor([['box', 2, {'drawable','confined','wall','spr','col'}]], [[
-   static=true,
-   rx=.375,ry=.375, sind=35, x=@1, y=@2
+create_actor([[box;2;drawable,confined,wall,spr,col]], [[
+   static:true;
+   rx:.375;ry:.375;sind:35;x:@1;y:@2;
 ]])
 
-create_actor([['tall_tree', 2, {'drawable','confined','wall','spr','col'}]], [[
-   static=true,
-   sw=1, sh=2, iyy=-4,
-   rx=.5,ry=.5, sind=26, x=@1, y=@2
+create_actor([[tall_tree;2;drawable,confined,wall,spr,col]], [[
+   static:true;
+   sw:1;sh:2;iyy:-4;
+   rx:.5;ry:.5;sind:26;x:@1;y:@2;
 ]])
 
-create_actor([['spikes', 3, {'trig','pre_drawable','confined','spr'}]], [[
-   static=true, touchable=false,
-   rx=.375, ry=.375, sind=54, x=@1, y=@2, offset=@3, u=@4,
-   intersects=@5, contains=@5, i=@6
+create_actor([[spikes;3;trig,pre_drawable,confined,spr]], [[
+   static:true;touchable:false;
+   rx:.375;ry:.375;sind:54;x:@1;y:@2;offset:@3;u:@4;
+   intersects:@5;contains:@5;i:@6;
 ]], function(a)
     if (a.tl_tim + a.offset) % 1 < .75 then
         a.sind = 54

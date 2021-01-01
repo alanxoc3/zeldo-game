@@ -70,25 +70,26 @@
 -- end
 -- )
 
-create_actor([['brang', 1, {'confined','anim','col','mov', 'tcol'}]], [[
-   did_brang_hit=false,
-   tile_solid=false,
-   rel_actor=@1,
-   being_held=true,
-   rx=.375,
-   ry=.375,
-   sinds={4,19,20,21},
-   anim_len=4,
-   anim_spd=3,
-   ix=.8, iy=.8,
-   touchable=false,
-   tile_hit=@10,
-   item_slow=true,
+create_actor([[brang;1;confined,anim,col,mov,tcol]], [[
+   did_brang_hit:false;
+   tile_solid:false;
+   rel_actor:@1;
+   being_held:true;
+   rx:.375;
+   ry:.375;
+   sinds:4,19,20,21;
+   anim_len:4;
+   anim_spd:3;
+   ix:.8;
+   iy:.8;
+   touchable:false;
+   tile_hit:@10;
+   item_slow:true;
 
-   {i=@2, hit=@3, u=@4, tl_max_time=.1},
-   {i=nf, hit=@5, u=@6, tl_max_time=.75},
-   {ax=0, ay=0, dx=0, dy=0, i=@9, hit=nf, u=@4, tl_max_time=.15},
-   {i=nf, hit=@7, u=@8, tl_max_time=3}
+   i=@2,hit=@3,u=@4,tl_max_time=.1;
+   i=nf,hit=@5,u=@6,tl_max_time=.75;
+   ax=0,ay=0,dx=0,dy=0,i=@9,hit=nf,u=@4,tl_max_time=.15;
+   i=nf,hit=@7,u=@8,tl_max_time=3;
 ]], function(a) -- init 1
    a.x, a.y = a.rel_actor.x, a.rel_actor.y
    a.xf = a.rel_actor.xf
@@ -137,15 +138,16 @@ end
 )
 
 -- SECTION: INVENTORY
-create_actor([['banjo', 1, {'item','danceable'}, {'update'}]], [[
-   rel_actor=@1,
-   rx=.3,
-   ry=.3,
-   sind=1,
-   touchable=false,
-   item_stop=true,
-   e=@3,
-   {tl_name='loop', i=@2, tl_max_time=4.25}
+create_actor([[banjo;1;item,danceable;update,]], [[
+   rel_actor:@1;
+   rx:.3;
+   ry:.3;
+   sind:1;
+   touchable:false;
+   item_stop:true;
+   e:@3;
+
+   tl_name=loop,i=@2,tl_max_time=4.25;
 ]], function(a)
    a.rel_y = 0
    a.xf = a.rel_actor.xf
@@ -222,53 +224,53 @@ end
 -- end
 -- )
 
-create_actor([['sword', 1, {'item','col','bashable','pokeable'}]], [[
-   item_slow=true,
-   rel_actor=@1,
-   rel_bash_dx=.4,
-   max_stun_val=20,
-   min_stun_val=10,
-   energy=10,
-   poke_val=10,
-   poke_dist=1,
-   rx=.5,
-   ry=.375,
-   rel_y=0,
-   iyy=-2,
-   sind=2,
-   touchable=false,
-   poke_energy=15,
-   poke_ixx=2,
+-- create_actor([['sword', 1, {'item','col','bashable','pokeable'}]], [[
+--    item_slow=true,
+--    rel_actor=@1,
+--    rel_bash_dx=.4,
+--    max_stun_val=20,
+--    min_stun_val=10,
+--    energy=10,
+--    poke_val=10,
+--    poke_dist=1,
+--    rx=.5,
+--    ry=.375,
+--    rel_y=0,
+--    iyy=-2,
+--    sind=2,
+--    touchable=false,
+--    poke_energy=15,
+--    poke_ixx=2,
+-- 
+--    {hurt_amount=5, bash_dx=.3, hit=@2, tl_max_time=.1},
+--    {i=nf, u=@3, e=nf, hurt_amount=2,  bash_dx=.1, hit=@2}
+-- ]], sword_hit, sword_shield_u2)
 
-   {hurt_amount=5, bash_dx=.3, hit=@2, tl_max_time=.1},
-   {i=nf, u=@3, e=nf, hurt_amount=2,  bash_dx=.1, hit=@2}
-]], sword_hit, sword_shield_u2)
-
-create_actor([['shield', 1, {'item','bashable','pokeable'}]], [[
-   item_slow=true,
-   rel_actor=@1,
-   rel_bash_dx=.1,
-   max_stun_val=60,
-   min_stun_val=0,
-   energy=2,
-   poke_val=10,
-   o_hurt=0,
-   poke_dist=.625,
-   block=true,
-   rx=.25,
-   ry=.5,
-   iyy=-1,
-   sind=6,
-   touchable=false,
-   poke_energy=10,
-   poke_ixx=0,
-
-   {hit=@2, bash_dx=.4, tl_max_time=.1},
-   {u=@3, tl_max_time=.1},
-   {hit=@2, i=nf, u=@3, e=nf, bash_dx=.2}
-]], function(a, other)
-   if other != a.rel_actor and a.tl_cur < 3 then
-      call_not_nil(other, 'hurt', other, 0, 30)
-   end
-   a:bash(other)
-end, sword_shield_u2)
+-- create_actor([['shield', 1, {'item','bashable','pokeable'}]], [[
+--    item_slow=true,
+--    rel_actor=@1,
+--    rel_bash_dx=.1,
+--    max_stun_val=60,
+--    min_stun_val=0,
+--    energy=2,
+--    poke_val=10,
+--    o_hurt=0,
+--    poke_dist=.625,
+--    block=true,
+--    rx=.25,
+--    ry=.5,
+--    iyy=-1,
+--    sind=6,
+--    touchable=false,
+--    poke_energy=10,
+--    poke_ixx=0,
+-- 
+--    {hit=@2, bash_dx=.4, tl_max_time=.1},
+--    {u=@3, tl_max_time=.1},
+--    {hit=@2, i=nf, u=@3, e=nf, bash_dx=.2}
+-- ]], function(a, other)
+--    if other != a.rel_actor and a.tl_cur < 3 then
+--       call_not_nil(other, 'hurt', other, 0, 30)
+--    end
+--    a:bash(other)
+-- end, sword_shield_u2)

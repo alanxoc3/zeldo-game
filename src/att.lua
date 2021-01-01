@@ -5,16 +5,15 @@ g_act_arrs = {}
 
 -- params: str, opts
 function create_parent(...)
-   local id, par, pause_funcs, att = unpack(gun_vals(...))
+   local id, par, pause_funcs, att = unpack(ztable(...))
    _g[id] = function(a)
       a = a or {}
       return a[id] and a or attach_actor(id, par, pause_funcs, att, a)
    end
 end
 
--- params: {id, provided, parents}, str, ...
 function create_actor(meta, template_str, ...)
-   local template_params, id, provided, parents, pause_funcs = {...}, unpack(gun_vals(meta))
+   local template_params, id, provided, parents, pause_funcs = {...}, unpack(ztable(meta))
 
    _g[id] = function(...)
       local func_params, params = {...}, {}
@@ -26,7 +25,7 @@ function create_actor(meta, template_str, ...)
          add(params, x)
       end)
 
-      return attach_actor(id, parents, pause_funcs or {}, gun_vals(template_str, unpack(params)), {})
+      return attach_actor(id, parents, pause_funcs or {}, ztable(template_str, unpack(params)), {})
    end
 end
 

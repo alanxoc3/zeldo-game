@@ -1,17 +1,18 @@
 function array_to_string(any)
   if type(any)~="table" then return tostr(any) end
-  local str = "{"
+  local str = ""
   for v in all(any) do
-     if str~="{" then str=str.."," end
-     str=str..tostr(v)
+     str=str..tostr(v)..","
   end
-  return str.."}"
+  return sub(str, 1, #str-1)
 end
 
 function printarr(arr)
+   local str = ""
    for i=1,#arr do
-      printh(" "..array_to_string(arr[i])..((i == #arr) and "" or ","))
+      str = str..array_to_string(arr[i])..((i == #arr) and "" or ",")
    end
+   return str
 end
 
 function does_a_contain_b(a, b)
@@ -97,10 +98,8 @@ for i=0,255 do
   end
 end
 
-printh("g_out_cache=gun_vals[[")
+printh("g_out_cache=ztable[[")
 for k,v in pairs(g_out_cache) do
-   printh(""..k.."={")
-   printarr(v)
-   printh("},")
+   printh(k..":"..printarr(v)..";")
 end
 printh("]]")

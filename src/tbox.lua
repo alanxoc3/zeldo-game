@@ -26,33 +26,22 @@ function tbox_interact()
    end
 end
 
--- Example tbox:
--- tbox([[
---    "line 1 is cool",
---    "line 2 is better though",
---    "line 3 anyone?",
---    trigger=@1
--- ]], function reboot() end)
-function tbox_with_obj(a)
-   g_tbox_messages.trigger = a.trigger or nf
-   for i=1,#a do
+function tbox(str, trigger)
+   g_tbox_messages.trigger = trigger or nf
+   for i, x in pairs(split(str, "^")) do
       if i % 2 == 1 then
-         add(g_tbox_messages, {l1=a[i], l2=''})
+         add(g_tbox_messages, {l1=x, l2=''})
       else
-         g_tbox_messages[#g_tbox_messages].l2=a[i]
+         g_tbox_messages[#g_tbox_messages].l2=x
       end
    end
 
    g_tbox_active = g_tbox_messages[1]
 end
 
-function tbox(...)
-   tbox_with_obj(gun_vals(...))
-end
-
 function _g.tbox_closure(obj)
    return function()
-      tbox_with_obj(obj)
+      tbox(obj)
    end
 end
 
@@ -65,9 +54,9 @@ function ttbox_draw(x, y)
       zrect(1,2,103,17)
 
       -- print the message
-      batch_call(zprint, [[
-         {@1, 3, 3,  -1, FG_WHITE, BG_WHITE},
-         {@2, 3, 11, -1, FG_WHITE, BG_WHITE}
+      batch_call_new(zprint, [[
+         @1, 3, 3,  -1, FG_WHITE, BG_WHITE;
+         @2, 3, 11, -1, FG_WHITE, BG_WHITE;
       ]],
          sub(g_tbox_active.l1, 1, g_tbox_anim),
          sub(g_tbox_active.l2, 0, max(g_tbox_anim - #g_tbox_active.l1, 0))

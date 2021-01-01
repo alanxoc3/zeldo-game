@@ -68,6 +68,7 @@ sub multiline_string_replace {
 
    my $gunval_strs = "g_gunvals_raw=[[";
    foreach my $name (sort { $multiline_strings{$a} <=> $multiline_strings{$b} } keys %multiline_strings) {
+      $name =~ s/\n//g;
       $gunval_strs = $gunval_strs . $name . "|";
    }
    $gunval_strs = $gunval_strs . "]]";
