@@ -155,79 +155,12 @@ function queue_operation(tbl, k, sub_key, v, operations)
    end
 end
 
--- Returns the parsed table, the current position, and the parameter locations
-function gun_vals_helper(val_str,i,new_params,func_calls)
-   local val_list, val, val_ind, isnum, val_key, str_mode = {}, '', 1, true
-
-   while i <= #val_str do
-      local x = sub(val_str, i, i)
-      if     x == '\"' then str_mode, isnum = not str_mode
-      elseif str_mode then val=val..x
-      elseif x == '}' or x == ',' then
-         if type(val) == 'table' or not isnum then
-         elseif ord(val,1) == 64 then -- @ sign
-            local sec = sub(val,2)+0
-            assert(sec != nil)
-            if not new_params[sec] then new_params[sec] = {} end
-            add(new_params[sec], {val_list, val_key or val_ind})
-         elseif val == 'nf' then val = nf
-         elseif val == 'true' or val == 'false' then val=val=='true'
-         elseif val == 'nil' or val == '' then val=nil
-         elseif isnum then val=tonum(val)
-         end
-
-         val_list[val_key or val_ind], isnum, val, val_ind, val_key = val, true, '', val_key and val_ind or val_ind+1
-
-         if x == '}' then
-            return val_list, i
-         end
-      elseif x == '{' then
-         local ret_val = nil
-         ret_val, i, isnum = gun_vals_helper(val_str,i+1,new_params,func_calls)
-         if val ~= "" then -- macro mode
-            add(func_calls, {val_list, val_key or val_ind, ret_val, val})
-         end
-         val = ret_val
-      elseif x == '=' then isnum, val_key, val = true, val, ''
-      elseif x == '#' then isnum, val_key, val = true, tonum(val), ''
-      elseif x != " " and x != '\n' then val=val..x end
-      i += 1
-   end
-
-   return val_list, i, new_params, func_calls
-end
-
--- Supports variable arguments, true, false, nil, nf, numbers, and strings.
-param_cache = {}
-function gun_vals_global(val_str, ...)
-   val_str = g_gunvals[0+val_str]
-   -- there is global state logic in here. you have been warned.
-   if not param_cache[val_str] then
-      param_cache[val_str] = { gun_vals_helper(val_str..',',1,{},{}) }
-   end
-
-   local params, lookup = {...}, param_cache[val_str]
-   for k,v in pairs(lookup[3]) do
-      foreach(lookup[3][k], function(x)
-         x[1][x[2]] = disable_tabcpy(params[k])
-      end)
-   end
-
-   foreach(lookup[4], function(x)
-      x[1][x[2]] = disable_tabcpy(_g[x[4]](unpack(x[3])))
-   end)
-
-   return lookup[1]
-end
-
 function disable_tabcpy(t)
    if type(t) == 'table' then
       t.is_tabcpy_disabled = true
    end
    return t
 end
-
-function gun_vals(...) return tabcpy(gun_vals_global(...)) end
 
 -- Assumes that each parent node has at least one item in it.
 -- Example: tl_node(actor, actor)
