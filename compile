@@ -28,5 +28,6 @@ src/acts/*
 src/demo.lua
 "
 
-./pico_minifier -d $files_in_order > ._compiled.lua
-./pico_minifier $files_in_order > ._compiled_prod.lua
+mkdir -p build
+cat $files_in_order | ./pico_minifier -i boot.lua -o build/dev-boot.lua -d > build/dev-code.lua
+cat $files_in_order | ./pico_minifier -i boot.lua -o build/prd-boot.lua    > build/prd-code.lua
