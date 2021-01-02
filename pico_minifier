@@ -7,7 +7,8 @@ use Getopt::Long qw(GetOptions);
 
 my $dev_mode;
 my $ascii;
-GetOptions('dev' => \$dev_mode, 'ascii' => \$ascii) or die "Usage: $0 [--dev] [--ascii]\n";
+my $writer_file = "";
+GetOptions('dev' => \$dev_mode, 'ascii' => \$ascii, 'writer=s' => \$writer_file) or die "Usage: $0 [--dev] [--ascii] [--strings]\n";
 
 # Constants specific to Zeldo.
 my %constants;
@@ -208,6 +209,13 @@ if (not $dev_mode) {
 # $lines[0] =~ s/([^\"]) ([^\"])/$1\n$2/g;
 @lines = pop_text_logics(@lines);
 
-my $file = join($dev_mode ? "\n" : "\n", @lines);
-$file = multiline_string_replace($file);
-print $file;
+my ($strings, $file) = multiline_string_replace(join("\n", @lines));
+
+
+if ($writer_file eq "") {
+   print $file;
+} else {
+   open my $fh, '<', $writer_file or die "Can't open file!";
+   my $writer_content = do { local $/; <$fh> };
+   print $writer_content;
+}

@@ -1,6 +1,9 @@
 -- lib. make sure this is included first.
 
--- Globals - a table with every global variable in the program.
+-- String data used throughout the cartridge.
+g_gunvals_raw=ZTABLE_STRINGS
+
+-- A table with a bunch of global variables.
 _g = {}
 
 -- util functions:

@@ -72,7 +72,7 @@ sub multiline_string_replace {
    }
    $gunval_strs = $gunval_strs . "]]";
 
-   return $gunval_strs . "\n" . $file
+   return ($gunval_strs, $file)
 }
 
 sub remove_spaces {
