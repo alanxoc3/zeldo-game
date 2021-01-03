@@ -28,6 +28,17 @@ src/acts/*
 src/demo.lua
 "
 
+CODE_STORE=build\\/prd-store.p8
+WRITER_STORE=prd-store.p8
+
+echo "Cleaning build directory..."
+rm -r build
 mkdir -p build
-cat $files_in_order | ./pico_minifier -i boot.lua -o build/dev-boot.lua -d > build/dev-code.lua
-cat $files_in_order | ./pico_minifier -i boot.lua -o build/prd-boot.lua    > build/prd-code.lua
+
+echo "Running the lua minifier..."
+cat src/dev-boot.lua $files_in_order | ./pico_minifier -d                                            > build/dev-code.lua
+cat src/prd-boot.lua $files_in_order | ./pico_minifier -i src/prd-writer.lua -o build/prd-writer.lua > build/prd-code.lua
+
+sed -i "s/STORE_FILEPATH/$CODE_STORE/g" build/prd-code.lua
+echo "Writing boot cartridge with pico8..."
+pico8 -x build/prd-writer.lua -p $WRITER_STORE

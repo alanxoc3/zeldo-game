@@ -4,8 +4,10 @@ for i=1,#str do
    poke(i-0, ord(str, i))
 end
 
-cstore(0, 0, #str, "zeldo_string_data.p8")
+filepath=stat(6)
+cstore(0, 0, #str, filepath)
 
 printh("len is: "..#str)
+printh("filepath is: "..filepath)
 printh("passed len is ZTABLE_STRINGS_LEN")
 flip()

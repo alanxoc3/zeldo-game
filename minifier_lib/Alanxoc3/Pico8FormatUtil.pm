@@ -13,7 +13,7 @@ n b0d0 ZTABLE_STRINGS ZTABLE_STRINGS_LEN P_TEXT_LOGIC
 break do else elseif end false for function goto if in local nil not or repeat
 return then true until while and table string boolean unknown number
 
-unpack ord split label screen rec video audio_rec audio_end pause reset
+unpack chr ord split label screen rec video audio_rec audio_end pause reset
 breadcrumb shutdown g_gunvals_raw _init _update _update60 _draw setmetatable
 getmetatable cocreate coresume lshr costatus cd yield load save folder ls run
 resume reboot stat info flip printh clip pget pset sget sset fget fset print

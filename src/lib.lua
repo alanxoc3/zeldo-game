@@ -1,7 +1,4 @@
--- lib. make sure this is included first.
-
--- String data used throughout the cartridge.
-g_gunvals_raw=ZTABLE_STRINGS
+-- lib. make sure this is included second (after loading string data).
 
 -- A table with a bunch of global variables.
 _g = {}
