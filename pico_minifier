@@ -217,14 +217,17 @@ if (not $dev_mode) {
 
 my ($strings, $contents) = multiline_string_replace(join("\n", @lines));
 
+# Ztable doesn't use the quotes in the string data, so remove them.
+$strings =~ s/"//g;
+
 sub length_in_graphemes {
     my $word = shift;
     my $length = () = $word =~ m/\X/g;
     return $length;
 }
 
-my $strings_len = length_in_graphemes($strings)-4; # -4 for '[[' and ']]'
-$contents =~ s/ZTABLE_STRINGS_LEN/$strings_len/gme;
+my $strings_len = length_in_graphemes($strings); # -4 for '[[' and ']]'
+$contents =~ s/ZTABLE_STRINGS_LEN/$strings_len+1/gme;
 $contents =~ s/ZTABLE_STRINGS/$strings/gme;
 
 if ($input_file ne "" and $output_file ne "") {
@@ -232,7 +235,6 @@ if ($input_file ne "" and $output_file ne "") {
    open(my $dst, ">:utf8", $output_file) or die "Unable to create file \"$output_file\"\n";
 
    my $src_content = do { local $/; <$src> };
-   $src_content =~ s/ZTABLE_STRINGS_LEN/$strings_len/gme;
    $src_content =~ s/ZTABLE_STRINGS/$strings/gme;
 
    close $src;

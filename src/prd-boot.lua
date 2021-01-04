@@ -1,5 +1,5 @@
 -- String data used throughout the cartridge.
-reload(0, 0, ZTABLE_STRINGS_LEN, "STORE_FILEPATH")
+reload(0, 0, 0x4300, "STORE_FILEPATH")
 
 g_gunvals_raw = ""
 for i=1,ZTABLE_STRINGS_LEN do
