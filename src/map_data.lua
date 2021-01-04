@@ -24,8 +24,7 @@ g_rooms = ztable[[
 
    sign/9/2/"lank's house"/43,
    house/7.5/2/58/4/7.5/46,
-   slimy/3.5/6.5,
-   navy_blocking/0.5/4.5,
+   navy_blocking/4.5/6.5,
 
 ; R_02:
    m=14, c=3, w=24,

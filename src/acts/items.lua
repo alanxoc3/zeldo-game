@@ -70,6 +70,16 @@
 -- end
 -- )
 
+function brang_hit_func(a, other)
+   if not other.pl and other.touchable and not a.did_brang_hit then
+      call_not_nil(other, 'knockback', other, .3, a.xf and -1 or 1, 0)
+      call_not_nil(other, 'hurt', other, 0, 60)
+      change_cur_ma(other)
+
+      a.did_brang_hit = true
+   end
+end
+
 create_actor([[brang;1;confined,anim,col,mov,tcol]], [[
    did_brang_hit:false;
    tile_solid:false;
@@ -95,22 +105,14 @@ create_actor([[brang;1;confined,anim,col,mov,tcol]], [[
    a.xf = a.rel_actor.xf
    a.ax = bool_to_num(a.xf)*.1
    use_energy(10)
-end, function(a, other) -- hit 1
-   if not other.pl and other.touchable and not a.did_brang_hit then
-      call_not_nil(other, 'knockback', other, .3, a.xf and -1 or 1, 0)
-      call_not_nil(other, 'hurt', other, 0, 60)
-      a.did_brang_hit = true
-   end
-end, function(a) -- update 1
+end, brang_hit_func, -- hit 1
+function(a) -- update 1
    pause_energy()
 end, function(a, other) -- hit 2
    if other.pl then
       a.alive = false
-   elseif other.touchable and not a.did_brang_hit then
-      call_not_nil(other, 'knockback', other, .3, a.xf and -1 or 1, 0)
-      call_not_nil(other, 'hurt', other, 0, 60)
-      a.did_brang_hit = true
    end
+   brang_hit_func(a, other)
 end, function(a) -- update 2
    pause_energy()
    a.ax = xbtn()*.05
