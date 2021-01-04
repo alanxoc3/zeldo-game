@@ -9,5 +9,4 @@ cstore(0, 0, #str, filepath)
 
 printh("len is: "..#str)
 printh("filepath is: "..filepath)
-printh("passed len is ZTABLE_STRINGS_LEN")
 flip()

@@ -3,8 +3,7 @@ version 29
 __lua__
 -- that story about zeldo
 -- amorg
---#include build/dev-code.lua
-#include build/prd-code.lua
+#include build/code.lua
 
 __gfx__
 00000000000000000000000000000000000000000000000000000000000000001500111111110051015dcc6cccccd510c600c600000000001111111111111111
