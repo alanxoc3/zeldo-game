@@ -75,6 +75,7 @@ end, function(a)
    a:update_view()
 end, function(a, ma)
    a.follow_act = ma
+   a.tl_cur = 1
    a.tl_next = ma and ma.timeoutable and 2 or 1
 end)
 

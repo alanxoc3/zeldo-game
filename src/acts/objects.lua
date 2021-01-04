@@ -102,6 +102,7 @@ create_actor([[gen_trigger_block;7;rel,confined,trig]], [[
    not_contains_or_intersects:@8;
 ]], function(a)
    if get_cur_ma() == a.rel_actor then
+      -- HERE IS WHERE IT GOES OUT.
       change_cur_ma()
    end
 end
