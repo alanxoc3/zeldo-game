@@ -4,7 +4,7 @@
 
 -- to generate an actor.
 create_parent(
-[[act;;room_init,pause_init,pause_update,pause_end,clean,delete;
+[[act;;room_init,pause_init,pause_update,pause_end,kill,clean,delete;
    alive=true,
    stun_countdown=0,
    i=nf, u=nf,
@@ -33,7 +33,11 @@ end, function(a)
    end
 end, function(a)
    a.alive = nil
-end, del_act, function(a, ...)
+end, function(a)
+   for k, v in pairs(g_act_arrs) do
+      if a[k] then del(v, a) end
+   end
+end, function(a, ...)
    local arr, cur_act = ztable(...), a
    for i=1,#arr do
       cur_act = cur_act[arr[i]]

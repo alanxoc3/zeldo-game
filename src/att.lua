@@ -60,9 +60,3 @@ function acts_loop(id, func_name, ...)
       end
    end
 end
-
-function del_act(a)
-   for k, v in pairs(g_act_arrs) do
-      if a[k] then del(v, a) end
-   end
-end
