@@ -3,6 +3,10 @@ version 29
 __lua__
 -- that story about zeldo
 -- amorg
+
+-- see unobfuscated source at:
+-- git.io/zeldo
+
 #include build/code.lua
 
 __gfx__
