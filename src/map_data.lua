@@ -25,6 +25,7 @@ g_rooms = ztable[[
    sign/9/2/"lank's house"/43,
    house/7.5/2/58/4/7.5/46,
    navy_blocking/4.5/6.5,
+   slimy/8/6.5/.5,
 
 ; R_02:
    m=14, c=3, w=24,
@@ -110,8 +111,8 @@ g_rooms = ztable[[
    spikes/6/5/0.5,
    spikes/5/6/0.5,
    spikes/6/6/0.5,
-   slimy/2/2,
-   slimy/9/7,
+   slimy/2/2/3,
+   slimy/9/7/3,
 
 ; R_11:
    m=14, c=3,
@@ -148,8 +149,8 @@ g_rooms = ztable[[
    spikes/7/8/0.75,
    spikes/8/7/0.5,
    spikes/8/8/0.5,
-   slimy/1/2,
-   slimy/1/7,
+   slimy/1/2/3,
+   slimy/1/7/3,
 
 ; R_12:
    m=14, c=3,
@@ -174,10 +175,10 @@ g_rooms = ztable[[
    spikes/7/2/0.5,
    spikes/4/7/0.5,
    spikes/7/7/0.25,
-   slimy/2/7,
-   slimy/2/2,
-   slimy/9/2,
-   slimy/9/7,
+   slimy/2/7/1,
+   slimy/2/2/1.5,
+   slimy/9/2/2,
+   slimy/9/7/2.5,
 
 ; R_13:
    m=14, c=3,
@@ -253,7 +254,7 @@ g_rooms = ztable[[
    r=R_01/0.5/5,
    u=R_00/6/9.5,
 
-   slimy/3.5/6,
+   slimy/3.5/6/3,
    sign/51/21/"don't get lost!"/43,
    spikes/1/1/0.25,
    spikes/6/1/0.25,
