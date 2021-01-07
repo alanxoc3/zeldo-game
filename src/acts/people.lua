@@ -2,6 +2,7 @@
 create_actor([[navy_blocking;2;nnpc,mem_dep]], [[
    name:"navy";
    sind:97;mem_loc:NAVY_OUT;
+   u:nf;
    x:@1;y:@2;interactable_trigger:@3;pause_end:@4;
 ]],function(a)
    if zdget'HAS_BOOMERANG' then
