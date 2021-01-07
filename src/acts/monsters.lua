@@ -1,5 +1,5 @@
 -- SECTION: MONSTERS
-create_actor([[slimy;2;drawable,bounded,danceable,confined,stunnable,mov,col,tcol,hurtable,knockable,spr_obj,spr]], [[
+create_actor([[slimy;3;drawable,bounded,danceable,confined,stunnable,mov,col,tcol,hurtable,knockable,spr_obj,spr]], [[
    x:@1;y:@2;
    max_health:3;health:3;
    name:"slimy";evil:true;tl_loop:true;
@@ -8,11 +8,11 @@ create_actor([[slimy;2;drawable,bounded,danceable,confined,stunnable,mov,col,tco
    sind:118;
    anim_len:1;
    touchable:true;
-   hurt_func:@9;
+   hurt_func:@10;
 
-   i=@5,hit=nf,u=@8,tl_max_time=3;        -- wait
-   i=nf,hit=nf,u=@3,e=@6,tl_max_time=.25; -- shake
-   i=nf,hit=@7,u=@4,e=@6,tl_max_time=.25; -- in air
+   i=@6,hit=nf,u=@9,tl_max_time=@3;        -- wait
+   i=nf,hit=nf,u=@4,e=@7,tl_max_time=.25; -- shake
+   i=nf,hit=@8,u=@5,e=@7,tl_max_time=.25; -- in air
 ]], function(a)
    look_at_pl(a)
    a.ixx = rnd_one()
@@ -21,7 +21,6 @@ end, function(a) -- init 1 @4
    a.iyy += sin(a.tl_tim/a.tl_max_time)
    a.sind=119
 end, function(a)
-   a[1].tl_max_time = rnd(2)+1
    a.ax, a.ay = 0, 0
 end, function(a)
    a.ixx=0 a.iyy=-2
