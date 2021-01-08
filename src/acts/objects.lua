@@ -1,5 +1,5 @@
 -- TODO: refactor the save platform!
-create_actor([[save_spot;2;confined,trig,drawable_obj]], [[
+create_actor([[save_spot;2;confined,trig,drawable_obj|
    name:"save spot";
    rx:.625;ry:.625;
    x:@1;y:@2;
@@ -25,7 +25,7 @@ end, function(a)
    end
 end)
 
-create_actor([[sign;3;drawable,interactable]], [[
+create_actor([[sign;3;drawable,interactable|
    name:"sign";sind:43;
    rx:.5;ry:.5;
    trig_x:0;trig_y:.125;
@@ -35,7 +35,7 @@ create_actor([[sign;3;drawable,interactable]], [[
    tbox(a.text_obj)
 end)
 
-create_actor([[grave;3;drawable,interactable]], [[
+create_actor([[grave;3;drawable,interactable|
    name:"grave";sind:45;
    rx:.5;ry:.5;
    trig_x:0;trig_y:.125;
@@ -45,18 +45,18 @@ create_actor([[grave;3;drawable,interactable]], [[
    tbox(a.text_obj)
 end)
 
-create_actor([[shop_brang;2;shop_item,]], [[
+create_actor[[shop_brang;2;shop_item,|
    name:"brang";sind:4;
    x:@1;y:@2;mem_loc:HAS_BOOMERANG;
-]])
+]]
 
-create_actor([[shop_shield;2;shop_item,]], [[
+create_actor[[shop_shield;2;shop_item,|
    name:"shield";sind:6;
    x:@1;y:@2;mem_loc:HAS_SHIELD;
-]])
+]]
 
 -- for the chest.
-create_actor([[item_show;3;post_drawable,confined,spr,rel;update,]], [[
+create_actor([[item_show;3;post_drawable,confined,spr,rel;update,|
    rel_actor:@1;sind:@2;mem_loc:@3;
    rel_y:-1.125;
 
@@ -76,7 +76,7 @@ end
 -- Not sure if we need this...
 -- triggers_template={{rel_x, rel_y, rx, ry, func}},
 
-create_actor([[chest;4;drawable,interactable;update,]], [[
+create_actor([[chest;4;drawable,interactable;update,|
    name:"chest";
    sind:50;rx:.375;ry:.375;
    x:@1;y:@2;xf:@3;mem_loc:@4;
@@ -97,7 +97,7 @@ end, function(a)
 end
 )
 
-create_actor([[gen_trigger_block;7;rel,confined,trig]], [[
+create_actor([[gen_trigger_block;7;rel,confined,trig|
    rel_actor:@1;rel_x:@2;rel_y:@3;rx:@4;ry:@5;contains:@6;intersects:@7;
    not_contains_or_intersects:@8;
 ]], function(a)
@@ -109,7 +109,7 @@ end
 )
 
 -- todo: trim code here.
-create_actor([[house;6;drawable,confined,spr]], [[
+create_actor([[house;6;drawable,confined,spr|
    x:@1;y:@2;room:@3;room_x:@4;room_y:@5;sind:@6;
    i:@7;destroyed:@8;
    iyy:-4;sw:2;sh:2;
@@ -128,7 +128,7 @@ end
 )
 
 -- SECTION: OBJECTS
-create_actor([[money;4;drawable,bounded,confined,tcol,spr,col,mov]], [[
+create_actor([[money;4;drawable,bounded,confined,tcol,spr,col,mov|
    sind:36;rx:.125;ry:.125;
    x:@1;y:@2;dx:@3;dy:@4;
    touchable:false;
@@ -149,14 +149,14 @@ end, function(a)
    destroy_effect(a, 9, 1, 6, 7, 13, 12)
 end)
 
-create_actor([[static_block;4;confined,wall]],[[
+create_actor([[static_block;4;confined,wall|
    x:@1;y:@2;rx:@3;ry:@4;
    static:true;
    touchable:true;
 ]]
 )
 
-create_actor([[thing_destroyed;3;confined,mov,drawable,bounded;update,]], [[
+create_actor([[thing_destroyed;3;confined,mov,drawable,bounded;update,|
    parent:@1;c:@2;d:@5;
 
    i=@4,tl_max_time=@3;
@@ -170,7 +170,7 @@ end, function(a)
    scr_pset(a.x, a.y, a.c)
 end)
 
-create_actor([[pot_projectile;3;drawable,col,confined,mov,spr,bounded,tcol]], [[
+create_actor([[pot_projectile;3;drawable,col,confined,mov,spr,bounded,tcol|
    tile_solid:true;
    sind:49;
    x:@1;y:@2;xf:@3;
@@ -200,7 +200,7 @@ end, function(a)
 end)
 
 -- x, y, sind
-create_actor([[pot;2;drawable,bounded,confined,tcol,spr,col,mov]], [[
+create_actor([[pot;2;drawable,bounded,confined,tcol,spr,col,mov|
    static:true;
    rx:.375;ry:.375;
    x:@1;y:@2;sind:49;
@@ -219,18 +219,18 @@ end
 )
 
 -- TODO: Bomb support.
-create_actor([[box;2;drawable,confined,wall,spr,col]], [[
+create_actor[[box;2;drawable,confined,wall,spr,col|
    static:true;
    rx:.375;ry:.375;sind:35;x:@1;y:@2;
-]])
+]]
 
-create_actor([[tall_tree;2;drawable,confined,wall,spr,col]], [[
+create_actor[[tall_tree;2;drawable,confined,wall,spr,col|
    static:true;
    sw:1;sh:2;iyy:-4;
    rx:.5;ry:.5;sind:26;x:@1;y:@2;
-]])
+]]
 
-create_actor([[spikes;3;trig,pre_drawable,confined,spr]], [[
+create_actor([[spikes;3;trig,pre_drawable,confined,spr|
    static:true;touchable:false;
    rx:.375;ry:.375;sind:54;x:@1;y:@2;offset:@3;u:@4;
    intersects:@5;contains:@5;i:@6;
