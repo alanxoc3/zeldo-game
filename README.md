@@ -55,7 +55,10 @@ Will become this lua table:
 Those are the main symbols that strings could have conflicts with. Other
 notable exceptions are these:
 - The carrot operator separates screens in the text box system.
-- Pipes are used to separate strings that are stored in cartridge data.
+- Before the double bracket strings are parsed, pipes are used to separate
+  ztables for the create_actor function.
+- After the double bracket strings are parsed, pipes are used to separate
+  strings that are stored in cartridge data.
 - Single quote strings and double bracket strings both mean that there is code
   stored inside the string and the string content can be minified.
 - Double quote strings mean that the content is text and therefore should not

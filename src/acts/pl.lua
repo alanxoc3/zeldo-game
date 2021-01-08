@@ -1,6 +1,6 @@
 -- SECTION: NPC
 -- SECTION: PL
-create_actor([[lank_top;1;rel,spr_obj,danceable]], [[
+create_actor([[lank_top;1;rel,spr_obj,danceable|
    rel_actor:@1;sind:147;iyy:-2;u:@2;pause_update:@3;
 ]], function(a)
    a.xf, a.alive = g_pl.xf, g_pl.alive
@@ -20,7 +20,7 @@ end, function(a)
 end
 )
 
-create_actor([[grabbed_item;4;rel,spr_obj]], [[
+create_actor([[grabbed_item;4;rel,spr_obj|
    rel_actor:@1;sind:@2;iyy:@3;create_func:@4;
    throwable:true;
    flippable:true;
@@ -39,7 +39,7 @@ end, function(a)
    sfx'5'
 end)
 
-create_actor([[fairy;1;drawable,mov,move_pause;u,]], [[
+create_actor([[fairy;1;drawable,mov,move_pause;u,|
    rel_actor:@1;sind:52;u:@2;off_x:1;off_y:0;d:@3;
    fg:12;bg:6;--fg:1;bg:2;
    room_init:@4;
@@ -64,7 +64,7 @@ end, function(a)
    a.y = a.rel_actor.y
 end)
 
-create_actor([[pl;2;drawable,anim,col,mov,tcol,hurtable,knockable,stunnable,spr,danceable]], [[
+create_actor([[pl;2;drawable,anim,col,mov,tcol,hurtable,knockable,stunnable,spr,danceable|
    name:"lank";x:@1;
    y:@2;
    sinds:144,145,146;
