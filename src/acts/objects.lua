@@ -230,17 +230,16 @@ create_actor[[tall_tree;2;drawable,confined,wall,spr,col|
    rx:.5;ry:.5;sind:26;x:@1;y:@2;
 ]]
 
-create_actor([[spikes;3;trig,pre_drawable,confined,spr|
+create_actor([[spikes;3;trig,pre_drawable,confined,spr,loopable|
    static:true;touchable:false;
-   rx:.375;ry:.375;sind:54;x:@1;y:@2;offset:@3;u:@4;
-   intersects:@5;contains:@5;i:@6;
-]], function(a)
-    if (a.tl_tim + a.offset) % 1 < .75 then
-        a.sind = 54
-    else
-        a.sind = 53
-    end
-end, function(a, o)
+   rx:.375;ry:.375;sind:54;x:@1;y:@2;offset:@3;
+   intersects:@4;contains:@4;i:@6;
+
+   sind=52,tl_max_time=1;
+   sind=53,tl_max_time=.0666;
+   sind=54,tl_max_time=.25;
+   sind=53,tl_max_time=.2;
+]], function(a, o)
   if a.sind == 53 then
     call_not_nil(o, 'hurt', o, 1, 15)
   end
