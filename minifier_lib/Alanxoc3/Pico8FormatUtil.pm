@@ -56,10 +56,17 @@ my %multiline_strings;
 my $multiline_number = 1;
 sub test_multiline_string {
    my $str = shift;
-   if (not exists($multiline_strings{$str})) {
-      $multiline_strings{$str} = $multiline_number++;
+   my @strings = split(/\|/, $str);
+   my @retarr;
+
+   foreach my $x (@strings) {
+      if (not exists($multiline_strings{$x})) {
+         $multiline_strings{$x} = $multiline_number++;
+      }
+      push(@retarr, $multiline_strings{$x});
    }
-   return "[[" . $multiline_strings{$str} . "]]";
+
+   return "[[" . join('|', @retarr) . "]]";
 }
 
 sub multiline_string_replace {

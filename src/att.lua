@@ -12,7 +12,8 @@ function create_parent(...)
    end
 end
 
-function create_actor(meta, template_str, ...)
+function create_actor(meta_and_template_str, ...)
+   local meta, template_str = unpack(split(meta_and_template_str, '|'))
    local template_params, id, provided, parents, pause_funcs = {...}, unpack(ztable(meta))
 
    _g[id] = function(...)

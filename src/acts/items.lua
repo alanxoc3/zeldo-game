@@ -80,7 +80,7 @@ function brang_hit_func(a, other)
    end
 end
 
-create_actor([[brang;1;confined,anim,col,mov,tcol]], [[
+create_actor([[brang;1;confined,anim,col,mov,tcol|
    did_brang_hit:false;
    tile_solid:false;
    rel_actor:@1;
@@ -140,7 +140,7 @@ end
 )
 
 -- SECTION: INVENTORY
-create_actor([[banjo;1;item,danceable;update,]], [[
+create_actor([[banjo;1;item,danceable;update,|
    rel_actor:@1;
    rx:.3;
    ry:.3;

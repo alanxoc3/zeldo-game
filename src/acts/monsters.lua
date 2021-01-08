@@ -1,5 +1,5 @@
 -- SECTION: MONSTERS
-create_actor([[slimy;3;drawable,bounded,danceable,confined,stunnable,mov,col,tcol,hurtable,knockable,spr_obj,spr]], [[
+create_actor([[slimy;3;drawable,bounded,danceable,confined,stunnable,mov,col,tcol,hurtable,knockable,spr_obj,spr|
    x:@1;y:@2;
    max_health:3;health:3;
    name:"slimy";evil:true;tl_loop:true;
