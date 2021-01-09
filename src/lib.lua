@@ -12,7 +12,8 @@ function btn_helper(f, a, b)
    return f(a) and f(b) and 0 or f(a) and 0xffff or f(b) and 1 or 0
 end
 
-function _g.plus(a,b) return a + b end
+function _g.plus(a,b)  return a + b end
+function _g.minus(a,b) return a - b end
 
 function bool_to_num(condition) return condition and 0xffff or 1 end
 
@@ -90,14 +91,12 @@ function zsplitkv(str, item_delim, kv_delim, val_func, expandable)
 end
 
 g_ztable_cache = {}
-function ztable(str, ...)
-   str = g_gunvals[0+str]
-   local params = {...}
+function ztable(original_str, ...)
+   local str, params = g_gunvals[0+original_str], {...}
    foreach(params, disable_tabcpy)
 
    if g_ztable_cache[str] == nil then
-      local operations = {}
-      local tbl = zsplitkv(str, ';', ':', identity)
+      local tbl, operations = zsplitkv(str, ';', ':', identity), {}
       for k, v in pairs(tbl) do
          local val_func = function(sub_val, sub_key)
             return queue_operation(tbl, k, sub_key, sub_val, operations)
@@ -108,13 +107,11 @@ function ztable(str, ...)
       g_ztable_cache[str] = {tbl, operations}
    end
 
-   local table = g_ztable_cache[str][1]
-   local ops = g_ztable_cache[str][2]
+   local table, ops = g_ztable_cache[str][1], g_ztable_cache[str][2]
    foreach(ops, function(op)
       local t, k = op.t, op.k
       if op.sk then
-         t = t[op.k]
-         k = op.sk
+         t, k = t[op.k], op.sk
       end
       t[k] = op.f(params)
    end)
