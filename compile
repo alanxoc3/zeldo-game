@@ -33,7 +33,7 @@ rm -r build
 mkdir -p build
 
 if [ "$1" == "-p" ]; then
-   echo "* Running the prd-mode minifier..."
+   echo "* Running the prd-mode and not debug-mode minifier..."
    cat src/prd-boot.lua $files_in_order | ./pico_minifier -i src/prd-writer.lua -o build/writer.lua > build/code.lua
 
    # Not in minifier, because it doesn't need to know file paths.
@@ -41,9 +41,12 @@ if [ "$1" == "-p" ]; then
 
    echo "* Running prd-mode pico-8 cstore..."
    pico8 -x build/writer.lua -p store.p8
+elif [ "$1" == "-d" ]; then
+   echo "* Running the dev-mode and not debug-mode minifier..."
+   cat src/dev-boot.lua $files_in_order | ./pico_minifier --dev > build/code.lua
 else
-   echo "* Running the dev-mode minifier..."
-   cat src/dev-boot.lua $files_in_order | ./pico_minifier -d > build/code.lua
+   echo "* Running the dev-mode and debug-mode minifier..."
+   cat src/dev-boot.lua $files_in_order | ./pico_minifier --dev --debug > build/code.lua
 fi
 
 echo "* Done!"

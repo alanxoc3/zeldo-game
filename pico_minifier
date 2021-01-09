@@ -11,10 +11,12 @@ binmode(STDIN, "encoding(UTF-8)");
 binmode(STDOUT, "encoding(UTF-8)");
 
 my $dev_mode;
+my $debug_mode;
 my $ascii;
+my $debug;
 my $input_file = "";
 my $output_file = "";
-GetOptions('dev' => \$dev_mode, 'ascii' => \$ascii, 'input=s' => \$input_file, 'output=s' => \$output_file) or die "Usage: $0 [--dev] [--ascii] -i f -o f\n";
+GetOptions('dev' => \$dev_mode, 'debug' => \$debug_mode, 'ascii' => \$ascii, 'input=s' => \$input_file, 'output=s' => \$output_file) or die "Usage: $0 [--dev] [--debug] [--ascii] [--input=file] [--output=file]\n";
 
 # Constants specific to Zeldo.
 my %constants;
@@ -199,6 +201,13 @@ $constants{'R_79'} = '79';
 # Go through the actual minifying.
 my @lines = <>;
 chomp(@lines);
+
+if (not $debug_mode) {
+   my $content = join("\n", @lines);
+   $content =~ s/DEBUG_BEGIN.*?DEBUG_END//gims;
+   @lines = split(/\n/, $content);
+}
+
 @lines = remove_comments(@lines);
 @lines = tokenize_lines(\@lines, \%constants);
 @lines = remove_texts(@lines);
