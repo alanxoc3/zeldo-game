@@ -26,7 +26,7 @@ s/(__lua__).*(__gfx__)/$1\n$header\n$doc\n$2/igs;
 pico8 -run build/mapb.p8 > build/tmp_map_data.lua
 
 # Now write to the map data file if you hit save in your program.
-OUTPUT=$(cat bulid/tmp_map_data.lua | tr -d "[:space:]")
+OUTPUT=$(cat build/tmp_map_data.lua | tr -d "[:space:]")
 if [ -z "$OUTPUT" ];
 then
     echo "Program didn't output anything."
