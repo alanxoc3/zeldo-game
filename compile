@@ -1,31 +1,29 @@
 #!/usr/bin/env bash
-t1="that story about zeldo"
-t2="amorg"
-
 files_in_order="
-src/lib.lua
-src/att.lua
+src/game/boot.lua
+src/game/lib.lua
+src/game/att.lua
 
-src/chars.lua
-src/outlines.lua
-src/draw.lua
-src/inventory.lua
-src/inventory_selection.lua
-src/map.lua
-src/menu.lua
-src/misc.lua
-src/move_funcs.lua
-src/squares.lua
-src/tbox.lua
-src/tcol.lua
-src/title.lua
-src/view.lua
+src/game/chars.lua
+src/game/outlines.lua
+src/game/draw.lua
+src/game/inventory.lua
+src/game/inventory_selection.lua
+src/game/map.lua
+src/game/menu.lua
+src/game/misc.lua
+src/game/move_funcs.lua
+src/game/squares.lua
+src/game/tbox.lua
+src/game/tcol.lua
+src/game/title.lua
+src/game/view.lua
 
-src/map_data.lua
-src/story.lua
-src/parents.lua
-src/acts/*
-src/demo.lua
+src/game/map_data.lua
+src/game/story.lua
+src/game/parents.lua
+src/game/acts/*
+src/game/demo.lua
 "
 
 echo "* Cleaning build directory..."
@@ -33,8 +31,14 @@ rm -r build
 mkdir -p build
 
 if [ "$1" == "-p" ]; then
-   echo "* Running the prd-mode and not debug-mode minifier..."
-   cat src/prd-boot.lua $files_in_order | ./pico_minifier -i src/prd-writer.lua -o build/writer.lua > build/code.lua
+   param=""
+   if [ "$2" == "-d" ]; then
+      param='--debug'
+      echo "* Running the prd-mode and debug-mode minifier..."
+   else
+      echo "* Running the prd-mode and not debug-mode minifier..."
+   fi
+   cat $files_in_order | ./pico_minifier $param -i src/tools/prd-writer.lua -o build/writer.lua > build/code.lua
 
    # Not in minifier, because it doesn't need to know file paths.
    sed -i "s/STORE_FILEPATH/build\\/store.p8/g" build/code.lua
@@ -42,11 +46,11 @@ if [ "$1" == "-p" ]; then
    echo "* Running prd-mode pico-8 cstore..."
    pico8 -x build/writer.lua -p store.p8
 elif [ "$1" == "-d" ]; then
-   echo "* Running the dev-mode and not debug-mode minifier..."
-   cat src/dev-boot.lua $files_in_order | ./pico_minifier --dev > build/code.lua
-else
    echo "* Running the dev-mode and debug-mode minifier..."
-   cat src/dev-boot.lua $files_in_order | ./pico_minifier --dev --debug > build/code.lua
+   cat $files_in_order | ./pico_minifier --dev --debug > build/code.lua
+else
+   echo "* Running the dev-mode and not debug-mode minifier..."
+   cat $files_in_order | ./pico_minifier --dev > build/code.lua
 fi
 
 echo "* Done!"

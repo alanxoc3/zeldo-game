@@ -202,12 +202,22 @@ $constants{'R_79'} = '79';
 my @lines = <>;
 chomp(@lines);
 
+# Preprocess, remove unneeded code.
 if (not $debug_mode) {
    my $content = join("\n", @lines);
    $content =~ s/DEBUG_BEGIN.*?DEBUG_END//gims;
    @lines = split(/\n/, $content);
 }
 
+my $content = join("\n", @lines);
+if ($dev_mode) {
+   $content =~ s/PRD_MODE_BEGIN.*?PRD_MODE_END//gims;
+} else {
+   $content =~ s/DEV_MODE_BEGIN.*?DEV_MODE_END//gims;
+}
+@lines = split(/\n/, $content);
+
+# Remove comments and spaces, preserve quotes...
 @lines = remove_comments(@lines);
 @lines = tokenize_lines(\@lines, \%constants);
 @lines = remove_texts(@lines);
