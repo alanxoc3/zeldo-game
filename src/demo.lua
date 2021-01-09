@@ -6,35 +6,41 @@ memset(0x05d00, 0, 0x100)
 cartdata(CART_NAME)
 memcpy(TEMP_SAVE_LOCATION, REAL_SAVE_LOCATION, SAVE_LENGTH)
 
+-- DEBUG_BEGIN
 g_debug = false
+-- DEBUG_END
 
 function _init()
    g_money = zdget_value(MONEY)
    poke(0x5f34, 1) -- for pattern colors.
    zdset(HAS_BOOMERANG) -- TODO: remove this.
+   zdset(HAS_SWORD) -- TODO: remove this.
+   zdset(HAS_SHIELD) -- TODO: remove this.
 
    map_init()
 
-   local tl_game = ztable([[
-      i=@1, u=@2, d=@3
+   tl_game = ztable([[
+      i:@1;u:@2;d:@3;
    ]], function()
       pause'transitioning'
       _g.fader_in(game_init, unpause)
    end, game_update, game_draw)
 
-   g_tl = {
+   --g_tl = {
       --g_title,
-      tl_game }
+      --tl_game }
 
    inventory_init()
 end
 
 function _update60()
+   -- DEBUG_BEGIN
    if g_debug then
       poke(0x5f42,15) -- glitch sound
    else
       poke(0x5f42,0) -- no glitch sound
    end
+   -- DEBUG_END
 
    if g_tbox_update then
       sfx'2'
@@ -53,17 +59,19 @@ function _update60()
       g_tbox_update = false
    end
 
+   -- DEBUG_BEGIN
    if btnp'5' and btn'4' then
       g_debug = not g_debug
    end
+   -- DEBUG_END
 
-   tl_node(g_tl,g_tl)
+   tl_node(tl_game,tl_game)
    tbox_interact()
 end
 
 function _draw()
    cls()
-   call_not_nil(g_tl, 'd', g_tl)
+   call_not_nil(tl_game, 'd', tl_game)
 end
 
 function game_update()
@@ -168,7 +176,9 @@ function map_draw(x, y)
          post_drawable, d;
       ]])
 
+      -- DEBUG_BEGIN
       if g_debug then acts_loop('dim', 'debug_rect') end
+      -- DEBUG_END
 
       clip()
 
@@ -199,7 +209,7 @@ function game_init()
    map_init()
    g_pl = _g.pl(0, 0)
    -- load_room(R_12, 3, 5, g_pl)
-   load_room(R_10, 8, 5, g_pl)
+   load_room(R_01, 8, 5, g_pl)
 end
 
 function pause(reason)

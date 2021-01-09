@@ -3,12 +3,19 @@ create_actor([[navy_blocking;2;nnpc,mem_dep|
    name:"navy";
    sind:97;mem_loc:NAVY_OUT;
    u:nf;
+   f_reload:!get_npc_reload_room/NAVY_OUT;
+   f_money:!memloc_money/HAS_BANJO/0;
+
+   -- brang:!tbox/"brang..."/~f_reload;
+
+   -- !npc_dance_logic/"umm..."/~f_money;
+
    x:@1;y:@2;interactable_trigger:@3;pause_end:@4;
 ]],function(a)
    if zdget'HAS_BOOMERANG' then
-      tbox("a boomerang?^^isn't that a toy^^i hope you can save my^sister with that thing.", _g.get_npc_reload_room(NAVY_OUT))
+      tbox("a boomerang?^^isn't that a toy^^i hope you can save my^sister with that thing.", a.f_reload)
    elseif zdget'HAS_SHIELD' then
-      tbox("a shield! good choice!^^you can use that protect^my sister from monsters!", _g.get_npc_reload_room(NAVY_OUT))
+      tbox("a shield! good choice!^^you can use that protect^my sister from monsters!", a.f_reload)
    else
       tbox"my sister has been in the^forest all day.^find something to protect^yourself with, then bring^her home."
    end

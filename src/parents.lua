@@ -123,6 +123,12 @@ end)
 
 create_parent[[move_pause;act,;update,move,vec_update,tick]]
 
+create_parent[[dim;pos,;;
+   rx=.375,
+   ry=.375,
+]]
+
+-- DEBUG_BEGIN
 create_parent(
 [[dim;pos,;debug_rect,;
    rx=.375,
@@ -131,6 +137,7 @@ create_parent(
 ]], function(a)
    scr_rect(a.x-a.rx,a.y-a.ry,a.x+a.rx,a.y+a.ry, 8)
 end)
+-- DEBUG_END
 
 -- used with player items/weapons.
 create_parent(
@@ -386,11 +393,10 @@ create_parent(
    end)
 end)
 
-create_parent(
-[[nnpc;drawable,danceable,interactable;;
+create_parent[[nnpc;drawable,danceable,interactable;;
    rx=.5,ry=.5,iyy=-2,
-   u=@1
-]], look_at_pl)
+   u=%look_at_pl
+]]
 
 -- SECTION: INVENTORY
 create_parent(
@@ -402,7 +408,7 @@ create_parent(
    if o != a.rel_actor then
       call_not_nil(o, 'knockback', o, a.bash_dx, bool_to_num(a.xf), 0)
       if a.rel_actor then
-         call_not_nil(a.rel_actor, 'knockback', a.rel_actor, a.rel_bash_dx, bool_to_num(a.xf), 0)
+         call_not_nil(a.rel_actor, 'knockback', a.rel_actor, -a.rel_bash_dx, bool_to_num(a.xf), 0)
       end
    end
 end

@@ -167,6 +167,62 @@ end, function(a)
 end
 )
 
+create_actor([[sword;1;item,col,bashable,pokeable|
+   item_slow:true;
+   rel_actor:@1;
+   rel_bash_dx:.2;
+   max_stun_val:20;
+   min_stun_val:10;
+   energy:10;
+   poke_val:10;
+   poke_dist:.75;
+   rx:.375;
+   ry:.375;
+   rel_y:0;
+   iyy:-2;
+   sind:2;
+   touchable:false;
+   poke_energy:15;
+   poke_ixx:0;
+
+   hurt_amount=5,bash_dx=.3,hit=@2,tl_max_time=.1;
+   i=nf,u=@3,e=nf,hurt_amount=2,bash_dx=.1,hit=@2;
+]], sword_hit, sword_shield_u2)
+
+create_actor([[shield;1;item,bashable,pokeable|
+   item_slow:true;
+   rel_actor:@1;
+   rel_bash_dx:.1;
+   max_stun_val:60;
+   min_stun_val:0;
+   energy:2;
+   poke_val:10;
+   o_hurt:0;
+   poke_dist:.625;
+   block:true;
+   rx:.25;
+   ry:.5;
+   iyy:-1;
+   sind:6;
+   touchable:false;
+   poke_energy:10;
+   poke_ixx:0;
+
+   hit=@2,bash_dx=.4,tl_max_time=.1;
+   u=@3,tl_max_time=.1;
+   hit=@2,i=nf,u=@3,e=nf,bash_dx=.2;
+]], function(a, other)
+   if other != a.rel_actor and a.tl_cur < 3 then
+      call_not_nil(other, 'hurt', other, 0, 30)
+   end
+   a:bash(other)
+end, sword_shield_u2)
+
+
+
+
+
+
 -- TODO: uncomment when tokens
 -- create_actor([['shovel', 1, {'item','bashable','pokeable'}]], [[
 --    rel_actor=@1,
@@ -177,7 +233,7 @@ end
 --    bash_dx=.1,
 --    did_hit=false,
 --    hit=@4,
--- 
+
 --    {tl_max_time=.1},
 --    {i=nf, u=@2, e=nf, tl_max_time=.25},
 --    {i=@3, u=@2, e=nf, tl_max_time=.25}
@@ -225,54 +281,3 @@ end
 --    end
 -- end
 -- )
-
--- create_actor([['sword', 1, {'item','col','bashable','pokeable'}]], [[
---    item_slow=true,
---    rel_actor=@1,
---    rel_bash_dx=.4,
---    max_stun_val=20,
---    min_stun_val=10,
---    energy=10,
---    poke_val=10,
---    poke_dist=1,
---    rx=.5,
---    ry=.375,
---    rel_y=0,
---    iyy=-2,
---    sind=2,
---    touchable=false,
---    poke_energy=15,
---    poke_ixx=2,
--- 
---    {hurt_amount=5, bash_dx=.3, hit=@2, tl_max_time=.1},
---    {i=nf, u=@3, e=nf, hurt_amount=2,  bash_dx=.1, hit=@2}
--- ]], sword_hit, sword_shield_u2)
-
--- create_actor([['shield', 1, {'item','bashable','pokeable'}]], [[
---    item_slow=true,
---    rel_actor=@1,
---    rel_bash_dx=.1,
---    max_stun_val=60,
---    min_stun_val=0,
---    energy=2,
---    poke_val=10,
---    o_hurt=0,
---    poke_dist=.625,
---    block=true,
---    rx=.25,
---    ry=.5,
---    iyy=-1,
---    sind=6,
---    touchable=false,
---    poke_energy=10,
---    poke_ixx=0,
--- 
---    {hit=@2, bash_dx=.4, tl_max_time=.1},
---    {u=@3, tl_max_time=.1},
---    {hit=@2, i=nf, u=@3, e=nf, bash_dx=.2}
--- ]], function(a, other)
---    if other != a.rel_actor and a.tl_cur < 3 then
---       call_not_nil(other, 'hurt', other, 0, 30)
---    end
---    a:bash(other)
--- end, sword_shield_u2)

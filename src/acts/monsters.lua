@@ -4,30 +4,24 @@ create_actor([[slimy;3;drawable,bounded,danceable,confined,stunnable,mov,col,tco
    max_health:3;health:3;
    name:"slimy";evil:true;tl_loop:true;
    rx:.25;ry:.25;
-   iyy:-2;
    sind:118;
+   iyy:-2;
    anim_len:1;
    touchable:true;
    hurt_func:@10;
 
-   i=@6,hit=nf,u=@9,tl_max_time=@3;        -- wait
-   i=nf,hit=nf,u=@4,e=@7,tl_max_time=.25; -- shake
-   i=nf,hit=@8,u=@5,e=@7,tl_max_time=.25; -- in air
+   sind=118,iyy=-2,ax=0,ay=0,hit=nf,u=%look_at_pl,tl_max_time=@3;  -- wait
+   sind=119,i=nf,hit=nf,u=@4,tl_max_time=.25; -- shake
+   ixx=0,i=nf,hit=@6,u=@5,tl_max_time=.25; -- in air
 ]], function(a)
-   look_at_pl(a)
+   _g.look_at_pl(a)
    a.ixx = rnd_one()
-end, function(a) -- init 1 @4
+end, function(a)
    amov_to_actor(a, g_pl, .03)
    a.iyy += sin(a.tl_tim/a.tl_max_time)
-   a.sind=119
-end, function(a)
-   a.ax, a.ay = 0, 0
-end, function(a)
-   a.ixx=0 a.iyy=-2
-   a.sind=118
 end, function(a, other, ...)
    call_not_nil(other, 'knockback', other, .2, ...)
-end, look_at_pl)
+end)
 
 -- create_actor([[topy;2;drawable,bounded,danceable,confined,stunnable,mov,col,tcol,hurtable,knockable,anim,spr]], [[
 --    max_health:10; health:10;

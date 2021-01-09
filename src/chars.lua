@@ -1,4 +1,4 @@
-function look_at_pl(a)
+function _g.look_at_pl(a)
    if g_pl then
       a.xf = a.x-g_pl.x > 0
    end

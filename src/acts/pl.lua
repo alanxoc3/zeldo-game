@@ -86,6 +86,8 @@ end, function(a)
       if not btn'5' then
          if (xbtn() != 0) and not a:get[[item;item_slow]] then a.xf = btn'0' end
          a.ax, a.ay = xbtn()*a.spd, ybtn()*a.spd
+
+         -- DEBUG_BEGIN
          if g_debug then
             a.ax *= 3
             a.ay *= 3
@@ -93,6 +95,7 @@ end, function(a)
          else
             a.touchable=true
          end
+         -- DEBUG_END
       else
          a.ax = 0 a.ay = 0
       end

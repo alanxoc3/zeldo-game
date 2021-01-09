@@ -119,36 +119,50 @@ function ztable(original_str, ...)
 end
 
 function queue_operation(tbl, k, sub_key, v, operations)
-   local rest = sub(v,2)
-   if ord(v) == 64 then -- @ param
-      add(operations, {t=tbl, k=k, sk=sub_key, f=function(p)
-         return p[rest+0]
-      end})
-   elseif ord(v) == 33 then -- ! func
-      local ft=split(rest, '/')
-      local ftparams = {}
-      for i=2,#ft do
-         add(ftparams,queue_operation(ftparams, i-1, nil, ft[i], operations))
-      end
+   local vlist = split(v, '/')
+   local will_be_table, func_op, func_name = #vlist > 1
 
-      add(operations, {t=tbl, k=k, sk=sub_key, f=function()
-         return _g[ft[1]](unpack(ftparams))
-      end})
+   if ord(v) == 33 then -- ! func
+      will_be_table = true
+
+      func_op = {t=tbl, k=k, sk=sub_key}
+      func_name = deli(vlist, 1)
+
+      function func_op.f()
+         return _g[sub(func_name, 2)](unpack(vlist))
+      end
    end
 
-   local vlist = {}
-   for x in all(split(v, '/')) do
-      if x == 'true' or x == 'false' then x = x=='true'
+   for i, x in pairs(vlist) do
+      if ord(x) == 64 then -- @ param
+         local operation = {}
+         if will_be_table then
+            operation.t = vlist
+            operation.k = i
+         else
+            operation.t = tbl
+            operation.k = k
+            operation.sk = sub_key
+         end
+
+         function operation.f(p) return p[sub(x,2)+0] end
+         add(operations, operation)
+      elseif ord(x) == 37 then -- % _g value
+         x = _g[sub(x, 2)]
+      elseif x == 'true' or x == 'false' then x = x=='true'
       elseif x == 'nil' or x == '' then x = nil
       elseif x == 'nf' then x = function() end
       end
-      add(vlist, x)
+      vlist[i] = x
    end
 
-   if #vlist < 2 then
-      return vlist[1]
-   else
+   -- nil func_op won't actually add.
+   add(operations, func_op)
+
+   if will_be_table then
       return vlist
+   else
+      return vlist[1]
    end
 end
 
@@ -230,6 +244,7 @@ end
 -- For parsing zipped values.
 g_gunvals = split(g_gunvals_raw, "|")
 
+-- DEBUG_BEGIN
 -- For debugging
 function tostring(any)
   if type(any)~="table" then return tostr(any) end
@@ -240,3 +255,4 @@ function tostring(any)
   end
   return str.."}"
 end
+-- DEBUG_END

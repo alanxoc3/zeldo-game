@@ -4,7 +4,6 @@ function item_check_being_held(a)
    pause_energy()
 end
 
-
 -- sword and shield
 function sword_hit(a, o)
    if o != a.rel_actor then
