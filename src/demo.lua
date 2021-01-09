@@ -199,7 +199,7 @@ function game_init()
    map_init()
    g_pl = _g.pl(0, 0)
    -- load_room(R_12, 3, 5, g_pl)
-   load_room(R_00, 8, 5, g_pl)
+   load_room(R_10, 8, 5, g_pl)
 end
 
 function pause(reason)
