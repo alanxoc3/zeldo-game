@@ -31,6 +31,27 @@ obj_templates = {
    {k="lark"         , s=99,  sw=1, sh=1, p={'lark'         , 0,0                         }},
 }
 
+function btn_helper(f, a, b)
+   return f(a) and f(b) and 0 or f(a) and 0xffff or f(b) and 1 or 0
+end
+
+function xbtnp() return btn_helper(btnp, 0, 1) end
+function ybtnp() return btn_helper(btnp, 2, 3) end
+
+-- Recursively copies table attributes.
+function tabcpy(src, dest)
+   dest = dest or {}
+
+   for k,v in pairs(src or {}) do
+      if type(v) == 'table' and not v.is_tabcpy_disabled then
+         dest[k] = tabcpy(v)
+      else
+         dest[k] = v
+      end
+   end
+   return dest
+end
+
 function sort(t)
    if t then
       for n=2,#t do
@@ -77,7 +98,7 @@ end
 
 function room_to_str(room)
    local array_vals, dir_vals, met_vals = {}, {}, {}
-   local str = "  "
+   local str = "   "
    for k, v in pairs(room) do
       if is_in_array(k, dir_arr) then
          dir_vals[k] = v
@@ -90,7 +111,7 @@ function room_to_str(room)
 
    for k in all(met_arr) do
       if met_vals[k] ~= nil then
-         str=str.." "..k.."="..array_tostring(met_vals[k])..","
+         str=str..k.."="..array_tostring(met_vals[k])..","
       end
    end
 
@@ -120,37 +141,40 @@ function rooms_to_str(rooms)
    sort_by_k(new_rooms)
 
    for i=1,#new_rooms do
-      if i ~= 1 then str=str..",\n" end
-      str=str..num_to_r(new_rooms[i].k).."#{\n"..room_to_str(new_rooms[i].v).."}"
+      str=str.."; "..num_to_r(new_rooms[i].k)..":\n"..room_to_str(new_rooms[i].v).."\n"
    end
 
    return str
 end
 
 function obj_array_to_str(t)
-   local str = "{"
+   local str = ""
    for i=1,#t do
-      if str ~= "{" then str=str.."," end
       if i == 1 then
-         str=str.."'"..t[i].."'"
+         str=str..t[i]
       else
          str=str..array_tostring(t[i])
       end
+      if i ~= #t then
+         str=str.."/"
+      end
   end
-  return str.."}"
+  return str
 end
 
 function dir_array_to_str(t)
-   local str = "{"
+   local str = ""
    for i=1,#t do
-      if str ~= "{" then str=str.."," end
       if i == 1 then
          str=str..num_to_r(t[i])
       else
          str=str..array_tostring(t[i])
       end
+      if i ~= #t then
+         str=str.."/"
+      end
   end
-  return str.."}"
+  return str
 end
 
 function array_tostring(any)
@@ -160,14 +184,12 @@ function array_tostring(any)
       return tostr(any)
    end
 
-   local str = "{"
+   local str = ""
    for x in all(any) do
-      if (str~="{") then
-         str=str..","
-      end
+      str=str..","
       str=str..array_tostring(x)
    end
-   return str.."}"
+   return str
 end
 
 -- Here is the logic for the map builder tool.
@@ -307,7 +329,7 @@ function _update60()
          cur_room.m = mid(0, cur_room.m + ud, 63)
          music(cur_room.m)
       elseif cur_mode == COL then
-         cur_room.c = mid(0, cur_room.c + ud, 15)
+         cur_room.c = mid(0, (cur_room.c or 0) + ud, 15)
       elseif cur_mode == DEL then
          if cur_selected_obj then
             del(cur_room, cur_selected_obj)
@@ -317,7 +339,7 @@ function _update60()
             is_moving = true
          end
       elseif cur_mode == SAV then
-         printh("g_rooms = gun_vals[".."[\n"..rooms_to_str(g_rooms).."]".."]\n")
+         printh("g_rooms = ztable[".."[\n"..rooms_to_str(g_rooms).."]".."]\n")
          extcmd("shutdown")
       end
    end
@@ -435,7 +457,7 @@ function _draw()
       print("song: "..cur_room.m, 1, 1, 7)
       print('⬆️/⬇️ to change song.', 1, 7, 7)
    elseif cur_mode == COL then
-      print("color: "..cur_room.c, 1, 1, 7)
+      print("color: "..(cur_room.c or 0), 1, 1, 7)
       print('⬆️/⬇️ to change color.', 1, 7, 7)
    elseif cur_mode == SAV then
       print('⬆️/⬇️ to save and exit!', 1, 1, 7)

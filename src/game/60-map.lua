@@ -54,3 +54,21 @@ function room_update()
       end
    end
 end
+
+function map_init()
+   for k, v in pairs(g_rooms) do
+      local qx, qy = flr(k/10 % 4), flr(k/40)
+      local template = g_room_template[k%10]
+
+      v.x,v.y = template.x+qx*32, template.y+qy*32
+      v.w, v.h = v.w or template.w, v.h or template.h
+
+      v.i=function()
+         batch_call_table(function(att_name, x, y, ...)
+            _g[att_name](v.x+x+.5, v.y+y+.5, ...)
+         end, v)
+
+         acts_loop('act', 'room_init')
+      end
+   end
+end
