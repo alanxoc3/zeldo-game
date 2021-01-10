@@ -1,4 +1,19 @@
 -- SECTION: MONSTERS
+
+function _g.slimy_shake(a)
+   _g.look_at_pl(a)
+   a.ixx = rnd_one()
+end
+
+function _g.slimy_jump(a)
+   amov_to_actor(a, g_pl, a.jump_speed)
+   a.iyy += sin(a.tl_tim/a.tl_max_time)
+end
+
+function _g.slimy_knockback(a, other, ...)
+   call_not_nil(other, 'knockback', other, a.knockback_speed, ...)
+end
+
 create_actor([[slimy;3;drawable,bounded,danceable,confined,stunnable,mov,col,tcol,hurtable,knockable,spr_obj,spr|
    x:@1;y:@2;
    max_health:3;health:3;
@@ -8,20 +23,34 @@ create_actor([[slimy;3;drawable,bounded,danceable,confined,stunnable,mov,col,tco
    iyy:-2;
    anim_len:1;
    touchable:true;
-   hurt_func:@10;
+   destroyed:@4;
+   jump_speed:.03;
+   knockback_speed:.2;
 
    sind=118,iyy=-2,ax=0,ay=0,hit=nf,u=%look_at_pl,tl_max_time=@3;  -- wait
-   sind=119,i=nf,hit=nf,u=@4,tl_max_time=.25; -- shake
-   ixx=0,i=nf,hit=@6,u=@5,tl_max_time=.25; -- in air
+   i=nf,hit=nf,u=%slimy_shake,tl_max_time=.25; -- shake
+   sind=119,ixx=0,i=nf,hit=%slimy_knockback,u=%slimy_jump,tl_max_time=.25; -- in air
 ]], function(a)
-   _g.look_at_pl(a)
-   a.ixx = rnd_one()
-end, function(a)
-   amov_to_actor(a, g_pl, .03)
-   a.iyy += sin(a.tl_tim/a.tl_max_time)
-end, function(a, other, ...)
-   call_not_nil(other, 'knockback', other, .2, ...)
+   _g.minslimy(a.x, a.y, .2)
+   _g.minslimy(a.x, a.y, -.2)
 end)
+
+create_actor[[minslimy;3;drawable,bounded,danceable,confined,stunnable,mov,col,tcol,brang_hurtable,knockable,spr_obj,spr|
+   x:@1;y:@2;dy:@3;
+   max_health:1;health:1;
+   name:"slimy";evil:true;tl_loop:true;
+   rx:.125;ry:.125;
+   sind:116;
+   iyy:-1;
+   anim_len:1;
+   touchable:true;
+   jump_speed:.02;
+   knockback_speed:.05;
+
+   sind=116,iyy=-2,ax=0,ay=0,hit=nf,u=%look_at_pl,tl_max_time=1;  -- wait
+   i=nf,hit=nf,u=%slimy_shake,tl_max_time=.25; -- shake
+   sind=117,ixx=0,i=nf,hit=%slimy_knockback,u=%slimy_jump,tl_max_time=.25; -- in air
+]]
 
 -- create_actor([[topy;2;drawable,bounded,danceable,confined,stunnable,mov,col,tcol,hurtable,knockable,anim,spr]], [[
 --    max_health:10; health:10;

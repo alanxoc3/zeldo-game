@@ -72,8 +72,12 @@
 
 function brang_hit_func(a, other)
    if not other.pl and other.touchable and not a.did_brang_hit then
-      call_not_nil(other, 'knockback', other, .3, a.xf and -1 or 1, 0)
-      call_not_nil(other, 'hurt', other, 0, 60)
+      if other.brang_hurtable then
+         call_not_nil(other, 'hurt', other, 3, 60)
+      else
+         call_not_nil(other, 'knockback', other, .3, a.xf and -1 or 1, 0)
+      end
+
       change_cur_ma(other)
 
       a.did_brang_hit = true

@@ -235,6 +235,8 @@ create_parent(
    end
 end)
 
+create_parent[[brang_hurtable;hurtable,;;]]
+
 create_parent(
 [[anim;spr,timed;;
    sinds=/,
