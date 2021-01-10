@@ -205,6 +205,7 @@ g_rooms = ztable[[
    spikes/10/1/0.5,
    spikes/1/8/0.5,
    spikes/10/8/0.5,
+   save_spot/5.5/4.5/1,
 
 ; R_14:
    m=20,c=3,
@@ -395,6 +396,7 @@ g_rooms = ztable[[
    pot/1/5,
    pot/6/4,
    chest/6/5/true/13,
+   save_spot/3.5/3.5/1,
 
 ; R_59:
    m=18,c=4,

@@ -10,6 +10,7 @@ obj_templates = {
    {k="slimy"        , s=118, sw=1, sh=1, xf=false, p={'slimy'        , 0,0,3                       }},
    {k="kluck"        , s=32,  sw=1, sh=1, xf=false, p={'kluck'        , 0,0                         }},
    {k="topy"         , s=112, sw=1, sh=1, xf=false, p={'topy'         , 0,0                         }},
+   {k="save_spot"    , s=78,  sw=2, sh=2, xf=false, p={'save_spot'    , 0,0,1                       }},
    {k="spikes"       , s=53,  sw=1, sh=1, xf=false, p={'spikes'       , 0,0,0                       }},
    {k="f_spikes"     , s=53,  sw=1, sh=1, xf=true , p={'spikes'       , 0,0,0,true                  }},
    {k="spikes_1"     , s=53,  sw=1, sh=1, xf=false, p={'spikes'       , 0,0,.25                     }},

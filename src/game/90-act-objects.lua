@@ -1,21 +1,28 @@
 -- TODO: refactor the save platform!
-create_actor([[save_spot;2;confined,trig,drawable_obj|
+
+--create_actor([[spikes;4;trig,pre_drawable,confined,spr,loopable|
+   --static:true;touchable:false;
+   --rx:.375;ry:.375;sind:52;x:@1;y:@2;offset:@3;xf:@4;
+
+create_actor([[save_spot;3;trig,pre_drawable,confined,spr,ma_able|
+   static:true;touchable:false;
    name:"save spot";
-   rx:.625;ry:.625;
-   x:@1;y:@2;
-   intersects:@3;contains:@3;
-   pause_end:@4;not_contains_or_intersects:@5;
-]], function(a)
-   change_cur_ma(a)
+   rx:.625;ry:.625;sind:78;sw:2;sh:2;
+
+   x:@1;y:@2;which_spot:@3;
+   intersects:@4;contains:@4;
+   pause_end:@6;not_contains_or_intersects:@5;
+]], change_cur_ma, function()
+   change_cur_ma()
 end, function(a)
    if do_actors_intersect(a, g_pl) then
       if g_pause_reason == 'dancing' then
          if zdget'BANJO_TUNED' then
             memcpy(REAL_SAVE_LOCATION, TEMP_SAVE_LOCATION, SAVE_LENGTH)
-            tbox[["the game has been saved!"]]
+            tbox"the game has been saved!"
          else
             sfx'7'
-            tbox[["the game won't save for^terrible music."]]
+            tbox"the game won't save for^terrible music."
          end
       end
    end

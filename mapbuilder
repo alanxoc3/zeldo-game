@@ -37,4 +37,4 @@ else
 fi
 
 # And finally some cleanup.
-rm build/compiled_mb.lua build/tmp_map_data.lua build/mapb.p8
+rm build/compiled_mb.lua build/tmp_map_data.lua build/mapb.p8 &> /dev/null
