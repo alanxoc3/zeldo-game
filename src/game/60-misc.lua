@@ -11,11 +11,8 @@ end
 -- this file contains the logic for loading and saving a game.
 
 g_save_spots = ztable([[
-   x=02,  y=12, room=h_ban;
-   x=52,  y=60, room=for_4;
-   x=69,  y=17, room=cas_3;
-   x=123, y=14, room=tom_2;
-   x=123, y=60, room=tec_1;
+   0:x=4,y=4,room=R_58;
+     x=6,y=5,room=R_13;
 ]])
 
 -- token history: 128 103 97 69 81 49 88 104 136 108 95 92 103 73 66 64 56

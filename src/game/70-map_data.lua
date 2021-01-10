@@ -396,7 +396,7 @@ g_rooms = ztable[[
    pot/1/5,
    pot/6/4,
    chest/6/5/true/13,
-   save_spot/3.5/3.5/1,
+   save_spot/3.5/3.5/0,
 
 ; R_59:
    m=18,c=4,

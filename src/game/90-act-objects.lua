@@ -9,7 +9,7 @@ create_actor([[save_spot;3;trig,pre_drawable,confined,spr,ma_able|
    name:"save spot";
    rx:.625;ry:.625;sind:78;sw:2;sh:2;
 
-   x:@1;y:@2;which_spot:@3;
+   x:@1;y:@2;spot:@3;
    intersects:@4;contains:@4;
    pause_end:@6;not_contains_or_intersects:@5;
 ]], change_cur_ma, function()
@@ -18,6 +18,7 @@ end, function(a)
    if do_actors_intersect(a, g_pl) then
       if g_pause_reason == 'dancing' then
          if zdget'BANJO_TUNED' then
+            zdset(SAVE_SPOT, a.spot)
             memcpy(REAL_SAVE_LOCATION, TEMP_SAVE_LOCATION, SAVE_LENGTH)
             tbox"the game has been saved!"
          else
