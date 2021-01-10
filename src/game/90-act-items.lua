@@ -72,11 +72,8 @@
 
 function brang_hit_func(a, other)
    if not other.pl and other.touchable and not a.did_brang_hit then
-      if other.brang_hurtable then
-         call_not_nil(other, 'hurt', other, 3, 60)
-      else
-         call_not_nil(other, 'knockback', other, .3, a.xf and -1 or 1, 0)
-      end
+      call_not_nil(other, 'hurt', other, other.brang_hurtable and 1 or 0, 30)
+      call_not_nil(other, 'knockback', other, .3, a.xf and -1 or 1, 0)
 
       change_cur_ma(other)
 
@@ -217,7 +214,7 @@ create_actor([[shield;1;item,bashable,pokeable|
    hit=@2,i=nf,u=@3,e=nf,bash_dx=.2;
 ]], function(a, other)
    if other != a.rel_actor and a.tl_cur < 3 then
-      call_not_nil(other, 'hurt', other, 0, 30)
+      call_not_nil(other, 'hurt', other, 0, 60)
    end
    a:bash(other)
 end, sword_shield_u2)

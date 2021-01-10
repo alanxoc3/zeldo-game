@@ -12,6 +12,9 @@ end
 
 function _g.slimy_knockback(a, other, ...)
    call_not_nil(other, 'knockback', other, a.knockback_speed, ...)
+   if other.pl then
+      other.hurt(other, 0, a.stun_len)
+   end
 end
 
 create_actor([[slimy;3;ma_able,drawable,bounded,danceable,confined,stunnable,mov,col,tcol,hurtable,knockable,spr_obj,spr|
@@ -26,6 +29,7 @@ create_actor([[slimy;3;ma_able,drawable,bounded,danceable,confined,stunnable,mov
    destroyed:@4;
    jump_speed:.03;
    knockback_speed:.2;
+   stun_len:30;
 
    sind=118,iyy=-2,ax=0,ay=0,hit=nf,u=%look_at_pl,tl_max_time=@3;  -- wait
    i=nf,hit=nf,u=%slimy_shake,tl_max_time=.25; -- shake
@@ -46,6 +50,7 @@ create_actor[[miny;3;ma_able,drawable,bounded,danceable,confined,stunnable,mov,c
    touchable:true;
    jump_speed:.02;
    knockback_speed:.05;
+   stun_len:0;
 
    sind=116,iyy=-2,ax=0,ay=0,hit=nf,u=%look_at_pl,tl_max_time=1;  -- wait
    i=nf,hit=nf,u=%slimy_shake,tl_max_time=.25; -- shake

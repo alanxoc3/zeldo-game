@@ -1,6 +1,5 @@
 function zspr(sind, x, y, sw, sh, ...)
-   if not sw then sw = 1 end
-   if not sh then sh = 1 end
+   -- sw, sh = sw or 1, sh or 1
    spr(sind, x-sw*4, y-sh*4, sw, sh, ...)
 end
 

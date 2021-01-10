@@ -21,7 +21,7 @@ function energy_update(refresh_rate)
 
    if g_energy_amount > 0 then
       g_energy_amount = max(0, g_energy_amount-1)
-      g_energy = g_energy + 1
+      g_energy += 1
    elseif not g_energy_pause then
       g_energy = max(0, g_energy - refresh_rate)
    end

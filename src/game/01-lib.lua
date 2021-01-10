@@ -89,12 +89,11 @@ function tl_node(root, node, ...)
       return_value = tl_node(root, node[node.tl_cur], ...)
 
       if return_value == 0 then
-         node.tl_cur = nil
-         return_value = true
+         return_value, node.tl_cur = true
       elseif return_value then
          root.tl_old_state = nil
 
-         if type(return_value) == "NUMBER" then
+         if type(return_value) == "number" then
             node.tl_cur = return_value
          else
             node.tl_cur = (node.tl_cur % #node) + 1
@@ -107,8 +106,7 @@ function tl_node(root, node, ...)
    else
       if not root.tl_old_state then
          tabcpy(node, root)
-         node.tl_tim = 0
-         root.tl_old_state = true
+         node.tl_tim, root.tl_old_state = 0, true
          call_not_nil(root, 'i', root, ...) -- init function
       end
 
