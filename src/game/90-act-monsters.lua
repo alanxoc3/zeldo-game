@@ -14,7 +14,7 @@ function _g.slimy_knockback(a, other, ...)
    call_not_nil(other, 'knockback', other, a.knockback_speed, ...)
 end
 
-create_actor([[slimy;3;drawable,bounded,danceable,confined,stunnable,mov,col,tcol,hurtable,knockable,spr_obj,spr|
+create_actor([[slimy;3;ma_able,drawable,bounded,danceable,confined,stunnable,mov,col,tcol,hurtable,knockable,spr_obj,spr|
    x:@1;y:@2;
    max_health:3;health:3;
    name:"slimy";evil:true;tl_loop:true;
@@ -31,14 +31,14 @@ create_actor([[slimy;3;drawable,bounded,danceable,confined,stunnable,mov,col,tco
    i=nf,hit=nf,u=%slimy_shake,tl_max_time=.25; -- shake
    sind=119,ixx=0,i=nf,hit=%slimy_knockback,u=%slimy_jump,tl_max_time=.25; -- in air
 ]], function(a)
-   _g.minslimy(a.x, a.y, .2)
-   _g.minslimy(a.x, a.y, -.2)
+   _g.miny(a.x, a.y, .2)
+   _g.miny(a.x, a.y, -.2)
 end)
 
-create_actor[[minslimy;3;drawable,bounded,danceable,confined,stunnable,mov,col,tcol,brang_hurtable,knockable,spr_obj,spr|
+create_actor[[miny;3;ma_able,drawable,bounded,danceable,confined,stunnable,mov,col,tcol,brang_hurtable,knockable,spr_obj,spr|
    x:@1;y:@2;dy:@3;
    max_health:1;health:1;
-   name:"slimy";evil:true;tl_loop:true;
+   name:"miny";evil:true;tl_loop:true;
    rx:.125;ry:.125;
    sind:116;
    iyy:-1;

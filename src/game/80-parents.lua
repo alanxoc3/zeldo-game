@@ -48,6 +48,7 @@ end, function(a, ...)
    return cur_act
 end)
 
+create_parent[[ma_able;act,;;name="thing",]]
 create_parent[[confined;act,;]]
 
 create_parent[[
@@ -372,7 +373,7 @@ end)
 
 -- SECTION: CHARS
 create_parent(
-[[interactable;spr,wall,confined;;
+[[interactable;spr,wall,confined,ma_able;;
    interactable_trigger=nf,
    trig_x=0,
    trig_y=0,
@@ -395,7 +396,7 @@ create_parent(
    end)
 end)
 
-create_parent[[nnpc;drawable,danceable,interactable;;
+create_parent[[nnpc;drawable,danceable,interactable,ma_able;;
    rx=.5,ry=.5,iyy=-2,
    u=%look_at_pl
 ]]
@@ -409,6 +410,7 @@ create_parent(
 ]], function(a, o)
    if o != a.rel_actor then
       call_not_nil(o, 'knockback', o, a.bash_dx, bool_to_num(a.xf), 0)
+      change_cur_ma(o)
       if a.rel_actor then
          call_not_nil(a.rel_actor, 'knockback', a.rel_actor, -a.rel_bash_dx, bool_to_num(a.xf), 0)
       end
@@ -450,7 +452,7 @@ end
 
 -- SECTION: NPCS
 create_parent(
-[[shop_item;drawable,interactable;update,;
+[[shop_item;drawable,interactable,ma_able;update,;
    costable=true,
    interactable_trigger=@1,
    rx=.5, ry=.5,

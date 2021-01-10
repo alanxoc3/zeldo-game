@@ -63,8 +63,7 @@ create_actor([[view;4;act,confined;center_view,update_view|
    update_view:@5;
    center_view:@6;
    change_ma:@7;
-
-   ,;tl_max_time=4,;follow_act=false,;
+   ,;
 ]],
 function(a)
    batch_call_new(update_view_helper, [[@1,x,w,ixx;@1,y,h,iyy]], a)
@@ -73,8 +72,9 @@ end, function(a)
       a.x, a.y = a.follow_act.x, a.follow_act.y
    end
    a:update_view()
-end, function(a, ma)
-   a.follow_act = ma
-   a.tl_cur = 1
-   a.tl_next = ma and ma.timeoutable and 2 or 1
+end, function(a, other)
+   -- Only include actors that are ma_able. Allow nil too though, to reset the actor.
+   if not other or other.ma_able then
+      a.follow_act = other
+   end
 end)
