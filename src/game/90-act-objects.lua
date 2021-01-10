@@ -14,9 +14,11 @@ end, function(a)
    if do_actors_intersect(a, g_pl) then
       if g_pause_reason == 'dancing' then
          if zdget'BANJO_TUNED' then
-            zdset(SAVE_SPOT, a.spot)
-            zdset(MAX_HEALTH, g_pl.max_health)
-            zdset(HEALTH, g_pl.health)
+            batch_call_new(zdset, [[
+               SAVE_SPOT,@1;
+               MAX_HEALTH,@2;
+               HEALTH,@3;
+            ]], a.spot, g_pl.max_health, g_pl.health)
             memcpy(REAL_SAVE_LOCATION, TEMP_SAVE_LOCATION, SAVE_LENGTH)
             tbox"the game has been saved!"
          else

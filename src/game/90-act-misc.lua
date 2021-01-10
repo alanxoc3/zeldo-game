@@ -17,9 +17,7 @@ create_actor([[item_selector;1;rel,|rel_actor:@1;u:@2]], function(a)
       g_items_drawn[next_selected].selected = true
    end
 
-   g_selected = next_selected
-   a.rel_x = (x - 1) * 1.5
-   a.rel_y = (y - 1.25) * 1.5
+   g_selected, a.rel_x, a.rel_y = next_selected, (x - 1) * 1.5, (y - 1.25) * 1.5
 end
 )
 

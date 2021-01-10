@@ -19,7 +19,7 @@ create_actor([[navy_blocking;2;nnpc,mem_dep|
    else
       tbox"my sister has been in the^forest all day.^find something to protect^yourself with, then bring^her home."
    end
-end, _g.npc_dance_logic("umm...", "nice playing lank!^^if i had money, i would^give it to you!", _g.memloc_money(HAS_BANJO, 0)))
+end, _g.npc_dance_logic("umm...", "nice playing lank!^^if i had money, i would^give it to you!"))
 
 create_actor([[teach;2;nnpc,|
    name:"teach";

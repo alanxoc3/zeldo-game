@@ -4,19 +4,13 @@
 -- Protect against that pesky glitchy reset.
 memset(0x05d00, 0, 0x100)
 cartdata(CART_NAME)
-memcpy(TEMP_SAVE_LOCATION, REAL_SAVE_LOCATION, SAVE_LENGTH)
 
 -- DEBUG_BEGIN
 g_debug = false
 -- DEBUG_END
 
 function _init()
-   g_money = zdget_value(MONEY)
-   poke(0x5f34, 1) -- for pattern colors.
-   zdset(HAS_BOOMERANG) -- TODO: remove this.
-   zdset(HAS_SWORD) -- TODO: remove this.
-   zdset(HAS_SHIELD) -- TODO: remove this.
-
+   memset(TEMP_SAVE_LOCATION, 0, SAVE_LENGTH)
    map_init()
 
    tl_game = ztable([[
@@ -26,11 +20,9 @@ function _init()
       _g.fader_in(game_init, unpause)
    end, game_update, game_draw)
 
-   --g_tl = {
-      --g_title,
-      --tl_game }
-
-   inventory_init()
+   g_tl = {
+      g_title,
+      tl_game }
 end
 
 function _update60()
@@ -65,13 +57,13 @@ function _update60()
    end
    -- DEBUG_END
 
-   tl_node(tl_game,tl_game)
+   tl_node(g_tl,g_tl)
    tbox_interact()
 end
 
 function _draw()
    cls()
-   call_not_nil(tl_game, 'd', tl_game)
+   call_not_nil(g_tl, 'd', g_tl)
 end
 
 function game_update()
@@ -206,7 +198,25 @@ function game_draw()
 end
 
 function game_init()
-   map_init()
+   memcpy(TEMP_SAVE_LOCATION, REAL_SAVE_LOCATION, SAVE_LENGTH)
+
+   -- DEBUG_BEGIN
+   -- We don't care about save info with debug mode.
+   memset(TEMP_SAVE_LOCATION, 0, SAVE_LENGTH)
+
+   -- Let's get all the items in debug mode.
+   batch_call_new(zdset, [[
+      HAS_BOOMERANG,;
+      HAS_SWORD,;
+      HAS_SHIELD,;
+      HAS_BANJO,;
+      BANJO_TUNED,;
+   ]])
+   -- DEBUG_END
+
+   inventory_init()
+   g_money = zdget_value(MONEY)
+
    if not zdget'GAME_CONTINUE' then
       zdset(MAX_HEALTH, LANK_START_HEALTH)
       zdset(HEALTH, LANK_START_HEALTH)
