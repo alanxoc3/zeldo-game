@@ -1,5 +1,3 @@
-G_INTERACT = 5
-
 function create_inventory_items()
    if not g_items_drawn then
       sfx'3'
@@ -37,7 +35,7 @@ function inventory_init()
       mem_loc=HAS_BOMB,      enabled=true, name=bomb    , xoff=7, yoff=-9, sind=5;
 
       mem_loc=HAS_SHIELD,    enabled=false, name=shield  , xoff=-8, yoff=-3, sind=6;
-      mem_loc=ALWAYS_TRUE,   enabled=true, name=interact, interact=true, xoff=0, yoff=-3, sind=false;
+      mem_loc=ALWAYS_TRUE,   enabled=true,  name=interact, interact=true, xoff=0, yoff=-3, sind=false;
       mem_loc=HAS_BOW,       enabled=false, name=bow     , xoff=8, yoff=-3, sind=7;
 
       mem_loc=HAS_SHOVEL,    enabled=false, name=shovel  , xoff=-7, yoff=4, sind=3;
@@ -45,7 +43,7 @@ function inventory_init()
       mem_loc=HAS_BANJO,     enabled=false, name=banjo   , xoff=7, yoff=4, sind=1;
    ]]
    zdset(ALWAYS_TRUE) -- interact should be true
-   g_selected=G_INTERACT
+   g_selected=5
 end
 
 function gen_pl_item(pl)
@@ -62,7 +60,7 @@ function inventory_update()
    local item = get_selected_item()
 
    if not is_game_paused'tbox' and not g_menu_open and btn'5' then
-      g_selected = G_INTERACT
+      g_selected = 5
    end
 
    g_menu_open = not is_game_paused'tbox' and btn'5'
@@ -73,7 +71,7 @@ function inventory_update()
 
    if g_menu_open and not btn'5' then
       if not get_selected_item() then
-         g_selected = G_INTERACT
+         g_selected = 5
       end
    end
 

@@ -1,9 +1,5 @@
 -- TODO: refactor the save platform!
 
---create_actor([[spikes;4;trig,pre_drawable,confined,spr,loopable|
-   --static:true;touchable:false;
-   --rx:.375;ry:.375;sind:52;x:@1;y:@2;offset:@3;xf:@4;
-
 create_actor([[save_spot;3;trig,pre_drawable,confined,spr,ma_able|
    static:true;touchable:false;
    name:"save spot";
@@ -19,6 +15,8 @@ end, function(a)
       if g_pause_reason == 'dancing' then
          if zdget'BANJO_TUNED' then
             zdset(SAVE_SPOT, a.spot)
+            zdset(MAX_HEALTH, g_pl.max_health)
+            zdset(HEALTH, g_pl.health)
             memcpy(REAL_SAVE_LOCATION, TEMP_SAVE_LOCATION, SAVE_LENGTH)
             tbox"the game has been saved!"
          else

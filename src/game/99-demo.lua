@@ -207,8 +207,13 @@ end
 
 function game_init()
    map_init()
-   g_pl = _g.pl(0, 0)
+   if not zdget'GAME_CONTINUE' then
+      zdset(MAX_HEALTH, LANK_START_HEALTH)
+      zdset(HEALTH, LANK_START_HEALTH)
+      zdset'GAME_CONTINUE'
+   end
 
+   g_pl = _g.pl(0, 0)
 
    -- load_room(R_12, 3, 5, g_pl)
 

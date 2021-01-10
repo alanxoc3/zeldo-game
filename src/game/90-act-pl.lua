@@ -75,11 +75,11 @@ create_actor([[pl;2;drawable,anim,col,mov,tcol,hurtable,knockable,stunnable,spr,
    spd:.02;
    anim_len:3;
    anim_spd:5;
-   max_health:LANK_START_HEALTH;
-   health:LANK_START_HEALTH;
    i:@3;u:@4;destroyed:@5;d:@6;room_init:@7;set_color:@8;
 ]], function(a)
    a.ltop = _g.lank_top(a)
+   a.max_health=zdget_value(MAX_HEALTH)
+   a.health=zdget_value(HEALTH)
 end, function(a)
    -- movement logic
    if a.stun_countdown == 0 then
