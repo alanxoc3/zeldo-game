@@ -46,9 +46,15 @@ end
 
 create_actor([[lark;2;nnpc,|
    name:"lark";
-   sind:99;x:@1;y:@2;interactable_trigger:!tbox_closure/"i'm your biggest fan!";
-   pause_end:@3;
-]], _g.npc_dance_logic("hey that was bad!", "hey that was good!", _g.memloc_money(LARK_DANCE, 60)))
+   sind:99;x:@1;y:@2;interactable_trigger:@3;
+   pause_end:@4;
+]], function(a)
+   if g_pl.health < g_pl.max_health then
+      tbox("please let me help you.", function() g_pl.health = g_pl.max_health end)
+   else
+      tbox"i'm your biggest fan!^^visit me if you're hurt."
+   end
+end, _g.npc_dance_logic("i can't fix banjos.", "you helped my soul!", _g.memloc_money(LARK_DANCE, 60)))
 
 create_actor([[jane;2;nnpc,|
    name:"jane";sind:81;

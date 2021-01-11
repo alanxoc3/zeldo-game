@@ -33,9 +33,9 @@ function _g.npc_dance_logic(bad_text, good_text, good_trigger)
    end
 end
 
-function _g.get_npc_reload_room(mem_loc)
+function _g.get_npc_reload_room(mem_loc, val)
    return function()
-      zdset(mem_loc)
+      zdset(mem_loc, val)
       transition(g_cur_room_index, g_pl.x-g_cur_room.x, g_pl.y-g_cur_room.y, g_pl)
    end
 end
