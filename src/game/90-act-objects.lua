@@ -136,6 +136,28 @@ end, function(a)
 end
 )
 
+create_actor[[pillow;2;pre_drawable,spr|
+   x:@1;y:@2;sind:39;iyy:0;
+]]
+
+-- todo: trim code here.
+create_actor([[bed;2;drawable,confined,spr|
+   x:@1;y:@2;sind:55;
+   i:@3;destroyed:@4;
+   iyy:0;
+]], function(a)
+   -- a.b1 = _g.static_block(a.x-.75,a.y, .25, .5)
+   -- a.b2 = _g.static_block(a.x+.75,a.y, .25, .5)
+   a.b1 = _g.pillow(a.x,a.y-7/8)
+   a.b2 = _g.static_block(a.x+4/8,a.y, .0625,.25)
+   a.b3 = _g.static_block(a.x-4/8,a.y, .0625,.25)
+   a.b4 = _g.static_block(a.x,a.y+3/8, 5/8,.25)
+end, function(a)
+   -- a.b1.alive, a.b2.alive,
+   a.b1.alive, a.b2.alive, a.b3.alive, a.b4.alive = false
+end
+)
+
 -- SECTION: OBJECTS
 create_actor([[money;4;drawable,bounded,confined,tcol,spr,col,mov|
    sind:36;rx:.125;ry:.125;

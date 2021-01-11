@@ -95,6 +95,8 @@ for i=0,255 do
     create_outline(i, 1, 1)
   elseif fget(i,4) then
     create_outline(i, 1, 2)
+  elseif fget(i,3) then
+    create_outline(i, 2, 1)
   end
 end
 
