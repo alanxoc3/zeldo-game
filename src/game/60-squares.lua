@@ -3,13 +3,11 @@ g_cur_enemy_timer = nil, 0
 
 function add_money(amount)
    g_money = min(g_money + amount, 99)
-   zdset(MONEY,g_money)
 end
 
 function remove_money(amount)
    if g_money - amount >= 0 then
       g_money -= amount
-      zdset(MONEY,g_money)
       return true
    end
 end

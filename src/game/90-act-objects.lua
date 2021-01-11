@@ -18,7 +18,8 @@ end, function(a)
                SAVE_SPOT,@1;
                MAX_HEALTH,@2;
                HEALTH,@3;
-            ]], a.spot, g_pl.max_health, g_pl.health)
+               MONEY,@4;
+            ]], a.spot, g_pl.max_health, g_pl.health, g_money)
             memcpy(REAL_SAVE_LOCATION, TEMP_SAVE_LOCATION, SAVE_LENGTH)
             tbox"the game has been saved!"
          else
