@@ -136,7 +136,7 @@ end, function(a)
 end
 )
 
-create_actor[[pillow;2;pre_drawable,spr|
+create_actor[[pillow;2;pre_drawable,spr,confined|
    x:@1;y:@2;sind:39;iyy:0;
 ]]
 
@@ -152,7 +152,6 @@ create_actor([[bed;2;drawable,confined,spr|
    a.b3 = _g.static_block(a.x-4/8,a.y, .0625,.25)
    a.b4 = _g.static_block(a.x,a.y+3/8, 5/8,.25)
 end, function(a)
-   -- a.b1.alive, a.b2.alive,
    a.b2.alive, a.b3.alive, a.b4.alive = false
 end
 )
