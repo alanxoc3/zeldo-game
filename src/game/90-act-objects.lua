@@ -148,13 +148,12 @@ create_actor([[bed;2;drawable,confined,spr|
 ]], function(a)
    -- a.b1 = _g.static_block(a.x-.75,a.y, .25, .5)
    -- a.b2 = _g.static_block(a.x+.75,a.y, .25, .5)
-   a.b1 = _g.pillow(a.x,a.y-7/8)
    a.b2 = _g.static_block(a.x+4/8,a.y, .0625,.25)
    a.b3 = _g.static_block(a.x-4/8,a.y, .0625,.25)
    a.b4 = _g.static_block(a.x,a.y+3/8, 5/8,.25)
 end, function(a)
    -- a.b1.alive, a.b2.alive,
-   a.b1.alive, a.b2.alive, a.b3.alive, a.b4.alive = false
+   a.b2.alive, a.b3.alive, a.b4.alive = false
 end
 )
 

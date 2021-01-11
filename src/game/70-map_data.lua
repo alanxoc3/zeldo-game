@@ -35,8 +35,8 @@ g_rooms = ztable[[
    house/3.5/4/9/4/7.5/46,
    house/15.5/3/6/4/7.5/46,
    house/11.5/2/57/4/7.5/46,
-   house/7.5/3/8/4/7.5/46,
    house/19.5/4/7/4/7.5/46,
+   house/7.5/3/8/4/7.5/46,
 
 ; R_04:
    m=18,c=5,
@@ -76,10 +76,14 @@ g_rooms = ztable[[
    m=18,c=4,
    d=R_02/8/4,
 
-   jane/5/2,
+   jane/5/4,
+   pot/5/6,
    pot/6/6,
-   pot/2/6,
    box/1/6,
+   pillow/1/0.5,
+   bed/1/1.5,
+   pillow/4/0.5,
+   bed/4/1.5,
 
 ; R_09:
    m=18,c=4,
@@ -89,6 +93,10 @@ g_rooms = ztable[[
    box/1/6,
    pot/5/6,
    pot/2/6,
+   pillow/1/0.5,
+   pillow/6/0.5,
+   bed/6/1.5,
+   bed/1/1.5,
 
 ; R_10:
    m=14,c=3,
@@ -382,8 +390,12 @@ g_rooms = ztable[[
    lark/3.5/3.5,
    box/6/6,
    box/1/6,
-   pot/6/5,
-   pot/1/5,
+   pot/5/1,
+   pot/2/1,
+   bed/3.5/1.5,
+   pillow/3.5/0.5,
+   pot/1/2,
+   pot/6/2,
 
 ; R_58:
    m=18,c=4,
@@ -394,9 +406,10 @@ g_rooms = ztable[[
    pot/2/6,
    pot/1/6,
    pot/1/5,
-   pot/6/4,
-   bed/2/1.5,
-   chest/6/5/true/HAS_BANJO,
+   pot/6/5,
+   pillow/1/0.5,
+   bed/1/1.5,
+   chest/4/1/true/15,
    save_spot/3.5/3.5/0,
 
 ; R_59:
