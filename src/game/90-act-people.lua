@@ -7,7 +7,6 @@ create_actor([[navy_blocking;2;nnpc,mem_dep|
    f_money:!memloc_money/HAS_BANJO/0;
 
    -- brang:!tbox/"brang..."/~f_reload;
-
    -- !npc_dance_logic/"umm..."/~f_money;
 
    x:@1;y:@2;interactable_trigger:@3;pause_end:@4;

@@ -17,11 +17,37 @@ function _g.slimy_knockback(a, other, ...)
    end
 end
 
+-- create_actor([[slimy_parent;
+--    ma_able, drawable, bounded, danceable,
+--    confined, stunnable, mov, col, tcol,
+--    hurtable, knockable, spr_obj, spr |
+-- 
+--    ztable_vals:{"slimy", @1, @2, 3, 118, 119};
+--    name:~1; x:~2; y:~3;
+--    max_health:~4; health:~4;
+--    evil:true; tl_loop:true;
+--    rx:.25; ry:.25;
+--    sind:118;
+--    iyy:-2;
+--    anim_len:1;
+--    touchable:true;
+--    destroyed:@4;
+--    jump_speed:.03;
+--    knockback_speed:.2;
+--    stun_len:30;
+-- 
+--    sind=118,iyy=-2,ax=0,ay=0,hit=nf,u=%look_at_pl,tl_max_time=@3;  -- wait
+--    i=nf,hit=nf,u=%slimy_shake,tl_max_time=.25; -- shake
+--    sind=119,ixx=0,i=nf,hit=%slimy_knockback,u=%slimy_jump,tl_max_time=.25; -- in air
+-- 
+--    name:"slimy"; x:@1; y:@2;
+-- ]])
+
 create_actor([[slimy;3;ma_able,drawable,bounded,danceable,confined,stunnable,mov,col,tcol,hurtable,knockable,spr_obj,spr|
-   x:@1;y:@2;
-   max_health:3;health:3;
-   name:"slimy";evil:true;tl_loop:true;
-   rx:.25;ry:.25;
+   name:"slimy"; x:@1; y:@2;
+   max_health:3; health:3;
+   evil:true; tl_loop:true;
+   rx:.25; ry:.25;
    sind:118;
    iyy:-2;
    anim_len:1;

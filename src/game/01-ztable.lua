@@ -12,8 +12,8 @@ function ztable(original_str, ...)
    if g_ztable_cache[str] == nil then
       local tbl, operations = zsplitkv(str, ';', ':', identity), {}
       for k, v in pairs(tbl) do
-         local val_func = function(sub_val, sub_key)
-            return queue_operation(tbl, k, sub_key, sub_val, operations)
+         local val_func = function(sub_val, sub_key, sub_tbl)
+            return queue_operation(sub_tbl or tbl, sub_key or k, sub_val, operations)
          end
 
          tbl[k] = zsplitkv(v, ',', '=', val_func, true)
@@ -24,22 +24,19 @@ function ztable(original_str, ...)
    local table, ops = g_ztable_cache[str][1], g_ztable_cache[str][2]
    foreach(ops, function(op)
       local t, k = op.t, op.k
-      if op.sk then
-         t, k = t[op.k], op.sk
-      end
       t[k] = op.f(params)
    end)
    return g_ztable_cache[str][1]
 end
 
-function queue_operation(tbl, k, sub_key, v, operations)
+function queue_operation(tbl, k, v, operations)
    local vlist = split(v, '/')
    local will_be_table, func_op, func_name = #vlist > 1
 
    if ord(v) == 33 then -- ! func
       will_be_table = true
 
-      func_op = {t=tbl, k=k, sk=sub_key}
+      func_op = {t=tbl, k=k}
       func_name = deli(vlist, 1)
 
       function func_op.f()
@@ -56,13 +53,14 @@ function queue_operation(tbl, k, sub_key, v, operations)
          else
             operation.t = tbl
             operation.k = k
-            operation.sk = sub_key
          end
 
          function operation.f(p) return p[sub(x,2)+0] end
          add(operations, operation)
       elseif ord(x) == 37 then -- % _g value
          x = _g[sub(x, 2)]
+      -- elseif ord(x) == 126 then -- ~ local table value
+         -- x = _g[sub(x, 2)]
       elseif x == 'true' or x == 'false' then x = x=='true'
       elseif x == 'nil' or x == '' then x = nil
       elseif x == 'nf' then x = function() end
@@ -98,7 +96,7 @@ function zsplitkv(str, item_delim, kv_delim, val_func, expandable)
       if expandable and #items == 1 then
          return val_func(v)
       else
-         tbl[k] = val_func(v,k)
+         tbl[k] = val_func(v, k, tbl)
       end
    end
 
