@@ -1,87 +1,56 @@
 -- SECTION: MONSTERS
+create_parent([[slimy_parent;8;ma_able,drawable,bounded,danceable,confined,stunnable,mov,col,tcol,hurtable,knockable,spr_obj,spr|
+   name:@1; rx:@2; ry:@3;
+   max_health:@4; health:@4;
+   evil:true; tl_loop:true;
+   iyy:-2;
+   anim_len:1;
+   touchable:true;
+   jump_speed:.03;
+   knockback_speed:@5;
+   stun_len:@6;
 
-function _g.slimy_shake(a)
+   sind=@7,iyy=-2,ax=0,ay=0,hit=nf,u=%look_at_pl,tl_max_time=2;  -- wait
+   i=nf,hit=nf,u=@9,tl_max_time=.25; -- shake
+   sind=@8,ixx=0,i=nf,hit=@11,u=@10,tl_max_time=.25; -- in air
+]], function(a)
    _g.look_at_pl(a)
    a.ixx = rnd_one()
-end
-
-function _g.slimy_jump(a)
+end, function(a)
    amov_to_actor(a, g_pl, a.jump_speed)
    a.iyy += sin(a.tl_tim/a.tl_max_time)
-end
-
-function _g.slimy_knockback(a, other, ...)
+end, function(a, other, ...)
    call_not_nil(other, 'knockback', other, a.knockback_speed, ...)
    if other.pl then
       other.hurt(other, 0, a.stun_len)
    end
-end
-
--- create_actor([[slimy_parent;
---    ma_able, drawable, bounded, danceable,
---    confined, stunnable, mov, col, tcol,
---    hurtable, knockable, spr_obj, spr |
--- 
---    ztable_vals:{"slimy", @1, @2, 3, 118, 119};
---    name:~1; x:~2; y:~3;
---    max_health:~4; health:~4;
---    evil:true; tl_loop:true;
---    rx:.25; ry:.25;
---    sind:118;
---    iyy:-2;
---    anim_len:1;
---    touchable:true;
---    destroyed:@4;
---    jump_speed:.03;
---    knockback_speed:.2;
---    stun_len:30;
--- 
---    sind=118,iyy=-2,ax=0,ay=0,hit=nf,u=%look_at_pl,tl_max_time=@3;  -- wait
---    i=nf,hit=nf,u=%slimy_shake,tl_max_time=.25; -- shake
---    sind=119,ixx=0,i=nf,hit=%slimy_knockback,u=%slimy_jump,tl_max_time=.25; -- in air
--- 
---    name:"slimy"; x:@1; y:@2;
--- ]])
-
-create_actor([[slimy;3;ma_able,drawable,bounded,danceable,confined,stunnable,mov,col,tcol,hurtable,knockable,spr_obj,spr|
-   name:"slimy"; x:@1; y:@2;
-   max_health:3; health:3;
-   evil:true; tl_loop:true;
-   rx:.25; ry:.25;
-   sind:118;
-   iyy:-2;
-   anim_len:1;
-   touchable:true;
-   destroyed:@4;
-   jump_speed:.03;
-   knockback_speed:.2;
-   stun_len:30;
-
-   sind=118,iyy=-2,ax=0,ay=0,hit=nf,u=%look_at_pl,tl_max_time=@3;  -- wait
-   i=nf,hit=nf,u=%slimy_shake,tl_max_time=.25; -- shake
-   sind=119,ixx=0,i=nf,hit=%slimy_knockback,u=%slimy_jump,tl_max_time=.25; -- in air
-]], function(a)
-   _g.miny(a.x, a.y, .2)
-   _g.miny(a.x, a.y, -.2)
 end)
 
-create_actor[[miny;3;ma_able,drawable,bounded,danceable,confined,stunnable,mov,col,tcol,brang_hurtable,knockable,spr_obj,spr|
-   x:@1;y:@2;dy:@3;
-   max_health:1;health:1;
-   name:"miny";evil:true;tl_loop:true;
-   rx:.125;ry:.125;
-   sind:116;
-   iyy:-1;
-   anim_len:1;
-   touchable:true;
-   jump_speed:.02;
-   knockback_speed:.05;
-   stun_len:0;
+create_actor([[miny;3;slimy_parent/"miny"/.125/.125/1/.05/0/116/117,brang_hurtable|x:@1;y:@2;dy:@3]])
+create_actor([[slimy;2;slimy_parent/"slimy"/.25/.25/3/.2/30/118/119,|x:@1;y:@2;destroyed:@3;]], function(a)
+   batch_call_new(_g.miny, [[
+      @1,@2,.2;
+      @1,@2,-.2;
+   ]], a.x, a.y)
+end)
 
-   sind=116,iyy=-2,ax=0,ay=0,hit=nf,u=%look_at_pl,tl_max_time=1;  -- wait
-   i=nf,hit=nf,u=%slimy_shake,tl_max_time=.25; -- shake
-   sind=117,ixx=0,i=nf,hit=%slimy_knockback,u=%slimy_jump,tl_max_time=.25; -- in air
-]]
+-- create_actor[[miny;3;ma_able,drawable,bounded,danceable,confined,stunnable,mov,col,tcol,brang_hurtable,knockable,spr_obj,spr|
+--    x:@1;y:@2;dy:@3;
+--    max_health:1;health:1;
+--    name:"miny";evil:true;tl_loop:true;
+--    rx:.125;ry:.125;
+--    sind:116;
+--    iyy:-1;
+--    anim_len:1;
+--    touchable:true;
+--    jump_speed:.02;
+--    knockback_speed:.05;
+--    stun_len:0;
+-- 
+--    sind=116,iyy=-2,ax=0,ay=0,hit=nf,u=%look_at_pl,tl_max_time=1;  -- wait
+--    i=nf,hit=nf,u=%slimy_shake,tl_max_time=.25; -- shake
+--    sind=117,ixx=0,i=nf,hit=%slimy_knockback,u=%slimy_jump,tl_max_time=.25; -- in air
+-- ]]
 
 -- create_actor([[topy;2;drawable,bounded,danceable,confined,stunnable,mov,col,tcol,hurtable,knockable,anim,spr]], [[
 --    max_health:10; health:10;

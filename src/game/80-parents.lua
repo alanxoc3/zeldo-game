@@ -4,7 +4,7 @@
 
 -- to generate an actor.
 create_parent(
-[[act;,;room_init,pause_init,pause_update,pause_end,kill,clean,delete|
+[[act;0;,;room_init,pause_init,pause_update,pause_end,kill,clean,delete|
    alive:true;
    stun_countdown:0;
    i:nf; u:nf;
@@ -48,14 +48,14 @@ end, function(a, ...)
    return cur_act
 end)
 
-create_parent[[ma_able;act,;|name:"thing";]]
-create_parent[[confined;act,;room_end,|room_end:nf;]]
-create_parent[[loopable;act,;|tl_loop:true;]]
-create_parent[[pos;act,;|x:0;y:0;]]
-create_parent[[move_pause;act,;update,move,vec_update,tick|;]]
-create_parent[[dim;pos,;|rx:.375;ry:.375;]]
+create_parent[[ma_able;0;act,;|name:"thing";]]
+create_parent[[confined;0;act,;room_end,|room_end:nf;]]
+create_parent[[loopable;0;act,;|tl_loop:true;]]
+create_parent[[pos;0;act,;|x:0;y:0;]]
+create_parent[[move_pause;0;act,;update,move,vec_update,tick|;]]
+create_parent[[dim;0;pos,;|rx:.375;ry:.375;]]
 
-create_parent([[bounded;act,;|
+create_parent([[bounded;0;act,;|
    check_bounds:@1;
 ]], function(a)
    if a.x+a.dx < g_cur_room.x+.5 then
@@ -79,14 +79,14 @@ create_parent([[bounded;act,;|
    end
 end)
 
-create_parent([[timed;act,;|
+create_parent([[timed;0;act,;|
    t:0;
    tick:@1;
 ]], function(a)
    a.t += 1
 end)
 
-create_parent([[vec;pos,;|
+create_parent([[vec;0;pos,;|
    dx:0;
    dy:0;
    vec_update:@1;
@@ -95,7 +95,7 @@ create_parent([[vec;pos,;|
    a.y += a.dy
 end)
 
-create_parent([[mov;vec,;|
+create_parent([[mov;0;vec,;|
    ix:.85;
    iy:.85;
    ax:0;
@@ -112,7 +112,7 @@ end, function(a)
 end)
 
 -- DEBUG_BEGIN
-create_parent([[dim;pos,;debug_rect,|
+create_parent([[dim;0;pos,;debug_rect,|
    rx:.375;
    ry:.375;
    debug_rect:@1;
@@ -123,7 +123,7 @@ end)
 
 -- used with player items/weapons.
 create_parent(
-[[rel;act,;rel_update,|
+[[rel;0;act,;rel_update,|
    rel_actor:nil;
    rel_x:0;
    rel_y:0;
@@ -149,7 +149,7 @@ create_parent(
    end
 end)
 
-create_parent([[drawable_obj;act,;reset_off,|
+create_parent([[drawable_obj;0;act,;reset_off,|
    ixx:0;
    iyy:0;
    xx:0;
@@ -160,11 +160,11 @@ create_parent([[drawable_obj;act,;reset_off,|
    a.xx, a.yy = 0, 0
 end)
 
-create_parent[[drawable;drawable_obj,;d,|d:nf;]]
-create_parent[[pre_drawable;drawable_obj,;d,|d:nf;]]
-create_parent[[post_drawable;drawable_obj,;d,|d:nf;]]
+create_parent[[drawable;0;drawable_obj,;d,|d:nf;]]
+create_parent[[pre_drawable;0;drawable_obj,;d,|d:nf;]]
+create_parent[[post_drawable;0;drawable_obj,;d,|d:nf;]]
 
-create_parent([[spr_obj;vec,drawable_obj,;|
+create_parent([[spr_obj;0;vec,drawable_obj,;|
    sind:0;
    outline_color:BG_UI;
    sw:1;
@@ -177,18 +177,18 @@ create_parent([[spr_obj;vec,drawable_obj,;|
 ]], scr_spr, scr_out, scr_spr_and_out
 )
 
-create_parent([[spr;vec,spr_obj;|
+create_parent([[spr;0;vec,spr_obj;|
    d:@1;
 ]], scr_spr_and_out)
 
-create_parent([[knockable;mov,;|
+create_parent([[knockable;0;mov,;|
    knockback:@1;
 ]], function(a, speed, xdir, ydir)
    a.dx = xdir * speed
    a.dy = ydir * speed
 end)
 
-create_parent([[stunnable;mov,drawable_obj;|
+create_parent([[stunnable;0;mov,drawable_obj;|
    stun_update:@1;
 ]], function(a)
    if a.stun_countdown > 0 then
@@ -197,7 +197,7 @@ create_parent([[stunnable;mov,drawable_obj;|
    end
 end)
 
-create_parent([[hurtable;act,;|
+create_parent([[hurtable;0;act,;|
    health:-1;
    max_health:-1;
    hurt_func:nf;
@@ -211,9 +211,9 @@ create_parent([[hurtable;act,;|
    end
 end)
 
-create_parent[[brang_hurtable;hurtable,;|;]]
+create_parent[[brang_hurtable;0;hurtable,;|;]]
 
-create_parent([[anim;spr,timed;|
+create_parent([[anim;0;spr,timed;|
    sinds:,;
    anim_loc:1;
    anim_off:0;
@@ -234,11 +234,11 @@ create_parent([[anim;spr,timed;|
    end
 end)
 
-create_parent([[wall;vec,dim;|
+create_parent([[wall;0;vec,dim;|
    block:true;static:true;touchable:true;hit:nf;
 ]])
 
-create_parent([[trig;vec,dim;|
+create_parent([[trig;0;vec,dim;|
    contains:nf;
    intersects:nf;
    not_contains_or_intersects:nf;
@@ -254,7 +254,7 @@ create_parent([[trig;vec,dim;|
    end
 end)
 
-create_parent([[col;vec,dim;|
+create_parent([[col;0;vec,dim;|
    static:false;
    touchable:true;
    hit:nf;
@@ -308,7 +308,7 @@ create_parent([[col;vec,dim;|
    end
 end)
 
-create_parent([[tcol;vec,dim;|
+create_parent([[tcol;0;vec,dim;|
    tile_solid:true;
    tile_hit:nf;
    coll_tile:@1;
@@ -320,7 +320,7 @@ create_parent([[tcol;vec,dim;|
    end
 end)
 
-create_parent([[danceable;act,;|
+create_parent([[danceable;0;act,;|
    initial_time:0;
    dance_update:@1;
    pause_update:@1;
@@ -340,7 +340,7 @@ end, function(a)
 end)
 
 -- SECTION: CHARS
-create_parent([[interactable;spr,wall,confined,ma_able;|
+create_parent([[interactable;0;spr,wall,confined,ma_able;|
    interactable_trigger:nf;
    trig_x:0;
    trig_y:0;
@@ -364,13 +364,13 @@ create_parent([[interactable;spr,wall,confined,ma_able;|
    end)
 end)
 
-create_parent[[nnpc;drawable,danceable,interactable,ma_able;|
+create_parent[[nnpc;0;drawable,danceable,interactable,ma_able;|
    rx:.5;ry:.5;iyy:-2;
    u:%look_at_pl
 ]]
 
 -- SECTION: INVENTORY
-create_parent([[bashable;rel,knockable,col;|
+create_parent([[bashable;0;rel,knockable,col;|
    bash_dx:1;
    rel_bash_dx:1;
    hit:@1;bash:@1;
@@ -385,14 +385,14 @@ create_parent([[bashable;rel,knockable,col;|
 end
 )
 
-create_parent([[item;drawable,rel,confined,spr_obj;|
+create_parent([[item;0;drawable,rel,confined,spr_obj;|
    being_held:true;destroyed:@1;
 ]], function(a)
    if a == a.rel_actor.item then a.rel_actor.item = nil end
 end)
 
 create_parent(
-[[pokeable;rel,drawable_obj,item;|
+[[pokeable;0;rel,drawable_obj,item;|
    i:@1;
    u:@2;
    e:@3;
@@ -416,7 +416,7 @@ end, function(a) -- e
 end)
 
 -- SECTION: NPCS
-create_parent([[shop_item;drawable,interactable,ma_able;update,|
+create_parent([[shop_item;0;drawable,interactable,ma_able;update,|
    costable:true;
    interactable_trigger:@1;
    rx:.5;ry:.5;
@@ -436,7 +436,7 @@ create_parent([[shop_item;drawable,interactable,ma_able;update,|
 end)
 
 -- exists based on memory
-create_parent([[mem_dep;act,;|
+create_parent([[mem_dep;0;act,;|
    room_init:@1;
    mem_loc:BOGUS_SPOT;
    mem_loc_expect:true;
