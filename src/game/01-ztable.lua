@@ -45,18 +45,16 @@ function queue_operation(tbl, k, v, operations)
    end
 
    for i, x in pairs(vlist) do
-      if ord(x) == 64 then -- @ param
-         local operation = {}
-         if will_be_table then
-            operation.t = vlist
-            operation.k = i
-         else
-            operation.t = tbl
-            operation.k = k
-         end
+      if will_be_table then
+         tbl, k = vlist, i
+      end
 
-         function operation.f(p) return p[sub(x,2)+0] end
-         add(operations, operation)
+      if ord(x) == 64 then -- @ param
+         add(operations, {
+            t=tbl, k=k, f=function(p)
+               return p[sub(x,2)+0]
+            end
+         })
       elseif ord(x) == 37 then -- % _g value
          x = _g[sub(x, 2)]
       -- elseif ord(x) == 126 then -- ~ local table value
