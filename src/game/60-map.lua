@@ -23,7 +23,7 @@ function load_room(new_room_index, rx, ry, follow_actor)
    switch_song(g_cur_room.m)
 
    -- take care of actors.
-   batch_call_new(acts_loop, [[confined,kill;confined,delete]])
+   batch_call_new(acts_loop, [[confined,room_end;confined,kill;confined,delete]])
 
    if follow_actor then
       follow_actor.x = rx + g_cur_room.x

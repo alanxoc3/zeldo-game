@@ -199,17 +199,17 @@ end, function(a)
    scr_pset(a.x, a.y, a.c)
 end)
 
-create_actor([[pot_projectile;3;drawable,col,confined,mov,spr,bounded,tcol|
+create_actor([[pot_projectile;4;drawable,col,confined,mov,spr,bounded,tcol|
    tile_solid:true;
    sind:49;
-   x:@1;y:@2;xf:@3;
+   x:@1;y:@2;xf:@3;spawn_id:@4;
    touchable:false;
-   i:@4;
-   destroyed:@6;
-   hit:@7;
-   tile_hit:@8;
+   i:@5;
+   destroyed:@7;
+   hit:@8;
+   tile_hit:@9;
 
-   u=@5,tl_max_time=.3;
+   u=@6,tl_max_time=.3;
 ]], function(a)
    a.ax = bool_to_num(a.xf)*.04
 end, function(a)
@@ -217,7 +217,9 @@ end, function(a)
 end, function(a)
    sfx'9'
    destroy_effect(a, 10, 1, 13, 12)
-   _g.money(a.x, a.y, a.dx, a.dy)
+   if a.spawn_id == 0 then
+      _g.money(a.x, a.y, a.dx, a.dy)
+   end
 end, function(a, o)
    if o.touchable and not o.pl then
       call_not_nil(o, 'hurt', o, 0, 60)
@@ -229,17 +231,17 @@ end, function(a)
 end)
 
 -- x, y, sind
-create_actor([[pot;2;drawable,bounded,confined,tcol,spr,col,mov|
-   static:true;
+create_actor([[pot;3;drawable,bounded,confined,tcol,spr,col,mov|
+   x:@1;y:@2;spawn_id:@3;
+   static:true;touchable:true;
+   sind:49;
    rx:.375;ry:.375;
-   x:@1;y:@2;sind:49;
-   touchable:true;
-   i:@3;
+   i:@4;
 ]], function(a)
    _g.gen_trigger_block(a, 0, 0, .5, .5, nf, function(trig, other)
-      if btnp(4) and not other.item then
+      if btnp(4) and not other.item and zdget'CAN_THROW_POTS' then
          other.item = _g.grabbed_item(g_pl, a.sind, -7, function(x, y, xf)
-            _g.pot_projectile(other.x, other.y, xf)
+            _g.pot_projectile(other.x, other.y, xf, spawn_id or flr_rnd'5')
          end)
          a:kill()
       end

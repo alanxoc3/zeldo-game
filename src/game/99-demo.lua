@@ -211,6 +211,7 @@ function game_init()
       HAS_SHIELD,;
       HAS_BANJO,;
       BANJO_TUNED,;
+      CAN_THROW_POTS,;
    ]])
    -- DEBUG_END
 

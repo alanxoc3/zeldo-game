@@ -49,7 +49,7 @@ end, function(a, ...)
 end)
 
 create_parent[[ma_able;act,;;name="thing",]]
-create_parent[[confined;act,;]]
+create_parent[[confined;act,;room_end,;room_end=nf,]]
 
 create_parent[[
    loopable;act,;;

@@ -1,27 +1,26 @@
 -- SECTION: NPC
 -- SECTION: PL
-create_actor([[lank_top;1;rel,spr_obj,danceable|
-   rel_actor:@1;sind:147;iyy:-2;u:@2;pause_update:@3;
+create_actor([[lank_top;1;rel,spr_obj,danceable,pre_drawable|
+   rel_actor:@1;sind:147;iyy:-2;u:@2;d:@3;
 ]], function(a)
    a.xf, a.alive = g_pl.xf, g_pl.alive
-
+end, function(a)
+printh("please ye")
    if g_pl:get[[item;throwable]] then
       a.sind=g_pl.item.throwing and 150 or 148
-   else
-      a.sind=147
-   end
-end, function(a)
-   if is_game_paused'dancing' then
-      a.dance_update(a)
+   elseif is_game_paused'dancing' then
       a.sind = abs(a.dance_time) > .5 and 149 or 147
    elseif is_game_paused'chest' then
       a.sind=148
+   else
+      a.sind=147
    end
 end
 )
 
-create_actor([[grabbed_item;4;rel,spr_obj|
+create_actor([[grabbed_item;4;rel,spr_obj,confined|
    rel_actor:@1;sind:@2;iyy:@3;create_func:@4;
+   room_end:@7;
    throwable:true;
    flippable:true;
    being_held:true;
@@ -37,6 +36,8 @@ create_actor([[grabbed_item;4;rel,spr_obj|
    end
 end, function(a)
    sfx'5'
+end, function(a)
+   a.rel_actor.item = nil
 end)
 
 create_actor([[fairy;1;drawable,mov,move_pause;u,|
