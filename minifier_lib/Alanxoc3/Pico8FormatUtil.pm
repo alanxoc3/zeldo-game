@@ -94,7 +94,7 @@ sub remove_spaces {
       $line =~ s/" or/"or/g;
       $line =~ s/" then/"then/g;
       # get rid of spaces between symbols.
-      $line =~ s/\s?([\%\!\/\-\*\+\=\<\>\{\}\(\)\[\]\,\.])\s?/$1/g;
+      $line =~ s/\s?([\@\:\;\%\!\/\-\*\+\=\<\>\{\}\(\)\[\]\,\.])\s?/$1/g;
       if (length($line) > 0) {
          push @new_lines, $line;
       }

@@ -7,7 +7,7 @@ create_parent(
 [[act;,;room_init,pause_init,pause_update,pause_end,kill,clean,delete|
    alive:true;
    stun_countdown:0;
-   i:nf;u:nf;
+   i:nf; u:nf;
    update:@1;
    clean:@2;
    kill:@3;
