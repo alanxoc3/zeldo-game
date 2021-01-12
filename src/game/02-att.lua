@@ -6,11 +6,10 @@ g_act_arrs = {}
 -- params: str, opts
 function create_parent(meta_and_att_str, ...)
    local meta, att = unpack(split(meta_and_att_str, '|'))
-   local id, par, pause_funcs = unpack(ztable(meta))
-   att = ztable(att, ...)
+   local params, id, par, pause_funcs = {...}, unpack(ztable(meta))
    _g[id] = function(a)
       a = a or {}
-      return a[id] and a or attach_actor(id, par, pause_funcs, att, a)
+      return a[id] and a or attach_actor(id, par, pause_funcs, att, a, params)
    end
 end
 
@@ -28,15 +27,15 @@ function create_actor(meta_and_template_str, ...)
          add(params, x)
       end)
 
-      return attach_actor(id, parents, pause_funcs or {}, ztable(template_str, unpack(params)), {})
+      return attach_actor(id, parents, pause_funcs or {}, template_str, {}, params)
    end
 end
 
 -- opt: {id, att, par}
-function attach_actor(id, parents, pause_funcs, template, a)
+function attach_actor(id, parents, pause_funcs, template, a, params)
    -- step 1: atts from parent
    foreach(parents, function(par_id) a = _g[par_id](a) end)
-   tabcpy(template, a)
+   tabcpy(ztable(template, unpack(params)), a)
 
    -- step 2: add to list of objects
    if not a[id] then
