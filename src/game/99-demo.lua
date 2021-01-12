@@ -73,21 +73,21 @@ function game_update()
       inventory_update()
       batch_call_new(
          acts_loop, [[
-            drawable_obj, reset_off;
-            stunnable, stun_update;
-            act, update;
-            act, pause_update;
-            mov, move;
-            col, move_check, @1;
-            col, move_check, @4;
-            trig, trigger_update, @3;
-            tcol, coll_tile, @2;
-            rel, rel_update;
-            vec, vec_update;
-            bounded, check_bounds;
-            anim, anim_update;
-            timed, tick;
-            view, update_view;
+            drawable_obj,reset_off;
+            stunnable,stun_update;
+            act,update;
+            act,pause_update;
+            mov,move;
+            col,move_check,@1;
+            col,move_check,@4;
+            trig,trigger_update,@3;
+            tcol,coll_tile,@2;
+            rel,rel_update;
+            vec,vec_update;
+            bounded,check_bounds;
+            anim,anim_update;
+            timed,tick;
+            view,update_view;
          ]],
          g_act_arrs['col'],
          function(x, y)
@@ -109,10 +109,10 @@ function game_update()
          -- poke(0x5f43,1+2+4) -- softer sound
       end
       batch_call_new(acts_loop, [[
-         act,  update;
-         act,  pause_update;
-         rel,  rel_update;
-         view, update_view;
+         act,update;
+         act,pause_update;
+         rel,rel_update;
+         view,update_view;
       ]])
 
       if not is_game_paused() then

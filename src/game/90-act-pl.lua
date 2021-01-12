@@ -5,7 +5,6 @@ create_actor([[lank_top;1;rel,spr_obj,danceable,pre_drawable|
 ]], function(a)
    a.xf, a.alive = g_pl.xf, g_pl.alive
 end, function(a)
-printh("please ye")
    if g_pl:get[[item;throwable]] then
       a.sind=g_pl.item.throwing and 150 or 148
    elseif is_game_paused'dancing' then

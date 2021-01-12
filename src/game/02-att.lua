@@ -4,8 +4,10 @@
 g_act_arrs = {}
 
 -- params: str, opts
-function create_parent(...)
-   local id, par, pause_funcs, att = unpack(ztable(...))
+function create_parent(meta_and_att_str, ...)
+   local meta, att = unpack(split(meta_and_att_str, '|'))
+   local id, par, pause_funcs = unpack(ztable(meta))
+   att = ztable(att, ...)
    _g[id] = function(a)
       a = a or {}
       return a[id] and a or attach_actor(id, par, pause_funcs, att, a)
