@@ -6,30 +6,37 @@ function nf() end
 function identity(...) return ... end
 
 function ztable(original_str, ...)
-   local str, params = g_gunvals[0+original_str], {...}
-   foreach(params, disable_tabcpy)
+   local str = g_gunvals[0+original_str]
 
    if g_ztable_cache[str] == nil then
-      local tbl, operations = zsplitkv(str, ';', ':', identity), {}
+      local tbl, at_ops, dollar_ops = zsplitkv(str, ';', ':', identity), {}, {}
       for k, v in pairs(tbl) do
          local val_func = function(sub_val, sub_key, sub_tbl)
-            return queue_operation(sub_tbl or tbl, sub_key or k, sub_val, operations)
+            return queue_operation(sub_tbl or tbl, sub_key or k, sub_val, at_ops, dollar_ops)
          end
 
          tbl[k] = zsplitkv(v, ',', '=', val_func, true)
       end
-      g_ztable_cache[str] = {tbl, operations}
+
+      tbl.at_ops, tbl.dollar_ops = disable_tabcpy(at_ops), disable_tabcpy(dollar_ops)
+
+      g_ztable_cache[str] = tbl
    end
 
-   local table, ops = g_ztable_cache[str][1], g_ztable_cache[str][2]
-   foreach(ops, function(op)
-      local t, k, f = unpack(op)
-      t[k] = f(params)
-   end)
-   return g_ztable_cache[str][1]
+   ztable_apply_operation(g_ztable_cache[str].at_ops, ...)
+   return g_ztable_cache[str]
 end
 
-function queue_operation(tbl, k, v, operations)
+function ztable_apply_operation(ops, ...)
+   local params = {...}
+   foreach(params, disable_tabcpy)
+   for op in all(ops) do
+      local t, k, f = unpack(op)
+      t[k] = f(params)
+   end
+end
+
+function queue_operation(tbl, k, v, at_ops, dollar_ops)
    local vlist = split(v, '/')
    local will_be_table, func_op, func_name = #vlist > 1
 
@@ -44,18 +51,24 @@ function queue_operation(tbl, k, v, operations)
    end
 
    for i, x in pairs(vlist) do
+      local rest = sub(x, 2)
+
       if will_be_table then
          tbl, k = vlist, i
       end
 
+      local possible_op = {
+         tbl, k, function(p)
+            return p[rest+0]
+         end
+      }
+
       if ord(x) == 64 then -- @ param
-         add(operations, {
-            tbl, k, function(p)
-               return p[sub(x,2)+0]
-            end
-         })
+         add(at_ops, possible_op)
+      elseif ord(x) == 36 then -- $ param
+         add(dollar_ops, possible_op)
       elseif ord(x) == 37 then -- % _g value
-         x = _g[sub(x, 2)]
+         x = _g[rest]
       -- elseif ord(x) == 126 then -- ~ local table value
          -- x = _g[sub(x, 2)]
       elseif x == 'true' or x == 'false' then x = x=='true'
@@ -66,7 +79,7 @@ function queue_operation(tbl, k, v, operations)
    end
 
    -- nil func_op won't actually add.
-   add(operations, func_op)
+   add(at_ops, func_op)
 
    if will_be_table then
       return vlist
