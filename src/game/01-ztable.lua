@@ -23,8 +23,8 @@ function ztable(original_str, ...)
 
    local table, ops = g_ztable_cache[str][1], g_ztable_cache[str][2]
    foreach(ops, function(op)
-      local t, k = op.t, op.k
-      t[k] = op.f(params)
+      local t, k, f = unpack(op)
+      t[k] = f(params)
    end)
    return g_ztable_cache[str][1]
 end
@@ -34,14 +34,13 @@ function queue_operation(tbl, k, v, operations)
    local will_be_table, func_op, func_name = #vlist > 1
 
    if ord(v) == 33 then -- ! func
-      will_be_table = true
+      will_be_table, func_name = true, deli(vlist, 1)
 
-      func_op = {t=tbl, k=k}
-      func_name = deli(vlist, 1)
-
-      function func_op.f()
-         return _g[sub(func_name, 2)](unpack(vlist))
-      end
+      func_op = {
+         tbl, k, function()
+            return _g[sub(func_name, 2)](unpack(vlist))
+         end
+      }
    end
 
    for i, x in pairs(vlist) do
@@ -51,7 +50,7 @@ function queue_operation(tbl, k, v, operations)
 
       if ord(x) == 64 then -- @ param
          add(operations, {
-            t=tbl, k=k, f=function(p)
+            tbl, k, function(p)
                return p[sub(x,2)+0]
             end
          })
