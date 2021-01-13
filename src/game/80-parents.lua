@@ -163,6 +163,7 @@ end)
 create_parent[[drawable;0;drawable_obj,;d,|d:nf;]]
 create_parent[[pre_drawable;0;drawable_obj,;d,|d:nf;]]
 create_parent[[post_drawable;0;drawable_obj,;d,|d:nf;]]
+create_parent[[above_map_drawable;0;drawable_obj,;d,|d:nf;]]
 
 create_parent([[spr_obj;0;vec,drawable_obj,;|
    sind:0;

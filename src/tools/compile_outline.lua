@@ -83,6 +83,10 @@ function create_outline(sind, sw, sh)
       end
    end
 
+   if #outline == 0 then
+      add(outline, {3,3,4,4})
+   end
+
    g_out_cache[sind] = outline
 end
 

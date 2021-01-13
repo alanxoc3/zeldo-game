@@ -192,7 +192,7 @@ function game_draw()
       g_pl.d(g_pl)
       g_pl:set_color'BG_UI'
    end
-   acts_loop('inventory_item', 'draw_both')
+   acts_loop('above_map_drawable', 'd')
    draw_status()
    ttbox_draw(2,105)
 end

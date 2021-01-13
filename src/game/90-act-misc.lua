@@ -1,36 +1,25 @@
 -- SECTION: INVENTORY SELECTION
 create_actor([[item_selector;1;rel,|rel_actor:@1;u:@2]], function(a)
-   -- from index to coordinate
-   local x, y = (g_selected-1)%3, flr((g_selected-1)/3)
-
-   x += xbtnp()
-   y += ybtnp()
-
-   -- only allow movement within bounds.
-   x, y = max(0,min(x,2)), max(0,min(y,2))
+   -- index to coordinate plus btn update within bounds
+   local x, y = max(0,min((g_selected-1)%3+xbtnp(),2)), max(0,min(flr((g_selected-1)/3)+ybtnp(),2))
 
    -- from coordinate to index
    local next_selected = y*3+x+1
 
    if g_selected != next_selected then
-      g_items_drawn[g_selected].selected = false
-      g_items_drawn[next_selected].selected = true
+      g_items_drawn[g_selected].outline_color = 1
+      g_items_drawn[next_selected].outline_color = 2
    end
 
    g_selected, a.rel_x, a.rel_y = next_selected, (x - 1) * 1.5, (y - 1.25) * 1.5
 end
 )
 
-create_actor([[inventory_item;6;rel,spr_obj,drawable;draw_both,|
-   rel_actor:@1;rel_x:@2;rel_y:@3;enabled:@4;flippable:@5;sind:@6;visible:@6;i:@7;u:@8
+create_actor([[inventory_item;6;rel,above_map_drawable,spr;|
+   rel_actor:@1;rel_x:@2;rel_y:@3;enabled:@4;flippable:@5;sind:@6;visible:@6;i:@7;
 ]], function(a)
-   a.draw_both = a.enabled and scr_spr_and_out or function(a)
-      scr_rectfill(a.x+a.xx/8-.125, a.y+a.yy/8-.125, a.x+a.xx/8, a.y+a.yy/8, a.outline_color)
-   end
-end, function(a)
-   a.outline_color = a.selected and 2 or 1
-end
-)
+   if not a.enabled then a.sind = 0 end
+end)
 
 -- params: initCallback, endCallback
 create_actor([[fader_out;2;act,;update,|
