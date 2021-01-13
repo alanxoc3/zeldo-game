@@ -65,7 +65,7 @@ create_actor[[shop_shield;2;shop_item,|
 ]]
 
 -- for the chest.
-create_actor([[item_show;3;post_drawable,confined,spr,rel;update,|
+create_actor([[item_show;3;above_map_drawable,confined,spr,rel;update,|
    rel_actor:@1;sind:@2;mem_loc:@3;
    rel_y:-1.125;
 

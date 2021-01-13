@@ -230,8 +230,8 @@ function game_init()
 
    -- load_room(R_01, 8, 5, g_pl)
    local spot = g_save_spots[zdget_value'SAVE_SPOT']
-   -- load_room(spot.room, spot.x, spot.y, g_pl)
-   load_room(R_17, 5, 5, g_pl)
+   load_room(spot.room, spot.x, spot.y, g_pl)
+   -- load_room(R_17, 5, 5, g_pl)
 end
 
 function pause(reason)
