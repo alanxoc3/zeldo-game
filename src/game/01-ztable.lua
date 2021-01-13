@@ -7,36 +7,34 @@ function identity(...) return ... end
 
 function ztable(original_str, ...)
    local str = g_gunvals[0+original_str]
+   local tbl, ops = unpack(g_ztable_cache[str] or {})
 
-   if g_ztable_cache[str] == nil then
-      local tbl, at_ops, dollar_ops = zsplitkv(str, ';', ':', identity), {}, {}
+   -- Create the table if it isn't in the cache.
+   if not tbl then
+      tbl, ops = zsplitkv(str, ';', ':', identity), {}
       for k, v in pairs(tbl) do
          local val_func = function(sub_val, sub_key, sub_tbl)
-            return queue_operation(sub_tbl or tbl, sub_key or k, sub_val, at_ops, dollar_ops)
+            return queue_operation(sub_tbl or tbl, sub_key or k, sub_val, ops)
          end
 
          tbl[k] = zsplitkv(v, ',', '=', val_func, true)
       end
 
-      tbl.at_ops, tbl.dollar_ops = disable_tabcpy(at_ops), disable_tabcpy(dollar_ops)
-
-      g_ztable_cache[str] = tbl
+      g_ztable_cache[str] = {tbl, ops}
    end
 
-   ztable_apply_operation(g_ztable_cache[str].at_ops, ...)
-   return g_ztable_cache[str]
-end
-
-function ztable_apply_operation(ops, ...)
+   -- Add the various parameters to the table.
    local params = {...}
    foreach(params, disable_tabcpy)
    for op in all(ops) do
       local t, k, f = unpack(op)
       t[k] = f(params)
    end
+
+   return tbl
 end
 
-function queue_operation(tbl, k, v, at_ops, dollar_ops)
+function queue_operation(tbl, k, v, ops)
    local vlist = split(v, '/')
    local will_be_table, func_op, func_name = #vlist > 1
 
@@ -57,20 +55,14 @@ function queue_operation(tbl, k, v, at_ops, dollar_ops)
          tbl, k = vlist, i
       end
 
-      local possible_op = {
-         tbl, k, function(p)
-            return p[rest+0]
-         end
-      }
-
       if ord(x) == 64 then -- @ param
-         add(at_ops, possible_op)
-      elseif ord(x) == 36 then -- $ param
-         add(dollar_ops, possible_op)
+         add(ops, {
+            tbl, k, function(p)
+               return p[rest+0]
+            end
+         })
       elseif ord(x) == 37 then -- % _g value
          x = _g[rest]
-      -- elseif ord(x) == 126 then -- ~ local table value
-         -- x = _g[sub(x, 2)]
       elseif x == 'true' or x == 'false' then x = x=='true'
       elseif x == 'nil' or x == '' then x = nil
       elseif x == 'nf' then x = function() end
@@ -79,7 +71,7 @@ function queue_operation(tbl, k, v, at_ops, dollar_ops)
    end
 
    -- nil func_op won't actually add.
-   add(at_ops, func_op)
+   add(ops, func_op)
 
    if will_be_table then
       return vlist

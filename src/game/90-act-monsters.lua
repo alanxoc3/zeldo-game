@@ -2,6 +2,7 @@
 create_parent([[slimy_parent;8;ma_able,drawable,bounded,danceable,confined,stunnable,mov,col,tcol,hurtable,knockable,spr_obj,spr|
    name:@1; rx:@2; ry:@3;
    max_health:@4; health:@4;
+   sind:@7;
    evil:true; tl_loop:true;
    iyy:-2;
    anim_len:1;
