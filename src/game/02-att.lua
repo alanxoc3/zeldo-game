@@ -27,7 +27,7 @@ end
 -- params: str, opts
 function create_parent(meta_and_template_str, ...)
    create_parent_actor_shared(meta_and_template_str, function(f)
-      return function(a, ignore_id, ...)
+      return function(a, ...)
          return f(a, ...)
       end
    end, ...)
@@ -41,47 +41,14 @@ function create_actor(meta_and_template_str, ...)
    end, ...)
 end
 
-   -- local meta, template_str = unpack(split(meta_and_att_str, '|'))
-   -- local template_params, id, provided, parents, pause_funcs = {...}, unpack(ztable(meta))
-   -- _g[id] = function(a, ignore_id, ...)
-   --    local func_params, params = {...}, {}
-   --    for i=1,provided do
-   --       add(params, func_params[i] or false)
-   --    end
-
-   --    foreach(template_params, function(x)
-   --       add(params, x)
-   --    end)
-
-   --    a = a or {} -- difference
-   --    return a[id] and a or attach_actor(id, parents, pause_funcs, template_str, a, params)
-   -- end
-
-   -- local meta, template_str = unpack(split(meta_and_template_str, '|'))
-   -- local template_params, id, provided, parents, pause_funcs = {...}, unpack(ztable(meta, ...))
-
-   -- _g[id] = function(...)
-   --    local func_params, params = {...}, {}
-   --    for i=1,provided do
-   --       add(params, func_params[i] or false)
-   --    end
-
-   --    foreach(template_params, function(x)
-   --       add(params, x)
-   --    end)
-
-   --    return attach_actor(id, parents, pause_funcs or {}, template_str, {}, params)
-   -- end
-
 -- opt: {id, att, par}
 function attach_actor(id, parents, pause_funcs, template, a, params)
    -- step 1: atts from parent
    foreach(parents, function(par)
-      if type(par) == 'table' then
-         a = _g[par[1]](a, unpack(par))
-      else
-         a = _g[par](a)
+      if type(par) ~= 'table' then
+         par = {par}
       end
+      a = _g[par[1]](a, unpack(par,2))
    end)
 
    tabcpy(ztable(template, unpack(params)), a)
