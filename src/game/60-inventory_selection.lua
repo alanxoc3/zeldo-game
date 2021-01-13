@@ -42,7 +42,6 @@ function inventory_init()
       mem_loc=HAS_SWORD,     enabled=false, name=sword   , xoff=0, yoff=6, sind=2;
       mem_loc=HAS_BANJO,     enabled=false, name=banjo   , xoff=7, yoff=4, sind=1;
    ]]
-   zdset(ALWAYS_TRUE) -- interact should be true
    g_selected=5
 end
 

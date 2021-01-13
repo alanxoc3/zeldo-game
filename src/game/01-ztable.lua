@@ -49,20 +49,26 @@ function queue_operation(tbl, k, v, ops)
    end
 
    for i, x in pairs(vlist) do
-      local rest = sub(x, 2)
+      local rest, closure_tbl = sub(x, 2), tbl
 
       if will_be_table then
-         tbl, k = vlist, i
+         closure_tbl, k = vlist, i
       end
 
       if ord(x) == 64 then -- @ param
          add(ops, {
-            tbl, k, function(p)
+            closure_tbl, k, function(p)
                return p[rest+0]
             end
          })
       elseif ord(x) == 37 then -- % _g value
          x = _g[rest]
+      elseif ord(x) == 126 then -- ~ tbl value
+         add(ops, {
+            closure_tbl, k, function()
+               return tbl[rest]
+            end
+         })
       elseif x == 'true' or x == 'false' then x = x=='true'
       elseif x == 'nil' or x == '' then x = nil
       elseif x == 'nf' then x = function() end

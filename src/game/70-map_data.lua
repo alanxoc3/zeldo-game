@@ -97,6 +97,7 @@ g_rooms = ztable[[
    pillow/6/0.5,
    bed/6/1.5,
    bed/1/1.5,
+   navy_house/5/4,
 
 ; R_10:
    m=14,c=3,

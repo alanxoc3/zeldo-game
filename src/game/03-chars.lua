@@ -24,11 +24,32 @@ function _g.memloc_money(mem_loc,money)
    end
 end
 
+function tbox_thing_help(...)
+   local params = {...}
+   for i=1,#params,3 do
+      local memloc, text, func = unpack(params, i)
+      if zdget(memloc) then
+         tbox(text, func)
+         break
+      end
+   end
+end
+
+_g.tbox_actor_logic = function(...)
+   local params = {...}
+   return function()
+      tbox_thing_help(unpack(params))
+   end
+end
+
 function _g.npc_dance_logic(bad_text, good_text, good_trigger)
    return function(a)
       if g_pause_reason == 'dancing' then
          change_cur_ma(a)
-         tbox(zdget'BANJO_TUNED' and good_text or bad_text, zdget'BANJO_TUNED' and good_trigger)
+         tbox_thing_help(
+            BANJO_TUNED, good_text, good_trigger,
+            ALWAYS_TRUE, bad_text, nf
+         )
       end
    end
 end

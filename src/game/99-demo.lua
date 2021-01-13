@@ -215,14 +215,18 @@ function game_init()
    ]])
    -- DEBUG_END
 
-   inventory_init()
-   g_money = zdget_value(MONEY)
-
-   if not zdget'GAME_CONTINUE' then
+   -- After here, we can set memory locations that will be in effect during the
+   -- game.
+   zdset'ALWAYS_TRUE' -- Used with inventory and npcs.
+   if not zdget'GAME_CONTINUE' then -- logic for new games
       zdset(MAX_HEALTH, LANK_START_HEALTH)
       zdset(HEALTH, LANK_START_HEALTH)
       zdset'GAME_CONTINUE'
    end
+
+   inventory_init()
+   g_money = zdget_value(MONEY)
+
 
    g_pl = _g.pl(0, 0)
 

@@ -1,4 +1,5 @@
 -- SECTION: CHARS
+navy_dance_function = _g.npc_dance_logic("umm...", "nice playing lank!^^if i had money, i would^give it to you!")
 create_actor([[navy_blocking;2;nnpc,mem_dep|
    name:"navy";
    sind:97;mem_loc:NAVY_OUT;
@@ -6,19 +7,22 @@ create_actor([[navy_blocking;2;nnpc,mem_dep|
    f_reload:!get_npc_reload_room/NAVY_OUT;
    f_money:!memloc_money/HAS_BANJO/0;
 
-   -- brang:!tbox/"brang..."/~f_reload;
-   -- !npc_dance_logic/"umm..."/~f_money;
+   x:@1;y:@2;pause_end:@3;
 
+   interactable_trigger:!tbox_actor_logic
+      /HAS_BOOMERANG/"a boomerang?^^isn't that a toy^^i hope you can save my^sister with that thing."/~f_reload
+      /HAS_SHIELD/"a shield! good choice!^^you can use that protect^my sister from monsters!"/~f_reload
+      /ALWAYS_TRUE/"my sister has been in the^forest all day.^find something to protect^yourself with and bring^her home."/nf
+   ;
+]], navy_dance_function)
+
+create_actor([[navy_house;2;nnpc,mem_dep|
+   name:"navy";
+   sind:97;xf:true;mem_loc:NAVY_OUT;mem_loc_expect:false;
    x:@1;y:@2;interactable_trigger:@3;pause_end:@4;
 ]],function(a)
-   if zdget'HAS_BOOMERANG' then
-      tbox("a boomerang?^^isn't that a toy^^i hope you can save my^sister with that thing.", a.f_reload)
-   elseif zdget'HAS_SHIELD' then
-      tbox("a shield! good choice!^^you can use that protect^my sister from monsters!", a.f_reload)
-   else
-      tbox"my sister has been in the^forest all day.^find something to protect^yourself with, then bring^her home."
-   end
-end, _g.npc_dance_logic("umm...", "nice playing lank!^^if i had money, i would^give it to you!"))
+   tbox"hi lank."
+end, navy_dance_function)
 
 create_actor([[teach;2;nnpc,|
    name:"teach";
@@ -26,18 +30,17 @@ create_actor([[teach;2;nnpc,|
    x:@1;y:@2;interactable_trigger:@3;
    pause_end:@4;
 ]], function()
-   if zdget'BANJO_TUNED' then
-      tbox"try playing yer banjo on^a save spot!"
-   else
-      tbox"hi lank have you been^practicing the banjo?"
-   end
+   tbox_thing_help(
+      BANJO_TUNED, "try playing yer banjo on^a save spot!", nf,
+      ALWAYS_TRUE, "hi lank have you been^practicing the banjo?", nf
+   )
 end, function(a)
    if g_pause_reason == 'dancing' then
       change_cur_ma(a)
-      if not zdget'BANJO_TUNED' then
-         tbox("oh, your banjo is out of^tune!^let me fix that for you.", _g.get_npc_reload_room(BANJO_TUNED))
-      else
+      if zdget'BANJO_TUNED' then
          tbox"now that's my student!"
+      else
+         tbox("oh, your banjo is out of^tune!^let me fix that for you.", _g.get_npc_reload_room(BANJO_TUNED))
       end
    end
 end
@@ -68,11 +71,10 @@ create_actor([[bob_build;2;nnpc,mem_dep|
 
    pause_end:@4;
 ]],function()
-   if zdget'LETTER' then
-      tbox("is that letter for me?^^oh..^^it's dinner time!!!", _g.get_npc_reload_room(BOB_OUT))
-   else
-      tbox"hey lank. i'm hungry.^^i mean...^^i'm fixing the road."
-   end
+   tbox_thing_help(
+      LETTER,      "is that letter for me?^^oh..^^it's dinner time!!!", _g.get_npc_reload_room(BOB_OUT),
+      ALWAYS_TRUE, "hey lank. i'm hungry.^^i mean...^^i'm fixing the road.", nf
+   )
 end, _g.npc_dance_logic("i can't work with that^terrible music!","if only music could^quench my hunger.", _g.memloc_money(BOB_DANCE, 14)))
 
 create_actor([[keep;2;nnpc,|

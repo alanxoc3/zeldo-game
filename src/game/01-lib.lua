@@ -61,8 +61,8 @@ function call_not_nil(table, key, ...)
    end
 end
 
-function batch_call_table(func,table)
-   foreach(table, function(t) func(unpack(t)) end)
+function batch_call_table(func,tbl)
+   foreach(tbl, function(t) func(unpack(t)) end)
 end
 
 function batch_call_new(func, ...)
