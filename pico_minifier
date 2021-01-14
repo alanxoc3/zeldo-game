@@ -219,32 +219,35 @@ sub length_in_graphemes {
     return $length;
 }
 
-my ($string_second_half) = $strings =~ /(\X{12541})$/x; # Up until the song section at 0x3100.
-my $string_first_half = substr($strings, 0, length($strings) - length($string_second_half));
+if ($dev_mode) {
+   $contents =~ s/ZTABLE_STRINGS/$strings/gme;
+} else {
+   my ($string_second_half) = $strings =~ /(\X{12541})$/x; # Up until the song section at 0x3100.
+   my $string_first_half = substr($strings, 0, length($strings) - length($string_second_half));
 
-my $strings_len = length_in_graphemes($strings);
-if ($strings_len lt 12541) {
-   $string_second_half = $strings;
-   $string_first_half = "";
-}
+   my $strings_len = length_in_graphemes($strings);
+   if ($strings_len lt 12541) {
+      $string_second_half = $strings;
+      $string_first_half = "";
+   }
 
-my $strings_second_length = length_in_graphemes($string_second_half);
-$contents =~ s/ZTABLE_STRINGS_SECOND_LEN/$strings_second_length/gme;
-$contents =~ s/ZTABLE_STRINGS_SECOND/$string_second_half/gme;
-$contents =~ s/ZTABLE_STRINGS_FIRST/$string_first_half/gme;
-$contents =~ s/ZTABLE_STRINGS/$strings/gme;
+   my $strings_second_length = length_in_graphemes($string_second_half);
+   $contents =~ s/ZTABLE_STRINGS_SECOND_LEN/$strings_second_length/gme;
+   $contents =~ s/ZTABLE_STRINGS_SECOND/$string_second_half/gme;
+   $contents =~ s/ZTABLE_STRINGS_FIRST/$string_first_half/gme;
 
-if ($input_file ne "" and $output_file ne "") {
-   open(my $src, "<:utf8", $input_file) or die "Unable to read file \"$input_file\"\n";
-   open(my $dst, ">:utf8", $output_file) or die "Unable to create file \"$output_file\"\n";
+   if ($input_file ne "" and $output_file ne "") {
+      open(my $src, "<:utf8", $input_file) or die "Unable to read file \"$input_file\"\n";
+      open(my $dst, ">:utf8", $output_file) or die "Unable to create file \"$output_file\"\n";
 
-   my $src_content = do { local $/; <$src> };
-   $src_content =~ s/ZTABLE_STRINGS_SECOND/$string_second_half/gme;
+      my $src_content = do { local $/; <$src> };
+      $src_content =~ s/ZTABLE_STRINGS_SECOND/$string_second_half/gme;
 
-   close $src;
+      close $src;
 
-   print $dst $src_content;
-   close $dst;
+      print $dst $src_content;
+      close $dst;
+   }
 }
 
 print $contents;
