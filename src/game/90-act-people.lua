@@ -27,14 +27,14 @@ end, navy_dance_function)
 create_actor([[teach;2;nnpc,|
    name:"teach";
    sind:96;
-   x:@1;y:@2;interactable_trigger:@3;
-   pause_end:@4;
-]], function()
-   tbox_thing_help(
-      BANJO_TUNED, "try playing yer banjo on^a save spot!", nf,
-      ALWAYS_TRUE, "hi lank have you been^practicing the banjo?", nf
-   )
-end, function(a)
+   x:@1;y:@2;
+   pause_end:@3;
+
+   interactable_trigger:!tbox_actor_logic
+      /BANJO_TUNED/"try playing yer banjo on^a save spot!"/nf
+      /ALWAYS_TRUE/"hi lank have you been^practicing the banjo?"/nf
+   ;
+]], function(a)
    if g_pause_reason == 'dancing' then
       change_cur_ma(a)
       if zdget'BANJO_TUNED' then
@@ -43,8 +43,7 @@ end, function(a)
          tbox("oh, your banjo is out of^tune!^let me fix that for you.", _g.get_npc_reload_room(BANJO_TUNED))
       end
    end
-end
-)
+end)
 
 create_actor([[lark;2;nnpc,|
    name:"lark";
@@ -67,15 +66,14 @@ create_actor([[jane;2;nnpc,|
 create_actor([[bob_build;2;nnpc,mem_dep|
    name:"bob";sind:80;
    mem_loc:BOB_OUT;
-   x:@1;y:@2;interactable_trigger:@3;
+   x:@1;y:@2;pause_end:@3;
+   f_reload:!get_npc_reload_room/BOB_OUT;
 
-   pause_end:@4;
-]],function()
-   tbox_thing_help(
-      LETTER,      "is that letter for me?^^oh..^^it's dinner time!!!", _g.get_npc_reload_room(BOB_OUT),
-      ALWAYS_TRUE, "hey lank. i'm hungry.^^i mean...^^i'm fixing the road.", nf
-   )
-end, _g.npc_dance_logic("i can't work with that^terrible music!","if only music could^quench my hunger.", _g.memloc_money(BOB_DANCE, 14)))
+   interactable_trigger:!tbox_actor_logic
+      /LETTER/"is that letter for me?^^oh..^^it's dinner time!!!"/~f_reload
+      /ALWAYS_TRUE/"hey lank. i'm hungry.^^i mean...^^i'm fixing the road."/nf
+   ;
+]], _g.npc_dance_logic("i can't work with that^terrible music!","if only music could^quench my hunger.", _g.memloc_money(BOB_DANCE, 14)))
 
 create_actor([[keep;2;nnpc,|
    name:"keep";
