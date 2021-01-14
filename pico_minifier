@@ -22,6 +22,8 @@ GetOptions('dev' => \$dev_mode, 'debug' => \$debug_mode, 'ascii' => \$ascii, 'in
 my %constants;
 
 # Colors
+
+$constants{'POSSIBLE_CHARACTERS'} = "|0123456789abcdefghijklmnopqrstuvwxyz !%',-./:;=?@^_~❎➡️⬅️⬆️🅾️";
 $constants{'FG_YELLOW'} = '10';
 $constants{'BG_YELLOW'} = '9';
 $constants{'FG_WHITE'} = '7';
@@ -217,8 +219,19 @@ sub length_in_graphemes {
     return $length;
 }
 
-my $strings_len = length_in_graphemes($strings); # -4 for '[[' and ']]'
-$contents =~ s/ZTABLE_STRINGS_LEN/$strings_len+1/gme;
+my ($string_second_half) = $strings =~ /(\X{12541})$/x; # Up until the song section at 0x3100.
+my $string_first_half = substr($strings, 0, length($strings) - length($string_second_half));
+
+my $strings_len = length_in_graphemes($strings);
+if ($strings_len lt 12541) {
+   $string_second_half = $strings;
+   $string_first_half = "";
+}
+
+my $strings_second_length = length_in_graphemes($string_second_half);
+$contents =~ s/ZTABLE_STRINGS_SECOND_LEN/$strings_second_length/gme;
+$contents =~ s/ZTABLE_STRINGS_SECOND/$string_second_half/gme;
+$contents =~ s/ZTABLE_STRINGS_FIRST/$string_first_half/gme;
 $contents =~ s/ZTABLE_STRINGS/$strings/gme;
 
 if ($input_file ne "" and $output_file ne "") {
@@ -226,7 +239,7 @@ if ($input_file ne "" and $output_file ne "") {
    open(my $dst, ">:utf8", $output_file) or die "Unable to create file \"$output_file\"\n";
 
    my $src_content = do { local $/; <$src> };
-   $src_content =~ s/ZTABLE_STRINGS/$strings/gme;
+   $src_content =~ s/ZTABLE_STRINGS_SECOND/$string_second_half/gme;
 
    close $src;
 

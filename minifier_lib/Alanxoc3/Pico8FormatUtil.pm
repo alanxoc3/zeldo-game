@@ -8,7 +8,7 @@ our @ISA = 'Exporter';
 our @EXPORT = qw(tokenize_lines populate_vars single_quotes_to_double remove_comments pop_text_logics remove_texts remove_spaces @lua_keywords multiline_string_replace);
 
 our @lua_keywords = qw(
-n b0d0 ZTABLE_STRINGS ZTABLE_STRINGS_LEN P_TEXT_LOGIC
+n b0d0 P_TEXT_LOGIC
 
 break do else elseif end false for function goto if in local nil not or repeat
 return then true until while and table string boolean unknown number
@@ -73,12 +73,12 @@ sub multiline_string_replace {
    my $file = shift;
    $file =~ s/\[\[(.*?)\]\]/test_multiline_string($1)/gimse;
 
-   my $gunval_strs = "[[";
+   my $gunval_strs = "";
    foreach my $name (sort { $multiline_strings{$a} <=> $multiline_strings{$b} } keys %multiline_strings) {
       $name =~ s/\n//g;
       $gunval_strs = $gunval_strs . $name . "|";
    }
-   $gunval_strs = $gunval_strs . "]]";
+   $gunval_strs = $gunval_strs;
 
    return ($gunval_strs, $file)
 }
