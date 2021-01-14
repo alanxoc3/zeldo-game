@@ -57,28 +57,32 @@ create_actor([[lark;2;nnpc,|
    end
 end, _g.npc_dance_logic("i can't fix banjos.", "you helped my soul!", _g.memloc_money(LARK_DANCE, 60)))
 
-create_actor([[jane;2;nnpc,|
+create_actor[[jane;2;nnpc,|
    name:"jane";sind:81;
-   x:@1;y:@2;interactable_trigger:!tbox_closure/"my husband always works^so hard.^what should i make him^for dinner?";
-   pause_end:@3;
-]], _g.npc_dance_logic("that hurt my ears.", "i love that song!", _g.memloc_money(JANE_DANCE, 24)))
+   x:@1;y:@2;
+   f_money:!memloc_money/JANE_DANCE/24;
 
-create_actor([[bob_build;2;nnpc,mem_dep|
+   interactable_trigger:!tbox_closure/"my husband always works^so hard.^what should i make him^for dinner?";
+   pause_end:!npc_dance_logic/"that hurt my ears."/"i love that song!"/~f_money;
+]]
+
+create_actor[[bob_build;2;nnpc,mem_dep|
    name:"bob";sind:80;
    mem_loc:BOB_OUT;
-   x:@1;y:@2;pause_end:@3;
+   x:@1;y:@2;
    f_reload:!get_npc_reload_room/BOB_OUT;
+   f_money:!memloc_money/BOB_DANCE/14;
+   pause_end:!npc_dance_logic/"i can't work with that^terrible music!"/"if only music could^quench my hunger."/~f_money;
 
    interactable_trigger:!tbox_actor_logic
       /LETTER/"is that letter for me?^^oh..^^it's dinner time!!!"/~f_reload
-      /ALWAYS_TRUE/"hey lank. i'm hungry.^^i mean...^^i'm fixing the road."/nf
-   ;
-]], _g.npc_dance_logic("i can't work with that^terrible music!","if only music could^quench my hunger.", _g.memloc_money(BOB_DANCE, 14)))
+      /ALWAYS_TRUE/"hey lank. i'm hungry.^^i mean...^^i'm fixing the road."/nf ;
+]]
 
-create_actor([[keep;2;nnpc,|
+create_actor[[keep;2;nnpc,|
    name:"keep";
    sind:83;
    x:@1;y:@2;interactable_trigger:!tbox_closure/"buy somethin' will ya?";
-
-   pause_end:@3;
-]], _g.npc_dance_logic("that song sucked.", "that song was okay.", _g.memloc_money(KEEP_DANCE, 1)))
+   f_money:!memloc_money/KEEP_DANCE/1;
+   pause_end:!npc_dance_logic/"that song sucked."/"that song was okay."/!f_money;
+]]
