@@ -65,8 +65,8 @@ end, function(a)
 end)
 
 create_actor([[pl;2;drawable,anim,col,mov,tcol,hurtable,knockable,stunnable,spr,danceable|
-   name:"lank";x:@1;
-   y:@2;
+   name:"lank";
+   x:@1;y:@2;
    sinds:144,145,146;
    sind:144;
    rx:.375;

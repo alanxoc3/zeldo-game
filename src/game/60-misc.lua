@@ -1,6 +1,6 @@
 function destroy_effect(a, num, ...)
-   for i=1,num do
-      _g.thing_destroyed(a, rnd_item(...), rnd(.5)+.1)
+   for i=0,3 do
+      _g.thing_destroyed(a, cos(i/4+.125)/8, sin(i/4+.125)/8, 1)
    end
 end
 
