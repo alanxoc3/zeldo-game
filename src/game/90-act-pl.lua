@@ -49,7 +49,7 @@ end, function(a)
    amov_to_actor(a, a.rel_actor, .04*dist)
 end)
 
-create_actor([[fairy;1;drawable,mov,move_pause;u,|
+create_actor([[fairy;1;post_drawable,mov,move_pause;u,|
    rel_actor:@1;u:@2;off_x:1;off_y:0;d:@4;
    i:@3;room_init:@3;
 ]], function(a)
@@ -65,16 +65,22 @@ create_actor([[fairy;1;drawable,mov,move_pause;u,|
    if flr(a.tl_tim / 10) % 2 == 0 then
       a.off_x = -a.off_x
    end
+   -- DEBUG_BEGIN
+   if btnp(4) then
+      a.x = -9000
+      a.y = 9000
+   end
+   -- DEBUG_END
 end, function(a)
    a.x = a.rel_actor.x
    a.y = a.rel_actor.y-.25
    a.tail = _g.fairy_tail(a)
 end, function(a)
+   line(scr_x(a.x),      scr_y(a.y),      scr_x(a.tail.x), scr_y(a.tail.y), 12)
    line(scr_x(a.x+.125), scr_y(a.y),      scr_x(a.tail.x), scr_y(a.tail.y), 1)
    line(scr_x(a.x-.125), scr_y(a.y),      scr_x(a.tail.x), scr_y(a.tail.y), 1)
    line(scr_x(a.x),      scr_y(a.y+.125), scr_x(a.tail.x), scr_y(a.tail.y), 1)
    line(scr_x(a.x),      scr_y(a.y-.125), scr_x(a.tail.x), scr_y(a.tail.y), 1)
-   line(scr_x(a.x),      scr_y(a.y),      scr_x(a.tail.x), scr_y(a.tail.y), 1)
 
    scr_pset(a.x, a.y, 12)
 end)
