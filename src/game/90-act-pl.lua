@@ -14,8 +14,7 @@ end, function(a)
    else
       a.sind=147
    end
-end
-)
+end)
 
 create_actor([[grabbed_item;4;rel,spr_obj,confined|
    rel_actor:@1;sind:@2;iyy:@3;create_func:@4;

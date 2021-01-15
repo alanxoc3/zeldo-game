@@ -155,6 +155,15 @@ end
 )
 
 -- SECTION: OBJECTS
+
+create_actor[[money_hover;1;above_map_drawable,confined,spr,rel;update,|
+   rel_actor:@1;
+   rel_y:-1.25;
+   sind:36;
+
+   tl_max_time=1,;
+]]
+
 create_actor([[money;4;drawable,bounded,confined,tcol,spr,col,mov|
    sind:36;rx:.125;ry:.125;
    x:@1;y:@2;dx:@3;dy:@4;
@@ -169,12 +178,13 @@ function(a, other)
    if other.pl then
       add_money'1'
       a.alive = false
+      a.destroyed = function()
+         _g.money_hover(g_pl)
+      end
    end
 end, function(a)
    a.alive = false
-end, function(a)
-   destroy_effect(a, 9, 1, 6, 7, 13, 12)
-end)
+end, destroy_effect)
 
 create_actor([[static_block;4;confined,wall|
    x:@1;y:@2;rx:@3;ry:@4;
@@ -211,7 +221,7 @@ end, function(a)
    a.iyy = -cos(a.tl_tim/a.tl_max_time/4)*8
 end, function(a)
    sfx'9'
-   destroy_effect(a, 10, 1, 13, 12)
+   destroy_effect(a, 1, 13, 12)
 end, function(a, o)
    if o.touchable and not o.pl then
       call_not_nil(o, 'hurt', o, 0, 60)
@@ -230,7 +240,7 @@ create_actor([[pot;3;drawable,bounded,confined,tcol,spr,col,mov|
    rx:.375;ry:.375;
    i:@4;
 ]], function(a)
-   _g.gen_trigger_block(a, 0, 0, .5, .5, nf, function(trig, other)
+   _g.gen_trigger_block(a, 0, .25, .5, .25, nf, function(trig, other)
       if btnp(4) and not other.item and zdget'CAN_THROW_POTS' then
          other.item = _g.grabbed_item(g_pl, a.sind, -7, function(x, y, xf)
             _g.pot_projectile(other.x, other.y, xf)
