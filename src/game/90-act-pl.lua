@@ -38,29 +38,45 @@ end, function(a)
    a.rel_actor.item = nil
 end)
 
+create_actor([[fairy_tail;1;mov,move_pause,confined;u,|
+   rel_actor:@1;
+   i:@2;u:@3;
+]], function(a)
+   a.x = a.rel_actor.x;
+   a.y = a.rel_actor.y;
+end, function(a)
+   local dist = abs(a.x-a.rel_actor.x) + abs(a.y-a.rel_actor.y)
+   amov_to_actor(a, a.rel_actor, .04*dist)
+end)
+
 create_actor([[fairy;1;drawable,mov,move_pause;u,|
-   rel_actor:@1;sind:52;u:@2;off_x:1;off_y:0;d:@3;
-   fg:12;bg:6;--fg:1;bg:2;
-   room_init:@4;
+   rel_actor:@1;u:@2;off_x:1;off_y:0;d:@4;
+   i:@3;room_init:@3;
 ]], function(a)
    local act = get_cur_ma() or a.rel_actor
 
    local dist = abs(a.x-act.x) + abs(a.y-act.y)
-   amov_to_actor(a, act, dist*.025, a.off_x, a.off_y)
-   a.off_x = cos(a.tl_tim*.5)
-   a.off_y = sin(a.tl_tim*.5)-.25
+   amov_to_actor(a, act, dist*.013, a.off_x, a.off_y)
+   a.off_x = cos(a.tl_tim*.75)
+   a.off_y = sin(a.tl_tim*.75)-.25
 
-   a.xf = a.dx < 0
+   a.xf = a.ax > 0
 
-   destroy_effect(a, 1, a.fg, a.bg)
    if flr(a.tl_tim / 10) % 2 == 0 then
       a.off_x = -a.off_x
    end
 end, function(a)
-   scr_circfill(a.x, a.y, .125, a.fg)
-end, function(a)
    a.x = a.rel_actor.x
-   a.y = a.rel_actor.y
+   a.y = a.rel_actor.y-.25
+   a.tail = _g.fairy_tail(a)
+end, function(a)
+   line(scr_x(a.x+.125), scr_y(a.y),      scr_x(a.tail.x), scr_y(a.tail.y), 1)
+   line(scr_x(a.x-.125), scr_y(a.y),      scr_x(a.tail.x), scr_y(a.tail.y), 1)
+   line(scr_x(a.x),      scr_y(a.y+.125), scr_x(a.tail.x), scr_y(a.tail.y), 1)
+   line(scr_x(a.x),      scr_y(a.y-.125), scr_x(a.tail.x), scr_y(a.tail.y), 1)
+   line(scr_x(a.x),      scr_y(a.y),      scr_x(a.tail.x), scr_y(a.tail.y), 1)
+
+   scr_pset(a.x, a.y, 12)
 end)
 
 create_actor([[pl;2;drawable,anim,col,mov,tcol,hurtable,knockable,stunnable,spr,danceable|
@@ -144,7 +160,7 @@ end, function(a)
    scr_spr_and_out(a, a.ltop, a.item)
 end, function(a)
    a:i()
-   a.lanks_fairy, a.room_init = nil -- _g.fairy(a)
+   a.lanks_fairy, a.room_init = _g.fairy(a)
 end, function(a, color) -- set color
    a.outline_color, a.ltop.outline_color = color, color
 end)
