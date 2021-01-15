@@ -53,6 +53,10 @@ create_actor([[view;4;act,confined;center_view,update_view|
    ,;
 ]],
 function(a)
+   if a.follow_act and not a.follow_act.alive then
+      a.follow_act = nil
+   end
+
    batch_call_new(update_view_helper, [[@1,x,w,ixx;@1,y,h,iyy]], a)
 end, function(a)
    if a.follow_act then
