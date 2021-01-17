@@ -28,13 +28,6 @@ function tbox_logic_help(params)
    for i=1,#params,3 do
       local memloc, text, func = unpack(params, i)
       if zdget(memloc) then
-
-         -- DEBUG_BEGIN
-         if type(func) ~= "function" then
-            printh("meow: "..tostring(params))
-         end
-         -- DEBUG_END
-
          tbox(text, func or nf)
          break
       end
@@ -51,11 +44,6 @@ end
 function _g.npc_dance_logic(bad_text, good_text, good_trigger, bad_trigger)
    return function(a)
       if g_pause_reason == 'dancing' then
-         -- DEBUG_BEGIN
-         if type(bad_trigger) ~= "function" then
-            printh("no: "..tostring(bad_trigger))
-         end
-         -- DEBUG_END
          change_cur_ma(a)
          tbox_logic_help{
             BANJO_TUNED, good_text, good_trigger,
