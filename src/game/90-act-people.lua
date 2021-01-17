@@ -1,49 +1,53 @@
 -- SECTION: CHARS
-navy_dance_function = _g.npc_dance_logic("umm...", "nice playing lank!^^if i had money, i would^give it to you!")
-create_actor([[navy_blocking;2;nnpc,mem_dep|
+create_actor[[navy_house;2;nnpc,mem_dep|
+   name:"navy";
+   sind:97;xf:true;mem_loc:NAVY_OUT;mem_loc_expect:false;
+   x:@1;y:@2;interactable_trigger:!tbox_closure/"hi lank";
+
+   pause_end:!npc_dance_logic
+      /"umm..."
+      /"nice playing lank!^^if i had money, i would^give it to you!"
+   ;
+]]
+
+create_actor[[navy_blocking;2;nnpc,mem_dep|
    name:"navy";
    sind:97;mem_loc:NAVY_OUT;
    u:nf;
    f_reload:!get_npc_reload_room/NAVY_OUT;
    f_money:!memloc_money/HAS_BANJO/0;
 
-   x:@1;y:@2;pause_end:@3;
+   x:@1;y:@2;
 
    interactable_trigger:!tbox_actor_logic
       /HAS_BOOMERANG/"a boomerang?^^isn't that a toy^^i hope you can save my^sister with that thing."/~f_reload
       /HAS_SHIELD/"a shield! good choice!^^you can use that protect^my sister from monsters!"/~f_reload
       /ALWAYS_TRUE/"my sister has been in the^forest all day.^find something to protect^yourself with and bring^her home."/nf
    ;
-]], navy_dance_function)
 
-create_actor([[navy_house;2;nnpc,mem_dep|
-   name:"navy";
-   sind:97;xf:true;mem_loc:NAVY_OUT;mem_loc_expect:false;
-   x:@1;y:@2;interactable_trigger:@3;pause_end:@4;
-]],function(a)
-   tbox"hi lank."
-end, navy_dance_function)
+   pause_end:!npc_dance_logic
+      /"umm..."
+      /"nice playing lank!^^if i had money i would^give it to you!"
+   ;
+]]
 
-create_actor([[teach;2;nnpc,|
+create_actor[[teach;2;nnpc,|
    name:"teach";
    sind:96;
    x:@1;y:@2;
-   pause_end:@3;
+   f_reload:!get_npc_reload_room/BANJO_TUNED;
 
    interactable_trigger:!tbox_actor_logic
       /BANJO_TUNED/"try playing yer banjo on^a save spot!"/nf
       /ALWAYS_TRUE/"hi lank have you been^practicing the banjo?"/nf
    ;
-]], function(a)
-   if g_pause_reason == 'dancing' then
-      change_cur_ma(a)
-      if zdget'BANJO_TUNED' then
-         tbox"now that's my student!"
-      else
-         tbox("oh, your banjo is out of^tune!^let me fix that for you.", _g.get_npc_reload_room(BANJO_TUNED))
-      end
-   end
-end)
+
+   pause_end:!npc_dance_logic
+      /"oh. your banjo is out of^tune!^let me fix that for you."
+      /"now that's my student!"
+      /nf
+      /~f_reload
+]]
 
 create_actor([[lark;2;nnpc,|
    name:"lark";
@@ -84,5 +88,5 @@ create_actor[[keep;2;nnpc,|
    sind:83;
    x:@1;y:@2;interactable_trigger:!tbox_closure/"buy somethin' will ya?";
    f_money:!memloc_money/KEEP_DANCE/1;
-   pause_end:!npc_dance_logic/"that song sucked."/"that song was okay."/!f_money;
+   pause_end:!npc_dance_logic/"that song sucked."/"that song was okay."/~f_money;
 ]]

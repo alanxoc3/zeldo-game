@@ -24,12 +24,18 @@ function _g.memloc_money(mem_loc,money)
    end
 end
 
-function tbox_thing_help(...)
-   local params = {...}
+function tbox_logic_help(params)
    for i=1,#params,3 do
       local memloc, text, func = unpack(params, i)
       if zdget(memloc) then
-         tbox(text, func)
+
+         -- DEBUG_BEGIN
+         if type(func) ~= "function" then
+            printh("meow: "..tostring(params))
+         end
+         -- DEBUG_END
+
+         tbox(text, func or nf)
          break
       end
    end
@@ -38,18 +44,23 @@ end
 _g.tbox_actor_logic = function(...)
    local params = {...}
    return function()
-      tbox_thing_help(unpack(params))
+      tbox_logic_help(params)
    end
 end
 
-function _g.npc_dance_logic(bad_text, good_text, good_trigger)
+function _g.npc_dance_logic(bad_text, good_text, good_trigger, bad_trigger)
    return function(a)
       if g_pause_reason == 'dancing' then
+         -- DEBUG_BEGIN
+         if type(bad_trigger) ~= "function" then
+            printh("no: "..tostring(bad_trigger))
+         end
+         -- DEBUG_END
          change_cur_ma(a)
-         tbox_thing_help(
+         tbox_logic_help{
             BANJO_TUNED, good_text, good_trigger,
-            ALWAYS_TRUE, bad_text, nf
-         )
+            ALWAYS_TRUE, bad_text, bad_trigger or nf
+         }
       end
    end
 end

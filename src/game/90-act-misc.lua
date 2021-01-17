@@ -36,7 +36,7 @@ create_actor([[fader_in;2;act,;update,|
 
    tl_name=timeline,tl_max_time=FADE_TIME
 ]], function(a)
-   g_card_fade = min((a.timeline.tl_max_time-a.timeline.tl_tim)/a.timeline.tl_max_time*10,g_card_fade)
+   g_card_fade = min((a.timeline.tl_max_time-a.timeline.tl_tim)/a.timeline.tl_max_time*10, g_card_fade)
 end)
 
 -- SECTION: TITLE

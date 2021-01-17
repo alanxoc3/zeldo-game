@@ -28,9 +28,15 @@ function scr_pset(x, y, c)
    pset(scr_x(x),scr_y(y), c)
 end
 
+function scr_line(x1, y1, x2, y2, col)
+   line(scr_x(x1),scr_y(y1),scr_x(x2),scr_y(y2),col)
+end
+
+-- DEBUG_BEGIN
 function scr_rect(x1, y1, x2, y2, col)
    rect(scr_x(x1),scr_y(y1),scr_x(x2)-1,scr_y(y2)-1,col)
 end
+-- DEBUG_END
 
 function scr_rectfill(x1, y1, x2, y2, col)
    rectfill(scr_x(x1),scr_y(y1),scr_x(x2),scr_y(y2),col)

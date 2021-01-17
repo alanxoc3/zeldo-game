@@ -186,12 +186,11 @@ end, function(a)
    a.alive = false
 end, destroy_effect)
 
-create_actor([[static_block;4;confined,wall|
+create_actor[[static_block;4;confined,wall|
    x:@1;y:@2;rx:@3;ry:@4;
    static:true;
    touchable:true;
 ]]
-)
 
 create_actor([[thing_destroyed;4;confined,mov,post_drawable,spr,bounded;update,|
    parent:@1;dx:@2;dy:@3;outline_color:@4;
@@ -221,7 +220,7 @@ end, function(a)
    a.iyy = -cos(a.tl_tim/a.tl_max_time/4)*8
 end, function(a)
    sfx'9'
-   destroy_effect(a, 1, 13, 12)
+   destroy_effect(a, 1)
 end, function(a, o)
    if o.touchable and not o.pl then
       call_not_nil(o, 'hurt', o, 0, 60)

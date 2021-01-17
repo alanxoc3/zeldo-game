@@ -28,6 +28,13 @@ end
 
 function tbox(str, trigger)
    g_tbox_messages.trigger = trigger or nf
+
+   -- DEBUG_BEGIN
+   if type(trigger) ~= "function" then
+      printh("ohal: "..tostring(trigger))
+   end
+   -- DEBUG_END
+   --
    for i, x in pairs(split(str, "^")) do
       if i % 2 == 1 then
          add(g_tbox_messages, {l1=x, l2=''})
