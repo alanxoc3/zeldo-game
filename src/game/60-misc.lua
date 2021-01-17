@@ -4,12 +4,7 @@ function destroy_effect(a, num, ...)
    end
 end
 
-function destroy_func(a)
-   _g.money(a.x, a.y, a.dx, a.dy)
-end
-
 -- this file contains the logic for loading and saving a game.
-
 g_save_spots = ztable([[
    0:x=4,y=4,room=R_58;
      x=6,y=5,room=R_13;

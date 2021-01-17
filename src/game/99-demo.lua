@@ -210,7 +210,7 @@ function game_init()
       HAS_SWORD,;
       HAS_SHIELD,;
       HAS_BANJO,;
-      BANJO_TUNED,;
+      -- BANJO_TUNED,;
       CAN_THROW_POTS,;
    ]])
    -- DEBUG_END

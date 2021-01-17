@@ -38,6 +38,10 @@ end, function(a)
    a.rel_actor.item = nil
 end)
 
+function calc_act_dist(a, b)
+   return abs(a.x-b.x) + abs(a.y-b.y)
+end
+
 create_actor([[fairy_tail;1;mov,move_pause,confined;u,|
    rel_actor:@1;
    i:@2;u:@3;
@@ -45,8 +49,7 @@ create_actor([[fairy_tail;1;mov,move_pause,confined;u,|
    a.x = a.rel_actor.x;
    a.y = a.rel_actor.y;
 end, function(a)
-   local dist = abs(a.x-a.rel_actor.x) + abs(a.y-a.rel_actor.y)
-   amov_to_actor(a, a.rel_actor, .04*dist)
+   amov_to_actor(a, a.rel_actor, .04 * calc_act_dist(a,a.rel_actor))
 end)
 
 create_actor([[fairy;1;post_drawable,mov,move_pause;u,|
@@ -54,17 +57,13 @@ create_actor([[fairy;1;post_drawable,mov,move_pause;u,|
    i:@3;room_init:@3;
 ]], function(a)
    local act = get_cur_ma() or a.rel_actor
-
-   local dist = abs(a.x-act.x) + abs(a.y-act.y)
-   amov_to_actor(a, act, dist*.013, a.off_x, a.off_y)
-   a.off_x = cos(a.tl_tim*.75)
-   a.off_y = sin(a.tl_tim*.75)-.25
-
-   a.xf = a.ax > 0
+   amov_to_actor(a, act, calc_act_dist(a,act)*.013, a.off_x, a.off_y)
+   a.off_x, a.off_y = cos(a.tl_tim*.75), sin(a.tl_tim*.75)-.25
 
    if flr(a.tl_tim / 10) % 2 == 0 then
       a.off_x = -a.off_x
    end
+
    -- DEBUG_BEGIN
    if btnp(4) then
       a.x = -9000
@@ -72,17 +71,16 @@ create_actor([[fairy;1;post_drawable,mov,move_pause;u,|
    end
    -- DEBUG_END
 end, function(a)
-   a.x = a.rel_actor.x
-   a.y = a.rel_actor.y-.25
-   a.tail = _g.fairy_tail(a)
+   a.x, a.y, a.tail = a.rel_actor.x, a.rel_actor.y-.25, _g.fairy_tail(a)
 end, function(a)
-   line(scr_x(a.x),      scr_y(a.y),      scr_x(a.tail.x), scr_y(a.tail.y), 12)
-   line(scr_x(a.x+.125), scr_y(a.y),      scr_x(a.tail.x), scr_y(a.tail.y), 1)
-   line(scr_x(a.x-.125), scr_y(a.y),      scr_x(a.tail.x), scr_y(a.tail.y), 1)
-   line(scr_x(a.x),      scr_y(a.y+.125), scr_x(a.tail.x), scr_y(a.tail.y), 1)
-   line(scr_x(a.x),      scr_y(a.y-.125), scr_x(a.tail.x), scr_y(a.tail.y), 1)
-
-   scr_pset(a.x, a.y, 12)
+   batch_call_new(scr_line, [[
+      @1,             @2,             @3, @4, 12;
+      !plus/@1/.125,  @2,             @3, @4, 1;
+      !plus/@1/-.125, @2,             @3, @4, 1;
+      @1,             !plus/@2/.125,  @3, @4, 1;
+      @1,             !plus/@2/-.125, @3, @4, 1;
+      @1,             @2, @1, @2, 12;
+   ]], a.x, a.y, a.tail.x, a.tail.y)
 end)
 
 create_actor([[pl;2;drawable,anim,col,mov,tcol,hurtable,knockable,stunnable,spr,danceable|

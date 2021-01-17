@@ -26,9 +26,23 @@ function ztable(original_str, ...)
    -- Add the various parameters to the table.
    local params = {...}
    foreach(params, disable_tabcpy)
-   for op in all(ops) do
+   foreach(ops, function(op)
       local t, k, f = unpack(op)
       t[k] = f(params)
+      if tbl.name == "teach" then
+
+         printh("key: "..tostring(k))
+      end
+   end)
+
+   if tbl.name == "teach" then
+      for i=1,#ops do
+         printh("after key: "..ops[i][2])
+      end
+   end
+
+   if tbl.f_reload then
+      printh("cool: "..tostring(tbl.f_reload))
    end
 
    return tbl
@@ -66,9 +80,14 @@ function queue_operation(tbl, k, v, ops)
       elseif ord(x) == 126 then -- ~ tbl value
          add(ops, {
             closure_tbl, k, function()
+               if rest == 'f_reload' then
+                  printh("hehe: "..tostring(tbl[rest]))
+               end
+
                return tbl[rest]
             end
          })
+         -- printh("he?:  1: "..type(ops[1]).." 2: "..tostring(ops[2]).." 3: "..tostring(ops[3]))
       elseif x == 'true' or x == 'false' then x = x=='true'
       elseif x == 'nil' or x == '' then x = nil
       elseif x == 'nf' then x = function() end
