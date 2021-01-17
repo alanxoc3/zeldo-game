@@ -14,24 +14,26 @@ function ztable(original_str, ...)
       tbl, ops = {}, {}
 
       -- Get first level of table in order.
-      local key_val_pairs, key_index = {}, 1
-
       for item in all(split(str, ';')) do
-         local kvs = split(item, ':')
-         add(key_val_pairs, {kvs[#kvs-1] or key_index, kvs[#kvs]})
-         if not kvs[#kvs-1] then
-            key_index += 1
-         end
-      end
+         local k, v = split_kv(item, ':', tbl)
 
-      -- Get second level of table in order.
-      for row in all(key_val_pairs) do
-         local k, v = unpack(row)
          local val_func = function(sub_val, sub_key, sub_tbl)
             return queue_operation(sub_tbl or tbl, sub_key or k, sub_val, ops)
          end
 
-         tbl[k] = zsplitkv(v, ',', '=', val_func, true)
+         -- 7572
+         local ret_val, items = {}, split(v, ',')
+         for item in all(items) do
+            local k, v = split_kv(item, '=', ret_val)
+
+            if #items == 1 then
+               ret_val = val_func(v)
+            else
+               ret_val[k] = val_func(v, k, ret_val)
+            end
+         end
+
+         tbl[k] = ret_val
       end
 
       g_ztable_cache[str] = {tbl, ops}
@@ -43,27 +45,14 @@ function ztable(original_str, ...)
    foreach(ops, function(op)
       local t, k, f = unpack(op)
       t[k] = f(params)
-
-      -- DEBUG_BEGIN
-      if tbl.name == "teach" then
-         printh("key: "..tostring(k))
-      end
-      -- DEBUG_END
    end)
 
-   -- DEBUG_BEGIN
-   if tbl.name == "teach" then
-      for i=1,#ops do
-         printh("after key: "..ops[i][2])
-      end
-   end
-
-   if tbl.f_reload then
-      printh("cool: "..tostring(tbl.f_reload))
-   end
-   -- DEBUG_END
-
    return tbl
+end
+
+function split_kv(list, delim, tbl)
+   local kvs = split(list, delim)
+   return kvs[#kvs-1] or #tbl+1, kvs[#kvs]
 end
 
 function queue_operation(tbl, k, v, ops)
@@ -123,22 +112,4 @@ function disable_tabcpy(t)
       t.is_tabcpy_disabled = true
    end
    return t
-end
-
--- fails if key is empty.
-function zsplitkv(str, item_delim, kv_delim, val_func, expandable)
-   local tbl, items = {}, split(str, item_delim)
-
-   for item in all(items) do
-      local kvs = split(item, kv_delim)
-      local k,v = kvs[#kvs-1] or #tbl+1, kvs[#kvs]
-
-      if expandable and #items == 1 then
-         return val_func(v)
-      else
-         tbl[k] = val_func(v, k, tbl)
-      end
-   end
-
-   return tbl
 end
