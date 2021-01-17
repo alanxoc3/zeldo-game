@@ -201,15 +201,16 @@ end)
 create_parent([[hurtable;0;act,;|
    health:-1;
    max_health:-1;
-   hurt_func:nf;
-   hurt:@1;
+
+   hurt:@1; heal:@2;
 ]], function(a, damage, stun_val)
    if a.max_health >= 0 and a.stun_countdown <= 0 then
       a.stun_countdown = stun_val
-      a.health = min(a.max_health, a.health-damage)
-      if a.health <= 0 then a.alive = false end
-      a:hurt_func()
+      a.health = max(0, a.health - damage)
+      if a.health == 0 then a.alive = false end
    end
+end, function(a, health)
+   a.health = min(a.max_health, a.health + health)
 end)
 
 create_parent[[brang_hurtable;0;hurtable,;|;]]

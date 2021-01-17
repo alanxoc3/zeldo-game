@@ -140,50 +140,52 @@ create_actor[[pillow;2;pre_drawable,spr,confined|
    x:@1;y:@2;sind:39;iyy:0;
 ]]
 
--- todo: trim code here.
 create_actor([[bed;2;drawable,confined,spr|
-   x:@1;y:@2;sind:55;
-   i:@3;destroyed:@4;
+   sind:55;
+   x:@1; y:@2; i:@3;
    iyy:0;
 ]], function(a)
-   a.b2 = _g.static_block(a.x+.53125, a.y, .09375, .25)
-   a.b3 = _g.static_block(a.x-.53125, a.y, .09375, .25)
-   a.b4 = _g.static_block(a.x,a.y+3/8, 5/8,.25)
-end, function(a)
-   a.b2.alive, a.b3.alive, a.b4.alive = false
-end
-)
+   batch_call_new(_g.static_block, [[
+      !plus/@1/.53125,  @2, .09375, .25;
+      !plus/@1/-.53125, @2, .09375, .25;
+      @1, !plus/@2/.375, .625, .25;
+   ]], a.x, a.y)
+end)
 
 -- SECTION: OBJECTS
-
-create_actor[[money_hover;1;above_map_drawable,confined,spr,rel;update,|
-   rel_actor:@1;
+create_actor[[stat_hover;2;above_map_drawable,confined,spr,rel;update,|
+   rel_actor:@1; sind:@2;
    rel_y:-1.25;
-   sind:36;
 
    tl_max_time=1,;
 ]]
 
-create_actor([[money;4;drawable,bounded,confined,tcol,spr,col,mov|
-   sind:36;rx:.125;ry:.125;
-   x:@1;y:@2;dx:@3;dy:@4;
-   touchable:false;
-   hit:@5;
+create_parent([[stat_parent;1;drawable,bounded,confined,tcol,spr,col,mov|
+   sind:@1;
+   rx:.125; ry:.125;
+   hit:@2; touchable:false;
    destroyed:%destroy_effect;
 
    tl_max_time=5,;
-   i=@6,;
-]],
-function(a, other)
+]], function(a, other)
    if other.pl then
-      add_money'1'
-      a.alive = false
-      a.destroyed = function()
-         _g.money_hover(g_pl)
+      a.f_stat()
+      a.destroyed, a.alive = function()
+         _g.stat_hover(g_pl, a.sind)
       end
    end
-end, function(a)
-   a.alive = false
+end)
+
+create_actor([[money;2;stat_parent/36,|
+   x:@1; y:@2; f_stat:@3;
+]], function()
+   add_money'1'
+end)
+
+create_actor([[health_obj;2;stat_parent/37,|
+   x:@1; y:@2; f_stat:@3;
+]], function()
+   g_pl:heal(3)
 end)
 
 create_actor[[static_block;4;confined,wall|
@@ -244,8 +246,11 @@ create_actor([[pot;3;drawable,bounded,confined,tcol,spr,col,mov|
          other.item = _g.grabbed_item(g_pl, a.sind, -7, function(x, y, xf)
             _g.pot_projectile(other.x, other.y, xf)
          end)
-         if flr_rnd'5' == 0 then
-            _g.money(a.x, a.y, 0, 0)
+         local rnd_num = flr_rnd'5'
+         if rnd_num == 0 then
+            _g.money(a.x, a.y)
+         elseif rnd_num == 1 then
+            _g.health_obj(a.x, a.y)
          end
          a:kill()
       end
