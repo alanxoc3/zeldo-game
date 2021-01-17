@@ -1,14 +1,14 @@
-function destroy_effect(a, num, ...)
+function _g.destroy_effect(a)
    for i=0,3 do
       _g.thing_destroyed(a, cos(i/4+.125)/8, sin(i/4+.125)/8, 1)
    end
 end
 
 -- this file contains the logic for loading and saving a game.
-g_save_spots = ztable([[
+g_save_spots = ztable[[
    0:x=4,y=4,room=R_58;
      x=6,y=5,room=R_13;
-]])
+]]
 
 -- token history: 128 103 97 69 81 49 88 104 136 108 95 92 103 73 66 64 56
 

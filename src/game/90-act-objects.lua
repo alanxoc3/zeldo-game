@@ -169,7 +169,7 @@ create_actor([[money;4;drawable,bounded,confined,tcol,spr,col,mov|
    x:@1;y:@2;dx:@3;dy:@4;
    touchable:false;
    hit:@5;
-   destroyed:@7;
+   destroyed:%destroy_effect;
 
    tl_max_time=5,;
    i=@6,;
@@ -184,7 +184,7 @@ function(a, other)
    end
 end, function(a)
    a.alive = false
-end, destroy_effect)
+end)
 
 create_actor[[static_block;4;confined,wall|
    x:@1;y:@2;rx:@3;ry:@4;
@@ -220,7 +220,7 @@ end, function(a)
    a.iyy = -cos(a.tl_tim/a.tl_max_time/4)*8
 end, function(a)
    sfx'9'
-   destroy_effect(a, 1)
+   _g.destroy_effect(a, 1)
 end, function(a, o)
    if o.touchable and not o.pl then
       call_not_nil(o, 'hurt', o, 0, 60)

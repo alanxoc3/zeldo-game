@@ -27,7 +27,11 @@ end, function(a, other, ...)
    end
 end)
 
-create_actor([[miny;3;slimy_parent/"miny"/.125/.125/1/.05/0/116/117,brang_hurtable|x:@1;y:@2;dy:@3]])
+create_actor[[
+   miny;3;slimy_parent/"miny"/.125/.125/1/.05/0/116/117,brang_hurtable|
+   x:@1;y:@2;dy:@3;destroyed:%destroy_effect
+]]
+
 create_actor([[slimy;2;slimy_parent/"slimy"/.25/.25/3/.2/30/118/119,|x:@1;y:@2;destroyed:@3;]], function(a)
    batch_call_new(_g.miny, [[
       @1,@2,.2;
