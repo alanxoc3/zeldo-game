@@ -11,8 +11,22 @@ function ztable(original_str, ...)
 
    -- Create the table if it isn't in the cache.
    if not tbl then
-      tbl, ops = zsplitkv(str, ';', ':', identity), {}
-      for k, v in pairs(tbl) do
+      tbl, ops = {}, {}
+
+      -- Get first level of table in order.
+      local key_val_pairs, key_index = {}, 1
+
+      for item in all(split(str, ';')) do
+         local kvs = split(item, ':')
+         add(key_val_pairs, {kvs[#kvs-1] or key_index, kvs[#kvs]})
+         if not kvs[#kvs-1] then
+            key_index += 1
+         end
+      end
+
+      -- Get second level of table in order.
+      for row in all(key_val_pairs) do
+         local k, v = unpack(row)
          local val_func = function(sub_val, sub_key, sub_tbl)
             return queue_operation(sub_tbl or tbl, sub_key or k, sub_val, ops)
          end
@@ -29,12 +43,15 @@ function ztable(original_str, ...)
    foreach(ops, function(op)
       local t, k, f = unpack(op)
       t[k] = f(params)
-      if tbl.name == "teach" then
 
+      -- DEBUG_BEGIN
+      if tbl.name == "teach" then
          printh("key: "..tostring(k))
       end
+      -- DEBUG_END
    end)
 
+   -- DEBUG_BEGIN
    if tbl.name == "teach" then
       for i=1,#ops do
          printh("after key: "..ops[i][2])
@@ -44,6 +61,7 @@ function ztable(original_str, ...)
    if tbl.f_reload then
       printh("cool: "..tostring(tbl.f_reload))
    end
+   -- DEBUG_END
 
    return tbl
 end
@@ -62,7 +80,7 @@ function queue_operation(tbl, k, v, ops)
       }
    end
 
-   for i, x in pairs(vlist) do
+   for i, x in ipairs(vlist) do
       local rest, closure_tbl = sub(x, 2), tbl
 
       if will_be_table then
@@ -80,14 +98,9 @@ function queue_operation(tbl, k, v, ops)
       elseif ord(x) == 126 then -- ~ tbl value
          add(ops, {
             closure_tbl, k, function()
-               if rest == 'f_reload' then
-                  printh("hehe: "..tostring(tbl[rest]))
-               end
-
                return tbl[rest]
             end
          })
-         -- printh("he?:  1: "..type(ops[1]).." 2: "..tostring(ops[2]).." 3: "..tostring(ops[3]))
       elseif x == 'true' or x == 'false' then x = x=='true'
       elseif x == 'nil' or x == '' then x = nil
       elseif x == 'nf' then x = function() end
