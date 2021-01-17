@@ -33,14 +33,13 @@ end
 function outline_helper(flip, coord, dim)
    coord = coord-dim*4
    if flip then
-      return dim*8-1+coord, 0xffff
+      return dim*8-1+coord, -1
    else
       return coord, 1
    end
 end
 
 function spr_out(sind, x, y, sw, sh, xf, yf, col)
-   sw,sh=sw or 1,sh or 1
    local ox, x_mult = outline_helper(xf, x, sw)
    local oy, y_mult = outline_helper(yf, y, sh)
 

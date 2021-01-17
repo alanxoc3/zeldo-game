@@ -3,7 +3,6 @@ g_gunvals = split(g_gunvals_raw, "|")
 
 g_ztable_cache = {}
 function nf() end
-function identity(...) return ... end
 
 function ztable(original_str, ...)
    local str = g_gunvals[0+original_str]
