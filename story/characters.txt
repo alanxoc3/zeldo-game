@@ -5,11 +5,11 @@ Ivan - Evil fairy.
 Navy - Older brother of Lime, first boss.
 Lime - Younger sister of Navy, gives you the sword.
 
-Bob - Husband of Bobette.
+Bob - Husband of Jane.
 Jane - Bob's wife.
 
 Novi - Lank's previous fairy.
-Barry - The banjo teacher.
+Teach - The banjo teacher.
 Grover - The gravedigger.
 Teach - The teacher.
 
@@ -21,7 +21,7 @@ Zeldo  - The queen. Cannon's wife.
 
 # Enemies
 Batty - Everywhere.
-Slimy - Everywhere.
+Slimy/Miny - Everywhere.
 Skelly - Graveyard.
 Planty - Forest.
 Handy - Crypt.
