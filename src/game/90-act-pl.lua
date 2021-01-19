@@ -161,6 +161,7 @@ end, function(a)
    if a.item then a.item.alive = false end
 -- draw
 end, function(a)
+   a.ltop.outline_color = a.outline_color
    scr_spr_and_out(a, a.ltop, a.item)
 end, function(a)
    a:i()

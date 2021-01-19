@@ -499,5 +499,5 @@ function _draw()
       print(sel_y, 111, 115, 10)
    end
 
-   spr(0, mouse_x-4, mouse_y-4)
+   spr(12, mouse_x-4, mouse_y-4)
 end
