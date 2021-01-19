@@ -1,0 +1,6 @@
+There are 6 different areas. Each area gets 8 sfx slots and 8 music slots.
+
+8 sfx slots are reserved for sound effects.
+8 sfx slots are reserved for shared melody between different songs.
+
+16 music slots are reserved for title screen, game over, and ending screens.
