@@ -45,12 +45,9 @@ function draw_stat(x, y, align, view)
 
       draw_ma(view, x,y,a)
 
-      if a.hurtable then
+      if a.hurtable and a.health_visible then
          draw_bar(x-yo, y-2, x-yo-35*align, y+1, a.health,a.max_health, -1, FG_GREEN, BG_GREEN)
-         zprint(
-            a.max_health < 0 and '???/???' or flr(a.health)..'/'..a.max_health,
-            x-yo, y+4, align, FG_WHITE, BG_WHITE
-         )
+         zprint(flr(a.health)..'/'..a.max_health, x-yo, y+4, align, FG_WHITE, BG_WHITE)
       elseif a.costable then
          draw_money(x-yo, y+4, align, a.cost)
       end

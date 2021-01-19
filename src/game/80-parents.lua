@@ -194,20 +194,30 @@ create_parent([[stunnable;0;mov,drawable_obj;|
 ]], function(a)
    if a.stun_countdown > 0 then
       a.ay, a.ax = 0, 0
-      a.xx = rnd_one()
+      a.yy = rnd_one()
+      a.outline_color = 2
+   else
+      a.outline_color = 1
    end
 end)
 
 create_parent([[hurtable;0;act,;|
-   health:-1;
-   max_health:-1;
+   health:1;
+   max_health:1;
+   health_visible:true;
+   hurt_sfx:2;
 
    hurt:@1; heal:@2;
 ]], function(a, damage, stun_val)
-   if a.max_health >= 0 and a.stun_countdown <= 0 then
+   if a.stun_countdown <= 0 then
+      sfx(a.hurt_sfx)
       a.stun_countdown = stun_val
+
       a.health = max(0, a.health - damage)
-      if a.health == 0 then a.alive = false end
+
+      if a.health == 0 then
+         a.alive = false
+      end
    end
 end, function(a, health)
    a.health = min(a.max_health, a.health + health)

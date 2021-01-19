@@ -39,6 +39,26 @@ create_actor([[slimy;2;slimy_parent/"slimy"/.25/.25/3/.2/30/118/119,|x:@1;y:@2;d
    ]], a.x, a.y)
 end)
 
+create_actor([[kluck;2;drawable,ma_able,hurtable,loopable,bounded,confined,stunnable,mov,col,tcol,knockable,spr,danceable|
+   name:"kluck";
+   evil:true;
+   x:@1;y:@2;
+   rx:.375;ry:.375;
+   sind:32;
+   stun_len:1;
+   destroyed:%destroy_effect;
+   health:100;
+   max_health:100;
+   health_visible:false;
+
+   i=@3,tl_max_time=.5;
+]], function(a)
+   a.ax, a.ay = rnd_one'.01', rnd_one'.01'
+   a.xf = a.ax < 0
+end, function(a)
+
+end)
+
 -- create_actor[[miny;3;ma_able,drawable,bounded,danceable,confined,stunnable,mov,col,tcol,brang_hurtable,knockable,spr_obj,spr|
 --    x:@1;y:@2;dy:@3;
 --    max_health:1;health:1;
@@ -95,20 +115,6 @@ end)
 --    a.tl_next = 2
 --    change_cur_ma(a)
 -- end)
-
--- create_actor([[kluck;2;drawable,loopable,bounded,confined,stunnable,mov,col,tcol,hurtable,knockable,spr,danceable]], [[
---    name:"kluck";
---    evil:true;
---    x:@1;y:@2;
---    rx:.375;ry:.375;
---    sind:32;
---    destroyed:@4;
--- 
---    i=@3,tl_max_time=.5;
--- ]], function(a)
---    a.ax, a.ay = rnd_one(.01), rnd_one(.01)
---    a.xf = a.ax < 0
--- end, destroy_func)
 
 -- create_actor([['bat', 2, {'bounded','confined','stunnable','mov','col','hurtable','knockable','anim','spr'}]], [[
 --    evil=true,
