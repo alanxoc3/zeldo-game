@@ -32,11 +32,11 @@ g_rooms = ztable[[
    sign/17/3/"teach's studio"/43,
    sign/9/3/"bob and jane's house"/43,
    sign/21/4/"hi-roll shop"/43,
-   house/3.5/4/9/4/7.5/46,
    house/15.5/3/6/4/7.5/46,
-   house/11.5/2/57/4/7.5/46,
    house/19.5/4/7/4/7.5/46,
    house/7.5/3/8/4/7.5/46,
+   house/3.5/4/9/4/7.5/46,
+   house/11.5/2/57/4/7.5/46,
    kluck/11.5/6.5,
    kluck/18/3,
 
