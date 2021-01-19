@@ -23,7 +23,6 @@ end, function(a)
             memcpy(REAL_SAVE_LOCATION, TEMP_SAVE_LOCATION, SAVE_LENGTH)
             tbox"the game has been saved!"
          else
-            sfx'7'
             tbox"the game won't save for^terrible music."
          end
       end
