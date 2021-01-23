@@ -42,7 +42,7 @@ g_rooms = ztable[[
    r=R_04/0.5/7,
 
    sign/9/2/"lank's house"/43,
-   house/7.5/2/58/4/7.5/46,
+   house/7.5/2/0/4/7.5/46,
    navy_blocking/4.5/6.5,
 
 ; R_04:

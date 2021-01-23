@@ -133,7 +133,7 @@ end, function(a) -- update 3
    amov_to_actor(a, a.rel_actor, .1)
 end, function(a)
    if a.did_brang_hit then
-      card_shake(9)
+      zsfx(2, 7)
    end
 end, function(a)
    a.did_brang_hit = true
@@ -157,9 +157,9 @@ create_actor([[banjo;1;item,danceable;update,|
    -- echo effect :)
    poke(0x5f41, 15)
    if zdget(BANJO_TUNED) then
-      sfx'11'
+      sfx'7'
    else
-      sfx'10'
+      sfx'6'
    end
    pause('dancing')
 end, function(a)

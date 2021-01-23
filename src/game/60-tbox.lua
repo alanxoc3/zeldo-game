@@ -17,7 +17,7 @@ function tbox_interact()
       end
 
       if g_tbox_writing then
-         sfx'0'
+         zsfx(0,0)
       end
 
       if btnp'4' and g_tbox_anim > .5 then

@@ -3,6 +3,10 @@
 -- A table with a bunch of global variables.
 _g = {}
 
+function zsfx(num, sub_num)
+   sfx(num,-1,sub_num*4,4)
+end
+
 -- util functions:
 -- 7661 -> 7650
 function btn_helper(f, a, b)

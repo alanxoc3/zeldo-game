@@ -220,7 +220,7 @@ create_actor([[pot_projectile;3;drawable,col,confined,mov,spr,bounded,tcol|
 end, function(a)
    a.iyy = -cos(a.tl_tim/a.tl_max_time/4)*8
 end, function(a)
-   sfx'9'
+   zsfx(2, 7)
    _g.destroy_effect(a, 1)
 end, function(a, o)
    if o.touchable and not o.pl then

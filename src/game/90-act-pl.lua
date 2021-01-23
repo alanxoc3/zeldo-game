@@ -28,12 +28,12 @@ create_actor([[grabbed_item;4;rel,spr_obj,confined|
    throwing=true,visible=false,tl_max_time=.05;
 ]], function(a)
    if btnp'4' or btn'5' then
-      sfx'6'
+      zsfx(2,3)
       a.create_func(a.x, a.y+a.iyy/8, a.xf)
       return true
    end
 end, function(a)
-   sfx'5'
+   zsfx(2,2)
 end, function(a)
    a.rel_actor.item = nil
 end)
@@ -63,13 +63,6 @@ create_actor([[fairy;1;post_drawable,mov,move_pause;u,|
    if flr(a.tl_tim / 10) % 2 == 0 then
       a.off_x = -a.off_x
    end
-
-   -- DEBUG_BEGIN
-   if btnp(4) then
-      a.x = -9000
-      a.y = 9000
-   end
-   -- DEBUG_END
 end, function(a)
    a.x, a.y, a.tail = a.rel_actor.x, a.rel_actor.y-.25, _g.fairy_tail(a)
 end, function(a)
@@ -128,10 +121,10 @@ end, function(a)
    if not btn'5' and not a.item and btnp'4' then
       if not get_selected_item().interact then
          if g_energy_tired then
-            sfx'7'
+            zsfx(2,7)
          else
             a.item = gen_pl_item(a)
-            sfx'5'
+            zsfx(2,2)
          end
       end
    end
