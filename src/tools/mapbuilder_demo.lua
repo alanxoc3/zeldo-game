@@ -31,6 +31,7 @@ obj_templates = {
    {k="shop_brang"   , s=4,   sw=1, sh=1, xf=false, p={'shop_brang'   , 0,0                         }},
    {k="shop_shield"  , s=6,   sw=1, sh=1, xf=false, p={'shop_shield'  , 0,0                         }},
    {k="navy_blocking", s=97,  sw=1, sh=1, xf=false, p={'navy_blocking', 0,0                         }},
+   {k="navy_house",    s=97,  sw=1, sh=1, xf=false, p={'navy_house',    0,0                         }},
    {k="teach"        , s=96,  sw=1, sh=1, xf=false, p={'teach'        , 0,0                         }},
    {k="keep"         , s=83,  sw=1, sh=1, xf=false, p={'keep'         , 0,0                         }},
    {k="jane"         , s=81,  sw=1, sh=1, xf=false, p={'jane'         , 0,0                         }},
