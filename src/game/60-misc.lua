@@ -6,7 +6,7 @@ end
 
 -- this file contains the logic for loading and saving a game.
 g_save_spots = ztable[[
-   0:x=4,y=4,room=R_58;
+   0:x=4,y=4,room=R_00;
      x=6,y=5,room=R_13;
 ]]
 

@@ -1,20 +1,35 @@
 g_rooms = ztable[[
 ; R_00:
-   m=14,c=3,
-   l=R_10/11.5/5,
-   r=R_01/0.5/5,
-   d=R_17/4/0.5,
+   m=21,c=4,
+   d=R_01/8/3,
 
-   sign/5.5/2/"B_LEFT spike's forest^B_RIGHT hiroll village"/43,
-   spikes/2/2/0.5,
-   spikes/2/7/0.5,
-   spikes/2/4/0,
-   spikes/2/5/0,
-   spikes/3/4/0,
-   spikes/3/5/0,
+   pot/6/6,
+   pot/5/6,
+   pot/2/6,
+   pot/1/6,
+   pot/1/5,
+   pot/6/5,
+   pillow/1/0.5,
+   bed/1/1.5,
+   chest/4/1/true/15,
+   save_spot/3.5/3.5/0,
 
 ; R_01:
-   m=0,c=3,
+   m=21,c=4,
+   d=R_02/12/3,
+
+   lark/3.5/3.5,
+   box/6/6,
+   box/1/6,
+   pot/5/1,
+   pot/2/1,
+   bed/3.5/1.5,
+   pillow/3.5/0.5,
+   pot/1/2,
+   pot/6/2,
+
+; R_03:
+   m=16,c=3,
    l=R_00/11.5/5,
    r=R_02/0.5/7,
 
@@ -22,32 +37,14 @@ g_rooms = ztable[[
    house/7.5/2/58/4/7.5/46,
    navy_blocking/4.5/6.5,
 
-; R_02:
-   m=14,c=3,w=24,
-   l=R_01/11.5/5,
-   r=R_19/0.5/5,
-
-   sign/5/4/"lime and navy's house"/43,
-   sign/13/2/"lark's house"/43,
-   sign/17/3/"teach's studio"/43,
-   sign/9/3/"bob and jane's house"/43,
-   sign/21/4/"hi-roll shop"/43,
-   house/15.5/3/6/4/7.5/46,
-   house/19.5/4/7/4/7.5/46,
-   house/7.5/3/8/4/7.5/46,
-   house/3.5/4/9/4/7.5/46,
-   house/11.5/2/57/4/7.5/46,
-   kluck/11.5/6.5,
-   kluck/18/3,
-
 ; R_04:
-   m=18,c=5,
+   m=16,c=5,
 
 ; R_05:
-   m=18,c=4,
+   m=16,c=4,
 
 ; R_06:
-   
+   m=21,c=4,
    d=R_02/16/4,
 
    sign/1/1/"press B_O to use yer item."/43,
@@ -61,7 +58,7 @@ g_rooms = ztable[[
    pot/6/5,
 
 ; R_07:
-   m=18,c=4,
+   m=21,c=4,
    d=R_02/20/5,
 
    shop_brang/2/3,
@@ -171,31 +168,17 @@ g_rooms = ztable[[
 
 ; R_12:
    m=14,c=3,
-   l=R_17/4/4,
-   r=R_11/0.5/5,
-   u=R_13/6/9.5,
-   d=R_17/4/4,
+   l=R_10/11.5/5,
+   r=R_01/0.5/5,
+   d=R_17/4/0.5,
 
+   sign/5.5/2/"B_LEFT spike's forest^B_RIGHT hiroll village"/43,
+   spikes/2/2/0.5,
+   spikes/2/7/0.5,
    spikes/2/4/0,
-   spikes/3/4/0,
    spikes/2/5/0,
+   spikes/3/4/0,
    spikes/3/5/0,
-   spikes/8/4/0,
-   spikes/9/4/0,
-   spikes/8/5/0,
-   spikes/9/5/0,
-   spikes/5/4/0.5,
-   spikes/6/4/0.5,
-   spikes/5/5/0.5,
-   spikes/6/5/0.5,
-   spikes/4/2/0.25,
-   spikes/7/2/0.5,
-   spikes/4/7/0.5,
-   spikes/7/7/0.25,
-   slimy/2/7/1,
-   slimy/2/2/1.5,
-   slimy/9/2/2,
-   slimy/9/7/2.5,
 
 ; R_13:
    m=14,c=3,
@@ -261,7 +244,32 @@ g_rooms = ztable[[
    spikes/10/8/0.25/true,
 
 ; R_15:
-   m=18,c=4,
+   m=14,c=3,
+   l=R_17/4/4,
+   r=R_11/0.5/5,
+   u=R_13/6/9.5,
+   d=R_17/4/4,
+
+   spikes/2/4/0,
+   spikes/3/4/0,
+   spikes/2/5/0,
+   spikes/3/5/0,
+   spikes/8/4/0,
+   spikes/9/4/0,
+   spikes/8/5/0,
+   spikes/9/5/0,
+   spikes/5/4/0.5,
+   spikes/6/4/0.5,
+   spikes/5/5/0.5,
+   spikes/6/5/0.5,
+   spikes/4/2/0.25,
+   spikes/7/2/0.5,
+   spikes/4/7/0.5,
+   spikes/7/7/0.25,
+   slimy/2/7/1,
+   slimy/2/2/1.5,
+   slimy/9/2/2,
+   slimy/9/7/2.5,
 
 ; R_16:
    m=14,c=3,
@@ -385,35 +393,6 @@ g_rooms = ztable[[
 
 ; R_56:
    m=18,c=4,
-
-; R_57:
-   m=18,c=4,
-   d=R_02/12/3,
-
-   lark/3.5/3.5,
-   box/6/6,
-   box/1/6,
-   pot/5/1,
-   pot/2/1,
-   bed/3.5/1.5,
-   pillow/3.5/0.5,
-   pot/1/2,
-   pot/6/2,
-
-; R_58:
-   m=0,c=4,
-   d=R_01/8/3,
-
-   pot/6/6,
-   pot/5/6,
-   pot/2/6,
-   pot/1/6,
-   pot/1/5,
-   pot/6/5,
-   pillow/1/0.5,
-   bed/1/1.5,
-   chest/4/1/true/15,
-   save_spot/3.5/3.5/0,
 
 ; R_59:
    m=18,c=4,

@@ -258,7 +258,6 @@ end
 
 function _init()
    poke(0x5f2d, 1)
-   music(14)
 
    obj_templates_key_to_ind = {}
    for i=1,#obj_templates do
@@ -291,6 +290,7 @@ function _init()
    }
 end
 
+start = 0
 function _update60()
    is_mouse_pressed = not is_mouse_down and stat(34) == 1
    is_mouse_down = stat(34) == 1
@@ -316,7 +316,8 @@ function _update60()
    map_h = cur_room.h or g_room_template[t_ind].h
    map_c = cur_room.c or 0
 
-   if lr != 0 then
+   if start == 0 or lr != 0 then
+      start = 1
       music(cur_room.m)
    end
 
@@ -369,14 +370,14 @@ function _update60()
             if cur_mode == MOV and cur_selected_obj and is_moving then
                is_moving = false
                if new_cur_obj then
-                  sfx(7)
+                  --sfx(7)
                else
                   cur_selected_obj[2] = sel_x
                   cur_selected_obj[3] = sel_y
                end
             elseif cur_mode == INS and show_objs then
                if new_cur_obj then
-                  sfx(7)
+                  --sfx(7)
                else
                   local new_obj = tabcpy(ins_obj.p)
                   new_obj[2] = sel_x
