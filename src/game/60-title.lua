@@ -20,8 +20,6 @@ function draw_logo(a)
 end
 
 -- fade in. fade loop. fade out
-
--- the sound is assumed to be sfx 0!
 g_title = ztable([[
    x=8, y=8, i=@6, d=@3, u=@4;
    tl_name=outer, tl_loop=true, @1;

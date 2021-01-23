@@ -205,12 +205,10 @@ create_parent([[hurtable;0;act,;|
    health:1;
    max_health:1;
    health_visible:true;
-   hurt_sfx:2;
 
    hurt:@1; heal:@2;
 ]], function(a, damage, stun_val)
    if a.stun_countdown <= 0 then
-      sfx(a.hurt_sfx)
       a.stun_countdown = stun_val
 
       a.health = max(0, a.health - damage)
@@ -443,7 +441,7 @@ create_parent([[shop_item;0;drawable,interactable,ma_able;update,|
       pause'chest' -- not a chest, but is the same functionality.
       stop_music'1'
    else
-      sfx'7'
+      zsfx(2,6)
    end
 end)
 

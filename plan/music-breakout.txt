@@ -1,31 +1,55 @@
-There are 6 different areas. Each area gets 8 sfx slots and 8 music slots.
+1 row of sfx:
+0: 
+1: 
+2: 
+3: 
+4: 
+5: 
+6: Broken Banjo
+7: Banjo
 
-8 sfx slots are reserved for sound effects.
-8 sfx slots are reserved for shared melody between different songs.
+- Open inventory
+- Close inventory
+- Open tbox
+- tbox update
+- tbox skip
+- tbox next
+- sword
+- shield
+- brang
+- brang hit
+- Cannon laugh
+- bomb explode
+- chest get item
 
-16 music slots are reserved for title screen, game over, and ending screens.
-
-
-This was part of a commit message:
-
-I have the map divided out between the different music areas now.
-
-
-I'll probably have these songs:
-
-6 types of songs:
-- Village & House      - 5 & 7
-- Woods & Woods Boss   - 1 & 7
-- Overworld            - 1 & 4 & 2
-- Castle & Castle Boss - 
-- Crypt & Crypt Boss   - 
-- Tech & Tech Boss     - 
-
-These songs could all be the same:
+2 rows of songs and 1 row of sfx:
+- Title
+- Game Over
+- End Credits
 - Graveyard Song
 - Outside Castle Song
 - Outside Tech Song
 - Sword Room Song
 
-Boss songs all have a similar vibe to the place they are in. Just like houses
-should have a similar vibe to the village.
+6 rows of songs and 6 rows of sfx:
+- Village & House
+- Woods & Woods Boss
+- Overworld
+- Castle & Castle Boss
+- Crypt & Crypt Boss
+- Tech & Tech Boss
+
+---
+
+Song instrument breakout
+- Village     - 5 & 7
+- House       - 7
+- Woods       - 1 & 7
+- Woods Boss  - 1 & 7 & 6
+- Overworld   - 1 & 4 & 2 & 6
+- Castle      - 
+- Castle Boss - 
+- Crypt       - 
+- Crypt Boss  - 4 & 0 & 5 & 7
+- Tech        -
+- Tech Boss   - 

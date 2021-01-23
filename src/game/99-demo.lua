@@ -35,7 +35,7 @@ function _update60()
    -- DEBUG_END
 
    if g_tbox_update then
-      sfx'2'
+      zsfx(2,5)
       if g_tbox_writing then
          g_tbox_anim = #g_tbox_active.l1+#g_tbox_active.l2
       else
@@ -141,7 +141,6 @@ end
 
 function card_shake(fx)
    if g_card_shake_time == 0 then
-      sfx(fx)
       g_card_shake_time = 15
    end
 end

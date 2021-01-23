@@ -1,6 +1,6 @@
 function create_inventory_items()
    if not g_items_drawn then
-      sfx'3'
+      zsfx(2,0)
       g_item_selector = _g.item_selector(g_pl)
       g_items_drawn = {}
       for ind=1,9 do
@@ -15,7 +15,7 @@ end
 function destroy_inventory_items()
    foreach(g_items_drawn, function(a) a.alive = false end)
    if g_item_selector then
-      sfx'4'
+      zsfx(2,1)
       g_item_selector.alive = false
    end
    g_item_selector = nil
