@@ -1,17 +1,17 @@
 -- SECTION: INVENTORY SELECTION
 create_actor([[item_selector;1;rel,|rel_actor:@1;u:@2]], function(a)
-   -- index to coordinate plus btn update within bounds
-   local x, y = max(0,min((g_selected-1)%3+xbtnp(),2)), max(0,min(flr((g_selected-1)/3)+ybtnp(),2))
+   function zero_to_two(num)
+      return max(0,min(num,2))
+   end
 
    -- from coordinate to index
-   local next_selected = y*3+x+1
-
+   local thing = g_selected-1
+   local next_selected = zero_to_two(flr(thing/3) + ybtnp())*3 + zero_to_two(thing%3 + xbtnp())+1
    if g_selected != next_selected then
       g_items_drawn[g_selected].outline_color = 1
       g_items_drawn[next_selected].outline_color = 2
+      g_selected = next_selected
    end
-
-   g_selected, a.rel_x, a.rel_y = next_selected, (x - 1) * 1.5, (y - 1.25) * 1.5
 end
 )
 

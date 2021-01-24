@@ -1,35 +1,6 @@
-function create_inventory_items()
-   if not g_items_drawn then
-      zsfx(2,0)
-      g_item_selector = _g.item_selector(g_pl)
-      g_items_drawn = {}
-      for ind=1,9 do
-         local item = g_items[ind]
-         item.enabled = zdget(item.mem_loc)
-         g_items_drawn[ind] = _g.inventory_item(g_pl, item.xoff/8, item.yoff/8,
-         item.enabled, item.flippable, item.sind)
-      end
-   end
-end
-
-function destroy_inventory_items()
-   foreach(g_items_drawn, function(a) a.alive = false end)
-   if g_item_selector then
-      zsfx(2,1)
-      g_item_selector.alive = false
-   end
-   g_item_selector = nil
-   g_items_drawn = nil
-   g_pl.outline_color = BG_UI
-end
-
-function enable_item(index)
-   g_items[index].enabled = true
-end
-
 function inventory_init()
    -- global_items
-   g_items = ztable[[
+   g_selected, g_items = 5, ztable[[
       mem_loc=HAS_FORCE,     enabled=false, name=force   , xoff=-7, yoff=-9, sind=36;
       mem_loc=HAS_BOOMERANG, enabled=false, name=brang   , xoff=0, yoff=-10, sind=4;
       mem_loc=HAS_BOMB,      enabled=true, name=bomb    , xoff=7, yoff=-9, sind=5;
@@ -42,7 +13,6 @@ function inventory_init()
       mem_loc=HAS_SWORD,     enabled=false, name=sword   , xoff=0, yoff=6, sind=2;
       mem_loc=HAS_BANJO,     enabled=false, name=banjo   , xoff=7, yoff=4, sind=1;
    ]]
-   g_selected=5
 end
 
 function gen_pl_item(pl)
@@ -62,22 +32,26 @@ function inventory_update()
       g_selected = 5
    end
 
-   g_menu_open = not is_game_paused'tbox' and btn'5'
+   g_menu_open = not g_pl:get[[item;banjo]] and not is_game_paused'tbox' and btn'5'
 
-   if g_pl.item and g_pl.item.banjo then
-      g_menu_open = false
-   end
-
-   if g_menu_open and not btn'5' then
-      if not get_selected_item() then
-         g_selected = 5
+   if g_menu_open then -- create_inventory_items
+      if not g_items_drawn then
+         zsfx(2,0)
+         g_item_selector = _g.item_selector(g_pl)
+         g_items_drawn = {}
+         for ind=1,9 do
+            local item = g_items[ind]
+            item.enabled = zdget(item.mem_loc)
+            g_items_drawn[ind] = _g.inventory_item(g_pl, item.xoff/8, item.yoff/8, item.enabled, item.flippable, item.sind)
+         end
       end
-   end
 
-   if g_menu_open then
-      create_inventory_items()
       if g_pl.item then g_pl.item.being_held = false end
-   else
-      destroy_inventory_items()
+   elseif g_item_selector then -- destroy_inventory_items
+      zsfx(2,1)
+      foreach(g_items_drawn, function(a) a.alive = false end)
+      g_item_selector.alive = false
+
+      g_pl.outline_color, g_items_drawn, g_item_selector = BG_UI
    end
 end

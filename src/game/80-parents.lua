@@ -3,8 +3,7 @@
 ------------------------------------------
 
 -- to generate an actor.
-create_parent(
-[[act;0;,;room_init,pause_init,pause_update,pause_end,kill,clean,delete|
+create_parent([[act;0;,;room_init,pause_init,pause_update,pause_end,kill,clean,delete|
    alive:true;
    stun_countdown:0;
    i:nf; u:nf;

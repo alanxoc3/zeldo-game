@@ -55,8 +55,6 @@ create_actor([[kluck;2;drawable,ma_able,hurtable,loopable,bounded,confined,stunn
 ]], function(a)
    a.ax, a.ay = rnd_one'.01', rnd_one'.01'
    a.xf = a.ax < 0
-end, function(a)
-
 end)
 
 -- create_actor[[miny;3;ma_able,drawable,bounded,danceable,confined,stunnable,mov,col,tcol,brang_hurtable,knockable,spr_obj,spr|
