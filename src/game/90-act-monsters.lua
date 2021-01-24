@@ -39,14 +39,14 @@ create_actor([[slimy;2;slimy_parent/"slimy"/.25/.25/3/.2/30/118/119,|x:@1;y:@2;d
    ]], a.x, a.y)
 end)
 
-create_actor([[evil_kluck_spawner;0;loopable,confined|
+create_actor([[evil_quack_spawner;0;loopable,confined|
    tl_max_time=.5,i=@1;
 ]], function(a)
    local rnd_num = rnd()
-   _g.evil_kluck(cos(rnd_num)*25 + g_pl.x, sin(rnd_num)*25 + g_pl.y)
+   _g.evil_quack(cos(rnd_num)*25 + g_pl.x, sin(rnd_num)*25 + g_pl.y)
 end)
 
-create_actor([[evil_kluck;2;drawable,mov,col,spr,danceable,confined|
+create_actor([[evil_quack;2;drawable,mov,col,spr,danceable,confined|
    static:true;
    x:@1;y:@2;
 
@@ -65,8 +65,8 @@ end, function(a, other)
    end
 end)
 
-create_actor([[kluck;2;drawable,ma_able,hurtable,loopable,bounded,confined,stunnable,mov,col,tcol,knockable,spr,danceable|
-   name:"kluck";
+create_actor([[quack;2;drawable,ma_able,hurtable,loopable,bounded,confined,stunnable,mov,col,tcol,knockable,spr,danceable|
+   name:"quack";
    evil:true;
    x:@1;y:@2;
    rx:.375;ry:.375;
@@ -81,7 +81,7 @@ create_actor([[kluck;2;drawable,ma_able,hurtable,loopable,bounded,confined,stunn
    a.xf = a.ax < 0
 end, function(a)
    _g.destroy_effect(a)
-   _g.evil_kluck_spawner()
+   _g.evil_quack_spawner()
 end)
 
 -- create_actor[[miny;3;ma_able,drawable,bounded,danceable,confined,stunnable,mov,col,tcol,brang_hurtable,knockable,spr_obj,spr|
