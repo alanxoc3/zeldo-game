@@ -201,7 +201,6 @@ create_actor([[shield;1;item,bashable,pokeable|
    poke_val:10;
    o_hurt:0;
    poke_dist:.625;
-   block:true;
    rx:.25;
    ry:.5;
    iyy:-1;

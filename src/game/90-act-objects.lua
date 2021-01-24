@@ -1,7 +1,6 @@
 -- TODO: refactor the save platform!
 
 create_actor([[save_spot;3;trig,pre_drawable,confined,spr,ma_able|
-   static:true;touchable:false;
    name:"save spot";
    rx:.625;ry:.625;sind:78;sw:2;sh:2;
 
@@ -190,10 +189,8 @@ create_actor([[health_obj;2;stat_parent/37,|
    g_pl:heal(3)
 end)
 
-create_actor[[static_block;4;confined,wall|
+create_actor[[static_block;4;confined,anchored/true|
    x:@1;y:@2;rx:@3;ry:@4;
-   static:true;
-   touchable:true;
 ]]
 
 create_actor([[thing_destroyed;4;confined,mov,post_drawable,spr,bounded;update,|
@@ -236,9 +233,8 @@ end, function(a)
 end)
 
 -- x, y, sind
-create_actor([[pot;3;drawable,bounded,confined,tcol,spr,col,mov|
+create_actor([[pot;3;drawable,bounded,confined,tcol,spr,mov,anchored/true|
    x:@1;y:@2;spawn_id:@3;
-   static:true;touchable:true;
    sind:49;
    rx:.375;ry:.375;
    i:@4;
@@ -261,19 +257,16 @@ end
 )
 
 -- TODO: Bomb support.
-create_actor[[box;2;drawable,confined,wall,spr,col|
-   static:true;
+create_actor[[box;2;drawable,confined,anchored/true,spr|
    rx:.375;ry:.375;sind:35;x:@1;y:@2;
 ]]
 
-create_actor[[tall_tree;2;drawable,confined,wall,spr,col|
-   static:true;
+create_actor[[tall_tree;2;drawable,confined,anchored/true,spr,col|
    sw:1;sh:2;iyy:-4;
    rx:.5;ry:.5;sind:26;x:@1;y:@2;
 ]]
 
 create_actor([[spikes;4;trig,pre_drawable,confined,spr,loopable|
-   static:true;touchable:false;
    rx:.375;ry:.375;sind:52;x:@1;y:@2;offset:@3;xf:@4;
 
    sind=52,tl_max_time=!minus/1/@3;

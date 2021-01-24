@@ -243,10 +243,6 @@ create_parent([[anim;0;spr,timed;|
    end
 end)
 
-create_parent([[wall;0;vec,dim;|
-   block:true;static:true;touchable:true;hit:nf;
-]])
-
 create_parent([[trig;0;vec,dim;|
    contains:nf;
    intersects:nf;
@@ -263,8 +259,9 @@ create_parent([[trig;0;vec,dim;|
    end
 end)
 
+create_parent[[anchored;1;vec,dim;|touchable:@1;hit:nf;]]
+
 create_parent([[col;0;vec,dim;|
-   static:false;
    touchable:true;
    hit:nf;
    move_check:@1;
@@ -278,7 +275,7 @@ create_parent([[col;0;vec,dim;|
          if spd != 0 and pos < abs(a[axis]-b[axis]) then
             if a.touchable and b.touchable then
                local s_f = function(c)
-                  if not c.static then
+                  if not c.anchored then
                      c[spd_axis] = (a[spd_axis] + b[spd_axis])/2
                   end
                end
@@ -291,7 +288,7 @@ create_parent([[col;0;vec,dim;|
       end
 
       foreach(acts, function(b)
-         if a != b and (not a.static or not b.static) then
+         if a != b and (not a.anchored or not b.anchored) then
             local x,y = abs(a.x+dx-b.x), abs(a.y+dy-b.y)
             if x < a.rx+b.rx and y < a.ry+b.ry then
                hit_list[b] = hit_list[b] or ztable[[dx:0;dy:0]]
@@ -348,7 +345,7 @@ end, function(a)
 end)
 
 -- SECTION: CHARS
-create_parent([[interactable;0;spr,wall,confined,ma_able;|
+create_parent([[interactable;0;spr,anchored/true,confined,ma_able;|
    interactable_trigger:nf;
    trig_x:0;
    trig_y:0;

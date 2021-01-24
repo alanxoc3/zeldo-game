@@ -96,7 +96,7 @@ function game_update()
                    fget(mget(x, y), 6)
          end,
          g_pl,
-         g_act_arrs['wall']
+         g_act_arrs['anchored']
       )
       energy_update(.25)
       if is_game_paused() then

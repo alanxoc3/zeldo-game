@@ -46,11 +46,9 @@ create_actor([[evil_quack_spawner;0;loopable,confined|
    _g.evil_quack(cos(rnd_num)*25 + g_pl.x, sin(rnd_num)*25 + g_pl.y)
 end)
 
-create_actor([[evil_quack;2;drawable,mov,col,spr,danceable,confined|
-   static:true;
+create_actor([[evil_quack;2;drawable,mov,col,spr,danceable,anchored/false|
    x:@1;y:@2;
 
-   touchable:false;
    evil:true; sind:32;
    rx:.375;ry:.375;
    i:@3; hit:@4;
