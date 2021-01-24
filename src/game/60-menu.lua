@@ -33,11 +33,9 @@ function draw_bar(x1,y1,x2,y2,num,dem,align,fg,bg)
    end
 end
 
--- 7874
 -- TODO: Refactor here.
 function draw_stat(x, y, align, view)
-   local yo = 10*align
-   local a = view.follow_act
+   local yo, a = 10*align, view.follow_act
    if a and a.alive then
       if a.name then
          zprint(a.name, x-yo, y-10, align, FG_WHITE, BG_WHITE)
@@ -54,13 +52,9 @@ function draw_stat(x, y, align, view)
    end
 end
 
-function get_money_str(money)
-   local new_str = '0'..money
-   return sub(new_str, #new_str-1, #new_str)
-end
-
 function draw_money(x, y, align, amount)
-   zprint("$"..get_money_str(amount), x, y, align, FG_WHITE, BG_WHITE)
+   local amount_str = '0'..amount
+   zprint('$'..sub(amount_str, #amount_str-1, #amount_str), x, y, align, FG_WHITE, BG_WHITE)
 end
 
 function draw_status()

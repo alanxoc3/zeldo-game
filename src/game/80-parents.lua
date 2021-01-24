@@ -412,12 +412,10 @@ create_parent(
    a.ixx = a.xf and a.poke_ixx or -a.poke_ixx
    use_energy(a.poke_energy)
 end, function(a) -- u
-   local spd = a.poke_dist/a.tl_max_time/FPS
-   a.rel_dx = bool_to_num(a.xf)*spd
+   a.rel_dx = bool_to_num(a.xf)*a.poke_dist/a.tl_max_time/FPS
    pause_energy()
 end, function(a) -- e
-   a.rel_dx = 0
-   a.rel_x = a.xf and -a.poke_dist or a.poke_dist
+   a.rel_dx, a.rel_x = 0, a.xf and -a.poke_dist or a.poke_dist
 end)
 
 -- SECTION: NPCS
