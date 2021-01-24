@@ -307,8 +307,7 @@ create_parent([[col;0;vec,dim;|
       return ret_val
    end
 
-   a.dx = move_check(a.dx, 0)
-   a.dy = move_check(0, a.dy)
+   a.dx, a.dy = move_check(a.dx, 0), move_check(0, a.dy)
 
    -- hitting all the acts in the list.
    -- actor b, dirs d

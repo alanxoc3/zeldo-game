@@ -1,5 +1,5 @@
 -- attachment module
--- goes after libraries. (lib and draw)
+-- goes after libraries and before actors/parents
 
 g_act_arrs = {}
 

@@ -185,9 +185,10 @@ create_actor([[sword;1;item,col,bashable,pokeable|
    touchable:false;
    poke_energy:15;
    poke_ixx:0;
+   hit:@2;
 
-   hurt_amount=5,bash_dx=.3,hit=@2,tl_max_time=.1;
-   i=nf,u=@3,e=nf,hurt_amount=2,bash_dx=.1,hit=@2;
+   hurt_amount=5,bash_dx=.3,tl_max_time=.1;
+   i=nf,u=@3,e=nf,hurt_amount=2,bash_dx=.1;
 ]], sword_hit, sword_shield_u2)
 
 create_actor([[shield;1;item,bashable,pokeable|
@@ -213,10 +214,13 @@ create_actor([[shield;1;item,bashable,pokeable|
    u=@3,tl_max_time=.1;
    hit=@2,i=nf,u=@3,e=nf,bash_dx=.2;
 ]], function(a, other)
-   if other != a.rel_actor and a.tl_cur < 3 then
-      call_not_nil(other, 'hurt', other, 0, 60)
+   if other != a.rel_actor and other.hurtable then
+      if a.tl_cur < 3 then
+         call_not_nil(other, 'hurt', other, 0, 60)
+      end
+
+      a:bash(other)
    end
-   a:bash(other)
 end, sword_shield_u2)
 
 

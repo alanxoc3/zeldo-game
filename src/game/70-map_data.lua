@@ -13,6 +13,7 @@ g_rooms = ztable[[
    bed/1/1.5,
    chest/4/1/true/15,
    save_spot/3.5/3.5/0,
+   slimy/10/8/3,
 
 ; R_01:
    m=21,c=4,
@@ -150,7 +151,7 @@ g_rooms = ztable[[
 
 ; R_11:
    m=24,c=3,
-   l=R_15/11.5/5,
+   l=R_15/11.5/6,
    r=R_17/4/4,
    u=R_10/6/9.5,
    d=R_18/4/0.5,
@@ -183,8 +184,10 @@ g_rooms = ztable[[
    spikes/7/8/0.75,
    spikes/8/7/0.5,
    spikes/8/8/0.5,
-   slimy/1/2/3,
-   slimy/1/7/3,
+   slimy/9.5/1.5/3,
+   slimy/9.5/7.5/3,
+   pot/1.5/1.5,
+   pot/1.5/7.5,
 
 ; R_12:
    m=24,c=3,
