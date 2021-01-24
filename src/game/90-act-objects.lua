@@ -33,25 +33,26 @@ end, function(a)
    end
 end)
 
-create_actor([[sign;3;drawable,interactable|
-   name:"sign";sind:43;
+create_actor[[sign;3;drawable,interactable|
+   name:"sign"; sind:43;
+   x:@1; y:@2; text_obj:@3;
+
    rx:.5;ry:.5;
    trig_x:0;trig_y:.125;
    trig_rx:.75;trig_ry:.625;
-   x:@1;y:@2;text_obj:@3;interactable_trigger:@4;
-]], function(a)
-   tbox(a.text_obj)
-end)
 
-create_actor([[grave;3;drawable,interactable|
+   interactable_trigger:!tbox_closure/~text_obj;
+]]
+
+create_actor[[grave;3;drawable,interactable|
    name:"grave";sind:45;
    rx:.5;ry:.5;
    trig_x:0;trig_y:.125;
    trig_rx:.75;trig_ry:.625;
-   x:@1;y:@2;text_obj:@3;interactable_trigger:@4;
-]], function(a)
-   tbox(a.text_obj)
-end)
+   x:@1;y:@2;text_obj:@3;
+
+   interactable_trigger:!tbox_closure/~text_obj;
+]]
 
 create_actor[[shop_brang;2;shop_item,|
    name:"brang";sind:4;
@@ -110,7 +111,6 @@ create_actor([[gen_trigger_block;7;rel,confined,trig|
    not_contains_or_intersects:@8;
 ]], function(a)
    if get_cur_ma() == a.rel_actor then
-      -- HERE IS WHERE IT GOES OUT.
       change_cur_ma()
    end
 end
@@ -119,21 +119,24 @@ end
 -- todo: trim code here.
 create_actor([[house;6;drawable,confined,spr|
    x:@1;y:@2;room:@3;room_x:@4;room_y:@5;sind:@6;
-   i:@7;destroyed:@8;
    iyy:-4;sw:2;sh:2;
+
+   i:@7;
 ]], function(a)
-   a.b1 = _g.static_block(a.x-.75,a.y, .25, .5)
-   a.b2 = _g.static_block(a.x+.75,a.y, .25, .5)
-   a.b3 = _g.static_block(a.x,a.y-4/8, 1,.25)
-   a.trig = _g.gen_trigger_block(a, 0, 1/8, .5, 5/8, function(trig, other)
+   batch_call_new(_g.static_block, [[
+      !plus/@1/-.75, @2,           .25, .5;
+      !plus/@1/.75,  @2,           .25, .5;
+      @1,            !plus/@2/-.5, 1,   .25;
+   ]], a.x, a.y)
+
+   batch_call_new(_g.gen_trigger_block, [[
+      @1, 0, .125, .5, .625, @2, nf;
+   ]], a, function(trig, other)
       if other.pl then
          transition(a.room, a.room_x, a.room_y, g_pl)
       end
-   end, nf)
-end, function(a)
-   a.b1.alive, a.b2.alive, a.b3.alive, a.trig.alive = false
-end
-)
+   end)
+end)
 
 create_actor[[pillow;2;pre_drawable,spr,confined|
    x:@1;y:@2;sind:39;iyy:0;

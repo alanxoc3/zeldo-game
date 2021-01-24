@@ -287,6 +287,6 @@ end
 function switch_song(song)
    if song and song ~= g_music_current then
       g_music_current = song
-      music(song, 500, 3)
+      music(song, 500, 7)
    end
 end
