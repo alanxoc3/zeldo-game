@@ -34,7 +34,7 @@ Zomby - Hard mode (village).
 Cannon
 Navy
 Ivan
-Kluck
+Quack
 
 # Special Enemy/Mini-boss
 Shadow Lank

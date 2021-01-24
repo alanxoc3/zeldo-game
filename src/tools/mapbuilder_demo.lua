@@ -8,7 +8,7 @@ obj_templates = {
    {k="box"          , s=35,  sw=1, sh=1, xf=false, p={'box'          , 0,0                         }},
    {k="pot"          , s=49,  sw=1, sh=1, xf=false, p={'pot'          , 0,0                         }},
    {k="slimy"        , s=118, sw=1, sh=1, xf=false, p={'slimy'        , 0,0,3                       }},
-   {k="kluck"        , s=32,  sw=1, sh=1, xf=false, p={'kluck'        , 0,0                         }},
+   {k="quack"        , s=32,  sw=1, sh=1, xf=false, p={'quack'        , 0,0                         }},
    {k="topy"         , s=112, sw=1, sh=1, xf=false, p={'topy'         , 0,0                         }},
    {k="save_spot"    , s=78,  sw=2, sh=2, xf=false, p={'save_spot'    , 0,0                         }},
    {k="pillow"       , s=39,  sw=1, sh=1, xf=false, p={'pillow'       , 0,0                         }},
