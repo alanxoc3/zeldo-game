@@ -39,22 +39,49 @@ create_actor([[slimy;2;slimy_parent/"slimy"/.25/.25/3/.2/30/118/119,|x:@1;y:@2;d
    ]], a.x, a.y)
 end)
 
+create_actor([[evil_kluck_spawner;0;loopable,confined|
+   tl_max_time=.5,i=@1;
+]], function(a)
+   local rnd_num = rnd()
+   _g.evil_kluck(cos(rnd_num)*25 + g_pl.x, sin(rnd_num)*25 + g_pl.y)
+end)
+
+create_actor([[evil_kluck;2;drawable,mov,col,spr,danceable,confined|
+   static:true;
+   x:@1;y:@2;
+
+   touchable:false;
+   evil:true; sind:32;
+   rx:.375;ry:.375;
+   i:@3; hit:@4;
+   tl_max_time=3,;
+
+]], function(a)
+   amov_to_actor(a, g_pl, .08)
+   a.xf = a.ax < 0
+end, function(a, other)
+   if other.pl then
+      other.hurt(other, 1, 15)
+   end
+end)
+
 create_actor([[kluck;2;drawable,ma_able,hurtable,loopable,bounded,confined,stunnable,mov,col,tcol,knockable,spr,danceable|
    name:"kluck";
    evil:true;
    x:@1;y:@2;
    rx:.375;ry:.375;
    sind:32;
-   stun_len:1;
-   destroyed:%destroy_effect;
-   health:100;
-   max_health:100;
-   health_visible:false;
+   health:50;
+   max_health:50;
+   destroyed:@4;
 
    i=@3,tl_max_time=.5;
 ]], function(a)
    a.ax, a.ay = rnd_one'.01', rnd_one'.01'
    a.xf = a.ax < 0
+end, function(a)
+   _g.destroy_effect(a)
+   _g.evil_kluck_spawner()
 end)
 
 -- create_actor[[miny;3;ma_able,drawable,bounded,danceable,confined,stunnable,mov,col,tcol,brang_hurtable,knockable,spr_obj,spr|
