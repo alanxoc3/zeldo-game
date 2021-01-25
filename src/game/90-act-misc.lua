@@ -61,6 +61,7 @@ function(a)
 end, function(a)
    if a.follow_act then
       a.x, a.y = a.follow_act.x, a.follow_act.y
+      a.name = a.follow_act.name
    end
    a:update_view()
 end, function(a, other)

@@ -193,7 +193,7 @@ create_actor[[static_block;4;confined,anchored/true|
    x:@1;y:@2;rx:@3;ry:@4;
 ]]
 
-create_actor([[thing_destroyed;4;confined,mov,post_drawable,spr,bounded;update,|
+create_actor([[thing_destroyed;4;confined,mov,post_drawable,spr,bounded;update,vec_update,move|
    parent:@1;dx:@2;dy:@3;outline_color:@4;
    sind:0;
 

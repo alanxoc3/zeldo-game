@@ -17,7 +17,8 @@ function _init()
       i:@1;u:@2;d:@3;
    ]], function()
       pause'transitioning'
-      _g.fader_in(game_init, unpause)
+      game_init()
+      _g.fader_in(nf, unpause)
    end, game_update, game_draw)
 
    g_tl = {
@@ -69,55 +70,51 @@ end
 function game_update()
    room_update()
 
-   if not is_game_paused() then
-      inventory_update()
-      batch_call_new(
-         acts_loop, [[
-            drawable_obj,reset_off;
-            stunnable,stun_update;
-            act,update;
-            act,pause_update;
-            mov,move;
-            col,move_check,@1;
-            col,move_check,@4;
-            trig,trigger_update,@3;
-            tcol,coll_tile,@2;
-            rel,rel_update;
-            vec,vec_update;
-            bounded,check_bounds;
-            anim,anim_update;
-            timed,tick;
-            view,update_view;
-         ]],
-         g_act_arrs['col'],
-         function(x, y)
-            return x >= g_cur_room.x and x < g_cur_room.x+g_cur_room.w and
-                   y >= g_cur_room.y and y < g_cur_room.y+g_cur_room.h and
-                   fget(mget(x, y), 6)
-         end,
-         g_pl,
-         g_act_arrs['anchored']
-      )
+   local was_paused = is_game_paused()
+   if is_game_paused() and g_pause_init then
+      g_pause_init = false
+      batch_call_new(acts_loop, [[act, pause_init]])
+      -- poke(0x5f43,1+2+4) -- softer sound
+   elseif not is_game_paused() then
       energy_update(.25)
-      if is_game_paused() then
-         g_pause_init = true
-      end
-   else
-      if g_pause_init then
-         g_pause_init = false
-         batch_call_new(acts_loop, [[act, pause_init]])
-         -- poke(0x5f43,1+2+4) -- softer sound
-      end
-      batch_call_new(acts_loop, [[
+   end
+
+   inventory_update()
+
+   batch_call_new(
+      acts_loop, [[
+         drawable_obj,reset_off;
+         stunnable,stun_update;
          act,update;
          act,pause_update;
+         mov,move;
+         col,move_check,@1;
+         col,move_check,@4;
+         trig,trigger_update,@3;
+         tcol,coll_tile,@2;
          rel,rel_update;
+         vec,vec_update;
+         bounded,check_bounds;
+         anim,anim_update;
+         timed,tick;
          view,update_view;
-      ]])
+      ]],
+      g_act_arrs['col'],
+      function(x, y)
+         return x >= g_cur_room.x and x < g_cur_room.x+g_cur_room.w and
+                y >= g_cur_room.y and y < g_cur_room.y+g_cur_room.h and
+                fget(mget(x, y), 6)
+      end,
+      g_pl,
+      g_act_arrs['anchored']
+   )
 
-      if not is_game_paused() then
-         batch_call_new(acts_loop, [[act, pause_end]])
-      end
+   if not was_paused and is_game_paused() then
+      g_pause_init = true
+   end
+
+   if was_paused and not is_game_paused() then
+      batch_call_new(acts_loop, [[act, pause_end]])
    end
 
    batch_call_new(acts_loop, [[act, clean]])
@@ -223,14 +220,16 @@ function game_init()
       zdset'GAME_CONTINUE'
    end
 
+   -- DEBUG_BEGIN
+   zdset(HEALTH, 1)
+   -- DEBUG_END
+
    inventory_init()
    g_money = zdget_value(MONEY)
-
 
    g_pl = _g.pl(0, 0)
 
    -- load_room(R_12, 3, 5, g_pl)
-
    -- load_room(R_01, 8, 5, g_pl)
    local spot = g_save_spots[zdget_value'SAVE_SPOT']
    load_room(spot.room, spot.x, spot.y, g_pl)
