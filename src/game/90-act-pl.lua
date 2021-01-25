@@ -16,6 +16,22 @@ end, function(a)
    end
 end)
 
+create_actor([[lank_dead_head;3;drawable,spr,mov;update,vec_update,move|
+   sind:147; iyy:-2;
+   x:@1; y:@2; xf:@3;
+   ay:-.0045;
+   tl_max_time=.5,e=@4,destroyed=%destroy_effect;
+]], function()
+   _g.fader_out(nf, nf)
+end)
+
+create_actor[[lank_dead_body;3;pre_drawable,spr,mov;update,vec_update,move|
+   sind:144; iyy:-2;
+   x:@1; y:@2; xf:@3;
+   ay:.0045;
+   tl_max_time=.5,destroyed=%destroy_effect;
+]]
+
 create_actor([[grabbed_item;4;rel,spr_obj,confined|
    rel_actor:@1;sind:@2;iyy:@3;create_func:@4;
    room_end:@7;
@@ -150,8 +166,9 @@ end, function(a)
    end
 end, function(a)
    if a.item then a.item.alive = false end
--- draw
-end, function(a)
+   _g.lank_dead_head(a.x, a.y, a.xf)
+   _g.lank_dead_body(a.x, a.y, a.xf)
+end, function(a) -- draw
    a.ltop.outline_color = a.outline_color
    scr_spr_and_out(a, a.ltop, a.item)
 end, function(a)

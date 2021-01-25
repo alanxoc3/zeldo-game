@@ -32,7 +32,7 @@ function inventory_update()
       g_selected = 5
    end
 
-   g_menu_open = not g_pl:get[[item;banjo]] and not is_game_paused'tbox' and btn'5'
+   g_menu_open = not g_pl:get[[item;banjo]] and g_pl:get[[alive]] and not is_game_paused'tbox' and btn'5'
 
    if g_menu_open then -- create_inventory_items
       if not g_items_drawn then

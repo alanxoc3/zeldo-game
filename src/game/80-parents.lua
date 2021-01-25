@@ -121,8 +121,7 @@ end)
 -- DEBUG_END
 
 -- used with player items/weapons.
-create_parent(
-[[rel;0;act,;rel_update,|
+create_parent([[rel;0;act,;rel_update,|
    rel_actor:nil;
    rel_x:0;
    rel_y:0;
@@ -177,7 +176,7 @@ create_parent([[spr_obj;0;vec,drawable_obj,;|
 ]], scr_spr, scr_out, scr_spr_and_out
 )
 
-create_parent([[spr;0;vec,spr_obj;|
+create_parent([[spr;0;spr_obj,;|
    d:@1;
 ]], scr_spr_and_out)
 
@@ -396,8 +395,7 @@ create_parent([[item;0;drawable,rel,confined,spr_obj;|
    if a == a.rel_actor.item then a.rel_actor.item = nil end
 end)
 
-create_parent(
-[[pokeable;0;rel,drawable_obj,item;|
+create_parent([[pokeable;0;rel,drawable_obj,item;|
    i:@1;
    u:@2;
    e:@3;

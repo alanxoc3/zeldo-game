@@ -61,7 +61,10 @@ function draw_status()
    local x = 48
    local y = 106
 
-   draw_money(x, y+13, -1, g_money)
+   if g_left_ma_view.follow_act then
+      draw_money(x, y+13, -1, g_money)
+   end
+
    draw_bar(10, 3, 117, 7, g_energy, MAX_ENERGY, 0, FG_RED, BG_RED)
 
    -- status panels
