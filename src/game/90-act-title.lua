@@ -3,8 +3,18 @@ function spr_and_out(...)
    zspr(...)
 end
 
-function draw_logo(a)
-   camera(-a.x*8, -a.y*8)
+create_actor([[title;0;loopable,above_map_drawable,pos|
+   d:@2;
+   tl_max_time=.5,;
+   u=@1,;
+]], function(a)
+   if btnp'4' or btnp'5' then
+      a:kill()
+      g_pl = _g.pl(a.x, a.y)
+      g_left_ma_view = _g.view(2.75, 3, 0, g_pl) -- TODO: Deduplicate
+   end
+end, function()
+   camera(-8*8, -7*8)
    -- (str, x, y, alignment, shadow_below)
    batch_call_new(tprint, [[@1, 0, -17, 10, 4]], "that story about")
 
@@ -17,10 +27,10 @@ function draw_logo(a)
    end
 
    camera()
-end
+end)
 
 -- fade in. fade loop. fade out
-g_title = ztable([[
+ztable([[
    x=8, y=8, i=@6, d=@3, u=@4;
    tl_name=outer, tl_loop=true, @1;
    i=@2, u=@4, e=nf;

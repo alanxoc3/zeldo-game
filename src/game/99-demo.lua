@@ -3,7 +3,7 @@
 
 -- Protect against that pesky glitchy reset.
 memset(0x05d00, 0, 0x100)
-cartdata(CART_NAME)
+cartdata"CART_NAME"
 
 -- DEBUG_BEGIN
 g_debug = false
@@ -13,17 +13,10 @@ function _init()
    memset(TEMP_SAVE_LOCATION, 0, SAVE_LENGTH)
    map_init()
 
-   tl_game = ztable([[
-      i:@1;u:@2;d:@3;
-   ]], function()
-      pause'transitioning'
-      game_init()
-      _g.fader_in(nf, unpause)
-   end, game_update, game_draw)
-
-   g_tl = {
-      g_title,
-      tl_game }
+   g_tl = ztable([[
+      @1;             -- logo
+      i=@2,u=@3,d=@4; -- game
+   ]], g_logo, game_init, game_update, game_draw)
 end
 
 function _update60()
@@ -68,7 +61,7 @@ function _draw()
 end
 
 function game_update()
-   room_update()
+   room_update(g_pl or g_title)
 
    local was_paused = is_game_paused()
    if is_game_paused() and g_pause_init then
@@ -227,12 +220,22 @@ function game_init()
    inventory_init()
    g_money = zdget_value(MONEY)
 
-   g_pl = _g.pl(0, 0)
+   -- g_pl = _g.pl(0, 0)
 
-   -- load_room(R_12, 3, 5, g_pl)
+   g_title = _g.title()
+   g_card_fade = 8
+   _g.fader_in(
+      function()
+         pause'transitioning'
+      end, function()
+         unpause()
+      end
+   )
+
+   -- load_room(R_13, 3, 5, g_pl)
    -- load_room(R_01, 8, 5, g_pl)
    local spot = g_save_spots[zdget_value'SAVE_SPOT']
-   load_room(spot.room, spot.x, spot.y, g_pl)
+   load_room(spot.room, spot.x, spot.y, g_title)
    -- load_room(R_17, 5, 5, g_pl)
 end
 
