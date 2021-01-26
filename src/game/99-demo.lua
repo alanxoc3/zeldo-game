@@ -187,6 +187,8 @@ function game_draw()
 end
 
 function game_init()
+   batch_call_new(acts_loop, [[acts,kill;acts,delete;]])
+
    memcpy(TEMP_SAVE_LOCATION, REAL_SAVE_LOCATION, SAVE_LENGTH)
 
    -- DEBUG_BEGIN
@@ -222,6 +224,7 @@ function game_init()
 
    -- g_pl = _g.pl(0, 0)
 
+   g_pl = nil -- for game over reset
    g_title = _g.title()
    g_card_fade = 8
    _g.fader_in(
