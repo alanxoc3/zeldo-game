@@ -1,7 +1,6 @@
 -- TODO: refactor the save platform!
 
-create_actor([[save_spot;3;trig,pre_drawable,confined,spr,ma_able|
-   name:"save spot";
+create_actor([[save_spot;3;trig,pre_drawable,confined,spr|
    rx:.625;ry:.625;sind:78;sw:2;sh:2;
 
    x:@1;y:@2;spot:@3;

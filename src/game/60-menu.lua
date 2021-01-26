@@ -36,7 +36,7 @@ end
 -- TODO: Refactor here.
 function draw_stat(x, y, align, view)
    local yo, a = 10*align, view.follow_act
-   if a and a.alive then
+   if a and a.alive and a.ma_able then
       if a.name then
          zprint(a.name, x-yo, y-10, align, FG_WHITE, BG_WHITE)
       end
@@ -61,7 +61,7 @@ function draw_status()
    local x = 48
    local y = 106
 
-   if g_left_ma_view.follow_act then
+   if g_left_ma_view.follow_act and g_left_ma_view.follow_act.ma_able then
       draw_money(x, y+13, -1, g_money)
    end
 

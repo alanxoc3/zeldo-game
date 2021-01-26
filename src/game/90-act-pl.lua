@@ -92,7 +92,7 @@ end, function(a)
    ]], a.x, a.y, a.tail.x, a.tail.y)
 end)
 
-create_actor([[pl;2;drawable,anim,col,mov,tcol,hurtable,knockable,stunnable,spr,danceable|
+create_actor([[pl;2;drawable,anim,col,mov,tcol,hurtable,knockable,stunnable,spr,danceable,ma_able|
    name:"lank";
    x:@1;y:@2;
    sinds:144,145,146;

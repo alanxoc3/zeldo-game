@@ -18,12 +18,14 @@ end
 --
 
 function do_actors_intersect(a, b)
-   return abs(a.x-b.x) < a.rx+b.rx
+   return a and b
+      and abs(a.x-b.x) < a.rx+b.rx
       and abs(a.y-b.y) < a.ry+b.ry
 end
 
 function does_a_contain_b(a, b)
-   return b.x-b.rx >= a.x-a.rx
+   return a and b
+      and b.x-b.rx >= a.x-a.rx
       and b.x+b.rx <= a.x+a.rx
       and b.y-b.ry >= a.y-a.ry
       and b.y+b.ry <= a.y+a.ry

@@ -39,18 +39,18 @@ function load_room(new_room_index, rx, ry, follow_actor)
    acts_loop('view', 'center_view')
 end
 
-function room_update()
+function room_update(fa)
    -- plus .5 and minus .375 is because there is a screen border.
    if not is_game_paused() and g_cur_room then
       local dir = nil
-      if     g_pl.y > g_cur_room.y+g_cur_room.h-.375 then dir = 'd'
-      elseif g_pl.y < g_cur_room.y + .5              then dir = 'u'
-      elseif g_pl.x > g_cur_room.x+g_cur_room.w-.375 then dir = 'r'
-      elseif g_pl.x < g_cur_room.x +.5               then dir = 'l'
+      if     fa.y > g_cur_room.y+g_cur_room.h-.375 then dir = 'd'
+      elseif fa.y < g_cur_room.y + .5              then dir = 'u'
+      elseif fa.x > g_cur_room.x+g_cur_room.w-.375 then dir = 'r'
+      elseif fa.x < g_cur_room.x +.5               then dir = 'l'
       end
 
       if dir != nil and g_cur_room[dir] then
-         transition(g_cur_room[dir][1], g_cur_room[dir][2], g_cur_room[dir][3], g_pl)
+         transition(g_cur_room[dir][1], g_cur_room[dir][2], g_cur_room[dir][3], fa)
       end
    end
 end
