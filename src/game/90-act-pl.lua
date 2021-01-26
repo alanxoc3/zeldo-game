@@ -22,7 +22,7 @@ create_actor([[lank_dead_head;3;drawable,spr,mov;update,vec_update,move|
    ay:-.0045;
    tl_max_time=.5,e=@4,destroyed=%destroy_effect;
 ]], function()
-   _g.fader_out(nf, nf)
+   _g.fader_out(nf, game_init)
 end)
 
 create_actor[[lank_dead_body;3;pre_drawable,spr,mov;update,vec_update,move|
@@ -168,6 +168,7 @@ end, function(a)
    if a.item then a.item.alive = false end
    _g.lank_dead_head(a.x, a.y, a.xf)
    _g.lank_dead_body(a.x, a.y, a.xf)
+   a.lanks_fairy:kill()
 end, function(a) -- draw
    a.ltop.outline_color = a.outline_color
    scr_spr_and_out(a, a.ltop, a.item)
