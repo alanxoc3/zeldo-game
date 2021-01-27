@@ -12,6 +12,7 @@ create_parent([[act;0;,;room_init,pause_init,pause_update,pause_end,kill,clean,d
    kill:@3;
    delete:@4;
    room_init:nf;
+   create_init:nf;
    pause_init:nf;
    pause_update:nf;
    pause_end:nf;

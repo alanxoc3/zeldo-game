@@ -44,6 +44,8 @@ function create_parent_actor_shared(is_create_parent, meta_and_att_str, ...)
          end)
       end
 
+      call_not_nil(a, 'create_init', a)
+
       return a
    end
 end
@@ -52,6 +54,7 @@ end
 function create_parent(...) create_parent_actor_shared(true, ...) end
 function create_actor(...)  create_parent_actor_shared(false, ...) end
 
+-- If the game is paused, only run paused functions.
 function acts_loop(id, func_name, ...)
    for a in all(g_act_arrs[id]) do
       if not is_game_paused() or is_game_paused() and a.pause[func_name] then

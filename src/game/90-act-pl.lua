@@ -16,22 +16,6 @@ end, function(a)
    end
 end)
 
-create_actor([[lank_dead_head;3;drawable,spr,mov;update,vec_update,move|
-   sind:147; iyy:-2;
-   x:@1; y:@2; xf:@3;
-   ay:-.0045;
-   tl_max_time=.5,e=@4,destroyed=%destroy_effect;
-]], function()
-   _g.fader_out(nf, game_init)
-end)
-
-create_actor[[lank_dead_body;3;pre_drawable,spr,mov;update,vec_update,move|
-   sind:144; iyy:-2;
-   x:@1; y:@2; xf:@3;
-   ay:.0045;
-   tl_max_time=.5,destroyed=%destroy_effect;
-]]
-
 create_actor([[grabbed_item;4;rel,spr_obj,confined|
    rel_actor:@1;sind:@2;iyy:@3;create_func:@4;
    room_end:@7;
@@ -103,9 +87,10 @@ create_actor([[pl;2;drawable,anim,col,mov,tcol,hurtable,knockable,stunnable,spr,
    spd:.02;
    anim_len:3;
    anim_spd:5;
-   i:@3;u:@4;destroyed:@5;d:@6;room_init:@7;set_color:@8;
+   i:@3;u:@4;destroyed:@5;d:@6;set_color:@7;
 ]], function(a)
    a.ltop, a.max_health, a.health = _g.lank_top(a), zdget_value'MAX_HEALTH', zdget_value'HEALTH'
+   a.lanks_fairy = _g.fairy(a)
 end, function(a)
    -- movement logic
    if a.stun_countdown == 0 then
@@ -166,15 +151,16 @@ end, function(a)
    end
 end, function(a)
    if a.item then a.item.alive = false end
-   _g.lank_dead_head(a.x, a.y, a.xf)
-   _g.lank_dead_body(a.x, a.y, a.xf)
-   a.lanks_fairy:kill()
+   _g.destroy_effect(a)
+   _g.fader_out(nf, function() g_tl.tl_next = true end)
+   switch_song'-1'
+   sfx'4'
+   if a.lanks_fairy then
+      a.lanks_fairy:kill()
+   end
 end, function(a) -- draw
    a.ltop.outline_color = a.outline_color
    scr_spr_and_out(a, a.ltop, a.item)
-end, function(a)
-   a:i()
-   a.lanks_fairy, a.room_init = _g.fairy(a)
 end, function(a, color) -- set color
    a.outline_color, a.ltop.outline_color = color, color
 end)
