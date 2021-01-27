@@ -16,7 +16,31 @@ function _init()
    g_tl = ztable([[
       @1;             -- logo
       i=@2,u=@3,d=@4; -- game
-   ]], g_logo, game_init, game_update, game_draw)
+      i=@5,u=@6,d=@7; -- game over
+   ]], g_logo, game_init, game_update, game_draw, game_over_init, game_over_update, game_over_draw)
+end
+
+function game_over_init()
+   fade'0'
+   game_over_sind = 80+flr_rnd(8)
+end
+
+function game_over_update()
+   if btnp'4' or btnp'5' then
+      g_tl.tl_next = 2
+   end
+end
+
+function game_over_draw()
+   camera(-8*8, -7*8)
+   batch_call_new(tprint, [[@1, 0, -17, 8, 2]], "game over")
+   spr_and_out(game_over_sind, .5, sgn(cos(t()/2))/2+1, 1, 1, true, false, 1)
+
+   if ti(1,.5) then
+      batch_call_new(tprint, [[@1, 0, 12, 7, 5]], "🅾️ or ❎ to reset  ")
+   end
+
+   camera()
 end
 
 function _update60()
@@ -76,9 +100,9 @@ function game_update()
 
    batch_call_new(
       acts_loop, [[
+         act,update;
          drawable_obj,reset_off;
          stunnable,stun_update;
-         act,update;
          act,pause_update;
          mov,move;
          col,move_check,@1;
