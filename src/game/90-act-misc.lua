@@ -39,9 +39,6 @@ create_actor([[fader_in;2;act,;update,|
    g_card_fade = min((a.timeline.tl_max_time-a.timeline.tl_tim)/a.timeline.tl_max_time*10, g_card_fade)
 end)
 
--- SECTION: TITLE
-create_actor[[title_move;0;mov,|x:0;y:0;dx:.1;dy:.1;ax:0;ay:0;ix:1;iy:1;ixx:0;iyy:0]]
-
 -- SECTION: VIEW
 create_actor([[view;4;act,confined;center_view,update_view|
    x:0;y:0;room_crop:2;

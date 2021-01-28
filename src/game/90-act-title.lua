@@ -30,13 +30,13 @@ create_actor([[title;0;above_map_drawable,pos|
       g_left_ma_view = _g.view(2.75, 3, 0, g_pl) -- TODO: Deduplicate
       _g.title_move()
    end
-end, function(a)
+end, function()
    title_draw(0)
 end)
 
 create_actor([[title_move;0;above_map_drawable,mov|
    d:@2;
-   u=@1,tl_max_time=2;
+   u=@1,tl_max_time=.5;
 ]], function(a)
    a.ay -= .1;
 end, function(a)
