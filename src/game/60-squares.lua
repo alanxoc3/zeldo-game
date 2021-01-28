@@ -1,5 +1,5 @@
 -- power squares
-g_cur_enemy_timer = nil, 0
+g_energy, g_energy_tired, g_energy_amount = 0, false, 0
 
 function add_money(amount)
    g_money = min(g_money + amount, 99)
@@ -35,7 +35,6 @@ function pause_energy()
    g_energy_pause = true
 end
 
-g_energy, g_energy_tired, g_energy_amount, g_energy_stop = 0, false, 0, false
 function use_energy(amount)
    g_energy_amount += amount
 end
