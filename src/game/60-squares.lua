@@ -1,6 +1,4 @@
 -- power squares
-g_energy, g_energy_tired, g_energy_amount = 0, false, 0
-
 function add_money(amount)
    g_money = min(g_money + amount, 99)
 end
