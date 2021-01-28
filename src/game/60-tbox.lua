@@ -52,14 +52,9 @@ function _g.tbox_closure(obj)
    end
 end
 
--- draw the text boxes (if any)
--- foreground color, background color, border width
-function ttbox_draw(x, y)
+function tbox_basic_draw(x, y)
    if g_tbox_active then -- only draw if there are messages
       camera(-x,-y)
-      rectfill(-1,0,105,19,0)
-      zrect(1,2,103,17)
-
       -- print the message
       batch_call_new(zprint, [[
          @1, 3, 3,  -1, FG_WHITE, BG_WHITE;
@@ -74,6 +69,19 @@ function ttbox_draw(x, y)
          spr(38, 100, ti(.6,.3) and 13 or 14)
       end
       camera()
+   end
+end
+
+-- draw the text boxes (if any)
+-- foreground color, background color, border width
+function ttbox_draw(x, y)
+   if g_tbox_active then -- only draw if there are messages
+      camera(-x,-y)
+      rectfill(-1,0,105,19,0)
+      zrect(1,2,103,17)
+      camera()
+
+      tbox_basic_draw(x,y)
    end
 end
 

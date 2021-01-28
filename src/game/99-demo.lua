@@ -22,23 +22,40 @@ end
 
 function game_over_init()
    fade'0'
-   game_over_sind = 80+flr_rnd(8)
+   game_over_sind, game_over_text = unpack(rnd_item(ztable[[
+      32,  "quack quack";
+      68,  "and play with me";
+      70,  "to save hi-roll";
+      81,  "for my famous pie";
+      83,  "and make me rich";
+      96,  "because i'm lonely";
+      118, "splat splat boing";
+   ]]))
 end
 
 function game_over_update()
    if btnp'4' or btnp'5' then
       g_tl.tl_next = 2
    end
+   -- tbox_interact()
 end
 
 function game_over_draw()
    camera(-8*8, -7*8)
-   batch_call_new(tprint, [[@1, 0, -17, 8, 2]], "game over")
+   --batch_call_new(tprint, [[@1, 0, -17, 8, 2]], "game over")
    spr_and_out(game_over_sind, .5, sgn(cos(t()/2))/2+1, 1, 1, true, false, 1)
 
+   batch_call_new(tprint, [[@1, 0, -17, 8, 2]], "game over")
+
    if ti(1,.5) then
-      batch_call_new(tprint, [[@1, 0, 12, 7, 5]], "🅾️ or ❎ to reset  ")
+      -- batch_call_new(tprint, [[@1, 0, 32, 7, 5]], "🅾️ or ❎ to reset  ")
+      -- batch_call_new(tprint, [[@1, 0, 22, 7, 5]], "🅾️ or ❎ to reset  ")
    end
+
+   batch_call_new(tprint, [[@1, 0, 12, 10, 4]], "come back lank")
+   --batch_call_new(tprint, [[@1, 0, 22, 7, 5]], "you still owe me money")
+   batch_call_new(tprint, [[@1, 0, 22, 7, 5]], game_over_text)
+
 
    camera()
 end
