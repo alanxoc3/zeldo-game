@@ -39,8 +39,7 @@ function flr_rnd(x)
 end
 
 -- A random item from the list.
-function rnd_item(...)
-   local list = {...}
+function rnd_item(list)
    return list[flr_rnd(#list)+1]
 end
 
