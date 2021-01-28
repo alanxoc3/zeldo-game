@@ -261,6 +261,7 @@ function game_init()
    -- DEBUG_END
 
    inventory_init()
+   g_energy, g_energy_tired, g_energy_amount = 0, false, 0
    g_money = zdget_value(MONEY)
 
    -- g_pl = _g.pl(0, 0)
