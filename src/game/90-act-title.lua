@@ -3,7 +3,6 @@ function spr_and_out(...)
    zspr(...)
 end
 
-
 function title_draw(yoff)
    camera(-8*8, -7*8)
    -- (str, x, y, alignment, shadow_below)
