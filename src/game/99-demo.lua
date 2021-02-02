@@ -56,9 +56,11 @@ function game_over_draw()
    camera(-8*8, -7*8)
    spr_and_out(game_over_sind, .5, sgn(cos(t()/2))/2+1, 1, 1, true, false, 1)
 
-   batch_call_new(tprint, [[@1, 0, -17, 8, 2]], "game over")
-   batch_call_new(tprint, [[@1, 0, 12, 10, 4]], "come back lank")
-   batch_call_new(tprint, [[@1, 0, 22, 7, 5]], game_over_text)
+   batch_call_new(tprint, [[
+      "game over", 0, -17, 8, 2;
+      "come back lank", 0, 12, 10, 4;
+      @1, 0, 22, 7, 5;
+   ]], game_over_text)
 
    camera()
 end
