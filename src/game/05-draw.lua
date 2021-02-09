@@ -5,7 +5,7 @@ end
 
 function scr_spr(a, spr_func, ...)
    if a and a.visible then
-      (spr_func or zspr)(a.sind, scr_x(a.x)+a.ixx+a.xx, scr_y(a.y)+a.iyy+a.yy, a.sw, a.sh, a.xf, a.yf, ...)
+      (spr_func or zspr)(a.sind, a.x*8+a.ixx+a.xx, a.y*8+a.iyy+a.yy, a.sw, a.sh, a.xf, a.yf, ...)
    end
 end
 
