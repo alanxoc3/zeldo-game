@@ -6,13 +6,6 @@ function get_cur_ma()
    return g_right_ma_view.follow_act
 end
 
-function draw_ma(view, x, y, a)
-   local old_view = g_view
-   g_view = view
-   map_and_act_draw(x/8-1/8,y/8, [[BG,BG,FG_UI,BG_UI]])
-   g_view = old_view
-end
-
 function draw_bar(x1,y1,x2,y2,num,dem,align,fg,bg)
    -- TODO: Why these 3's?
    if x1 > x2 then x1 -= 3 x2 -= 3 end
@@ -41,7 +34,7 @@ function draw_stat(x, y, align, view)
          zprint(a.name, x-yo, y-10, align, FG_WHITE, BG_WHITE)
       end
 
-      draw_ma(view, x,y,a)
+      map_draw(view, x/8-1/8, y/8)
 
       if a.hurtable and a.health_visible then
          draw_bar(x-yo, y-2, x-yo-35*align, y+1, a.health,a.max_health, -1, FG_GREEN, BG_GREEN)
@@ -58,14 +51,13 @@ function draw_money(x, y, align, amount)
 end
 
 function draw_status()
-   local x = 48
-   local y = 106
-
-   if g_left_ma_view.follow_act and g_left_ma_view.follow_act.ma_able then
-      draw_money(x, y+13, -1, g_money)
+   if get(g_left_ma_view, [[follow_act;ma_able]]) then
+      batch_call_new(draw_money, [[48, 119, -1, @1;]], g_money)
    end
 
-   draw_bar(10, 3, 117, 7, g_energy, MAX_ENERGY, 0, FG_RED, BG_RED)
+   batch_call_new(draw_bar, [[
+      10,3,117,7,@1,MAX_ENERGY,0,FG_RED,BG_RED;
+   ]], g_energy)
 
    -- status panels
    batch_call_new(draw_stat, [[

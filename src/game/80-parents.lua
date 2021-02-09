@@ -37,16 +37,7 @@ end, function(a)
    for k, v in pairs(g_act_arrs) do
       if a[k] then del(v, a) end
    end
-end, function(a, ...)
-   local arr, cur_act = ztable(...), a
-   for i=1,#arr do
-      cur_act = cur_act[arr[i]]
-      if not cur_act then
-         break
-      end
-   end
-   return cur_act
-end)
+end, get)
 
 create_parent[[ma_able;0;act,;|name:"thing";]]
 create_parent[[confined;0;act,;room_end,|room_end:nf;]]

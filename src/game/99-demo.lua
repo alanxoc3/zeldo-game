@@ -181,16 +181,18 @@ function card_shake(fx)
    end
 end
 
-function map_draw(x, y)
-   if g_view then
-      local rx = x - g_view.w/2
-      local ry = y - g_view.h/2
+function map_draw(view, x, y)
+   if view then
+      g_view = view
 
-      g_view.off_x = -(16-g_view.w)/2+rx
-      g_view.off_y = -(16-g_view.h)/2+ry
+      local rx = x - view.w/2
+      local ry = y - view.h/2
 
-      local x1, x2 = rx*8+4, (rx+g_view.w)*8-5
-      local y1, y2 = ry*8+4, (ry+g_view.h)*8-5
+      view.off_x = -(16-view.w)/2+rx
+      view.off_y = -(16-view.h)/2+ry
+
+      local x1, x2 = rx*8+4, (rx+view.w)*8-5
+      local y1, y2 = ry*8+4, (ry+view.h)*8-5
 
       zclip(x1, y1, x2, y2)
       zcls(g_cur_room.c)
@@ -213,15 +215,11 @@ function map_draw(x, y)
    end
 end
 
-function map_and_act_draw(x, y)
-   map_draw(x, y)
-end
-
 function game_draw()
    local x, y = 8+g_card_shake_x, 7+g_card_shake_y
 
    fade(g_card_fade)
-   map_and_act_draw(x, y, [[BG,BG,FG_UI,BG_UI]])
+   map_draw(g_main_view, x, y)
    if g_menu_open then
       if g_selected == 5 then g_pl:set_color'SL_UI' end
       g_pl.d(g_pl)
