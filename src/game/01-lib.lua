@@ -18,6 +18,17 @@ function _g.minus(a,b) return a - b end
 
 function bool_to_num(condition) return condition and 0xffff or 1 end
 
+function get(a, ...)
+   local arr, cur_act = ztable(...), a or {}
+   for i=1,#arr do
+      cur_act = cur_act[arr[i]]
+      if not cur_act then
+         break
+      end
+   end
+   return cur_act
+end
+
 function xbtn() return btn_helper(btn, 0, 1) end
 function ybtn() return btn_helper(btn, 2, 3) end
 
