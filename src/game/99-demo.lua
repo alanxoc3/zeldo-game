@@ -158,29 +158,29 @@ function game_update()
 
    batch_call_new(acts_loop, [[act, clean]])
 
-   card_shake_update()
+   -- card_shake_update()
 end
 
-g_card_shake_x, g_card_shake_y, g_card_shake_time = 0, 0, 0
-function card_shake_update()
-   if g_card_shake_time > 0 then
-      g_card_shake_x = rnd_one()/8
-      g_card_shake_y = rnd_one()/8
-      g_card_shake_time -= 1
-   else
-      g_card_shake_x, g_card_shake_y = 0, 0
-      --sfx(9,-2)
-   end
-end
+-- g_card_shake_x, g_card_shake_y, g_card_shake_time = 0, 0, 0
+-- function card_shake_update()
+   -- if g_card_shake_time > 0 then
+      -- g_card_shake_x = rnd_one()/8
+      -- g_card_shake_y = rnd_one()/8
+      -- g_card_shake_time -= 1
+   -- else
+      -- g_card_shake_x, g_card_shake_y = 0, 0
+      -- --sfx(9,-2)
+   -- end
+-- end
 
-function card_shake()
-   if g_card_shake_time == 0 then
-      g_card_shake_time = 15
-   end
-end
+--function card_shake()
+   --if g_card_shake_time == 0 then
+      --g_card_shake_time = 15
+   --end
+--end
 
 function camera_to_view(view)
-   camera(-(view.off_x+8-view.x)*8, -(view.off_y+8-view.y)*8)
+   camera((view.x-view.off_x-8)*8, (view.y-view.off_y-8)*8)
 end
 
 function map_draw(view, x, y)
@@ -217,10 +217,10 @@ function map_draw(view, x, y)
 end
 
 function game_draw()
-   local x, y = 8+g_card_shake_x, 7+g_card_shake_y
+   -- local x, y = 8+g_card_shake_x, 7+g_card_shake_y
 
    fade(g_card_fade)
-   map_draw(g_main_view, x, y)
+   map_draw(g_main_view, 8, 7)
    camera_to_view(g_main_view)
    if g_menu_open then
       if g_selected == 5 then g_pl:set_color'SL_UI' end
