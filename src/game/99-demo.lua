@@ -181,10 +181,12 @@ function card_shake(fx)
    end
 end
 
+function camera_to_view(view)
+   camera(-(view.off_x+8-view.x)*8, -(view.off_y+8-view.y)*8)
+end
+
 function map_draw(view, x, y)
    if view then
-      g_view = view
-
       local rx = x - view.w/2
       local ry = y - view.h/2
 
@@ -193,6 +195,7 @@ function map_draw(view, x, y)
 
       local x1, x2 = rx*8+4, (rx+view.w)*8-5
       local y1, y2 = ry*8+4, (ry+view.h)*8-5
+      camera_to_view(view)
 
       zclip(x1, y1, x2, y2)
       zcls(g_cur_room.c)
@@ -210,7 +213,7 @@ function map_draw(view, x, y)
       -- DEBUG_END
 
       clip()
-
+      camera()
       zrect(x1, y1, x2, y2)
    end
 end
@@ -220,12 +223,14 @@ function game_draw()
 
    fade(g_card_fade)
    map_draw(g_main_view, x, y)
+   camera_to_view(g_main_view)
    if g_menu_open then
       if g_selected == 5 then g_pl:set_color'SL_UI' end
       g_pl.d(g_pl)
       g_pl:set_color'BG_UI'
    end
    acts_loop('above_map_drawable', 'd')
+   camera()
    draw_status()
    ttbox_draw(2,105)
 end

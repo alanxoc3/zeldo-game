@@ -21,35 +21,32 @@ function update_view_helper(view, xy, wh, ii)
 end
 
 -- some utility functions
-function scr_x(x) return round((x+g_view.off_x+8-g_view.x)*8) end
-function scr_y(y) return round((y+g_view.off_y+8-g_view.y)*8) end
-
 function scr_pset(x, y, c)
-   pset(scr_x(x),scr_y(y), c)
+   pset(x*8, y*8, c)
 end
 
 function scr_line(x1, y1, x2, y2, col)
-   line(scr_x(x1),scr_y(y1),scr_x(x2),scr_y(y2),col)
+   line(x1*8, y1*8, x2*8, y2*8, col)
 end
 
 -- DEBUG_BEGIN
 function scr_rect(x1, y1, x2, y2, col)
-   rect(scr_x(x1),scr_y(y1),scr_x(x2)-1,scr_y(y2)-1,col)
+   rect(x1*8, y1*8, x2*8-1, y2*8-1, col)
 end
 -- DEBUG_END
 
 function scr_rectfill(x1, y1, x2, y2, col)
-   rectfill(scr_x(x1),scr_y(y1),scr_x(x2),scr_y(y2),col)
+   rectfill(x1*8, y1*8, x2*8, y2*8, col)
 end
 
 function scr_map(cel_x, cel_y, sx, sy, ...)
-   map(cel_x, cel_y, scr_x(sx), scr_y(sy), ...)
+   map(cel_x, cel_y, sx*8, sy*8, ...)
 end
 
 function scr_circfill(x, y, r, col)
-   circfill(scr_x(x),scr_y(y), r*8, col)
+   circfill(x*8, y*8, r*8, col)
 end
 
 function scr_circ(x, y, r, col)
-   circ(scr_x(x),scr_y(y), r*8, col)
+   circ(x*8, y*8, r*8, col)
 end
