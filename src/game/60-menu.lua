@@ -26,17 +26,13 @@ function draw_bar(x1,y1,x2,y2,num,dem,align,fg,bg)
    end
 end
 
--- TODO: Refactor here.
 function draw_stat(x, y, align, view)
    local xyo, a = x - 10*align, view.follow_act
    if a and a.alive and a.ma_able then
-      if a.name then
-         zprint(a.name, xyo, y-10, align, FG_WHITE, BG_WHITE)
-      end
+      zprint(a.name or "", xyo, y-10, align, FG_WHITE, BG_WHITE)
+      map_draw(view, (x-1)/8, y/8)
 
-      map_draw(view, x/8-1/8, y/8)
-
-      if a.hurtable and a.health_visible then
+      if a.hurtable then
          batch_call_new(draw_bar, [[@1, @2, @3, @4, @5, @6, -1, FG_GREEN, BG_GREEN;]], xyo, y-2, xyo-35*align, y+1, a.health, a.max_health)
          zprint(flr(a.health)..'/'..a.max_health, xyo, y+4, align, FG_WHITE, BG_WHITE)
       elseif a.costable then
