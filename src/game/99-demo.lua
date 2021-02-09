@@ -161,9 +161,7 @@ function game_update()
    card_shake_update()
 end
 
-g_card_shake_x=0
-g_card_shake_y=0
-g_card_shake_time=0
+g_card_shake_x, g_card_shake_y, g_card_shake_time = 0, 0, 0
 function card_shake_update()
    if g_card_shake_time > 0 then
       g_card_shake_x = rnd_one()/8
@@ -175,7 +173,7 @@ function card_shake_update()
    end
 end
 
-function card_shake(fx)
+function card_shake()
    if g_card_shake_time == 0 then
       g_card_shake_time = 15
    end

@@ -28,19 +28,19 @@ end
 
 -- TODO: Refactor here.
 function draw_stat(x, y, align, view)
-   local yo, a = 10*align, view.follow_act
+   local xyo, a = x - 10*align, view.follow_act
    if a and a.alive and a.ma_able then
       if a.name then
-         zprint(a.name, x-yo, y-10, align, FG_WHITE, BG_WHITE)
+         zprint(a.name, xyo, y-10, align, FG_WHITE, BG_WHITE)
       end
 
       map_draw(view, x/8-1/8, y/8)
 
       if a.hurtable and a.health_visible then
-         draw_bar(x-yo, y-2, x-yo-35*align, y+1, a.health,a.max_health, -1, FG_GREEN, BG_GREEN)
-         zprint(flr(a.health)..'/'..a.max_health, x-yo, y+4, align, FG_WHITE, BG_WHITE)
+         batch_call_new(draw_bar, [[@1, @2, @3, @4, @5, @6, -1, FG_GREEN, BG_GREEN;]], xyo, y-2, xyo-35*align, y+1, a.health, a.max_health)
+         zprint(flr(a.health)..'/'..a.max_health, xyo, y+4, align, FG_WHITE, BG_WHITE)
       elseif a.costable then
-         draw_money(x-yo, y+4, align, a.cost)
+         draw_money(xyo, y+4, align, a.cost)
       end
    end
 end
