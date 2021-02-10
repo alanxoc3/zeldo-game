@@ -4,7 +4,7 @@
 
 -- to generate an actor.
 create_parent([[act;0;,;room_init,pause_init,pause_update,pause_end,kill,clean,delete|
-   alive:true;
+   alive:yes;
    stun_countdown:0;
    i:nf; u:nf;
    update:@1;
@@ -41,7 +41,7 @@ end, get)
 
 create_parent[[ma_able;0;act,;|name:"thing";]]
 create_parent[[confined;0;act,;room_end,|room_end:nf;]]
-create_parent[[loopable;0;act,;|tl_loop:true;]]
+create_parent[[loopable;0;act,;|tl_loop:yes;]]
 create_parent[[pos;0;act,;|x:0;y:0;]]
 create_parent[[move_pause;0;act,;update,move,vec_update,tick|;]]
 create_parent[[dim;0;pos,;|rx:.375;ry:.375;]]
@@ -114,12 +114,12 @@ end)
 
 -- used with player items/weapons.
 create_parent([[rel;0;act,;rel_update,|
-   rel_actor:nil;
+   rel_actor:null;
    rel_x:0;
    rel_y:0;
    rel_dx:0;
    rel_dy:0;
-   flippable:false;
+   flippable:no;
    rel_update:@1;
 ]], function(a)
    local a2 = a.rel_actor
@@ -144,7 +144,7 @@ create_parent([[drawable_obj;0;act,;reset_off,|
    iyy:0;
    xx:0;
    yy:0;
-   visible:true;
+   visible:yes;
    reset_off:@1;
 ]], function(a)
    a.xx, a.yy = 0, 0
@@ -160,8 +160,8 @@ create_parent([[spr_obj;0;vec,drawable_obj,;|
    outline_color:BG_UI;
    sw:1;
    sh:1;
-   xf:false;
-   yf:false;
+   xf:no;
+   yf:no;
    draw_spr:@1;
    draw_out:@2;
    draw_both:@3;
@@ -194,7 +194,7 @@ end)
 create_parent([[hurtable;0;act,;|
    health:1;
    max_health:1;
-   health_visible:true;
+   health_visible:yes;
 
    hurt:@1; heal:@2;
 ]], function(a, damage, stun_val)
@@ -219,7 +219,7 @@ create_parent([[anim;0;spr,timed;|
    anim_off:0;
    anim_len:1;
    anim_spd:0;
-   anim_sind:nil;
+   anim_sind:null;
    anim_update:@1;
 ]], function(a)
    if a.anim_sind then
@@ -253,7 +253,7 @@ end)
 create_parent[[anchored;1;vec,dim;|touchable:@1;hit:nf;]]
 
 create_parent([[col;0;vec,dim;|
-   touchable:true;
+   touchable:yes;
    hit:nf;
    move_check:@1;
 ]], function(a, acts)
@@ -305,7 +305,7 @@ create_parent([[col;0;vec,dim;|
 end)
 
 create_parent([[tcol;0;vec,dim;|
-   tile_solid:true;
+   tile_solid:yes;
    tile_hit:nf;
    coll_tile:@1;
 ]], function(a, solid_func)
@@ -336,13 +336,13 @@ end, function(a)
 end)
 
 -- SECTION: CHARS
-create_parent([[interactable;0;spr,anchored/true,confined,ma_able;|
+create_parent([[interactable;0;spr,anchored/yes,confined,ma_able;|
    interactable_trigger:nf;
    trig_x:0;
    trig_y:0;
    trig_rx:.75;
    trig_ry:.75;
-   trig:nil;
+   trig:null;
    i:@1;
    interactable_init:@1;
 ]], function(a)
@@ -382,7 +382,7 @@ end
 )
 
 create_parent([[item;0;drawable,rel,confined,spr_obj;|
-   being_held:true;destroyed:@1;
+   being_held:yes;destroyed:@1;
 ]], function(a)
    if a == a.rel_actor.item then a.rel_actor.item = nil end
 end)
@@ -410,7 +410,7 @@ end)
 
 -- SECTION: NPCS
 create_parent([[shop_item;0;drawable,interactable,ma_able;update,|
-   costable:true;
+   costable:yes;
    interactable_trigger:@1;
    rx:.5;ry:.5;
    iyy:-3;
@@ -432,7 +432,7 @@ end)
 create_parent([[mem_dep;0;act,;|
    room_init:@1;
    mem_loc:BOGUS_SPOT;
-   mem_loc_expect:true;
+   mem_loc_expect:yes;
 ]], function(a)
    if zdget(a.mem_loc) == a.mem_loc_expect then
       a:delete()
