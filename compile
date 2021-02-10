@@ -1,31 +1,9 @@
 #!/usr/bin/env bash
 files_in_order=$(ls src/game/*)
 
-echo "* Cleaning build directory..."
+echo "* Cleaning build directory ..."
 rm -r build
 mkdir -p build
 
-if [ "$1" == "-p" ]; then
-   param=""
-   if [ "$2" == "-d" ]; then
-      param='--debug'
-      echo "* Running the prd-mode and debug-mode minifier..."
-   else
-      echo "* Running the prd-mode and not debug-mode minifier..."
-   fi
-   cat $files_in_order | ./pico_minifier $param -i src/tools/prd-writer.lua -o build/writer.lua > build/code.lua
-
-   # Not in minifier, because it doesn't need to know file paths.
-   sed -i "s/STORE_FILEPATH/build\\/store.p8/g" build/code.lua
-
-   echo "* Running prd-mode pico-8 cstore..."
-   pico8 -x build/writer.lua -p store.p8
-elif [ "$1" == "-d" ]; then
-   echo "* Running the dev-mode and debug-mode minifier..."
-   cat $files_in_order | ./pico_minifier --dev --debug > build/code.lua
-else
-   echo "* Running the dev-mode and not debug-mode minifier..."
-   cat $files_in_order | ./pico_minifier --dev > build/code.lua
-fi
-
-echo "* Done!"
+echo "* Creating code.lua ..."
+cat $files_in_order | ./pico_minifier "$@" > build/code.lua

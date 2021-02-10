@@ -10,13 +10,20 @@ use open qw(:std :utf8);
 binmode(STDIN, "encoding(UTF-8)");
 binmode(STDOUT, "encoding(UTF-8)");
 
-my $dev_mode;
+my $prd_mode;
+my $minifiable;
 my $debug_mode;
 my $ascii;
 my $debug;
 my $input_file = "";
 my $output_file = "";
-GetOptions('dev' => \$dev_mode, 'debug' => \$debug_mode, 'ascii' => \$ascii, 'input=s' => \$input_file, 'output=s' => \$output_file) or die "Usage: $0 [--dev] [--debug] [--ascii] [--input=file] [--output=file]\n";
+GetOptions('prod' => \$prd_mode,
+           'minifiable' => \$minifiable,
+           'debug' => \$debug_mode,
+           'ascii' => \$ascii,
+           'input=s' => \$input_file,
+           'output=s' => \$output_file
+) or die "Usage: $0 [--prod] [--minifiable] [--debug] [--ascii] [--input=file] [--output=file]\n";
 
 # Constants specific to Zeldo.
 my %constants;
@@ -184,10 +191,10 @@ if (not $debug_mode) {
 }
 
 my $content = join("\n", @lines);
-if ($dev_mode) {
-   $content =~ s/PRD_MODE_BEGIN.*?PRD_MODE_END//gims;
-} else {
+if ($prd_mode) {
    $content =~ s/DEV_MODE_BEGIN.*?DEV_MODE_END//gims;
+} else {
+   $content =~ s/PRD_MODE_BEGIN.*?PRD_MODE_END//gims;
 }
 @lines = split(/\n/, $content);
 
@@ -198,7 +205,7 @@ if ($dev_mode) {
 @lines = single_quotes_to_double(@lines);
 @lines = remove_spaces(@lines);
 
-if (not $dev_mode) {
+if ($minifiable) {
    my %vars = populate_vars(@lines);
    @lines = tokenize_lines(\@lines, \%vars);
 }
@@ -219,7 +226,7 @@ sub length_in_graphemes {
     return $length;
 }
 
-if ($dev_mode) {
+if (not $prd_mode) {
    $contents =~ s/ZTABLE_STRINGS/$strings/gme;
 } else {
    my ($string_second_half) = $strings =~ /(\X{12541})$/x; # Up until the song section at 0x3100.
