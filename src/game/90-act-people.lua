@@ -1,7 +1,7 @@
 -- SECTION: CHARS
 create_actor[[navy_house;2;nnpc,mem_dep|
    name:"navy";
-   sind:97;xf:true;mem_loc:NAVY_OUT;mem_loc_expect:false;
+   sind:97;xf:yes;mem_loc:NAVY_OUT;mem_loc_expect:no;
    x:@1;y:@2;interactable_trigger:!tbox_closure/"hi lank";
 
    pause_end:!npc_dance_logic

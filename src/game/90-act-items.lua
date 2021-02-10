@@ -4,7 +4,7 @@
 --    x=@1, y=@2, xf=@3,
 --    rx=.375,ry=.375,
 --    sind=23,
---    touchable=false,
+--    touchable=no,
 --    i=@4,
 -- 
 --    {hit=@5, tl_max_time=1}
@@ -29,8 +29,8 @@
 --    rx=.375,
 --    ry=.375,
 --    sind=5,
---    touchable=true,
---    tl_loop=false,
+--    touchable=yes,
+--    tl_loop=no,
 -- 
 --    {i=@4, tl_max_time=.25},
 --    {i=@5, tl_max_time=1.25},
@@ -82,10 +82,10 @@ function brang_hit_func(a, other)
 end
 
 create_actor([[brang;1;confined,anim,col,mov,tcol|
-   did_brang_hit:false;
-   tile_solid:false;
+   did_brang_hit:no;
+   tile_solid:no;
    rel_actor:@1;
-   being_held:true;
+   being_held:yes;
    rx:.375;
    ry:.375;
    sinds:4,19,20,21;
@@ -93,9 +93,9 @@ create_actor([[brang;1;confined,anim,col,mov,tcol|
    anim_spd:3;
    ix:.8;
    iy:.8;
-   touchable:false;
+   touchable:no;
    tile_hit:@10;
-   item_slow:true;
+   item_slow:yes;
 
    i=@2,hit=@3,u=@4,tl_max_time=.1;
    i=nf,hit=@5,u=@6,tl_max_time=.75;
@@ -146,8 +146,8 @@ create_actor([[banjo;1;item,danceable;update,|
    rx:.3;
    ry:.3;
    sind:1;
-   touchable:false;
-   item_stop:true;
+   touchable:no;
+   item_stop:yes;
    e:@3;
 
    tl_name=loop,i=@2,tl_max_time=4.25;
@@ -169,7 +169,7 @@ end
 )
 
 create_actor([[sword;1;item,col,bashable,pokeable|
-   item_slow:true;
+   item_slow:yes;
    rel_actor:@1;
    rel_bash_dx:.2;
    max_stun_val:20;
@@ -182,7 +182,7 @@ create_actor([[sword;1;item,col,bashable,pokeable|
    rel_y:0;
    iyy:-2;
    sind:2;
-   touchable:false;
+   touchable:no;
    poke_energy:15;
    poke_ixx:0;
    hit:@2;
@@ -192,7 +192,7 @@ create_actor([[sword;1;item,col,bashable,pokeable|
 ]], sword_hit, sword_shield_u2)
 
 create_actor([[shield;1;item,bashable,pokeable|
-   item_slow:true;
+   item_slow:yes;
    rel_actor:@1;
    rel_bash_dx:.1;
    max_stun_val:60;
@@ -205,7 +205,7 @@ create_actor([[shield;1;item,bashable,pokeable|
    ry:.5;
    iyy:-1;
    sind:6;
-   touchable:false;
+   touchable:no;
    poke_energy:10;
    poke_ixx:0;
 
@@ -231,11 +231,11 @@ end, sword_shield_u2)
 -- create_actor([['shovel', 1, {'item','bashable','pokeable'}]], [[
 --    rel_actor=@1,
 --    rx=.3, ry=.3,
---    sind=3, touchable=false,
+--    sind=3, touchable=no,
 --    poke_energy=5, poke_ixx=1,
 --    poke_dist=.75, rel_bash_dx=.185,
 --    bash_dx=.1,
---    did_hit=false,
+--    did_hit=no,
 --    hit=@4,
 
 --    {tl_max_time=.1},
@@ -269,7 +269,7 @@ end, sword_shield_u2)
 --    iyy=-1,
 --    sind=7,
 --    destroyed=@3,
---    touchable=false,
+--    touchable=no,
 --    poke_energy=5,
 --    poke_ixx=1,
 --    poke_dist=.5,

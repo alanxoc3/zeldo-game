@@ -3,9 +3,9 @@ create_parent([[slimy_parent;8;ma_able,drawable,bounded,danceable,confined,stunn
    name:@1; rx:@2; ry:@3;
    max_health:@4; health:@4;
    sind:@7;
-   evil:true; tl_loop:true;
+   evil:yes; tl_loop:yes;
    anim_len:1;
-   touchable:true;
+   touchable:yes;
    jump_speed:.03;
    knockback_speed:@5;
    stun_len:@6;
@@ -45,10 +45,10 @@ create_actor([[evil_quack_spawner;0;loopable,confined|
    _g.evil_quack(cos(rnd_num)*25 + g_pl.x, sin(rnd_num)*25 + g_pl.y)
 end)
 
-create_actor([[evil_quack;2;drawable,mov,col,spr,danceable,anchored/false|
+create_actor([[evil_quack;2;drawable,mov,col,spr,danceable,anchored/no|
    x:@1;y:@2;
 
-   evil:true; sind:32;
+   evil:yes; sind:32;
    rx:.375;ry:.375;
    i:@3; hit:@4;
    tl_max_time=3,;
@@ -64,7 +64,7 @@ end)
 
 create_actor([[quack;2;drawable,ma_able,hurtable,loopable,bounded,confined,stunnable,mov,col,tcol,knockable,spr,danceable|
    name:"quack";
-   evil:true;
+   evil:yes;
    x:@1;y:@2;
    rx:.375;ry:.375;
    sind:32;
@@ -84,12 +84,12 @@ end)
 -- create_actor[[miny;3;ma_able,drawable,bounded,danceable,confined,stunnable,mov,col,tcol,brang_hurtable,knockable,spr_obj,spr|
 --    x:@1;y:@2;dy:@3;
 --    max_health:1;health:1;
---    name:"miny";evil:true;tl_loop:true;
+--    name:"miny";evil:yes;tl_loop:yes;
 --    rx:.125;ry:.125;
 --    sind:116;
 --    iyy:-1;
 --    anim_len:1;
---    touchable:true;
+--    touchable:yes;
 --    jump_speed:.02;
 --    knockback_speed:.05;
 --    stun_len:0;
@@ -102,14 +102,14 @@ end)
 -- create_actor([[topy;2;drawable,bounded,danceable,confined,stunnable,mov,col,tcol,hurtable,knockable,anim,spr]], [[
 --    max_health:10; health:10;
 --    name:"topy";
---    evil:true;
+--    evil:yes;
 --    x:@1;y:@2;
 --    rx:.375;ry:.375;
---    tl_loop:true;
+--    tl_loop:yes;
 --    iyy:-2;
 --    sinds:112,113;
 --    anim_len:1;
---    touchable:true;
+--    touchable:yes;
 --    destroyed:@8;
 --    hurt_func:@9;
 -- 
@@ -139,14 +139,14 @@ end)
 -- end)
 
 -- create_actor([['bat', 2, {'bounded','confined','stunnable','mov','col','hurtable','knockable','anim','spr'}]], [[
---    evil=true,
+--    evil=yes,
 --    x=@1, y=@2,
 --    rx=.375, ry=.375,
 --    sinds={114,115},
 --    anim_len=2,
 --    anim_spd=10,
 --    destroyed=@4,
---    touchable=false,
+--    touchable=no,
 
 --    {i=@3, tl_max_time=1.5}
 -- ]], function(a)
@@ -155,7 +155,7 @@ end)
 -- )
 
 -- create_actor([['skelly', 2, {'bounded','confined','stunnable','mov','col','tcol','hurtable','knockable','anim','spr'}]], [[
---    evil=true,
+--    evil=yes,
 --    x=@1, y=@2,
 --    ax=.005, ay=.01,
 --    rx=.375, ry=.375,
@@ -168,13 +168,13 @@ end)
 -- )
 
 -- create_actor([['ghost', 2, {'bounded','confined','stunnable','mov','col','hurtable','knockable','anim','spr'}]], [[
---    evil=true,
+--    evil=yes,
 --    x=@1, y=@2,
 --    rx=.375, ry=.375,
 --    sinds={84},
 --    anim_len=1,
 --    destroyed=@4,
---    touchable=false,
+--    touchable=no,
 
 --    {i=@3, tl_max_time=1.5}
 -- ]], function(a)

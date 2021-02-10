@@ -42,7 +42,7 @@ end)
 -- SECTION: VIEW
 create_actor([[view;4;act,confined;center_view,update_view|
    x:0;y:0;room_crop:2;
-   tl_loop:true;
+   tl_loop:yes;
    w:@1;h:@2;follow_dim:@3;follow_act:@4;
    update_view:@5;
    center_view:@6;

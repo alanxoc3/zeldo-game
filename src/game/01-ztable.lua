@@ -89,8 +89,8 @@ function queue_operation(tbl, k, v, ops)
                return tbl[rest]
             end
          })
-      elseif x == 'true' or x == 'false' then x = x=='true'
-      elseif x == 'nil' or x == '' then x = nil
+      elseif x == 'yes' or x == 'no' then x = x=='yes'
+      elseif x == 'null' or x == '' then x = nil
       elseif x == 'nf' then x = function() end
       end
       vlist[i] = x

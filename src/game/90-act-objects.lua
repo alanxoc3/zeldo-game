@@ -163,7 +163,7 @@ create_actor[[stat_hover;2;above_map_drawable,confined,spr,rel;update,|
 create_parent([[stat_parent;1;drawable,bounded,confined,tcol,spr,col,mov|
    sind:@1;
    rx:.125; ry:.125;
-   hit:@2; touchable:false;
+   hit:@2; touchable:no;
    destroyed:%destroy_effect;
 
    tl_max_time=5,;
@@ -188,7 +188,7 @@ create_actor([[health_obj;2;stat_parent/37,|
    g_pl:heal(3)
 end)
 
-create_actor[[static_block;4;confined,anchored/true|
+create_actor[[static_block;4;confined,anchored/yes|
    x:@1;y:@2;rx:@3;ry:@4;
 ]]
 
@@ -204,10 +204,10 @@ create_actor([[thing_destroyed;4;confined,mov,post_drawable,spr,bounded;update,v
 end)
 
 create_actor([[pot_projectile;3;drawable,col,confined,mov,spr,bounded,tcol|
-   tile_solid:true;
+   tile_solid:yes;
    sind:49;
    x:@1;y:@2;xf:@3;
-   touchable:false;
+   touchable:no;
    i:@4;
    destroyed:@6;
    hit:@7;
@@ -232,7 +232,7 @@ end, function(a)
 end)
 
 -- x, y, sind
-create_actor([[pot;3;drawable,bounded,confined,tcol,spr,mov,anchored/true|
+create_actor([[pot;3;drawable,bounded,confined,tcol,spr,mov,anchored/yes|
    x:@1;y:@2;spawn_id:@3;
    sind:49;
    rx:.375;ry:.375;
@@ -256,11 +256,11 @@ end
 )
 
 -- TODO: Bomb support.
-create_actor[[box;2;drawable,confined,anchored/true,spr|
+create_actor[[box;2;drawable,confined,anchored/yes,spr|
    rx:.375;ry:.375;sind:35;x:@1;y:@2;
 ]]
 
-create_actor[[tall_tree;2;drawable,confined,anchored/true,spr,col|
+create_actor[[tall_tree;2;drawable,confined,anchored/yes,spr,col|
    sw:1;sh:2;iyy:-4;
    rx:.5;ry:.5;sind:26;x:@1;y:@2;
 ]]

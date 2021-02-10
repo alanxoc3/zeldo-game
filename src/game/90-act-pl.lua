@@ -19,13 +19,13 @@ end)
 create_actor([[grabbed_item;4;rel,spr_obj,confined|
    rel_actor:@1;sind:@2;iyy:@3;create_func:@4;
    room_end:@7;
-   throwable:true;
-   flippable:true;
-   being_held:true;
+   throwable:yes;
+   flippable:yes;
+   being_held:yes;
 
-   i=@6,throwing=false,tl_max_time=.2;
+   i=@6,throwing=no,tl_max_time=.2;
    i=nf,u=@5;
-   throwing=true,visible=false,tl_max_time=.05;
+   throwing=yes,visible=no,tl_max_time=.05;
 ]], function(a)
    if btnp'4' or btn'5' then
       zsfx(2,3)
