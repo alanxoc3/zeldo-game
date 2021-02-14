@@ -23,7 +23,7 @@ s/(__lua__).*(__gfx__)/$1\n$header\n$doc\n$2/igs;
 ' build/mapb.p8
 
 # Next convert that pico8 file into a binary, so we can close out of it on save.
-pico8 -run build/mapb.p8 > build/tmp_map_data.lua
+pico8 -run build/mapb.p8 2>&1 build/tmp_map_data.lua
 
 # Now write to the map data file if you hit save in your program.
 OUTPUT=$(cat build/tmp_map_data.lua | tr -d "[:space:]")
