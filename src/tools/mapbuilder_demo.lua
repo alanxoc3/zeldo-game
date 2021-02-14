@@ -354,7 +354,10 @@ function _update60()
             is_moving = true
          end
       elseif cur_mode == SAV then
-         printh("g_rooms = ztable[".."[\n"..rooms_to_str(g_rooms).."]".."]\n")
+          local final_str = "g_rooms = ztable[".."[\n"..rooms_to_str(g_rooms).."]".."]\n"
+          for line in all(split(final_str, "\n")) do
+             printh(line)
+          end
          extcmd("shutdown")
       end
    end
