@@ -8,7 +8,7 @@ src/game/70-story.lua
 src/game/70-map_data.lua
 src/tools/mapbuilder_demo.lua
 "
-echo -e "g_gunvals_raw=\"ZTABLE_STRINGS\"\n" | cat - $files_in_order | ./pico_minifier -a --dev > build/compiled_mb.lua
+echo -e "g_gunvals_raw=\"ZTABLE_STRINGS\"\n" | cat - $files_in_order | ./pico_minifier -a > build/compiled_mb.lua
 
 # Now create the p8 file for the map builder.
 cp zeldo.p8 build/mapb.p8

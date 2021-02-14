@@ -188,6 +188,12 @@ end
 function array_tostring(any)
    if type(any) == "string" then
       return "\""..any.."\""
+   elseif any == true then
+	return "yes"
+   elseif any == false then
+	return "no"
+   elseif any == nil then
+	return "null"
    elseif type(any)~="table" then
       return tostr(any)
    end
