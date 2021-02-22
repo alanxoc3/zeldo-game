@@ -223,9 +223,8 @@ function game_draw()
    map_draw(g_main_view, 8, 7)
    camera_to_view(g_main_view)
    if g_menu_open then
-      if g_selected == 5 then g_pl:set_color'SL_UI' end
+      if g_selected == 5 then g_pl.outline_color = SL_UI end
       g_pl.d(g_pl)
-      g_pl:set_color'BG_UI'
    end
    acts_loop('above_map_drawable', 'd')
    camera()

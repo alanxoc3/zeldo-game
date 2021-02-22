@@ -87,7 +87,7 @@ create_actor([[pl;2;drawable,anim,col,mov,tcol,hurtable,knockable,stunnable,spr,
    spd:.02;
    anim_len:3;
    anim_spd:5;
-   i:@3;u:@4;destroyed:@5;d:@6;set_color:@7;
+   i:@3;u:@4;destroyed:@5;d:@6;
 ]], function(a)
    a.ltop, a.max_health, a.health = _g.lank_top(a), zdget_value'MAX_HEALTH', zdget_value'HEALTH'
    a.lanks_fairy = _g.fairy(a)
@@ -161,6 +161,4 @@ end, function(a)
 end, function(a) -- draw
    a.ltop.outline_color = a.outline_color
    scr_spr_and_out(a, a.ltop, a.item)
-end, function(a, color) -- set color
-   a.outline_color, a.ltop.outline_color = color, color
 end)
