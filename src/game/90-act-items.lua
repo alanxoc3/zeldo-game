@@ -83,6 +83,7 @@ end
 
 create_actor([[brang;1;confined,anim,col,mov,tcol|
    did_brang_hit:no;
+   item_stop:yes;
    tile_solid:no;
    rel_actor:@1;
    being_held:yes;
